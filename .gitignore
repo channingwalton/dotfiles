@@ -1,0 +1,16 @@
+.DS_Store
+*.lock
+
+.config/github-copilot
+.config/iterm2
+.config/nvim/lazy-lock.json
+.config/nvim/lazyvim.json
+.config/nvim/lazyvim/lazy-lock.json
+.config/nvim/plugin/packer_compiled.lua
+.config/wtf/log.txt
+.config/zed/.tmp*
+.config/zed/embeddings
+.config/zed/stable
+.config/jgit/config
+.config/zed/conversations
+.config/zed/prompts

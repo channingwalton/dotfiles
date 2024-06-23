@@ -1,0 +1,11 @@
+function lfp(){
+  local TEMP=$(mktemp)
+  lf -selection-path=$TEMP
+  echo >> $TEMP
+  while read -r line
+  do
+    echo "$line"
+  done < "$TEMP"
+}
+
+lfp

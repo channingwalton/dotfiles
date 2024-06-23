@@ -1,0 +1,8 @@
+[global]
+load_dotenv = false
+
+[whitelist]
+prefix = [ "/Users/channing" ]
+
+
+

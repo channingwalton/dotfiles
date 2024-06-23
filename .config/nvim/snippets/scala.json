@@ -1,0 +1,142 @@
+{
+  "object": {
+    "prefix": "object",
+    "body": [
+      "object ${1:ObjectName}:",
+      "  ${2:println(\"Hello, world!\")}"
+    ],
+    "description": "Object"
+  },
+  "class": {
+    "prefix": "class",
+    "body": [
+      "class ${1:ClassName}:",
+      "  ${2:println(\"Hello, world!\")}"
+    ],
+    "description": "Class"
+  },
+  "case_class": {
+    "prefix": "case_class",
+    "body": "final case class ${1:CaseClassName}(${2:argName}: ${3:ArgType})",
+    "description": "Case class"
+  },
+  "trait": {
+    "prefix": "trait",
+    "body": [
+      "trait ${1:TraitName}:",
+      "  ${2:}"
+    ],
+    "description": "Trait"
+  },
+  "main_object": {
+    "prefix": "obj_main",
+    "body": [
+      "object ${1:ObjectName}:",
+      "  def main(args: Array[String]): Unit =",
+      "    ${2:println(\"Hello, world!\")}"
+    ],
+    "description": "Object with main method"
+  },
+  "app": {
+    "prefix": "app",
+    "body": [
+      "object ${1:App} extends App:",
+      "  ${2:println(\"Hello, world!\")}"
+    ],
+    "description": "Object extending App"
+  },
+  "def": {
+    "prefix": "def",
+    "body": [
+      "def ${1:methodName}(${2:argName}: ${3:ArgType}): ${4:ReturnType} =",
+      "  ${5:println(\"Hello, world!\")}"
+    ],
+    "description": "Method"
+  },
+  "val": {
+    "prefix": "val",
+    "body": [
+      "val ${1:valName}: ${2:Type} = ${3:initialValue}"
+    ],
+    "description": "Value"
+  },
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for ${1:element} <- ${2:elements}",
+      "yield ${3:element}"
+    ],
+    "description": "For expression"
+  },
+  "for-loop": {
+    "prefix": "for",
+    "body": [
+      "for ${1:element} <- ${2:elements} do ${3:println(element.toString)}"
+    ],
+    "description": "For loop"
+  },
+  "while": {
+    "prefix": "while",
+    "body": [
+      "while (${1:condition}) do ${2:println(\"Hello, world!\")}"
+    ],
+    "description": "While loop"
+  },
+  "ifelse": {
+    "prefix": "ifelse",
+    "body": [
+      "if ${1:condition} then",
+      "  ${2:println(\"Hello, world!\")}",
+      "else",
+      "  ${2:println(\"Hello, world!\")}"
+    ],
+    "description": "Branch based on conditions using if/else"
+  },
+  "match": {
+    "prefix": "match",
+    "body": [
+      "${1:x} match {",
+      "  case ${2:0} => ${3:\"zero\"}",
+      "  case ${4:1} => ${5:\"one\"}",
+      "}"
+    ],
+    "description": "Branch based on conditions using pattern matching"
+  },
+  "enum": {
+    "prefix": "enum",
+    "body": [
+      "enum ${1:EnumName}:",
+      "  case ${2:EnumValue}"
+    ],
+    "description": "Enum"
+  },
+  "try-catch-finally": {
+    "prefix": "try",
+    "body": [
+      "try ${1:expression}",
+      "catch",
+      "  case e:${2:Exception} => ${3:handle exception}",
+      "finally ${4:cleanup}"
+    ],
+    "description": "Try/catch/finally"
+  },
+  "test": {
+    "prefix": "test",
+    "body": [
+      "test (\"${1:test}\") {",
+      "  ${2}",
+      "}"
+    ],
+    "description": "munit test"
+  },
+  "test_class": {
+    "prefix": "test_class",
+    "body": [
+      "class ${1:Test}Suite extends munit.FunSuite:",
+      "  test (\"${2:test}\") {",
+      "    ${3}",
+      "  }"
+    ],
+    "description": "munit test class"
+  }
+}

@@ -1,0 +1,9 @@
+#!/bin/zsh
+#add Line at the top of File
+
+echo $1 > tmp.txt 
+cat tmp.txt $2 >> tmp2.txt
+mv tmp2.txt $2
+
+rm tmp.txt 
+

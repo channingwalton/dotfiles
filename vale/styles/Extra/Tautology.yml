@@ -1,0 +1,26 @@
+
+extends: existence
+message: "'%s' is a tautology."
+ignorecase: true
+level: error
+tokens:
+  - DVD disc
+  - UPC code
+  - evening sunset
+  - new innovation
+  - frozen ice
+  - over exaggerates
+  - dilapidated ruins
+  - dry desert
+  - necessary requirement
+  - close proximity
+  - short summary
+  - adequate enough
+  - added bonus
+  - prepay in advance
+  - giving away free
+  - revert back
+  - essential prerequisite
+  - the reason is because
+  - cheapest price
+  

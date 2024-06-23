@@ -1,0 +1,32 @@
+#!/bin/zsh
+ 
+# For Macs, get gource with HomeBrew:
+#   brew install gource
+#   brew install ffmpeg
+ 
+if (( !($# == 4) ))
+then
+    echo "Usage:"
+    echo $0 "<gravatar directory> <output file base name> <seconds per day> <title>"
+    exit 1
+fi
+ 
+gravatar_dir=$1
+output_file=$2
+seconds_per_day=$3
+title=$4
+ 
+git log --pretty=format:"%ae|%an" | sort | uniq | while read -r line
+do parts=("${(s/|/)line}")
+   
+   username=$parts[2]
+   gravatar_file=$gravatar_dir/${username}.jpg
+   
+   if [[ ! (-f $gravatar_file) ]]
+   then email=$parts[1]
+        email_hash=`md5 -qs $email`
+        curl --output $gravatar_dir/${username}.jpg http://www.gravatar.com/avatar/${email_hash}.jpg
+   fi
+done
+
+gource  --date-format "%Y-%m-%d" -1280x720 --bloom-multiplier 0.5 --bloom-intensity 0.5 --key --title ${title} --seconds-per-day ${seconds_per_day} -a 1 -o - | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec h264 -preset ultrafast -pix_fmt yuv420p -crf 1 -threads 0 -bf 0 ${output_file}

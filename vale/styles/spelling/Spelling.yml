@@ -1,0 +1,6 @@
+extends: spelling
+message: "Did you really mean '%s'?"
+level: error
+dicpath: /Users/channing/dotfiles/vale/styles/spelling/dictionaries
+dictionaries:
+  - en_GB

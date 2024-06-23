@@ -1,0 +1,8 @@
+; This is used by markdownlint-cli and in neovim config
+; https://github.com/DavidAnson/markdownlint/blob/HEAD/doc/Rules.md
+
+; Enable all markdownlint rules
+default = true
+
+; Disable line length check
+MD013 = false

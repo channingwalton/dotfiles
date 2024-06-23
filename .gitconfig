@@ -1,0 +1,69 @@
+[fetch]
+ prune = true
+
+[filter "lfs"]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+
+[user]
+	name = Channing Walton
+	email = channingwalton@mac.com
+
+[core]
+	excludesfile = /Users/channing/.gitignore_global
+  autocrlf = input
+
+[credential]
+  helper = osxkeychain
+	helper = /usr/local/share/gcm-core/git-credential-manager
+
+[diff]
+	tool = sourcetree
+
+[difftool]
+	prompt = false
+	trustExitCode = true
+
+[pager]
+    # Use a pager for large output, just like other git commands
+    difftool = true
+
+[alias]
+    # `git dft` is less to type than `git difftool`
+    dft = difftool
+
+[pull]
+  rebase = false
+
+[http]
+  postBuffer = 100000000
+
+[init]
+  defaultBranch = main
+
+[includeIf "gitdir:~/dev/sxm/"]
+  path = ~/dev/sxm/.gitconfig
+
+[push]
+  autoSetupRemote = true
+
+[credential "https://ghe.siriusxm.com"]
+  provider = github
+
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool]
+	prompt = false
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/channing/.stCommitMsg
+[credential "https://dev.azure.com"]
+	useHttpPath = true
