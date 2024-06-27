@@ -99,7 +99,7 @@ alias v=nvim
 alias vi=nvim
 alias vim=nvim
 
-function e() {
+function ff() {
   fd --type f --hidden --exclude .git | fzf --preview 'bat --color always {}' | xargs $EDITOR
 }
 
