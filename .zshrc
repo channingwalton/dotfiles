@@ -72,6 +72,11 @@ HIST_STAMPS="yyyy-mm-dd"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(aliases brew git github fzf-tab macos sbt scala wd z)
 
+source $ZSH/oh-my-zsh.sh
+
+export DEFAULT_USER=channing
+export EDITOR=nvim
+
 # zstyle 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' menu no
@@ -79,11 +84,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
 # Set up homebrew completions
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-
-source $ZSH/oh-my-zsh.sh
-
-export DEFAULT_USER=channing
-export EDITOR=nvim
 
 alias bu="updates; omz update"
 alias cp='cp -i'
@@ -98,7 +98,10 @@ alias up='cd ..'
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
-alias e='fd --type f --hidden --exclude .git | fzf-tmux -p --reverse | xargs $EDITOR'
+
+function e() {
+  fd --type f --hidden --exclude .git | fzf --preview 'bat --color always {}' | xargs $EDITOR
+}
 
 # sbt / mill
 alias mf='./mill smithy.format'
@@ -119,9 +122,6 @@ alias gld='find . -name .git -print -execdir git pull \;'
 alias gsd='find . -name .git -print -execdir git status \;'
 
 # functions
-function ff {
-  fzf --preview "bat --color always {}" | xargs nvim
-}
 
 function updates {
   brew update
