@@ -14,7 +14,7 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0
 
   vim.o.guifont = "JetBrainsMonoNL Nerd Font Mono:h13"
-  vim.o.linespace = -5
+  --vim.o.linespace = -3
 
   vim.keymap.set("n", "<D-s>", ":w<CR>") -- Save
   vim.keymap.set("v", "<D-c>", '"+y') -- Copy
