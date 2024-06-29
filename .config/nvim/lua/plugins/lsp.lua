@@ -66,7 +66,7 @@ return {
       { "<leader>ma", "<cmd>Lspsaga code_action<CR>", desc = "Code action" },
       { "<leader>md", "<cmd>Telescope lsp_definitions<cr>", desc = "Definition" },
       { "<leader>me", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-      { "<leader>mf", "<cmd>Lspsaga finder<CR>", desc = "Find" },
+      { "<leader>mf", "<cmd>Lspsaga finder<CR", desc = "Find" },
       { "<leader>mh", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover" },
       { "<leader>mi", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementation" },
       { "<leader>ml", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Codelens run" },
@@ -75,6 +75,16 @@ return {
       { "<leader>mp", "<cmd>Lspsaga peek_definition<CR>", desc = "Peek" },
       { "<leader>mr", "<cmd>Lspsaga rename<CR>", desc = "Rename" },
       { "<leader>ms", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature" },
+      {
+        "<leader>xs",
+        "<cmd>Trouble symbols toggle focus=false<cr>",
+        desc = "Symbols (Trouble)",
+      },
+      {
+        "<leader>xd",
+        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+        desc = "LSP Definitions / references / ... (Trouble)",
+      },
     },
   },
 
