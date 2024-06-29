@@ -75,16 +75,6 @@ return {
       { "<leader>mp", "<cmd>Lspsaga peek_definition<CR>", desc = "Peek" },
       { "<leader>mr", "<cmd>Lspsaga rename<CR>", desc = "Rename" },
       { "<leader>ms", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature" },
-      {
-        "<leader>xs",
-        "<cmd>Trouble symbols toggle focus=false<cr>",
-        desc = "Symbols (Trouble)",
-      },
-      {
-        "<leader>xd",
-        "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-        desc = "LSP Definitions / references / ... (Trouble)",
-      },
     },
   },
 
