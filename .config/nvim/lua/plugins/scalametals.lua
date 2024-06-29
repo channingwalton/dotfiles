@@ -1,4 +1,5 @@
 -- Based on https://github.com/scalameta/nvim-metals/discussions/39
+--
 return {
   {
     "scalameta/nvim-metals",
@@ -17,7 +18,7 @@ return {
         showInferredType = true,
         superMethodLensesEnabled = true,
         excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
-        -- serverVersion = "latest.snapshot",
+        serverVersion = "latest.snapshot",
       }
 
       -- *READ THIS*
@@ -33,6 +34,8 @@ return {
 
       -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
       metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+      metals_config.capabilities.textDocument.completion.completionItem.snippetSupport = true
+      metals_config.capabilities.textDocument.completion.dynamicRegistration = true
 
       metals_config.on_attach = function(_, _)
         require("metals").setup_dap()
@@ -71,6 +74,7 @@ return {
       { "<leader>mms", "<cmd>MetalsSelectTestSuite<cr>", desc = "Select Test Suite" },
       { "<leader>mmt", "<esc>:DapContinue<cr>", desc = "Run test" },
       { "<leader>mmu", "<cmd>MetalsUpdate<cr>", desc = "Update" },
+      { "<leader>mmI", "<cmd>lua print(vim.inspect(vim.lsp.get_active_clients()))<cr>", desc = "LSP Inspect" },
       { "gh", "<cmd>MetalsSuperMethodHierarchy<cr>", desc = "Supermethod Heirarchy" },
     },
   },
