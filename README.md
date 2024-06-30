@@ -26,9 +26,15 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 ### colorscheme
 
 + [folke/tokyonight.nvim](https://dotfyle.com/plugins/folke/tokyonight.nvim)
+### comment
+
++ [folke/todo-comments.nvim](https://dotfyle.com/plugins/folke/todo-comments.nvim)
 ### completion
 
 + [hrsh7th/nvim-cmp](https://dotfyle.com/plugins/hrsh7th/nvim-cmp)
+### diagnostics
+
++ [folke/trouble.nvim](https://dotfyle.com/plugins/folke/trouble.nvim)
 ### editing-support
 
 + [folke/zen-mode.nvim](https://dotfyle.com/plugins/folke/zen-mode.nvim)
