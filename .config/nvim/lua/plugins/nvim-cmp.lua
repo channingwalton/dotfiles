@@ -17,18 +17,24 @@ return {
       },
     })
 
-    -- opts.mapping = vim.tbl_deep_extend("force", opts.mapping, {
-    --   ["<CR>"] = cmp.mapping.confirm({ select = false }),
-    -- })
     opts.preselect = cmp.PreselectMode.None
     opts.completion = {
       completeopt = "menu,menuone,noinsert,noselect",
     }
 
+    opts.sorting.comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    }
+
     opts.mapping = vim.tbl_extend("force", opts.mapping, {
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
-          -- You could replace select_next_item() with confirm({ select = true }) to get VS Code autocompletion behavior
           cmp.select_next_item()
         elseif vim.snippet.active({ direction = 1 }) then
           vim.schedule(function()
