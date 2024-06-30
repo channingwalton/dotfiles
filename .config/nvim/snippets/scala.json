@@ -95,10 +95,9 @@
   "match": {
     "prefix": "match",
     "body": [
-      "${1:x} match {",
+      "${1:x} match",
       "  case ${2:0} => ${3:\"zero\"}",
-      "  case ${4:1} => ${5:\"one\"}",
-      "}"
+      "  case ${4:1} => ${5:\"one\"}"
     ],
     "description": "Branch based on conditions using pattern matching"
   },
