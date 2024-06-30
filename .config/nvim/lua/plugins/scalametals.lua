@@ -21,18 +21,7 @@ return {
         serverVersion = "latest.snapshot",
       }
 
-      -- *READ THIS*
-      -- I *highly* recommend setting statusBarProvider to either "off" or "on"
-      --
-      -- "off" will enable LSP progress notifications by Metals and you'll need
-      -- to ensure you have a plugin like fidget.nvim installed to handle them.
-      --
-      -- "on" will enable the custom Metals status extension and you *have* to have
-      -- a have settings to capture this in your statusline or else you'll not see
-      -- any messages from metals. There is more info in the help docs about this
       metals_config.init_options.statusBarProvider = "off"
-
-      -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
       metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
       metals_config.capabilities.textDocument.completion.completionItem.snippetSupport = true
       metals_config.capabilities.textDocument.completion.dynamicRegistration = true
