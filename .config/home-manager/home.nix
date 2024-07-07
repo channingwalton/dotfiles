@@ -28,6 +28,7 @@
     pkgs.ripgrep
     pkgs.rustup
     pkgs.unison-ucm
+    pkgs.vale
     pkgs.wget
     pkgs.zsh
     pkgs.zsh-fzf-tab
