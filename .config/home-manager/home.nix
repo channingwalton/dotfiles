@@ -20,7 +20,6 @@
   home.packages = [
     pkgs.bash
     pkgs.bat
-    pkgs.cargo-nextest
     pkgs.cloc
     pkgs.coursier
     pkgs.diffutils
@@ -83,6 +82,11 @@
     enableZshIntegration = true;
   };
 
+  programs.git = {
+    enable = true;
+    includes = [{ path = "~/dotfiles/.gitconfig"; }];
+  };
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -104,10 +108,12 @@
         };
       }
     ];
+
     sessionVariables = {
       EDITOR = "nvim";
       NIXPKGS_ALLOW_UNFREE = 1;
     };
+
     shellAliases = {
       bu="updates; omz update";
       cp="cp -i";
@@ -138,9 +144,13 @@
       gcmd="find . -name .git -print -execdir git checkout main \;";
       gld="find . -name .git -print -execdir git pull \;";
       gsd="find . -name .git -print -execdir git status \;";
-
-      foo="echo bar";
     };
+
+    initExtra = ''
+      source "$HOME/dotfiles/zshfunctions"
+      eval "$(fzf --zsh)"
+      eval "$(direnv hook zsh)"
+    '';
   };
 
   # Let Home Manager install and manage itself.
