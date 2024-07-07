@@ -16,6 +16,7 @@
     pkgs.gh
     pkgs.git
     pkgs.git-secret
+    pkgs.jdk21
     pkgs.jq
     pkgs.lazygit
     pkgs.neovim
