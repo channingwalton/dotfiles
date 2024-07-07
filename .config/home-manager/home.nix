@@ -6,9 +6,12 @@
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   home.packages = [
+    pkgs.aws-vault
     pkgs.bash
     pkgs.bat
+    pkgs.btop
     pkgs.cloc
+    pkgs.curl
     pkgs.coursier
     pkgs.diffutils
     pkgs.direnv
@@ -49,6 +52,7 @@
   programs.git = {
     enable = true;
     includes = [{ path = "~/dotfiles/.gitconfig"; }];
+    difftastic.enable = true;
   };
 
   programs.zsh = {
@@ -81,8 +85,6 @@
     shellAliases = {
       bu="updates; omz update";
       cp="cp -i";
-      df="duf";
-      du="dust";
       kj="killall java";
       ls="lsd";
       mv="mv -i";
