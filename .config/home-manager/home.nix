@@ -25,6 +25,7 @@
     pkgs.coursier
     pkgs.diffutils
     pkgs.direnv
+    pkgs.fzf
     pkgs.gh
     pkgs.git
     pkgs.git-secret
@@ -32,14 +33,14 @@
     pkgs.lazygit
     pkgs.neovim
     pkgs.nerdfonts
+    pkgs.nodejs
     pkgs.oh-my-zsh
     pkgs.openssl
-    pkgs.nodejs
     pkgs.ripgrep
     pkgs.rustup
-    pkgs.sbt
     pkgs.wget
     pkgs.zsh
+    pkgs.zsh-fzf-tab
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -82,38 +83,64 @@
     enableZshIntegration = true;
   };
 
-  home.shellAliases = {
-    bu="updates; omz update";
-    cp="cp -i";
-    df="duf";
-    du="dust";
-    kj="killall java";
-    ls="lsd";
-    mv="mv -i";
-    rm="rm -i";
-    top="btop";
-    up="cd ..";
-    v="nvim";
-    vi="nvim";
-    vim="nvim";
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
 
-    mf="./mill smithy.format";
-    mp="./mill smithy.publishLocal";
-    sfmt="sbt scalafmtFormatAll";
-    sg="sbt smithy4sCodegen";
-    sit="sbt it:test";
-    sitr="sbt integrationTests/Test/run";
-    sup="sbt \";dependencyUpdates; reload plugins; dependencyUpdates\"";
-    sxm="cd ~/dev/sxm/";
-    sxmenv="source ~/dev/sxm/.envrc";
+    oh-my-zsh = {
+      enable = true;
+      theme = "agnoster";
+      plugins = ["git" "sudo" "docker" "aliases" "git" "github" "macos" "sbt" "scala" "wd" "z"];
+    };
 
-    gclean="git clean -fdx";
-    gcleand="find . -name .git -print -execdir git clean -fdx \;";
-    gcmd="find . -name .git -print -execdir git checkout main \;";
-    gld="find . -name .git -print -execdir git pull \;";
-    gsd="find . -name .git -print -execdir git status \;";
+    plugins = [
+      {
+        name = "wd";
+        src = pkgs.fetchFromGitHub {
+          owner = "mfaerevaag";
+          repo = "wd";
+          rev = "v0.5.2";
+          sha256 = "sha256-4yJ1qhqhNULbQmt6Z9G22gURfDLe30uV1ascbzqgdhg=";
+        };
+      }
+    ];
+    sessionVariables = {
+      EDITOR = "nvim";
+      NIXPKGS_ALLOW_UNFREE = 1;
+    };
+    shellAliases = {
+      bu="updates; omz update";
+      cp="cp -i";
+      df="duf";
+      du="dust";
+      kj="killall java";
+      ls="lsd";
+      mv="mv -i";
+      rm="rm -i";
+      top="btop";
+      up="cd ..";
+      v="nvim";
+      vi="nvim";
+      vim="nvim";
 
-    foo="echo bar";
+      mf="./mill smithy.format";
+      mp="./mill smithy.publishLocal";
+      sfmt="sbt scalafmtFormatAll";
+      sg="sbt smithy4sCodegen";
+      sit="sbt it:test";
+      sitr="sbt integrationTests/Test/run";
+      sup="sbt \";dependencyUpdates; reload plugins; dependencyUpdates\"";
+      sxm="cd ~/dev/sxm/";
+      sxmenv="source ~/dev/sxm/.envrc";
+
+      gclean="git clean -fdx";
+      gcleand="find . -name .git -print -execdir git clean -fdx \;";
+      gcmd="find . -name .git -print -execdir git checkout main \;";
+      gld="find . -name .git -print -execdir git pull \;";
+      gsd="find . -name .git -print -execdir git status \;";
+
+      foo="echo bar";
+    };
   };
 
   # Let Home Manager install and manage itself.
