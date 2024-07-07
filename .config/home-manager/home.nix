@@ -16,6 +16,7 @@
     pkgs.gh
     pkgs.git
     pkgs.git-secret
+    pkgs.helix
     pkgs.jdk21
     pkgs.jq
     pkgs.lazygit
@@ -108,11 +109,7 @@
     };
 
     initExtra = ''
-      source "$HOME/dotfiles/zshfunctions"
-      source $HOME/.sde/profile/profile.sh
-      eval "$(fzf --zsh)"
-      eval "$(direnv hook zsh)"
-      export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
+      source "$HOME/dotfiles/zsh-extras"
     '';
   };
 
