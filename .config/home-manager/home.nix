@@ -151,6 +151,7 @@
       source $HOME/.sde/profile/profile.sh
       eval "$(fzf --zsh)"
       eval "$(direnv hook zsh)"
+      export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
     '';
   };
 
