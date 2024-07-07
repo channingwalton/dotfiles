@@ -1,0 +1,144 @@
+function ff() {
+  fd --type f --hidden --exclude .git | fzf --preview 'bat --color always {}' | xargs $EDITOR
+}
+
+function updates {
+  brew update
+  brew upgrade
+  brew upgrade --cask
+  brew cleanup
+  brew autoremove
+  espanso package update all
+  coursier update
+}
+
+function killDockerServices {
+  if [[ $(docker ps -q | wc -c) -eq 0 ]]; then
+    echo "Nothing running"
+  else
+    docker kill $(docker ps -q)
+    docker ps
+  fi
+}
+alias kd=killDockerServices
+
+function deleteDockerContainers {
+  if [[ $(docker ps -a -q | wc -c) -eq 0 ]]; then
+    echo "No containers"
+  else
+    docker rm -f $(docker ps -a -q)
+  fi
+}
+alias ddc=deleteDockerContainers
+
+function tailDockerLogs {
+  if [ -z "$1" ]; then
+    echo "name missing"
+    exit
+  fi
+
+  id=$(docker ps -f name=$1 --format "{{.ID}}")
+  if [[ -z $id ]]
+  then
+    sleep 2
+    tailDockerLogs $1
+  else
+    docker logs -f $id
+  fi
+}
+
+function siriusLogin {
+  source ~/dev/sxm/.envrc
+  scripts/artifactory-credentials.sh
+}
+alias sl=siriusLogin
+
+function sxmup {
+  open -a /Applications/Arc.app
+  open -a /Applications/Slack.app
+  open -a /Applications/Obsidian.app
+
+  updates
+  cd ~/dev/sxm
+}
+
+function siriusValidate {
+  source ~/dev/sxm/.stripe.env
+  siriusLogin && sbt "scalafmtFormatAll; clean; validate"
+}
+alias scv=siriusValidate
+
+function siriusCDKBuild {
+  unset STRIPE_API_KEY_USD
+  unset STRIPE_ACCOUNT_ID_USD
+  cd infrastructure && npm install && npx jest --updateSnapshot && cd ..
+}
+alias scdk=siriusCDKBuild
+
+jwt-decode() {
+  jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<< $1
+}
+
+function siriusStatus {
+  east2=`curl -sk https://$1-service.us-east-2.commerce.$2.cloud.siriusxm.com/internal/meta/health`
+  east1=`curl -sk https://$1-service.us-east-1.commerce.$2.cloud.siriusxm.com/internal/meta/health`
+  west2=`curl -sk https://$1-service.us-west-2.commerce.$2.cloud.siriusxm.com/internal/meta/health`
+
+  echo $2
+  echo "east2: $east2"
+  echo "east1: $east1"
+  echo "west2: $west2"
+}
+
+function siriusVersion {
+  east2=`curl -sk https://$1-service.us-east-2.commerce.$2.cloud.siriusxm.com/internal/meta/version`
+  east1=`curl -sk https://$1-service.us-east-1.commerce.$2.cloud.siriusxm.com/internal/meta/version`
+  west2=`curl -sk https://$1-service.us-west-2.commerce.$2.cloud.siriusxm.com/internal/meta/version`
+
+  echo $2
+  echo "east2: $east2"
+  echo "east1: $east1"
+  echo "west2: $west2"
+}
+
+function openMockserver {
+  if [[ -z $(docker ps --format "{{.ID}}") ]]
+  then
+    echo "No containers are running in docker"
+  else
+    ports=$(docker ps -f name=mockserver --format "{{.Ports}}")
+    if [[ -z $ports ]]
+    then
+      echo "mockserver is not running"
+    else
+      port=$(echo "$ports" | grep -Eo ':[0-9]+->' | grep -Eo '[0-9]+')
+      open "http://localhost:$port/mockserver/dashboard"
+    fi
+  fi
+}
+
+function toggleIgnore {
+
+  usage="Toggles sibling '*.scala' and '*.scala.ignore' file names whilst ignoring the given file.\nUsage:\n  toggleIgnore <absolute/it/path/Integration.scala>"
+
+  if [[ -z "$1" || "$*" != *"/it/"* ]]; then
+    _info "Usage:\n  ${yellow}ignoreOthersInIT <absolute/file/path>${reset}\n(where the path must include '/it/')"
+  else
+    parentdir="$(dirname "$1")"
+    ignoreFile="$(basename "$1")"
+
+    for file in "$parentdir"/*.*
+    do
+      if [[ "$file" != *"$ignoreFile"* ]];then
+        if [[ $file == *.scala ]];then
+          cmd="mv $file $file.ignore"
+          eval $cmd
+        elif if [[ $file == *.scala.ignore ]];then
+          cmd="mv $file ${file%.*}"
+          eval $cmd
+        fi
+      fi
+    done
+  fi
+}
+
