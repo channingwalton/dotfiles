@@ -27,6 +27,7 @@
     pkgs.openssl
     pkgs.ripgrep
     pkgs.rustup
+    pkgs.unison-ucm
     pkgs.wget
     pkgs.zsh
     pkgs.zsh-fzf-tab
