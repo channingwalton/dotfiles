@@ -54,7 +54,7 @@
 
     oh-my-zsh = {
       enable = true;
-      theme = "agnoster";
+      theme = "wezm";
       plugins = ["git" "sudo" "docker" "aliases" "git" "github" "macos" "sbt" "scala" "wd" "z"];
     };
 
