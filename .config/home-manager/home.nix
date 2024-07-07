@@ -148,6 +148,7 @@
 
     initExtra = ''
       source "$HOME/dotfiles/zshfunctions"
+      source $HOME/.sde/profile/profile.sh
       eval "$(fzf --zsh)"
       eval "$(direnv hook zsh)"
     '';
