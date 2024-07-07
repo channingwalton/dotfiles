@@ -238,6 +238,31 @@ function openMockserver {
   fi
 }
 
+function toggleIgnore {
+
+  usage="Toggles sibling '*.scala' and '*.scala.ignore' file names whilst ignoring the given file.\nUsage:\n  toggleIgnore <absolute/it/path/Integration.scala>"
+
+  if [[ -z "$1" || "$*" != *"/it/"* ]]; then
+    _info "Usage:\n  ${yellow}ignoreOthersInIT <absolute/file/path>${reset}\n(where the path must include '/it/')"
+  else
+    parentdir="$(dirname "$1")"
+    ignoreFile="$(basename "$1")"
+
+    for file in "$parentdir"/*.*
+    do
+      if [[ "$file" != *"$ignoreFile"* ]];then
+        if [[ $file == *.scala ]];then
+          cmd="mv $file $file.ignore"
+          eval $cmd
+        elif if [[ $file == *.scala.ignore ]];then
+          cmd="mv $file ${file%.*}"
+          eval $cmd
+        fi
+      fi
+    done
+  fi
+}
+
 pman() {
     man -t ${@} | open -f -a Preview
 }
