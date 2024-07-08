@@ -3,7 +3,7 @@
 {
   home.username = "channing";
   home.homeDirectory = "/Users/channing";
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.stateVersion = "24.05";
 
   home.packages = [
     pkgs.atuin
@@ -29,6 +29,7 @@
     pkgs.lazygit
     pkgs.lsd
     pkgs.neovim
+    pkgs.neovide
     pkgs.nerdfonts
     pkgs.nodejs
     pkgs.oh-my-zsh
