@@ -27,6 +27,7 @@
     pkgs.jdk21
     pkgs.jq
     pkgs.lazygit
+    pkgs.lsd
     pkgs.neovim
     pkgs.nerdfonts
     pkgs.nodejs
