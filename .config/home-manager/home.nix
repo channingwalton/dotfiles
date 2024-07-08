@@ -41,8 +41,7 @@
     pkgs.zsh-fzf-tab
   ];
 
-  home.file = {
-  };
+  home.file.".vale.ini".text = builtins.readFile ../../vale.ini;
 
   home.sessionVariables = {
     EDITOR = "nvim";
