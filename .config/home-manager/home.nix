@@ -15,6 +15,8 @@
     pkgs.coursier
     pkgs.diffutils
     pkgs.direnv
+    pkgs.docker
+    pkgs.docker-compose
     pkgs.fzf
     pkgs.gh
     pkgs.git
