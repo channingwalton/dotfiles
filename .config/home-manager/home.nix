@@ -54,7 +54,7 @@
 
   programs.git = {
     enable = true;
-    includes = [{ path = "~/dotfiles/.gitconfig"; }];
+    includes = [{ path = "~/dotfiles/gitconfig"; }];
     difftastic.enable = true;
   };
 
