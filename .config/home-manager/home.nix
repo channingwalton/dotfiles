@@ -6,6 +6,7 @@
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
   home.packages = [
+    pkgs.atuin
     pkgs.aws-vault
     pkgs.bash
     pkgs.bat

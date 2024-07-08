@@ -1,6 +1,9 @@
 source $HOME/.sde/profile/profile.sh
+
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
+eval "$(atuin init zsh)"
+
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export JAVA_HOME="/Users/channing/Library/Caches/Coursier/arc/https/corretto.aws/downloads/resources/21.0.3.9.1/amazon-corretto-21.0.3.9.1-macosx-aarch64.tar.gz/amazon-corretto-21.jdk/Contents/Home"
 
