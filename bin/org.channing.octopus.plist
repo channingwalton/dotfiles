@@ -8,7 +8,7 @@
     <true/>
     <key>ProgramArguments</key>
     <array>
-        <string>/opt/homebrew/bin/python3</string>
+        <string>/Users/channing/.nix-profile/bin/python3</string>
 	<string>/Users/channing/dotfiles/bin/check-octopus.py</string>
     </array>
     <key>StartInterval</key>

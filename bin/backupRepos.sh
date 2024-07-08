@@ -6,14 +6,13 @@ set -e
 
 echo "Repo backup starting at $(date)"
 
-export PATH=/usr/local/share/python/:/sbin:/usr/local/bin/:$PATH
 export HOME_DIR=/Users/channing
 export DOCUMENTS=$HOME_DIR/Documents
 export ARCHIVE=$DOCUMENTS/Archive/Code/git
 
 # GIT mirrors created with git clone --mirror https://github.com/lancewalton/treelog.git
 # to see what dir is being processed, put the following before the -exec: -exec echo {} \;
-find ${ARCHIVE} -name "*.git" -type d -exec /opt/homebrew/bin/git -C {} remote update \;
+find ${ARCHIVE} -name "*.git" -type d -exec /Users/channing/.nix-profile/bin/git -C {} remote update \;
 
 # finished
 echo "Repo backup Complete at $(date)"
