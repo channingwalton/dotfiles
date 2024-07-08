@@ -17,7 +17,6 @@
 
 [credential]
   helper = osxkeychain
-	helper = /usr/local/share/gcm-core/git-credential-manager
 
 [diff]
 	tool = sourcetree
