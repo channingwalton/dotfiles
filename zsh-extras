@@ -7,6 +7,8 @@ export JAVA_HOME="/Users/channing/Library/Caches/Coursier/arc/https/corretto.aws
 GPG_TTY=$(tty)
 export GPG_TTY
 
+source /Users/channing/.docker/init-zsh.sh || true # Added by Docker Desktop
+
 function ff() {
   fd --type f --hidden --exclude .git | fzf --preview 'bat --color always {}' | xargs $EDITOR
 }
