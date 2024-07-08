@@ -42,6 +42,7 @@
   ];
 
   home.file.".vale.ini".text = builtins.readFile ../../vale.ini;
+  home.file.".wezterm.lua".text = builtins.readFile ../../wezterm.lua;
 
   home.sessionVariables = {
     EDITOR = "nvim";
