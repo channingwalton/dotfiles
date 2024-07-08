@@ -1,5 +1,10 @@
-import subprocess
+import subprocess,os
 import datetime
+
+print("Checking Octopus data")
+
+my_env = os.environ.copy()
+my_env["PATH"] = f"/Users/channing/.nix-profile/bin:{my_env['PATH']}"
 
 # Find the secret key in the keychain
 # Add it with security add-generic-password -a $LOGNAME -s octopus-sk -w 'sk_SECRET'
@@ -8,7 +13,7 @@ sk = subprocess.check_output("security find-generic-password -w -a $LOGNAME -s o
 cmd=f"curl -s -u \"{sk}\" https://api.octopus.energy/v1/electricity-meter-points/1900005046235/meters/17K0496555/consumption/ | jq -r '.results | .[0].interval_end '"
 
 # Run the shell command and capture its output
-output = subprocess.check_output(cmd, shell=True)
+output = subprocess.check_output(cmd, env=my_env, shell=True)
 
 now=datetime.datetime.now()
 

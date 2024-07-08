@@ -33,6 +33,7 @@
     pkgs.nodejs
     pkgs.oh-my-zsh
     pkgs.openssl
+    pkgs.python3
     pkgs.ripgrep
     pkgs.rustup
     pkgs.unison-ucm

@@ -4,8 +4,8 @@
 # sudo launchctl load -w /System/Library/LaunchDaemons/org.channing.mirror.plist
 
 echo "Running mirror..."
- 
-RSYNC="/opt/homebrew/bin/rsync"
+
+RSYNC="/Users/channing/.nix-profile/bin/rsync"
 INCLUDE="/Users/channing/dotfiles/bin/mirror.include"
 
 # rsync options
@@ -17,7 +17,7 @@ INCLUDE="/Users/channing/dotfiles/bin/mirror.include"
 # -S handle spare files efficiently
 # --delete deletes any files that have been deleted locally
 # --exclude-from reference a list of files to exclude
-# -n dry-run 
+# -n dry-run
 
 echo "Start rsync $(date)"
 
@@ -49,7 +49,7 @@ find /Users/jeanette/Desktop -name '*[<>:"/\\|?*]*'
 find /Users/jeanette/Documents -name '*[<>:"/\\|?*]*'
 
 $RSYNC -arRxEz -S --timeout=3600 --human-readable --force --delete-excluded --delete --prune-empty-dirs --files-from="${INCLUDE}" "/Users/jeanette/" "192.168.1.2::Mirror/jeanette"
- 
+
 echo "End rsync $(date)"
-  
+
 exit 0
