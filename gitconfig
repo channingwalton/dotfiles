@@ -12,7 +12,7 @@
 	email = channingwalton@mac.com
 
 [core]
-	excludesfile = /Users/channing/dotfiles/.gitignore_global
+	excludesfile = /Users/channing/dotfiles/gitignore_global
   autocrlf = input
 
 [credential]
