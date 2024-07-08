@@ -19,6 +19,7 @@
     pkgs.gh
     pkgs.git
     pkgs.git-secret
+    pkgs.gnupg
     pkgs.helix
     pkgs.jdk21
     pkgs.jq

@@ -49,12 +49,6 @@
 [push]
   autoSetupRemote = true
 
-[credential "https://ghe.siriusxm.com"]
-  provider = github
-	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
-
-
 [difftool "difftastic"]
     cmd = difft "$LOCAL" "$REMOTE"
 [difftool "sourcetree"]
