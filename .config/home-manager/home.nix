@@ -68,6 +68,15 @@
       enable = true;
       theme = "wezm";
       plugins = ["git" "sudo" "docker" "aliases" "git" "github" "macos" "sbt" "scala" "wd" "z"];
+      extraConfig =''
+        zstyle ':omz:update' mode auto
+        zstyle ':omz:update' frequency 1
+        COMPLETION_WAITING_DOTS="true"
+        HIST_STAMPS="yyyy-mm-dd"
+        zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+        zstyle ':completion:*' menu no
+        zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+      '';
     };
 
     plugins = [
