@@ -45,6 +45,12 @@
   ];
 
   home.file."Library/Application Support/vale/.vale.ini".text = builtins.readFile ../../vale.ini;
+  home.file = {
+    "Library/Preferences/espanso" = {
+      source = "${config.home.homeDirectory}/dotfiles/espanso";
+      target = "Library/Preferences/espanso";
+    };
+  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
