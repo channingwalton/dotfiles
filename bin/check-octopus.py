@@ -1,8 +1,6 @@
 import subprocess,os
 import datetime
 
-print("Checking Octopus data")
-
 my_env = os.environ.copy()
 my_env["PATH"] = f"/Users/channing/.nix-profile/bin:{my_env['PATH']}"
 
