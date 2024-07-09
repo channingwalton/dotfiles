@@ -21,6 +21,7 @@
     pkgs.fzf
     pkgs.gh
     pkgs.git
+    pkgs.git-credential-manager
     pkgs.git-secret
     pkgs.gnupg
     pkgs.helix
