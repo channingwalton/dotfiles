@@ -29,10 +29,6 @@
     # Use a pager for large output, just like other git commands
     difftool = true
 
-[alias]
-    # `git dft` is less to type than `git difftool`
-    dft = difftool
-
 [pull]
   rebase = false
 
