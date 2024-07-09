@@ -129,9 +129,7 @@
       gsd="find . -name .git -print -execdir git status \;";
     };
 
-    initExtra = ''
-      source "$HOME/dotfiles/zsh-extras"
-    '';
+    initExtra = ''${builtins.readFile ./zsh-extras}'';
   };
 
   # Let Home Manager install and manage itself.
