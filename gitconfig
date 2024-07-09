@@ -8,22 +8,22 @@
   required = true
 
 [user]
-	name = Channing Walton
-	email = channingwalton@mac.com
+  name = Channing Walton
+  email = channingwalton@mac.com
 
 [core]
-	excludesfile = /Users/channing/dotfiles/gitignore_global
+  excludesfile = /Users/channing/dotfiles/gitignore_global
   autocrlf = input
 
 [credential]
   helper = osxkeychain
 
 [diff]
-	tool = sourcetree
+  tool = sourcetree
 
 [difftool]
-	prompt = false
-	trustExitCode = true
+  prompt = false
+  trustExitCode = true
 
 [pager]
     # Use a pager for large output, just like other git commands
@@ -50,15 +50,20 @@
 
 [difftool "difftastic"]
     cmd = difft "$LOCAL" "$REMOTE"
+
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+  path = 
+
 [mergetool]
-	prompt = false
+  prompt = false
+
 [mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+  trustExitCode = true
+
 [commit]
-	template = /Users/channing/.stCommitMsg
+  template = /Users/channing/.stCommitMsg
+
 [credential "https://dev.azure.com"]
-	useHttpPath = true
+  useHttpPath = true
