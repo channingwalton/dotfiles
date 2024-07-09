@@ -5,12 +5,12 @@ eval "$(direnv hook zsh)"
 eval "$(atuin init zsh)"
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
-export JAVA_HOME="/Users/channing/Library/Caches/Coursier/arc/https/corretto.aws/downloads/resources/21.0.3.9.1/amazon-corretto-21.0.3.9.1-macosx-aarch64.tar.gz/amazon-corretto-21.jdk/Contents/Home"
+export JAVA_HOME="$HOME/Library/Caches/Coursier/arc/https/corretto.aws/downloads/resources/21.0.3.9.1/amazon-corretto-21.0.3.9.1-macosx-aarch64.tar.gz/amazon-corretto-21.jdk/Contents/Home"
 
 GPG_TTY=$(tty)
 export GPG_TTY
 
-source /Users/channing/.docker/init-zsh.sh || true # Added by Docker Desktop
+source $HOME/.docker/init-zsh.sh || true # Added by Docker Desktop
 
 function ff() {
   fd --type f --hidden --exclude .git | fzf --preview 'bat --color always {}' | xargs $EDITOR
