@@ -21,6 +21,7 @@ function updates {
   nix-channel --update
   espanso package update all
   coursier update
+  $HOME/dotfiles/bin/backupRepos.sh
 }
 
 function killDockerServices {
