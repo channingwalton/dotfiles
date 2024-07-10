@@ -55,6 +55,7 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    DIRENV_WARN_TIMEOUT = "1m";
   };
 
   programs.direnv = {
