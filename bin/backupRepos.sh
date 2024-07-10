@@ -3,7 +3,7 @@ set -e
 
 echo "Repo backup starting at $(date)"
 
-export DOCUMENTS=$HOME_DIR/Documents
+export DOCUMENTS=$HOME/Documents
 export ARCHIVE=$DOCUMENTS/Archive/Code/git
 
 # GIT mirrors created with git clone --mirror https://github.com/lancewalton/treelog.git
