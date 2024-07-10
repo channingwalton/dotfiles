@@ -12,7 +12,7 @@
   email = channingwalton@mac.com
 
 [core]
-  excludesfile = /Users/channing/dotfiles/gitignore_global
+  excludesfile = ~/dotfiles/gitignore_global
   autocrlf = input
 
 [credential]
@@ -26,8 +26,8 @@
   trustExitCode = true
 
 [pager]
-    # Use a pager for large output, just like other git commands
-    difftool = true
+  # Use a pager for large output, just like other git commands
+  difftool = true
 
 [pull]
   rebase = false
