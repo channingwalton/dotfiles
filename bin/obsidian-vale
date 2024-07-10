@@ -8,6 +8,6 @@ else
   echo "### $filename" > $2
   # args: file-path output-path 
   # Hash is used in the second sed because '/' is in the paths in $1
-  /Users/channing/.nix-profile/bin/vale --output line $1 | sed -e 's/\x1b\[[0-9;]*m//g' | sed -e "s#$1:##g" | sed -e 's/^/1. /' >> $2
+  ~/.nix-profile/bin/vale --output line $1 | sed -e 's/\x1b\[[0-9;]*m//g' | sed -e "s#$1:##g" | sed -e 's/^/1. /' >> $2
 fi
 
