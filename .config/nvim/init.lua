@@ -1,6 +1,6 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
-vim.g.python3_host_prog = "/Users/channing/.nix-profile/bin/python3"
+vim.g.python3_host_prog = "~/.nix-profile/bin/python3"
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
@@ -22,9 +22,4 @@ if vim.g.neovide then
   vim.keymap.set("v", "<D-v>", '"+P') -- Paste visual mode
   vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
   vim.keymap.set("i", "<D-v>", '<ESC>l"+Pli') -- Paste insert mode
-
-  -- Set the cwd to something sensible
-  if vim.fn.getcwd() == "/" then
-    vim.fn.chdir("/Users/channing/")
-  end
 end
