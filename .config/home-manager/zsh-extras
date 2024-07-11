@@ -8,6 +8,7 @@ export DIRENV_ALLOW=$HOME
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export JAVA_HOME="$HOME/Library/Caches/Coursier/arc/https/corretto.aws/downloads/resources/21.0.3.9.1/amazon-corretto-21.0.3.9.1-macosx-aarch64.tar.gz/amazon-corretto-21.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 GPG_TTY=$(tty)
 export GPG_TTY
