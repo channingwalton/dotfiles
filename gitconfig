@@ -19,14 +19,16 @@
   helper = osxkeychain
 
 [diff]
-  tool = sourcetree
+  tool = difftastic
+  external = difft
 
 [difftool]
   prompt = false
-  trustExitCode = true
+
+[difftool "difftastic"]
+  cmd = difft "$LOCAL" "$REMOTE"
 
 [pager]
-  # Use a pager for large output, just like other git commands
   difftool = true
 
 [pull]
@@ -44,19 +46,8 @@
 [push]
   autoSetupRemote = true
 
-[difftool "difftastic"]
-    cmd = difft "$LOCAL" "$REMOTE"
-
-[difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
-
 [mergetool]
   prompt = false
-
-[mergetool "sourcetree"]
-  cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-  trustExitCode = true
 
 [credential "https://dev.azure.com"]
   useHttpPath = true
