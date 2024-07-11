@@ -130,10 +130,10 @@
       sxmenv="source ~/dev/sxm/.envrc";
 
       gclean="git clean -fdx";
-      gcleand="find . -name .git -print -execdir git clean -fdx \;";
-      gcmd="find . -name .git -print -execdir git checkout main \;";
-      gld="find . -name .git -print -execdir git pull \;";
-      gsd="find . -name .git -print -execdir git status \;";
+      gcleand="find . -name .git -print -execdir git clean -fdx \\;";
+      gcmd="find . -name .git -print -execdir git checkout main \\;";
+      gld="find . -name .git -print -execdir git pull \\;";
+      gsd="find . -name .git -print -execdir git status \\;";
     };
 
     initExtra = ''${builtins.readFile ./zsh-extras}'';
