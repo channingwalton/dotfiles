@@ -5,47 +5,50 @@
   home.homeDirectory = "/Users/channing";
   home.stateVersion = "24.05";
 
-  home.packages = [
-    pkgs.atuin
-    pkgs.aws-vault
-    pkgs.bash
-    pkgs.bat
-    pkgs.btop
-    pkgs.cloc
-    pkgs.curl
-    pkgs.coursier
-    pkgs.diffutils
-    pkgs.direnv
-    pkgs.docker
-    pkgs.docker-compose
-    pkgs.fzf
-    pkgs.gh
-    pkgs.git
-    pkgs.git-credential-manager
-    pkgs.git-secret
-    pkgs.gnupg
-    pkgs.helix
-    pkgs.jdk21
-    pkgs.jq
-    pkgs.lazygit
-    pkgs.lsd
-    pkgs.neovim
-    pkgs.neovide
-    pkgs.nerdfonts
-    pkgs.nodejs
-    pkgs.oh-my-zsh
-    pkgs.openssl
-    pkgs.python3
-    pkgs.ripgrep
-    pkgs.rustup
-    pkgs.unison-ucm
-    pkgs.vale
-    pkgs.wget
-    pkgs.zsh
-    pkgs.zsh-fzf-tab
+  home.packages = with pkgs; [
+    atuin
+    aws-vault
+    bash
+    bat
+    btop
+    cloc
+    curl
+    coursier
+    delta
+    diffutils
+    difftastic
+    direnv
+    docker
+    docker-compose
+    fzf
+    gh
+    git
+    git-credential-manager
+    git-secret
+    gnupg
+    helix
+    jdk21
+    jq
+    lazygit
+    lsd
+    neovim
+    neovide
+    nerdfonts
+    nodejs
+    oh-my-zsh
+    openssl
+    python3
+    ripgrep
+    rustup
+    unison-ucm
+    vale
+    wget
+    zsh
+    zsh-fzf-tab
   ];
 
   home.file."Library/Application Support/vale/.vale.ini".text = builtins.readFile ../../vale.ini;
+  home.file."Library/Application Support/lazygit/config.yml".text = builtins.readFile ../lazygit/config.yml;
   home.file = {
     "Library/Preferences/espanso" = {
       source = "${config.home.homeDirectory}/dotfiles/espanso";
