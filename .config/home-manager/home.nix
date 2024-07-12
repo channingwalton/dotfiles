@@ -20,6 +20,7 @@
     direnv
     docker
     docker-compose
+    fd
     fzf
     gh
     git
@@ -66,6 +67,9 @@
     enableZshIntegration = true;
     nix-direnv.enable = true;
   };
+
+  programs.fzf.enable = true;
+  programs.fzf.enableZshIntegration = true;
 
   programs.git = {
     enable = true;
