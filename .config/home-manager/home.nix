@@ -42,20 +42,12 @@
     ripgrep
     rustup
     unison-ucm
-    vale
     wget
     zsh
     zsh-fzf-tab
   ];
 
-  home.file."Library/Application Support/vale/.vale.ini".text = builtins.readFile ../../vale.ini;
   home.file."Library/Application Support/lazygit/config.yml".text = builtins.readFile ../lazygit/config.yml;
-  home.file = {
-    "Library/Preferences/espanso" = {
-      source = "${config.home.homeDirectory}/dotfiles/espanso";
-      target = "Library/Preferences/espanso";
-    };
-  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
