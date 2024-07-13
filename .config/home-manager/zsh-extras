@@ -21,7 +21,6 @@ function ff() {
 function updates {
   nix-collect-garbage -d
   nix-channel --update
-  espanso package update all
   coursier update
   $HOME/dotfiles/bin/backupRepos.sh
 }
