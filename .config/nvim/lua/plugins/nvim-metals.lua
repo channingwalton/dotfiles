@@ -40,14 +40,7 @@ return {
       })
     end,
 
-    require("which-key").register({
-      ["<leader>m"] = {
-        name = "+metals",
-      },
-    }),
-
     keys = {
-      { "<leader>mm", desc = "Metals" },
       { "<leader>mmC", "<cmd>Telescope metals commands<cr>", desc = "Metals commands" },
       { "<leader>mmF", "<cmd>MetalsFindInDependencyJars<cr>", desc = "Find in dependency jars" },
       { "<leader>mmR", "<cmd>MetalsRestartBuild<cr>", desc = "Restart Build" },
