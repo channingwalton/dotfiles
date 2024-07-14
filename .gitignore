@@ -1,6 +1,7 @@
 .DS_Store
 *.lock
 
+.config/cody-ai
 .config/direnv
 .config/git
 .config/github-copilot
