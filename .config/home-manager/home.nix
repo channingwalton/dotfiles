@@ -6,7 +6,6 @@
   home.stateVersion = "24.05";
 
   home.packages = with pkgs; [
-    alacritty
     atuin
     aws-vault
     bash
@@ -42,7 +41,9 @@
     python3
     ripgrep
     rustup
+    tmux
     unison-ucm
+    wezterm
     wget
     zsh
     zsh-fzf-tab
