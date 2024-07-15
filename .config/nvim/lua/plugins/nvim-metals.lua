@@ -11,7 +11,7 @@ return {
       },
     },
     ft = { "scala", "sbt", "java" },
-    opts = function()
+    init = function()
       local metals_config = require("metals").bare_config()
 
       metals_config.settings = {
@@ -30,9 +30,7 @@ return {
       metals_config.on_attach = function(_, _)
         require("metals").setup_dap()
       end
-      return metals_config
-    end,
-    config = function(_, metals_config)
+
       local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "scala", "sbt", "java" },
