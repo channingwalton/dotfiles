@@ -90,18 +90,6 @@
       '';
     };
 
-    plugins = [
-      {
-        name = "wd";
-        src = pkgs.fetchFromGitHub {
-          owner = "mfaerevaag";
-          repo = "wd";
-          rev = "v0.5.2";
-          sha256 = "sha256-4yJ1qhqhNULbQmt6Z9G22gURfDLe30uV1ascbzqgdhg=";
-        };
-      }
-    ];
-
     sessionVariables = {
       EDITOR = "nvim";
       NIXPKGS_ALLOW_UNFREE = 1;
