@@ -19,7 +19,7 @@ function ff() {
 }
 
 function updates {
-  sudo -i nix-channel --update && home-manager switch
+  nix-channel --update && home-manager switch
   nix-collect-garbage -d
   coursier update
   $HOME/dotfiles/bin/backupRepos.sh
