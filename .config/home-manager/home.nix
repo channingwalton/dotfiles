@@ -1,6 +1,9 @@
-{ config, pkgs, ... }:
+{ inputs, config, pkgs, ... }:
 
 {
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
   home.username = "channing";
   home.homeDirectory = "/Users/channing";
   home.stateVersion = "24.05";
@@ -128,6 +131,4 @@
     initExtra = ''${builtins.readFile ./zsh-extras}'';
   };
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
