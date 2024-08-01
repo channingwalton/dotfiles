@@ -114,6 +114,10 @@ function siriusVersion {
   echo "west2: $west2"
 }
 
+function sitOnly() {
+  sbt "service / Docker / publishLocal; integration/testOnly $1 com.siriusxm.it.utils.SharedResources"
+}
+
 function openMockserver {
   if [[ -z $(docker ps --format "{{.ID}}") ]]
   then
