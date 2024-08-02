@@ -19,7 +19,7 @@ return {
         showInferredType = true,
         superMethodLensesEnabled = true,
         excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
-        serverVersion = "latest.snapshot",
+        -- serverVersion = "latest.snapshot",
       }
 
       metals_config.init_options.statusBarProvider = "off"
