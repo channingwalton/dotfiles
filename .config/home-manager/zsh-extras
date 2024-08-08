@@ -128,7 +128,7 @@ function openMockserver {
     then
       echo "mockserver is not running"
     else
-      port=$(echo "$ports" | grep -Eo ':[0-9]+->' | grep -Eo '[0-9]+')
+      port=$(echo "$ports" | grep -o '[0-9]*->' | sed 's/->//' | head -n 1)
       open "http://localhost:$port/mockserver/dashboard"
     fi
   fi
