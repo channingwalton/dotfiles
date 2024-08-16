@@ -3,8 +3,12 @@ function ff() {
 }
 
 function updates {
-  nix-channel --update && home-manager switch
-  nix-collect-garbage -d
+  brew update
+  brew upgrade
+  brew upgrade --cask
+  brew cleanup
+  brew autoremove
+  omz update
   coursier update
   $HOME/dotfiles/bin/backupRepos.sh
 }

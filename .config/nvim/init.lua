@@ -1,6 +1,6 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
-vim.g.python3_host_prog = "~/.nix-profile/bin/python3"
+vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
 
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
