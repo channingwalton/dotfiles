@@ -87,13 +87,10 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 alias bu="updates; omz update"
 alias cp='cp -i'
-alias df=duf
-alias du=dust
 alias kj='killall java'
 alias ls=lsd
 alias mv='mv -i'
 alias rm='rm -i'
-alias top=btop
 alias up='cd ..'
 alias v=nvim
 alias vi=nvim
@@ -104,8 +101,6 @@ alias mf='./mill smithy.format'
 alias mp='./mill smithy.publishLocal'
 alias sfmt='sbt scalafmtFormatAll'
 alias sg='sbt "smithy4sCodegen"'
-alias sit='sbt it:test'
-alias sitr='sbt integrationTests/Test/run'
 alias sup='sbt ";dependencyUpdates; reload plugins; dependencyUpdates"'
 alias sxm='cd ~/dev/sxm/'
 alias sxmenv='source ~/dev/sxm/.envrc'
@@ -116,8 +111,6 @@ alias gcleand='find . -name .git -print -execdir git clean -fdx \;'
 alias gcmd='find . -name .git -print -execdir git checkout main \;'
 alias gld='find . -name .git -print -execdir git pull \;'
 alias gsd='find . -name .git -print -execdir git status \;'
-
-source ~/dotfiles/zshfunctions
 
 # paths
 export MY_BIN=/Users/channing/dotfiles/bin
@@ -159,4 +152,5 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
+source ~/dotfiles/zshfunctions
 
