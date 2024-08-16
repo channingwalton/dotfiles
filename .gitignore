@@ -2,8 +2,6 @@
 *.lock
 
 .config/cody-ai
-.config/direnv
-.config/git
 .config/github-copilot
 .config/iterm2
 .config/jgit/config
@@ -11,8 +9,6 @@
 .config/nvim/lazyvim.json
 .config/nvim/lazyvim/lazy-lock.json
 .config/nvim/plugin/packer_compiled.lua
-.config/stripe
-.config/wtf/log.txt
 .config/zed/.tmp*
 .config/zed/conversations
 .config/zed/embeddings
