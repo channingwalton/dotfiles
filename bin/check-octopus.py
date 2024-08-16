@@ -2,7 +2,7 @@ import subprocess,os
 import datetime
 
 my_env = os.environ.copy()
-my_env["PATH"] = f"/Users/channing/.nix-profile/bin:{my_env['PATH']}"
+my_env["PATH"] = f"/Users/channing/dotfiles/bin:{my_env['PATH']}"
 
 # Find the secret key in the keychain
 # Add it with security add-generic-password -a $LOGNAME -s octopus-sk -w 'sk_SECRET'
