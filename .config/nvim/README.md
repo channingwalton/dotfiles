@@ -2,11 +2,12 @@
  
 Based on a starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
 
-## dotfiles/.config/nvim
+# dotfiles/.config/nvim
 
 <a href="https://dotfyle.com/channingwalton/dotfiles-config-nvim"><img src="https://dotfyle.com/channingwalton/dotfiles-config-nvim/badges/plugins?style=flat" /></a>
 <a href="https://dotfyle.com/channingwalton/dotfiles-config-nvim"><img src="https://dotfyle.com/channingwalton/dotfiles-config-nvim/badges/leaderkey?style=flat" /></a>
 <a href="https://dotfyle.com/channingwalton/dotfiles-config-nvim"><img src="https://dotfyle.com/channingwalton/dotfiles-config-nvim/badges/plugin-manager?style=flat" /></a>
+
 
 ## Install Instructions
 
@@ -26,6 +27,9 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 
 ## Plugins
 
+### ai
+
++ [sourcegraph/sg.nvim](https://dotfyle.com/plugins/sourcegraph/sg.nvim)
 ### colorscheme
 
 + [folke/tokyonight.nvim](https://dotfyle.com/plugins/folke/tokyonight.nvim)
@@ -54,6 +58,9 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 ### icon
 
 + [nvim-tree/nvim-web-devicons](https://dotfyle.com/plugins/nvim-tree/nvim-web-devicons)
+### keybinding
+
++ [folke/which-key.nvim](https://dotfyle.com/plugins/folke/which-key.nvim)
 ### lsp
 
 + [nvimdev/lspsaga.nvim](https://dotfyle.com/plugins/nvimdev/lspsaga.nvim)
@@ -102,9 +109,6 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 ### test
 
 + [nvim-neotest/neotest](https://dotfyle.com/plugins/nvim-neotest/neotest)
-### utility
-
-+ [crusj/bookmarks.nvim](https://dotfyle.com/plugins/crusj/bookmarks.nvim)
 ## Language Servers
 
 + graphql
