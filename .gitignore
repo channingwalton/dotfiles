@@ -14,3 +14,4 @@
 .config/zed/embeddings
 .config/zed/prompts
 .config/zed/stable
+.config/raycast/extensions

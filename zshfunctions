@@ -8,9 +8,9 @@ function updates {
   brew upgrade --cask
   brew cleanup
   brew autoremove
-  omz update
   coursier update
   $HOME/dotfiles/bin/backupRepos.sh
+  omz update
 }
 
 function killDockerServices {

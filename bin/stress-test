@@ -3,12 +3,12 @@ trap "kill 0" SIGINT
 
 #### Default Configuration
 
-CONCURRENCY=100
+CONCURRENCY=1
 REQUESTS=10
 ADDRESS="http://localhost:8080"
 
 show_help() {
-cat << EOF
+  cat <<EOF
 Naive Stress Test with cURL.
 
 Usage: ./stress-test.sh [-a ADDRESS] [-c CONCURRENCY] [-r REQUESTS]
@@ -30,41 +30,42 @@ Example:
 EOF
 }
 
-
 #### CLI
 
 while getopts ":a:c:r:h" opt; do
   case $opt in
-    a)
-      ADDRESS=$OPTARG
-      ;;
-    c)
-      CONCURRENCY=$OPTARG
-      ;;
-    r)
-      REQUESTS=$OPTARG
-      ;;
-    h)
-      show_help
-      exit 0
-      ;;
-    \?)
-      show_help >&2
-      echo "Invalid argument: $OPTARG" &2
-      exit 1
-      ;;
+  a)
+    ADDRESS=$OPTARG
+    ;;
+  c)
+    CONCURRENCY=$OPTARG
+    ;;
+  r)
+    REQUESTS=$OPTARG
+    ;;
+  h)
+    show_help
+    exit 0
+    ;;
+  \?)
+    show_help >&2
+    echo "Invalid argument: $OPTARG" &
+    2
+    exit 1
+    ;;
   esac
 done
 
-shift $((OPTIND-1))
+shift $((OPTIND - 1))
 
 #### Main
 
-for i in `seq 1 $CONCURRENCY`; do
-  let start=($i-1)*$REQUESTS
+for i in $(seq 1 $CONCURRENCY); do
+  let start=($i - 1)*$REQUESTS
   let end=$i*$REQUESTS
   echo $start-$end
-  curl -v -s "$ADDRESS?[$start-$end]" & pidlist="$pidlist $!"
+  curl -v -s "$ADDRESS?[$start-$end]" &
+  pidlist="$pidlist $!"
 done
 
 # Execute and wait
@@ -80,4 +81,3 @@ if [ "$FAIL" -eq 0 ]; then
 else
   echo "Failed Requests: ($FAIL)"
 fi
-
