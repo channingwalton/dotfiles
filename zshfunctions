@@ -10,7 +10,6 @@ function updates {
   brew autoremove
   coursier update
   $HOME/dotfiles/bin/backupRepos.sh
-  omz update
 }
 
 function killDockerServices {
