@@ -119,18 +119,19 @@ export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 
 export DIRENV_ALLOW=$HOME
 
-export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
-eval "$(cs java --jvm corretto:21 --env)"
 export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="/Applications/OrbStack.app/Contents/MacOS/xbin:$PATH"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 export PATH="/Users/channing/Library/Application Support/Coursier/bin:$PATH"
 export PATH="/Users/channing/.local/bin:$PATH"
 export PATH="/Users/channing/.cargo/bin:$PATH"
+
+export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
+eval "$(cs java --jvm corretto:21 --env)"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 source $HOME/.sde/profile/profile.sh
 
