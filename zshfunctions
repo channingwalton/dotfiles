@@ -1,5 +1,14 @@
 function ff() {
-  fd --type f --hidden --exclude .git | fzf --preview 'bat --color always {}' | xargs $EDITOR
+  fd --type f --hidden --exclude .git | fzf --preview 'bat --style=numbers --color always {}' | xargs $EDITOR
+}
+
+function sf() {
+  rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+  fzf --ansi --delimiter : \
+      --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
+      --preview-window '~3,+{2}+3/2' |
+  cut -d ':' -f1 |
+  xargs -r $EDITOR
 }
 
 function updates {
