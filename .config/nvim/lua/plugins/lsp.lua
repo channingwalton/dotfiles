@@ -108,16 +108,14 @@ return {
       local lsp_lines = require("lsp_lines")
       lsp_lines.setup()
       vim.keymap.set("", "<leader>cL", lsp_lines.toggle, { desc = "Toggle lsp_lines" })
+      -- Disable virtual_text since it's redundant due to lsp_lines.
+      vim.diagnostic.config({ virtual_text = false })
     end,
   },
   -- this is based on https://www.lazyvim.org/extras/lang/scala
   {
     "neovim/nvim-lspconfig",
     opts = {
-      diagnostics = {
-        -- turn off lsp diagnostics because lsp_lines is better
-        virtual_text = false,
-      },
       servers = {
         metals = {
           keys = {
