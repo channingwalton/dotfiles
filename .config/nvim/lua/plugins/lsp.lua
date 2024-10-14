@@ -110,8 +110,6 @@ return {
               end,
               desc = "Metals compile cascade",
             },
-            { "<leader>mmF", "<cmd>MetalsFindInDependencyJars<cr>", desc = "Find in dependency jars" },
-            { "<leader>mmR", "<cmd>lua require'dap'.run_last()<cr>", desc = "Run last" },
             { "<leader>mT", "<cmd>lua require('metals.tvp').toggle_tree_view()<CR>", desc = "Toggle Tree View" },
             { "<leader>mR", "<cmd>lua require('metals.tvp').reveal_in_tree()<CR>", desc = "Reveal in Tree View" },
             { "gh", "<cmd>MetalsSuperMethodHierarchy<cr>", desc = "Supermethod Heirarchy" },
