@@ -6,6 +6,44 @@ vim.g.autoformat = true
 vim.keymap.set("v", "<leader>ma", vim.lsp.buf.code_action)
 
 return {
+  -- this is based on https://www.lazyvim.org/extras/lang/scala
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        metals = {
+          keys = {
+            {
+              "<leader>me",
+              function()
+                require("telescope").extensions.metals.commands()
+              end,
+              desc = "Metals commands",
+            },
+            {
+              "<leader>mc",
+              function()
+                require("metals").compile_cascade()
+              end,
+              desc = "Metals compile cascade",
+            },
+            { "<leader>mT", "<cmd>lua require('metals.tvp').toggle_tree_view()<CR>", desc = "Toggle Tree View" },
+            { "<leader>mR", "<cmd>lua require('metals.tvp').reveal_in_tree()<CR>", desc = "Reveal in Tree View" },
+            { "gh", "<cmd>MetalsSuperMethodHierarchy<cr>", desc = "Supermethod Heirarchy" },
+          },
+          init_options = {
+            statusBarProvider = "off",
+          },
+          settings = {
+            showImplicitArguments = true,
+            showInferredType = true,
+            superMethodLensesEnabled = true,
+            excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+          },
+        },
+      },
+    },
+  },
   {
     "nvimdev/lspsaga.nvim",
     lazy = false,
@@ -88,43 +126,5 @@ return {
       -- Disable virtual_text since it's redundant due to lsp_lines.
       vim.diagnostic.config({ virtual_text = false })
     end,
-  },
-  -- this is based on https://www.lazyvim.org/extras/lang/scala
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        metals = {
-          keys = {
-            {
-              "<leader>me",
-              function()
-                require("telescope").extensions.metals.commands()
-              end,
-              desc = "Metals commands",
-            },
-            {
-              "<leader>mc",
-              function()
-                require("metals").compile_cascade()
-              end,
-              desc = "Metals compile cascade",
-            },
-            { "<leader>mT", "<cmd>lua require('metals.tvp').toggle_tree_view()<CR>", desc = "Toggle Tree View" },
-            { "<leader>mR", "<cmd>lua require('metals.tvp').reveal_in_tree()<CR>", desc = "Reveal in Tree View" },
-            { "gh", "<cmd>MetalsSuperMethodHierarchy<cr>", desc = "Supermethod Heirarchy" },
-          },
-          init_options = {
-            statusBarProvider = "off",
-          },
-          settings = {
-            showImplicitArguments = true,
-            showInferredType = true,
-            superMethodLensesEnabled = true,
-            excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
-          },
-        },
-      },
-    },
   },
 }
