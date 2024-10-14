@@ -79,18 +79,6 @@ return {
     },
   },
   {
-    "williamboman/mason.nvim",
-    dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-    },
-    opts = {
-      log_level = vim.log.levels.ERROR,
-      ensure_installed = {
-        "stylua",
-      },
-    },
-  },
-  {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     event = "LspAttach",
     config = function()
