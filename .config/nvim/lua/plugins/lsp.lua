@@ -75,6 +75,7 @@ return {
       { "<leader>mp", "<cmd>Lspsaga peek_definition<CR>", desc = "Peek" },
       { "<leader>mr", "<cmd>Lspsaga rename<CR>", desc = "Rename" },
       { "<leader>ms", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature" },
+      { "<leader>x<space>", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
     },
   },
 

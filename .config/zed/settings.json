@@ -9,8 +9,8 @@
 {
   "theme": "Tokyo Night",
   "vim_mode": true,
-  "ui_font_size": 13,
-  "buffer_font_size": 13,
+  "ui_font_size": 12,
+  "buffer_font_size": 12,
   "buffer_line_height": "standard",
   "relative_line_numbers": true,
   "tab_size": 2,
