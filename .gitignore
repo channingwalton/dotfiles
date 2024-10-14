@@ -1,7 +1,6 @@
 .DS_Store
 *.lock
 
-.config/cody-ai
 .config/github-copilot
 .config/iterm2
 .config/jgit/config
