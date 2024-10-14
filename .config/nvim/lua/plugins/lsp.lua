@@ -92,17 +92,6 @@ return {
   },
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    config = function()
-      require("lsp_lines").setup()
-    end,
-  },
-  {
-    "tamago324/nlsp-settings.nvim",
-    cmd = "LspSettings",
-    opts = {},
-  },
-  {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     event = "LspAttach",
     config = function()
       local lsp_lines = require("lsp_lines")
