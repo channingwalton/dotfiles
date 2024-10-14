@@ -78,7 +78,6 @@ return {
       { "<leader>x<space>", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
     },
   },
-
   {
     "williamboman/mason.nvim",
     dependencies = {
@@ -91,20 +90,17 @@ return {
       },
     },
   },
-
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     config = function()
       require("lsp_lines").setup()
     end,
   },
-
   {
     "tamago324/nlsp-settings.nvim",
     cmd = "LspSettings",
     opts = {},
   },
-
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     event = "LspAttach",
@@ -114,12 +110,59 @@ return {
       vim.keymap.set("", "<leader>cL", lsp_lines.toggle, { desc = "Toggle lsp_lines" })
     end,
   },
+  -- this is based on from https://www.lazyvim.org/extras/lang/scala
   {
-    "nvim-lspconfig",
+    "neovim/nvim-lspconfig",
     opts = {
       diagnostics = {
         -- turn off lsp diagnostics because lsp_lines is doing a better job
         virtual_text = false,
+      },
+      servers = {
+        metals = {
+          keys = {
+            {
+              "<leader>me",
+              function()
+                require("telescope").extensions.metals.commands()
+              end,
+              desc = "Metals commands",
+            },
+            {
+              "<leader>mc",
+              function()
+                require("metals").compile_cascade()
+              end,
+              desc = "Metals compile cascade",
+            },
+            { "<leader>mmC", "<cmd>Telescope metals commands<cr>", desc = "Metals commands" },
+            { "<leader>mmF", "<cmd>MetalsFindInDependencyJars<cr>", desc = "Find in dependency jars" },
+            { "<leader>mmR", "<cmd>MetalsRestartBuild<cr>", desc = "Restart Build" },
+            { "<leader>mmR", "<cmd>lua require'dap'.run_last()<cr>", desc = "Run last" },
+            { "<leader>mmS", "<cmd>MetalsSwitchBsp<cr>", desc = "Switch build server" },
+            { "<leader>mmT", "<cmd>lua require('metals.tvp').toggle_tree_view()<CR>", desc = "Toggle Tree View" },
+            { "<leader>mmc", "<cmd>MetalsCompileClean<cr>", desc = "Clean compile" },
+            { "<leader>mmd", "<cmd>MetalsRunDoctor<cr>", desc = "Doctor" },
+            { "<leader>mmh", "<cmd>MetalsSuperMethodHierarchy<cr>", desc = "Supermethod Heirarchy" },
+            { "<leader>mmi", "<cmd>MetalsImportBuild<cr>", desc = "Import Build" },
+            { "<leader>mml", "<cmd>MetalsToggleLogs<cr>", desc = "Toggle Logs" },
+            { "<leader>mmr", "<cmd>lua require('metals.tvp').reveal_in_tree()<CR>", desc = "Reveal in Tree View" },
+            { "<leader>mms", "<cmd>MetalsSelectTestSuite<cr>", desc = "Select Test Suite" },
+            { "<leader>mmt", "<esc>:DapContinue<cr>", desc = "Run test" },
+            { "<leader>mmu", "<cmd>MetalsUpdate<cr>", desc = "Update" },
+            { "<leader>mmI", "<cmd>lua print(vim.inspect(vim.lsp.get_active_clients()))<cr>", desc = "LSP Inspect" },
+            { "gh", "<cmd>MetalsSuperMethodHierarchy<cr>", desc = "Supermethod Heirarchy" },
+          },
+          init_options = {
+            statusBarProvider = "off",
+          },
+          settings = {
+            showImplicitArguments = true,
+            showInferredType = true,
+            superMethodLensesEnabled = true,
+            excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+          },
+        },
       },
     },
   },
