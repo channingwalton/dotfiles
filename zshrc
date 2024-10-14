@@ -135,6 +135,8 @@ export NVM_DIR="$HOME/.nvm"
 
 source $HOME/.sde/profile/profile.sh
 
+export PATH="/opt/homebrew/bin:$PATH"
+
 # added to make git signing with GPG work. See https://github.com/Homebrew/homebrew-core/issues/14737
 GPG_TTY=$(tty)
 export GPG_TTY
