@@ -1,15 +1,5 @@
 return {
   {
-    "scalameta/nvim-metals",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      {
-        "j-hui/fidget.nvim",
-        opts = {},
-      },
-    },
-  },
-  {
     "nvim-lualine/lualine.nvim",
     optional = true,
     event = "VeryLazy",
