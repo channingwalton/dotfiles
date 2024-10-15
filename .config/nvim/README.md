@@ -27,9 +27,6 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 
 ## Plugins
 
-### ai
-
-+ [sourcegraph/sg.nvim](https://dotfyle.com/plugins/sourcegraph/sg.nvim)
 ### colorscheme
 
 + [folke/tokyonight.nvim](https://dotfyle.com/plugins/folke/tokyonight.nvim)
@@ -64,13 +61,9 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 ### lsp
 
 + [nvimdev/lspsaga.nvim](https://dotfyle.com/plugins/nvimdev/lspsaga.nvim)
-+ [tamago324/nlsp-settings.nvim](https://dotfyle.com/plugins/tamago324/nlsp-settings.nvim)
 + [j-hui/fidget.nvim](https://dotfyle.com/plugins/j-hui/fidget.nvim)
 + [scalameta/nvim-metals](https://dotfyle.com/plugins/scalameta/nvim-metals)
 + [neovim/nvim-lspconfig](https://dotfyle.com/plugins/neovim/nvim-lspconfig)
-### lsp-installer
-
-+ [williamboman/mason.nvim](https://dotfyle.com/plugins/williamboman/mason.nvim)
 ### motion
 
 + [chrisgrieser/nvim-spider](https://dotfyle.com/plugins/chrisgrieser/nvim-spider)
