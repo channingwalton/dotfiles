@@ -10,6 +10,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      inlay_hints = { enabled = false },
       servers = {
         metals = {
           keys = {
@@ -46,7 +47,6 @@ return {
     keys = {
       { "<leader>md", "<cmd>Telescope lsp_definitions<cr>", desc = "Definition" },
       { "<leader>me", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-      { "<leader>mh", "<cmd>lua vim.lsp.buf.hover()<cr>", desc = "Hover" },
       { "<leader>mi", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementation" },
       { "<leader>ml", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Codelens run" },
       { "<leader>mo", "<cmd>Outline<CR>", desc = "Outline" },
@@ -60,9 +60,6 @@ return {
     event = "LspAttach",
     config = function()
       require("lspsaga").setup({
-        inlay_hints = {
-          enabled = false,
-        },
         ui = {
           title = false,
           colors = {
@@ -113,6 +110,7 @@ return {
       { "<leader>mO", "<cmd>Lspsaga outgoing_calls<CR>", desc = "Outgoing calls" },
       { "<leader>ma", "<cmd>Lspsaga code_action<CR>", desc = "Code action" },
       { "<leader>mf", "<cmd>Lspsaga finder<CR>", desc = "Find" },
+      { "<leader>mh", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover" },
       { "<leader>mn", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Diagnostic Next" },
       { "<leader>mp", "<cmd>Lspsaga peek_definition<CR>", desc = "Peek" },
       { "<leader>mr", "<cmd>Lspsaga rename<CR>", desc = "Rename" },
