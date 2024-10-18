@@ -120,7 +120,7 @@ export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export DIRENV_ALLOW=$HOME
 
 export PATH="/Users/channing/Library/Application Support/Coursier/bin:$PATH"
-eval "$(cs java --jvm 23 --env)"
+eval "$(cs java --jvm corretto:23 --env)"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 export PATH="/Applications/OrbStack.app/Contents/MacOS/xbin:$PATH"
