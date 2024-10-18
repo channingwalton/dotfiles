@@ -119,15 +119,16 @@ export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 
 export DIRENV_ALLOW=$HOME
 
+export PATH="/Users/channing/Library/Application Support/Coursier/bin:$PATH"
+eval "$(cs java --jvm 23 --env)"
 export PATH="$JAVA_HOME/bin:$PATH"
+
 export PATH="/Applications/OrbStack.app/Contents/MacOS/xbin:$PATH"
 
-export PATH="/Users/channing/Library/Application Support/Coursier/bin:$PATH"
 export PATH="/Users/channing/.local/bin:$PATH"
 export PATH="/Users/channing/.cargo/bin:$PATH"
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
-eval "$(cs java --jvm corretto:21 --env)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
