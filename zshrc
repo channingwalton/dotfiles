@@ -112,23 +112,21 @@ alias gcmd='find . -name .git -print -execdir git checkout main \;'
 alias gld='find . -name .git -print -execdir git pull \;'
 alias gsd='find . -name .git -print -execdir git status \;'
 
+export DIRENV_ALLOW=$HOME
+
 # paths
 export MY_BIN=/Users/channing/dotfiles/bin
 export PATH=${MY_BIN}:$PATH
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 
-export DIRENV_ALLOW=$HOME
-
 export PATH="/Users/channing/Library/Application Support/Coursier/bin:$PATH"
-eval "$(cs java --jvm corretto:23 --env)"
+eval "$(cs java --jvm corretto:21 --env)"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 export PATH="/Applications/OrbStack.app/Contents/MacOS/xbin:$PATH"
 
 export PATH="/Users/channing/.local/bin:$PATH"
 export PATH="/Users/channing/.cargo/bin:$PATH"
-
-export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
@@ -137,6 +135,7 @@ export NVM_DIR="$HOME/.nvm"
 source $HOME/.sde/profile/profile.sh
 
 export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 # added to make git signing with GPG work. See https://github.com/Homebrew/homebrew-core/issues/14737
 GPG_TTY=$(tty)
