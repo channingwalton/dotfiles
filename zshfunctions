@@ -72,8 +72,7 @@ function sxmup {
 }
 
 function siriusValidate {
-  source ~/dev/sxm/.stripe.env
-  siriusLogin && sbt "scalafmtFormatAll; clean; validate"
+  siriusLogin && sbt validate
 }
 alias scv=siriusValidate
 
