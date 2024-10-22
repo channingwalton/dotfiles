@@ -52,6 +52,7 @@ return {
       { "<leader>mo", "<cmd>Outline<CR>", desc = "Outline" },
       { "<leader>ms", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature" },
       { "<leader>x<space>", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
+      { "<leader>xe", "<cmd>Telescope diagnostics severity=error<cr>", desc = "Errors" },
     },
   },
   {
