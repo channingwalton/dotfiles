@@ -2,7 +2,6 @@ return {
   "nvim-telescope/telescope.nvim",
   keys = {
     { "<leader>T", desc = "Telescope" },
-    { "<leader>Tk", "<cmd>Telescope keymaps<cr>", desc = "Keymaps" },
     {
       "<leader>ff",
       "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>",
