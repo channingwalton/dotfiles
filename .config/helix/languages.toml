@@ -20,6 +20,10 @@ hintsInPatternMatch.enable = true
 implicitArguments.enable = false
 implicitConversions.enable = false
 
+[language-server.ucm]
+command = "nc" # brew install netcat
+args = ["localhost", "5757"]
+
 [[language]]
 name = "unison"
 language-servers = [ "ucm" ]
