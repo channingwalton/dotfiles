@@ -37,16 +37,6 @@ return {
       desc = "List files in current folder",
     },
     {
-      "<leader>go",
-      ":Easypick diff_with_origin<cr>",
-      desc = "Diff with origin",
-    },
-    {
-      "<leader>gM",
-      ":Easypick diff_with_main<cr>",
-      desc = "Diff with main",
-    },
-    {
       "<leader>gx",
       ":Easypick conflicts<cr>",
       desc = "Conflicts",
