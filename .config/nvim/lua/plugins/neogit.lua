@@ -10,4 +10,7 @@ return {
     "echasnovski/mini.pick", -- optional
   },
   config = true,
+  keys = {
+    { "<leader>gn", "<cmd>:Neogit<cr>", "Neogit" },
+  },
 }
