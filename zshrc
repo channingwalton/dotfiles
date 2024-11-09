@@ -145,6 +145,8 @@ export GPG_TTY
 export JJ_CONFIG="/Users/channing/.config/jj"
 
 # Load tools etc
+autoload -U compinit && compinit
+
 zmodload -i zsh/complist
 
 eval "$(fzf --zsh)"
@@ -152,8 +154,6 @@ eval "$(direnv hook zsh)"
 eval "$(atuin init zsh)"
 
 fpath=($HOME/.bloop/zsh $fpath)
-
-autoload -U compinit && compinit
 
 source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
