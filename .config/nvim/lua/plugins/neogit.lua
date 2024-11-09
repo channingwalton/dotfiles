@@ -10,7 +10,11 @@ return {
     "echasnovski/mini.pick", -- optional
   },
   config = true,
+  opts = {
+    graph_style = "unicode",
+  },
   keys = {
     { "<leader>gn", "<cmd>:Neogit<cr>", "Neogit" },
+    { "<leader>gM", "<cmd>:DiffviewOpen main...HEAD<cr>", "Neogit" },
   },
 }
