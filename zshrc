@@ -141,9 +141,6 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 GPG_TTY=$(tty)
 export GPG_TTY
 
-# jj config
-export JJ_CONFIG="/Users/channing/.config/jj"
-
 # Load tools etc
 autoload -U compinit && compinit
 
