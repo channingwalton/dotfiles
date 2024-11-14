@@ -97,13 +97,10 @@ alias vi=nvim
 alias vim=nvim
 
 # sbt / mill
+alias sup='sbt ";dependencyUpdates; reload plugins; dependencyUpdates"'
 alias mf='./mill smithy.format'
 alias mp='./mill smithy.publishLocal'
 alias sfmt='sbt scalafmtFormatAll'
-alias sg='sbt "smithy4sCodegen"'
-alias sup='sbt ";dependencyUpdates; reload plugins; dependencyUpdates"'
-alias sxm='cd ~/dev/sxm/'
-alias sxmenv='source ~/dev/sxm/.envrc'
 
 # git
 alias gclean='git clean -fdx'
@@ -117,7 +114,6 @@ export DIRENV_ALLOW=$HOME
 # paths
 export MY_BIN=/Users/channing/dotfiles/bin
 export PATH=${MY_BIN}:$PATH
-export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 
 export PATH="/Users/channing/Library/Application Support/Coursier/bin:$PATH"
 eval "$(cs java --jvm corretto:21 --env)"
@@ -132,14 +128,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-source $HOME/.sde/profile/profile.sh
-
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 # added to make git signing with GPG work. See https://github.com/Homebrew/homebrew-core/issues/14737
 GPG_TTY=$(tty)
 export GPG_TTY
+
+export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 
 # Load tools etc
 autoload -U compinit && compinit
@@ -160,8 +156,10 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 source ~/dotfiles/zshfunctions
 
+# SiriusXM Setup
+source $HOME/.sde/profile/profile.sh
 export PYENV_ROOT="${HOME}/.pyenv"
-
 export PATH="${PYENV_ROOT}/bin:${PATH}"
-
 eval "$(pyenv init -)"
+# End: SiriusXM Setup
+
