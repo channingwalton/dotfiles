@@ -1,3 +1,6 @@
+# added to make git signing with GPG work. See https://github.com/Homebrew/homebrew-core/issues/14737
+export GPG_TTY=$(tty)
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -130,10 +133,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-
-# added to make git signing with GPG work. See https://github.com/Homebrew/homebrew-core/issues/14737
-GPG_TTY=$(tty)
-export GPG_TTY
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 
