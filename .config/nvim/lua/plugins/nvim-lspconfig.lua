@@ -40,6 +40,9 @@ return {
             showInferredType = true,
             superMethodLensesEnabled = true,
             excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+            serverProperties = {
+              "-Dmetals.enable-best-effort=true",
+            },
           },
         },
       },
