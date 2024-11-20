@@ -15,6 +15,8 @@ return {
   },
   keys = {
     { "<leader>gn", "<cmd>:Neogit<cr>", "Neogit" },
-    { "<leader>gM", "<cmd>:DiffviewOpen main...HEAD<cr>", "Neogit" },
+    { "<leader>gD", "", "Diffview" },
+    { "<leader>gDM", "<cmd>:DiffviewOpen main...HEAD<cr>", "DiffviewOpen main..HEAD" },
+    { "<leader>gDC", "<cmd>:DiffviewClose<cr>", "DiffviewClose" },
   },
 }
