@@ -2,7 +2,11 @@
  
 Based on a starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
 
-# dotfiles/.config/nvim
+## Installation
+
+`brew install neovim luarocks`
+
+## dotfiles/.config/nvim
 
 <a href="https://dotfyle.com/channingwalton/dotfiles-config-nvim"><img src="https://dotfyle.com/channingwalton/dotfiles-config-nvim/badges/plugins?style=flat" /></a>
 <a href="https://dotfyle.com/channingwalton/dotfiles-config-nvim"><img src="https://dotfyle.com/channingwalton/dotfiles-config-nvim/badges/leaderkey?style=flat" /></a>
