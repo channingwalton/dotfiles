@@ -22,3 +22,8 @@ SDE
 env
 AWS
 sde
+Neovim
+config
+nvim
+dotfiles
+LazyVim
