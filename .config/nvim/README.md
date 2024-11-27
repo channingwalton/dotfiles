@@ -37,9 +37,6 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 ### comment
 
 + [folke/todo-comments.nvim](https://dotfyle.com/plugins/folke/todo-comments.nvim)
-### completion
-
-+ [hrsh7th/nvim-cmp](https://dotfyle.com/plugins/hrsh7th/nvim-cmp)
 ### diagnostics
 
 + [folke/trouble.nvim](https://dotfyle.com/plugins/folke/trouble.nvim)
@@ -53,8 +50,11 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 
 + [axkirillov/easypick.nvim](https://dotfyle.com/plugins/axkirillov/easypick.nvim)
 + [nvim-telescope/telescope.nvim](https://dotfyle.com/plugins/nvim-telescope/telescope.nvim)
++ [echasnovski/mini.pick](https://dotfyle.com/plugins/echasnovski/mini.pick)
++ [ibhagwan/fzf-lua](https://dotfyle.com/plugins/ibhagwan/fzf-lua)
 ### git
 
++ [NeogitOrg/neogit](https://dotfyle.com/plugins/NeogitOrg/neogit)
 + [sindrets/diffview.nvim](https://dotfyle.com/plugins/sindrets/diffview.nvim)
 ### icon
 
@@ -65,8 +65,6 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 ### lsp
 
 + [nvimdev/lspsaga.nvim](https://dotfyle.com/plugins/nvimdev/lspsaga.nvim)
-+ [j-hui/fidget.nvim](https://dotfyle.com/plugins/j-hui/fidget.nvim)
-+ [scalameta/nvim-metals](https://dotfyle.com/plugins/scalameta/nvim-metals)
 + [neovim/nvim-lspconfig](https://dotfyle.com/plugins/neovim/nvim-lspconfig)
 ### motion
 
@@ -76,8 +74,8 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 + [epwalsh/obsidian.nvim](https://dotfyle.com/plugins/epwalsh/obsidian.nvim)
 ### nvim-dev
 
-+ [anuvyklack/animation.nvim](https://dotfyle.com/plugins/anuvyklack/animation.nvim)
 + [nvim-lua/plenary.nvim](https://dotfyle.com/plugins/nvim-lua/plenary.nvim)
++ [anuvyklack/animation.nvim](https://dotfyle.com/plugins/anuvyklack/animation.nvim)
 ### plugin-manager
 
 + [folke/lazy.nvim](https://dotfyle.com/plugins/folke/lazy.nvim)
@@ -93,13 +91,10 @@ NVIM_APPNAME=channingwalton/dotfiles/.config/nvim nvim
 ### startup
 
 + [nvimdev/dashboard-nvim](https://dotfyle.com/plugins/nvimdev/dashboard-nvim)
-### statusline
-
-+ [nvim-lualine/lualine.nvim](https://dotfyle.com/plugins/nvim-lualine/lualine.nvim)
 ### syntax
 
-+ [nvim-treesitter/nvim-treesitter](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter)
 + [nvim-treesitter/nvim-treesitter-textobjects](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter-textobjects)
++ [nvim-treesitter/nvim-treesitter](https://dotfyle.com/plugins/nvim-treesitter/nvim-treesitter)
 ### terminal-integration
 
 + [akinsho/toggleterm.nvim](https://dotfyle.com/plugins/akinsho/toggleterm.nvim)
