@@ -137,16 +137,11 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 
 # Load tools etc
-autoload -U compinit
-
 zmodload -i zsh/complist
 
 eval "$(fzf --zsh)"
 eval "$(direnv hook zsh)"
 eval "$(atuin init zsh)"
-
-fpath=($HOME/.bloop/zsh $fpath)
-compinit
 
 source ~/dotfiles/zshfunctions
 
