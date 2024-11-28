@@ -40,8 +40,16 @@ return {
             showInferredType = true,
             superMethodLensesEnabled = true,
             excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+            -- copied from VSCode settings
             serverProperties = {
               "-Dmetals.enable-best-effort=true",
+              "-Xss4m",
+              "-XX:+UseStringDeduplication",
+              "-XX:+IgnoreUnrecognizedVMOptions",
+              "-XX:ZCollectionInterval=5",
+              "-XX:ZUncommitDelay=30",
+              "-XX:+UseZGC",
+              "-Xmx2G",
             },
           },
         },
