@@ -2,7 +2,7 @@ return {
   "ahmedkhalf/project.nvim",
   opts = {
     manual_mode = false,
-    patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", ".obsidian" },
+    patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile" },
   },
   event = "VeryLazy",
   config = function(_, opts)
