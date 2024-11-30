@@ -11,6 +11,3 @@ vim.opt.spell = false
 vim.opt.spelllang = { "en_gb" }
 vim.opt.scrolloff = 10
 vim.opt.linebreak = true
-
--- This is for the Obsidian plugin https://github.com/epwalsh/obsidian.nvim/issues/286
-vim.opt.conceallevel = 2
