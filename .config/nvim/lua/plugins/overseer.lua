@@ -7,7 +7,6 @@ return {
       -- This makes the template only available in the current directory
       -- In case you :cd out later
       dir = vim.fn.getcwd(),
-      filetype = { "scala" },
     },
     builder = function()
       return {
