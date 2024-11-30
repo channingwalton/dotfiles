@@ -38,10 +38,10 @@ return {
   },
 
   keys = {
-    { "<leader>o", desc = "Obsidian" },
-    { "<leader>oo", "<cmd>ObsidianOpen<CR>", desc = "Open in Obsidian" },
-    { "<leader>oq", "<cmd>ObsidianQuickSwitch<CR>", desc = "Quick switch" },
-    { "<leader>of", "<cmd>ObsidianFollowLink<CR>", desc = "Follow link" },
-    { "<leader>ob", "<cmd>ObsidianBacklinks<CR>", desc = "Backlinks" },
+    { "<leader>O", desc = "Obsidian" },
+    { "<leader>Oo", "<cmd>ObsidianOpen<CR>", desc = "Open in Obsidian" },
+    { "<leader>Oq", "<cmd>ObsidianQuickSwitch<CR>", desc = "Quick switch" },
+    { "<leader>Of", "<cmd>ObsidianFollowLink<CR>", desc = "Follow link" },
+    { "<leader>Ob", "<cmd>ObsidianBacklinks<CR>", desc = "Backlinks" },
   },
 }
