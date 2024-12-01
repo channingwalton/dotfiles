@@ -144,6 +144,7 @@ eval "$(direnv hook zsh)"
 eval "$(atuin init zsh)"
 
 source ~/dotfiles/zshfunctions
+source ~/.secrets
 
 # SiriusXM Setup
 source $HOME/.sde/profile/profile.sh
