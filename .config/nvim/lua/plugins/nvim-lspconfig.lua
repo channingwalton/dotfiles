@@ -15,13 +15,6 @@ return {
         metals = {
           keys = {
             {
-              "<leader>me",
-              function()
-                require("telescope").extensions.metals.commands()
-              end,
-              desc = "Metals commands",
-            },
-            {
               "<leader>mc",
               function()
                 require("metals").compile_cascade()
@@ -56,14 +49,13 @@ return {
       },
     },
     keys = {
-      { "<leader>md", "<cmd>Telescope lsp_definitions<cr>", desc = "Definition" },
-      { "<leader>me", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-      { "<leader>mi", "<cmd>Telescope lsp_implementations<cr>", desc = "Implementation" },
+      { "<leader>md", "<cmd>FzfLua lsp_definitions<cr>", desc = "Definition" },
+      { "<leader>mR", "<cmd>FzfLua lsp_references<cr>", desc = "References" },
+      { "<leader>mi", "<cmd>FzfLua lsp_implementations<cr>", desc = "Implementation" },
       { "<leader>ml", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Codelens run" },
       { "<leader>mo", "<cmd>Outline<CR>", desc = "Outline" },
       { "<leader>ms", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature" },
-      { "<leader>x<space>", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
-      { "<leader>xe", "<cmd>Telescope diagnostics severity=error<cr>", desc = "Errors" },
+      { "<leader>x<space>", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace diagnostics" },
     },
   },
   {
