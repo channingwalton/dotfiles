@@ -15,11 +15,32 @@ return {
         metals = {
           keys = {
             {
-              "<leader>mc",
+              "<leader>mZ",
               function()
                 require("metals").compile_cascade()
               end,
               desc = "Metals compile cascade",
+            },
+            {
+              "<leader>mm",
+              function()
+                local fzf = require("fzf-lua")
+                local commands = {
+                  "MetalsInfo",
+                  "MetalsRestartBuildServer",
+                  "MetalsRunDoctor",
+                  "MetalsRunWorksheet",
+                }
+
+                fzf.fzf_exec(commands, {
+                  actions = {
+                    ["default"] = function(selected)
+                      vim.cmd(selected[1])
+                    end,
+                  },
+                })
+              end,
+              desc = "Metals commands",
             },
             { "<leader>mT", "<cmd>lua require('metals.tvp').toggle_tree_view()<CR>", desc = "Toggle Tree View" },
             { "<leader>mR", "<cmd>lua require('metals.tvp').reveal_in_tree()<CR>", desc = "Reveal in Tree View" },
