@@ -15,13 +15,6 @@ return {
         metals = {
           keys = {
             {
-              "<leader>mZ",
-              function()
-                require("metals").compile_cascade()
-              end,
-              desc = "Metals compile cascade",
-            },
-            {
               "<leader>mm",
               function()
                 local fzf = require("fzf-lua")
