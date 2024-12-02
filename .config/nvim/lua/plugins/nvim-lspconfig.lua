@@ -26,10 +26,16 @@ return {
               function()
                 local fzf = require("fzf-lua")
                 local commands = {
+                  "MetalsCompileCancel",
+                  "MetalsCompileCascade",
+                  "MetalsCompileClean",
+                  "MetalsImportBuild",
                   "MetalsInfo",
                   "MetalsRestartBuildServer",
+                  "MetalsRestartMetals",
                   "MetalsRunDoctor",
                   "MetalsRunWorksheet",
+                  "MetalsUpdate",
                 }
 
                 fzf.fzf_exec(commands, {
