@@ -24,6 +24,7 @@ return {
                   "MetalsCompileClean",
                   "MetalsImportBuild",
                   "MetalsInfo",
+                  "MetalsToggleLogs",
                   "MetalsRestartBuildServer",
                   "MetalsRestartMetals",
                   "MetalsRunDoctor",
