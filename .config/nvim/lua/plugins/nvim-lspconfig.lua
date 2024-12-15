@@ -28,6 +28,7 @@ return {
                   "MetalsRestartMetals",
                   "MetalsRunDoctor",
                   "MetalsRunWorksheet",
+                  "MetalsSwitchBsp",
                   "MetalsUpdate",
                 }
 
