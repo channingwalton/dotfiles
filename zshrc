@@ -98,7 +98,6 @@ alias up='cd ..'
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
-alias yy=yazi
 
 # sbt / mill
 alias sup='sbt ";dependencyUpdates; reload plugins; dependencyUpdates"'
@@ -146,11 +145,4 @@ eval "$(atuin init zsh)"
 
 source ~/dotfiles/zshfunctions
 source ~/.secrets
-
-# SiriusXM Setup
-source $HOME/.sde/profile/profile.sh
-export PYENV_ROOT="${HOME}/.pyenv"
-export PATH="${PYENV_ROOT}/bin:${PATH}"
-eval "$(pyenv init -)"
-# End: SiriusXM Setup
 
