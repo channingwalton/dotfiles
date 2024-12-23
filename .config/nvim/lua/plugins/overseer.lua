@@ -45,4 +45,19 @@ return {
       }
     end,
   }),
+  require("overseer").register_template({
+    name = "sbt updates",
+    params = {},
+    condition = {
+      -- This makes the template only available in the current directory
+      -- In case you :cd out later
+      dir = vim.fn.getcwd(),
+    },
+    builder = function()
+      return {
+        cmd = { "sbt" },
+        args = { "dependencyUpdates; reload plugins; dependencyUpdates" },
+      }
+    end,
+  }),
 }
