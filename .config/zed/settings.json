@@ -7,10 +7,17 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "assistant": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "claude-3-5-sonnet"
+    },
+    "version": "2"
+  },
   "theme": "Tokyo Night",
   "vim_mode": true,
-  "ui_font_size": 12,
-  "buffer_font_size": 12,
+  "ui_font_size": 14,
+  "buffer_font_size": 13,
   "buffer_line_height": "standard",
   "relative_line_numbers": true,
   "tab_size": 2,
@@ -50,6 +57,29 @@
   "git": {
     "inline_blame": {
       "enabled": false
+    }
+  },
+  "lsp": {
+    "metals": {
+      "binary": {
+        "arguments": [
+          "-Dmetals.enable-best-effort=true",
+          "-Xss4m",
+          "-XX:+UseStringDeduplication",
+          "-XX:+IgnoreUnrecognizedVMOptions",
+          "-XX:ZCollectionInterval=5",
+          "-XX:ZUncommitDelay=30",
+          "-XX:+UseZGC",
+          "-Xmx2G"
+        ]
+      },
+      "settings": {
+        "inlayHints": {
+          "inferredTypes": {
+            "enable": true
+          }
+        }
+      }
     }
   }
 }

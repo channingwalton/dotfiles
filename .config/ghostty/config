@@ -1,3 +1,5 @@
 theme = tokyonight
 
 background = 000000
+
+unfocused-split-opacity=1.0
