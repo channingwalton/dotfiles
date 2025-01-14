@@ -1,1 +1,1 @@
-return { "snacks.nvim", opts = { words = { enabled = true } } }
+return { "folke/snacks.nvim", opts = { words = { enabled = true } } }
