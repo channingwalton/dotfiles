@@ -6,3 +6,8 @@ unfocused-split-opacity=1.0
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 
+# From https://github.com/m-ahdal/ghostty-shaders/tree/main
+#custom-shader = shaders/galaxy.glsl
+#custom-shader = shaders/inside-the-matrix.glsl
+#custom-shader = shaders/starfield-colors.glsl
+
