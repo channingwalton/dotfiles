@@ -66,6 +66,7 @@ return {
               "-XX:+UseZGC",
               "-Xmx2G",
             },
+            --serverVersion = "1.4.2+80-2b937bb1-SNAPSHOT",
           },
         },
       },
