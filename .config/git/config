@@ -40,9 +40,6 @@
 [init]
   defaultBranch = main
 
-[includeIf "gitdir:~/dev/sxm/"]
-  path = ~/dev/sxm/.gitconfig
-
 [push]
   autoSetupRemote = true
 
