@@ -103,7 +103,7 @@ alias vim=nvim
 alias sup='sbt ";dependencyUpdates; reload plugins; dependencyUpdates"'
 alias mf='./mill smithy.format'
 alias mp='./mill smithy.publishLocal'
-alias sfmt='sbt scalafmtFormatAll'
+alias sfmt='sbt scalafmtAll'
 
 # git
 alias gclean='git clean -fdx'
