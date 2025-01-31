@@ -2,6 +2,7 @@ quit-after-last-window-closed = true
 
 theme = tokyonight
 background = 000000
+split-divider-color = #E09869
 unfocused-split-opacity=1.0
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
