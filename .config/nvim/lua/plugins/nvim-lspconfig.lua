@@ -51,6 +51,7 @@ return {
             statusBarProvider = "off",
           },
           settings = {
+            useGlobalExecutable = true, -- use the globally installed metals: cs install metals
             showImplicitArguments = true,
             showInferredType = true,
             superMethodLensesEnabled = true,
