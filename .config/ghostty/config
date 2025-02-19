@@ -6,7 +6,7 @@ split-divider-color = #E09869
 unfocused-split-opacity=1.0
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
-macos-option-as-alt = true
+macos-option-as-alt = left
 
 # From https://github.com/m-ahdal/ghostty-shaders/tree/main
 #custom-shader = shaders/galaxy.glsl
