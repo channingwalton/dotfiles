@@ -7,10 +7,13 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
   "assistant": {
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-3-5-sonnet"
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-latest"
     },
     "version": "2"
   },
@@ -42,7 +45,6 @@
   "terminal": {
     "line_height": "standard",
     "font_size": 12,
-    "font_family": "JetBrainsMono Nerd Font Mono",
     "max_scroll_history_lines": 100000
   },
   "vim": {
