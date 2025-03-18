@@ -45,5 +45,9 @@
 [mergetool]
   prompt = false
 
-[credential "https://dev.azure.com"]
+[credential "https://github.com"]
   useHttpPath = true
+
+[includeIf "gitdir:~/dev/txodds/"]
+  path = ~/dev/txodds/.gitconfig
+
