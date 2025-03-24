@@ -104,6 +104,7 @@ alias sup='sbt ";dependencyUpdates; reload plugins; dependencyUpdates"'
 alias mf='./mill smithy.format'
 alias mp='./mill smithy.publishLocal'
 alias sfmt='sbt scalafmtAll'
+alias cc='sbt commitCheck'
 
 # git
 alias gclean='git clean -fdx'
