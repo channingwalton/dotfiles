@@ -15,3 +15,4 @@
 .config/zed/stable
 .config/raycast/extensions
 .config/stripe/config.toml
+.config/kube
