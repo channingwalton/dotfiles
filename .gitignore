@@ -1,6 +1,8 @@
 .DS_Store
 *.lock
 
+claude/statsig
+
 .config/github-copilot
 .config/iterm2
 .config/jgit/config
