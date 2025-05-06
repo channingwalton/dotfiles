@@ -18,3 +18,4 @@
 .config/raycast/extensions
 .config/stripe/config.toml
 .config/kube
+.claude/__store.db
