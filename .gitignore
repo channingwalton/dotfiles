@@ -19,3 +19,4 @@
 .config/stripe/config.toml
 .config/kube
 .claude/__store.db
+.claude/todos
