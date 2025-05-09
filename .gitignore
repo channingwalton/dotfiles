@@ -20,3 +20,4 @@
 .config/kube
 .claude/__store.db
 .claude/todos
+.claude/projects
