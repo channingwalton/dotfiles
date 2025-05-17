@@ -1,4 +1,13 @@
 {
+  "agent": {
+    "always_allow_tool_actions": true,
+    "model_parameters": [],
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gemini-2.5-pro"
+    },
+    "version": "2"
+  },
   "active_pane_modifiers": {
     "border_size": 1,
     "inactive_opacity": 1,
