@@ -133,15 +133,52 @@ return {
       "WhoIsSethDaniel/lualine-lsp-progress.nvim",
     },
     keys = {
-      { "<leader>mD", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover docs" },
-      { "<leader>mI", "<cmd>Lspsaga incoming_calls<CR>", desc = "Incoming calls" },
-      { "<leader>mO", "<cmd>Lspsaga outgoing_calls<CR>", desc = "Outgoing calls" },
+      -- LSP Actions
       { "<leader>ma", "<cmd>Lspsaga code_action<CR>", desc = "Code action" },
+      { "<leader>mh", "<cmd>Lspsaga hover_doc<CR>", desc = "Hover docs" },
       { "<leader>mf", "<cmd>Lspsaga finder<CR>", desc = "Find" },
-      { "<leader>mh", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover" },
-      { "<leader>mn", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Diagnostic Next" },
       { "<leader>mp", "<cmd>Lspsaga peek_definition<CR>", desc = "Peek" },
       { "<leader>mr", "<cmd>Lspsaga rename<CR>", desc = "Rename" },
+      { "<leader>mI", "<cmd>Lspsaga incoming_calls<CR>", desc = "Incoming calls" },
+      { "<leader>mO", "<cmd>Lspsaga outgoing_calls<CR>", desc = "Outgoing calls" },
+      { "<leader>mn", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Diagnostic Next" },
+
+      -- Metals Build
+      { "<leader>mb", "<cmd>lua require('metals').connect_build()<cr>", desc = "Connect Build" },
+      { "<leader>mB", "<cmd>lua require('metals').disconnect_build()<cr>", desc = "Disconnect Build" },
+      { "<leader>mi", "<cmd>lua require('metals').import_build()<cr>", desc = "Import Build" },
+      { "<leader>mx", "<cmd>lua require('metals').restart_build_server()<cr>", desc = "Restart Build Server" },
+
+      -- Metals Compile
+      { "<leader>mc", "<cmd>lua require('metals').compile_cascade()<cr>", desc = "Compile Cascade" },
+      { "<leader>mC", "<cmd>lua require('metals').compile_clean()<cr>", desc = "Compile Clean" },
+
+      -- Metals Workspace
+      { "<leader>mR", "<cmd>lua require('metals').reset_workspace()<cr>", desc = "Reset Workspace" },
+      { "<leader>mz", "<cmd>lua require('metals').restart_metals()<cr>", desc = "Restart Metals" },
+      { "<leader>mD", "<cmd>lua require('metals').run_doctor()<cr>", desc = "Run Doctor" },
+      { "<leader>ml", "<cmd>lua require('metals').toggle_logs()<cr>", desc = "Toggle Logs" },
+
+      -- Metals Code
+      { "<leader>mF", "<cmd>lua require('metals').run_scalafix()<cr>", desc = "Run Scalafix" },
+      { "<leader>mo", "<cmd>lua require('metals').organize_imports()<cr>", desc = "Organize Imports" },
+      { "<leader>mS", "<cmd>lua require('metals').goto_super_method()<cr>", desc = "Goto Super Method" },
+      { "<leader>ms", "<cmd>lua require('metals').super_method_hierarchy()<cr>", desc = "Super Method Hierarchy" },
+      { "<leader>mN", "<cmd>lua require('metals').new_scala_file()<cr>", desc = "New Scala File" },
+      { "<leader>mw", "<cmd>lua require('metals').quick_worksheet()<cr>", desc = "Quick Worksheet" },
+
+      -- Tree View
+      { "<leader>tr", "<cmd>lua require('metals.tvp').reveal_in_tree()<cr>", desc = "Reveal in Tree" },
+      { "<leader>tv", "<cmd>lua require('metals.tvp').toggle_tree_view()<cr>", desc = "Toggle Tree View" },
+
+      -- Special Keys
+      { "K", "<cmd>lua require('metals').hover_worksheet()<cr>", desc = "Hover Worksheet", ft = "scala" },
+      { "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Toggle Breakpoint" },
+      { "<F5>", "<cmd>lua require('dap').continue()<cr>", desc = "Continue" },
+      { "<F10>", "<cmd>lua require('dap').step_over()<cr>", desc = "Step Over" },
+      { "<F11>", "<cmd>lua require('dap').step_into()<cr>", desc = "Step Into" },
+      { "<S-F11>", "<cmd>lua require('dap').step_out()<cr>", desc = "Step Out" },
+      { "<C-F8>", "<cmd>lua require('dap').run_to_cursor()<cr>", desc = "Run to Cursor" },
     },
   },
   {
