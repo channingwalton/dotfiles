@@ -3,8 +3,8 @@
     "always_allow_tool_actions": true,
     "model_parameters": [],
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "gemini-2.5-pro"
+      "provider": "zed.dev",
+      "model": "claude-3-7-sonnet-latest"
     },
     "version": "2"
   },
