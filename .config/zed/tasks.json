@@ -1,0 +1,15 @@
+[
+  {
+    "label": "run tests with bloop",
+    "name": "run-bloop-test",
+    "command": "~/dotfiles/.config/zed/run-bloop-tests.sh ${ZED_RELATIVE_FILE} ${ZED_SYMBOL}",
+    "working_directory": "${workspace_root}",
+    "environment": {
+      "PATH": "${env.PATH}"
+    },
+    "keystroke": "ctrl-shift-r",
+    "tags": [
+      "scala-test"
+    ]
+  }
+]
