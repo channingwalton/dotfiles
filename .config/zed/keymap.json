@@ -81,7 +81,13 @@
       "shift shift": "command_palette::Toggle",
       "cmd-alt-o": "project_symbols::Toggle",
       "cmd-1": "workspace::ToggleLeftDock",
-      "cmd-6": "diagnostics::Deploy"
+      "cmd-6": "diagnostics::Deploy",
+      "alt-c": [
+        "task::Spawn",
+        {
+          "run-commit-check": "commit check"
+        }
+      ]
     }
   },
   {
