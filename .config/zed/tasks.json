@@ -11,5 +11,16 @@
     "tags": [
       "scala-test"
     ]
+  },
+  {
+    "label": "run commit check with sbt",
+    "name": "run-commit-check",
+    "command": "sbt commitCheck",
+    "working_directory": "${workspace_root}",
+    "environment": {
+      "PATH": "${env.PATH}"
+    },
+    "keystroke": "ctrl-shift-c",
+    "tags": []
   }
 ]
