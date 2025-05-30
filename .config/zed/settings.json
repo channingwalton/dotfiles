@@ -11,7 +11,7 @@
   "active_pane_modifiers": {
     "border_size": 1,
     "inactive_opacity": 1,
-    "magnification": 1.6
+    "magnification": 1.0
   },
   "auto_install_extensions": {
     "docker-compose": true,
