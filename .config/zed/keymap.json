@@ -87,6 +87,12 @@
         {
           "run-commit-check": "commit check"
         }
+      ],
+      "alt-t": [
+        "task::Spawn",
+        {
+          "run-bloop-test": "run test"
+        }
       ]
     }
   },
