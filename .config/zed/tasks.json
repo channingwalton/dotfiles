@@ -7,7 +7,6 @@
     "environment": {
       "PATH": "${env.PATH}"
     },
-    "keystroke": "ctrl-shift-r",
     "tags": [
       "scala-test"
     ]
@@ -20,7 +19,16 @@
     "environment": {
       "PATH": "${env.PATH}"
     },
-    "keystroke": "ctrl-shift-c",
+    "tags": []
+  },
+  {
+    "label": "run scalafixAll with sbt",
+    "name": "run-scalafixAll",
+    "command": "sbt scalafixAll",
+    "working_directory": "${workspace_root}",
+    "environment": {
+      "PATH": "${env.PATH}"
+    },
     "tags": []
   }
 ]

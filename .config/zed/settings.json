@@ -1,10 +1,11 @@
 {
+  "icon_theme": "Colored Zed Icons Theme Light",
   "agent": {
     "always_allow_tool_actions": true,
     "model_parameters": [],
     "default_model": {
       "provider": "zed.dev",
-      "model": "claude-3-7-sonnet-latest"
+      "model": "claude-3-5-sonnet"
     },
     "version": "2"
   },
@@ -21,8 +22,10 @@
     "tokyo-night": true
   },
   "base_keymap": "JetBrains",
-  "buffer_font_size": 13,
-  "buffer_line_height": "standard",
+  "buffer_font_family": "JetBrains Mono NL",
+  "buffer_font_size": 12,
+  "buffer_font_weight": 400,
+  "buffer_line_height": "comfortable",
   "cursor_blink": false,
   "features": {
     "edit_prediction_provider": "zed"
@@ -121,7 +124,7 @@
     },
     "dock": "right",
     "env": {},
-    "font_family": "JetBrainsMono Nerd Font",
+    "font_family": "JetBrainsMono Nerd Font Mono",
     "font_features": null,
     "font_size": 11,
     "line_height": "comfortable",
@@ -135,8 +138,12 @@
     },
     "working_directory": "current_project_directory"
   },
-  "theme": "Tokyo Night",
-  "ui_font_size": 14,
+  "theme": {
+    "mode": "dark",
+    "light": "macOS Classic Light",
+    "dark": "Tokyo Night"
+  },
+  "ui_font_size": 15,
   "vim": {
     "relative_line_numbers": true,
     "use_multiline_find": true,
