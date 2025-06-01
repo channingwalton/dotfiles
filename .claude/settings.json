@@ -1,9 +1,12 @@
 {
   "permissions": {
     "allow": [
+      "Bash(chmod:*)",
+      "Bash(find:*)",
       "Bash(grep:*)",
-      "Bash(sbt:*)",
-      "Bash(find:*)"
+      "Bash(mkdir:*)",
+      "Bash(rg:*)",
+      "Bash(sbt:*)"
     ],
     "deny": []
   }

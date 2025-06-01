@@ -79,7 +79,7 @@
       "cmd-shift-o": "file_finder::Toggle",
       "cmd-shift-a": "command_palette::Toggle",
       "shift shift": "command_palette::Toggle",
-      "cmd-alt-o": "project_symbols::Toggle",
+      "cmd-alt-s": "project_symbols::Toggle",
       "cmd-1": "workspace::ToggleLeftDock",
       "cmd-6": "diagnostics::Deploy",
       "alt-c": [
@@ -92,6 +92,12 @@
         "task::Spawn",
         {
           "run-bloop-test": "run test"
+        }
+      ],
+      "alt-o": [
+        "task::Spawn",
+        {
+          "run-scalafixAll": "scalafixAll"
         }
       ]
     }
