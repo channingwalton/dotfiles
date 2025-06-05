@@ -30,5 +30,15 @@
       "PATH": "${env.PATH}"
     },
     "tags": []
+  },
+  {
+    "label": "tail metals logs",
+    "name": "tail-metals-logs",
+    "command": "tail -100f0 .metals/metals.log",
+    "working_directory": "${workspace_root}",
+    "environment": {
+      "PATH": "${env.PATH}"
+    },
+    "tags": []
   }
 ]
