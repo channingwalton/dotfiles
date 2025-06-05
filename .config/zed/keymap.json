@@ -99,7 +99,9 @@
         {
           "run-scalafixAll": "scalafixAll"
         }
-      ]
+      ],
+      "cmd-k": "git::Add",
+      "cmd-shift-k": "git::Push"
     }
   },
   {
