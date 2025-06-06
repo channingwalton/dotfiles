@@ -51,6 +51,7 @@ return {
             statusBarProvider = "off",
           },
           settings = {
+            defaultBspToBuildTool = true,
             useGlobalExecutable = true, -- use the globally installed metals: cs install metals
             showImplicitArguments = true,
             showInferredType = true,
