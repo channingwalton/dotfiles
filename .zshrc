@@ -136,7 +136,6 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
-export ANTHROPIC_API_KEY=$(security find-generic-password -w -s anthropic-ai-api-key)
 
 # Load tools etc
 zmodload -i zsh/complist

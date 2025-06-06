@@ -18,3 +18,4 @@ macos-option-as-alt = left
 #custom-shader = shaders/galaxy.glsl
 #custom-shader = shaders/inside-the-matrix.glsl
 #custom-shader = shaders/starfield-colors.glsl
+keybind = shift+enter=text:\n
