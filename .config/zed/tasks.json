@@ -40,5 +40,19 @@
       "PATH": "${env.PATH}"
     },
     "tags": []
+  },
+  {
+    "label": "metals-ui",
+    "name": "metals ui",
+    "command": "open http://127.0.0.1:5031/",
+    "hide": "on_success",
+    "tags": []
+  },
+  {
+    "label": "metals doctor",
+    "name": "metals-doctor",
+    "command": "open http://127.0.0.1:5031/doctor",
+    "hide": "on_success",
+    "tags": []
   }
 ]

@@ -80,13 +80,11 @@
         ]
       },
       "initialization_options": {
-        "isHttpEnabled": true,
-        "defaultBspToBuildTool": true
+        "isHttpEnabled": true
       },
-      "defaultBspToBuildTool": true,
       "settings": {
-        "startMcpServer": true,
         "defaultBspToBuildTool": true,
+        "startMcpServer": true,
         "inlayHints": {
           "inferredTypes": {
             "enable": true
