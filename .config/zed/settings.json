@@ -68,6 +68,7 @@
     "metals": {
       "binary": {
         "arguments": [
+          "-Dmetals.http=on",
           "-Dmetals.enable-best-effort=true",
           "-Xss4m",
           "-XX:+UseStringDeduplication",
@@ -79,14 +80,25 @@
         ]
       },
       "initialization_options": {
-        "isHttpEnabled": true
+        "isHttpEnabled": true,
+        "defaultBspToBuildTool": true
       },
+      "defaultBspToBuildTool": true,
       "settings": {
+        "startMcpServer": true,
+        "defaultBspToBuildTool": true,
         "inlayHints": {
           "inferredTypes": {
             "enable": true
+          },
+          "typeParameters": {
+            "enable": true
+          },
+          "hintsInPatternMatch": {
+            "enable": true
           }
-        }
+        },
+        "enableBestEffort": true
       }
     }
   },
