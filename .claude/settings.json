@@ -3,10 +3,12 @@
     "allow": [
       "Bash(chmod:*)",
       "Bash(find:*)",
+      "Bash(git add:*)",
       "Bash(grep:*)",
       "Bash(mkdir:*)",
       "Bash(rg:*)",
-      "Bash(sbt:*)"
+      "Bash(sbt:*)",
+      "Bash(sup)"
     ],
     "deny": []
   }
