@@ -70,3 +70,6 @@ typeclasses
 Kinded
 typeclass
 treelog
+PostgreSQL
+Timestamp
+timestamp
