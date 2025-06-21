@@ -146,3 +146,5 @@ eval "$(atuin init zsh)"
 
 source ~/dotfiles/zshfunctions
 
+
+alias claude="/Users/channing/.claude/local/claude"
