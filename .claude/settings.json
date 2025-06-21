@@ -13,6 +13,15 @@
     "deny": []
   },
   "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/channing/dev",
+        "/Users/channing/Documents/Notes"
+      ]
+    },
     "fetch": {
       "command": "uvx",
       "args": [
