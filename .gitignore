@@ -1,6 +1,7 @@
 .DS_Store
 *.lock
-
+log
+*.log
 .claude/__store.db
 .claude/projects
 .claude/statsig
@@ -21,3 +22,5 @@
 .config/zed/embeddings
 .config/zed/prompts
 .config/zed/stable
+.config/pgcli/log
+.config/pgcli/history
