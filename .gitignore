@@ -24,3 +24,4 @@ log
 .config/zed/stable
 .config/pgcli/log
 .config/pgcli/history
+.claude/local
