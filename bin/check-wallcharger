@@ -1,0 +1,37 @@
+#!/bin/bash
+
+SERVER="192.168.1.218"
+PING_COUNT=3
+TIMEOUT=5
+
+ping_server() {
+  ping -c $PING_COUNT -W $TIMEOUT $SERVER >/dev/null 2>&1
+  return $?
+}
+
+send_notification() {
+
+  local title="$1"
+  local message="$2"
+
+  osascript -e "
+    tell application \"Mail\"
+      activate
+
+      set MyEmail to make new outgoing message with properties {visible:true, subject:\"Wallcharger down\", content:\"Tesla charger is down.\"}
+      tell MyEmail
+          make new to recipient at end of to recipients with properties {address:\"channingwalton@mac.com\"}
+      end tell
+      send MyEmail
+    end tell"
+}
+
+main() {
+  if ! ping_server; then
+    send_notification "Server Down" "Cannot reach $SERVER - server may be offline"
+
+    exit 1
+  fi
+}
+
+main "$@"
