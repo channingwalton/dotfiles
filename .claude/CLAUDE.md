@@ -33,14 +33,6 @@
 
 ## Development Guidelines for Claude
 
-Use Context7 to pull up-to-date, version-specific documentation and code examples.
-
-### Core Philosophy
-
-**TEST-DRIVEN DEVELOPMENT IS NON-NEGOTIABLE.** Every single line of production code must be written in response to a failing test. No exceptions. This is not a suggestion or a preference - it is the fundamental practice that enables all other principles in this document.
-
-Follow Test-Driven Development (TDD) and functional programming principles. All work should be done in small, incremental changes that maintain a working state throughout development.
-
 ### Quick Reference
 
 **Key Principles:**
@@ -53,6 +45,17 @@ Follow Test-Driven Development (TDD) and functional programming principles. All 
 - Immutable data only
 - Small, pure functions
 - Projects should be layered with clean responsibilities for each layer
+- Use Context7 to pull up-to-date, version-specific documentation and code examples.
+
+It is important to write important details about the feature being implemented to a feature document in the project like this:
+
+```
+project/
+  features/
+    00001 - feature title.md
+```
+
+Keep the README up-to-date.
 
 **Preferred Tools:**
 
@@ -60,6 +63,12 @@ Follow Test-Driven Development (TDD) and functional programming principles. All 
 - **Libraries**: Typelevel libraries: cats, cats-effect, Http4s, Circe, doobie
 - **Testing**: munit, munit-cats-effect, scalacheck
 - **Builds**: SBT
+
+### Core Philosophy
+
+**TEST-DRIVEN DEVELOPMENT IS NON-NEGOTIABLE.** Every single line of production code must be written in response to a failing test. No exceptions. This is not a suggestion or a preference - it is the fundamental practice that enables all other principles in this document.
+
+Follow Test-Driven Development (TDD) and functional programming principles. All work should be done in small, incremental changes that maintain a working state throughout development.
 
 ### Testing Principles
 
@@ -109,18 +118,6 @@ addDependencyTreePlugin
 Code should be self-documenting through clear naming and structure. Comments indicate that the code itself is not clear enough.
 
 ### Development Workflow
-
-#### Documentation
-
-It is important to write important details about the feature being implemented to a feature document in the project like this:
-
-project/
-  features/
-    00001 - feature title.md
-
-It should include a summary of the new feature and any important points raised during implementation.
-
-It is important to keep the project README up to date.
 
 #### TDD Process - THE FUNDAMENTAL PRACTICE
 
