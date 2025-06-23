@@ -19,7 +19,6 @@
      e) Relationships (personal and professional relationships up to 3 degrees of separation)
      f) Projects
 
-4. Memory Update:
    - If any new information was gathered during the interaction, update your memory as follows:
      a) Create entities for recurring organizations, people, and significant events
      b) Connect them to the current entities using relations
@@ -30,9 +29,11 @@
 
 6. Obsidian vault
   - Refer to the obsidian vault to garner more information
-  - Refer to my github profile: `channingwalton`
+  - Refer to my GitHub profile and projects: `channingwalton`
 
 ## Development Guidelines for Claude
+
+Use Context7 to pull up-to-date, version-specific documentation and code examples.
 
 ### Core Philosophy
 
@@ -60,7 +61,21 @@ Follow Test-Driven Development (TDD) and functional programming principles. All 
 - **Testing**: munit, munit-cats-effect, scalacheck
 - **Builds**: SBT
 
-**sbt**
+### Testing Principles
+
+- Tests should verify expected behaviour, treating implementation as a black box
+- Test through the public API exclusively - internals should be invisible to tests
+- **Coverage targets**: 100% coverage should be expected at all times, but these tests must ALWAYS be based on business behaviour, not implementation details
+- Tests must document expected business behaviour
+
+### Scala Guidelines
+
+- **No `Any`** - ever
+- **No null** - ever
+- **No type assertions** (`asInstanceOf`) unless absolutely necessary with clear justification
+- These rules apply to test code as well as production code
+
+#### sbt
 
 Include the following command alias:
 
@@ -81,20 +96,6 @@ addSbtPlugin("org.typelevel" % "sbt-tpolecat" % "0.5.2")
 addDependencyTreePlugin
 ```
 
-### Testing Principles
-
-- Tests should verify expected behaviour, treating implementation as a black box
-- Test through the public API exclusively - internals should be invisible to tests
-- **Coverage targets**: 100% coverage should be expected at all times, but these tests must ALWAYS be based on business behaviour, not implementation details
-- Tests must document expected business behaviour
-
-### Scala Guidelines
-
-- **No `Any`** - ever
-- **No null** - ever
-- **No type assertions** (`asInstanceOf`) unless absolutely necessary with clear justification
-- These rules apply to test code as well as production code
-
 ### Code Style
 
 #### Code Structure
@@ -111,13 +112,15 @@ Code should be self-documenting through clear naming and structure. Comments ind
 
 #### Documentation
 
-Write important details about the feature being implemented to a feature document in the project like this:
+It is important to write important details about the feature being implemented to a feature document in the project like this:
 
 project/
   features/
     00001 - feature title.md
 
 It should include a summary of the new feature and any important points raised during implementation.
+
+It is important to keep the project README up to date.
 
 #### TDD Process - THE FUNDAMENTAL PRACTICE
 
