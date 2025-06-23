@@ -73,6 +73,16 @@ Code should be self-documenting through clear naming and structure. Comments ind
 
 ## Development Workflow
 
+### Documentation
+
+Write important details about the feature being implemented to a feature document in the project like this:
+
+project/
+  features/
+    00001 - feature title.md
+
+It should include a summary of the new feature and any important points raised during implementation.
+
 ### TDD Process - THE FUNDAMENTAL PRACTICE
 
 **CRITICAL**: TDD is not optional. Every feature, every bug fix, every change MUST follow this process:
