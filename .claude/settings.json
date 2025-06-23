@@ -16,7 +16,8 @@
       "mcp__filesystem__read_multiple_files",
       "mcp__memory__create_entities",
       "mcp__memory__create_relations",
-      "mcp__memory__search_nodes"
+      "mcp__memory__search_nodes",
+      "mcp__memory__read_graph"
     ],
     "deny": []
   }
