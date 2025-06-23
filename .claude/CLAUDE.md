@@ -45,6 +45,8 @@ Follow Test-Driven Development (TDD) and functional programming principles. All 
 **Key Principles:**
 
 - Write tests first (TDD)
+- Commit after writing the test and before implementing the code to make it pass
+- Commit after writing the implementation and the test passes
 - Test behaviour, not implementation
 - No `Any` types, type assertions or null
 - Immutable data only
