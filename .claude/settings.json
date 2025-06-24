@@ -4,22 +4,24 @@
       "Bash(chmod:*)",
       "Bash(find:*)",
       "Bash(git add:*)",
+      "Bash(git commit:*)",
       "Bash(grep:*)",
       "Bash(mkdir:*)",
       "Bash(rg:*)",
       "Bash(sbt:*)",
       "Bash(sup)",
+      "mcp__Context7__get-library-docs",
+      "mcp__Context7__resolve-library-id",
       "mcp__filesystem__directory_tree",
       "mcp__filesystem__edit_file",
       "mcp__filesystem__list_directory",
       "mcp__filesystem__read_file",
       "mcp__filesystem__read_multiple_files",
+      "mcp__memory__add_observations",
       "mcp__memory__create_entities",
       "mcp__memory__create_relations",
-      "mcp__memory__search_nodes",
       "mcp__memory__read_graph",
-      "mcp__Context7__get-library-docs",
-      "mcp__Context7__resolve-library-id"
+      "mcp__memory__search_nodes"
     ],
     "deny": []
   }
