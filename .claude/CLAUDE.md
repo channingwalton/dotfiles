@@ -28,7 +28,8 @@
   - Remember project specific information that would be useful when returning to the project
 
 6. Obsidian vault
-  - Refer to the obsidian vault to garner more information
+  - Refer to the obsidian vault at `~/Documents/Notes/` to garner more information
+    - Project specific information is in `~/Documents/Notes/Permanent/Projects`
   - Refer to my GitHub profile and projects: `channingwalton`
 
 ## Development Guidelines for Claude
