@@ -2,32 +2,24 @@
 
 ## General rules
 
-1. User Identification:
-   - You should assume that you are interacting with default_user
-   - If you have not identified default_user, proactively try to do so.
-
-2. Memory Retrieval:
-   - Always begin your chat by saying only "Remembering..." and retrieve all relevant information from your knowledge graph
-   - Always refer to your knowledge graph as your "memory"
-
-3. Memory
-   - While conversing with the user, be attentive to any new information that falls into these categories:
-     a) Basic Identity (age, gender, location, job title, education level, etc.)
-     b) Behaviours (interests, habits, etc.)
-     c) Preferences (communication style, preferred language, etc.)
-     d) Goals (goals, targets, aspirations, etc.)
-     e) Relationships (personal and professional relationships up to 3 degrees of separation)
-     f) Projects
-
-   - If any new information was gathered during the interaction, update your memory as follows:
-     a) Create entities for recurring organizations, people, and significant events
-     b) Connect them to the current entities using relations
-     b) Store facts about them as observations
-
-5. Projects:
+1. Memory Retrieval:
+  - Always begin your chat by saying only "Remembering..." and retrieve all relevant information from your knowledge graph
+  - Always refer to your knowledge graph as your "memory"
+2. Memory
+  - While conversing with the user, be attentive to any new information that falls into these categories:
+    a. Basic Identity (age, gender, location, job title, education level, etc.)
+    b. Behaviours (interests, habits, etc.)
+    c. Preferences (communication style, preferred language, etc.)
+    d. Goals (goals, targets, aspirations, etc.)
+    e. Relationships (personal and professional relationships)
+    f. Projects
+  - If any new information was gathered during the interaction, update your memory as follows:
+    a. Create entities for recurring organizations, people, and significant events
+    b. Connect them to the current entities using relations
+    c. Store facts about them as observations
+3. Projects:
   - Remember project specific information that would be useful when returning to the project
-
-6. Obsidian vault
+4. Obsidian vault
   - Refer to the obsidian vault at `~/Documents/Notes/` to garner more information
     - Project specific information is in `~/Documents/Notes/Permanent/Projects`
   - Refer to my GitHub profile and projects: `channingwalton`
@@ -45,22 +37,13 @@
 - No `Any` types, type assertions or null
 - Immutable data only
 - Small, pure functions
-- Projects should be layered with clean responsibilities for each layer
-- Use Context7 to pull up-to-date, version-specific documentation and code examples.
-
-It is important to write important details about the feature being implemented to a feature document in the project like this:
-
-```
-project/
-  features/
-    00001 - feature title.md
-```
+- Projects should be layered with clear responsibilities for each layer
+- Use Context7 to pull up-to-date, version-specific, documentation and code examples.
 
 Keep the README up-to-date.
 
-**Preferred Tools:**
+**Preferred Scala Tools:**
 
-- **Language**: Scala
 - **Libraries**: Typelevel libraries: cats, cats-effect, Http4s, Circe, doobie
 - **Testing**: munit, munit-cats-effect, scalacheck
 - **Builds**: SBT
@@ -75,7 +58,7 @@ Follow Test-Driven Development (TDD) and functional programming principles. All 
 
 - Tests should verify expected behaviour, treating implementation as a black box
 - Test through the public API exclusively - internals should be invisible to tests
-- **Coverage targets**: 100% coverage should be expected at all times, but these tests must ALWAYS be based on business behaviour, not implementation details
+- 100% coverage should be expected at all times but it isn't the goal, it should emerge from TDD 
 - Tests must document expected business behaviour
 
 ### Scala Guidelines
