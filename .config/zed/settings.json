@@ -1,11 +1,25 @@
 {
+  "context_servers": {
+    "github-activity-summarizer": {
+      "source": "extension",
+      "enabled": true,
+      "settings": {}
+    },
+    "mcp-server-context7": {
+      "source": "extension",
+      "enabled": true,
+      "settings": {
+        "default_minimum_tokens": "10000"
+      }
+    }
+  },
   "icon_theme": "Colored Zed Icons Theme Light",
   "agent": {
     "always_allow_tool_actions": true,
     "model_parameters": [],
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-sonnet-4"
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-latest"
     },
     "version": "2"
   },
