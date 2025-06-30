@@ -86,6 +86,14 @@ addSbtPlugin("org.typelevel" % "sbt-tpolecat" % "x.y.z")
 addDependencyTreePlugin
 ```
 
+### Compilation
+
+If the project has a `.bloop` directory then use the bloop command to compile quickly when working through problems.
+- modules are compiled with `bloop compile <module-name>`
+- modules are tested with `bloop test <module-name>`
+- the module name is `root` if the code isn't in a module and is under a `src` directory in the root of the project
+- bloop documenta are [here](https://scalacenter.github.io/bloop/docs/cli/tutorial)
+
 ### Code Style
 
 #### Code Structure
