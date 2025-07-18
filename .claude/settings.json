@@ -25,7 +25,7 @@
       "mcp__memory__create_relations",
       "mcp__memory__read_graph",
       "mcp__memory__search_nodes",
-      "mcp__sequential-thinking__sequentialthinking",
+      "mcp__sequential-thinking__sequentialthinking"
     ],
     "deny": []
   }

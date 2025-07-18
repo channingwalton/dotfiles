@@ -20,13 +20,11 @@
     "default_model": {
       "provider": "anthropic",
       "model": "claude-sonnet-4-latest"
-    },
-    "version": "2"
+    }
   },
   "active_pane_modifiers": {
     "border_size": 1,
-    "inactive_opacity": 1,
-    "magnification": 1.0
+    "inactive_opacity": 1
   },
   "auto_install_extensions": {
     "docker-compose": true,
@@ -169,8 +167,6 @@
   },
   "ui_font_size": 15,
   "vim": {
-    "relative_line_numbers": true,
-    "use_multiline_find": true,
     "use_system_clipboard": "always"
   },
   "vim_mode": true
