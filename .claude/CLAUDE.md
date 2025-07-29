@@ -17,24 +17,22 @@
      - Create entities for recurring organizations, people, significant events, projects
      - Connect them to the current entities using relations
      - Store facts about them as observations
-
-2. Projects:
    - Remember project specific information that would be useful when returning to the project
 
-3. Obsidian vault
+2. Obsidian vault
    - Refer to the obsidian vault at `~/Documents/Notes/` to garner more information
      - Project specific information is in `~/Documents/Notes/Permanent/Projects`
    - Refer to my GitHub profile and projects at: `https://github.com/channingwalton`
 
 ## Development Guidelines for Claude
 
+- Do not write comments
 - Use Context7 to pull up-to-date, version-specific, documentation and code examples.
 - Small incremental changes
   - Write tests first (TDD)
   - Commit after writing the test and before implementing the code to make it pass
   - Commit after writing the implementation and the test passes
 
-- Test behaviour, not implementation
 - Functional programming principles
   - No `Any` types, type assertions or null
   - Immutable data only
@@ -46,7 +44,7 @@
 **Preferred Scala Tools:**
 
 - **Libraries**: [Typelevel](https://typelevel.org/) libraries: [cats](https://github.com/typelevel/cats), [cats-effect](https://github.com/typelevel/cats-effect/), [FS2](https://github.com/typelevel/fs2), [HTTP4S](https://github.com/http4s/http4s), [Circe](https://github.com/circe/circe), [Doobie](https://github.com/typelevel/doobie)
-- **Testing**: [munit](https://github.com/scalameta/munit), [munit-cats-effect](https://github.com/typelevel/munit-cats-effect), [Scalacheck](https://github.com/typelevel/scalacheck)
+- **Testing**: [munit](https://github.com/scalameta/munit), [munit-cats-effect](https://github.com/typelevel/munit-cats-effect), [ScalaCheck](https://github.com/typelevel/scalacheck)
 - **Builds**: [SBT](https://www.scala-sbt.org/)
 
 ### Core Philosophy
@@ -93,7 +91,7 @@ If the project has a `.bloop` directory then use the bloop command to compile qu
 - modules are tested with `bloop test <module-name>`
 - individual tests can be run with `bloop test <module-name> -o "*<filename>*"`
 - the module name is `root` if the code isn't in a module and is under a `src` directory in the root of the project
-- bloop documenta are [here](https://scalacenter.github.io/bloop/docs/cli/tutorial)
+- bloop documents are [here](https://scalacenter.github.io/bloop/docs/cli/tutorial)
 
 ### Code Style
 
@@ -272,7 +270,3 @@ Look for a directory called `example-projects` to base new code on.
 ### Summary
 
 The key is to write clean, testable, functional code that evolves through small, safe increments. Every change should be driven by a test that describes the desired behavior, and the implementation should be the simplest thing that makes that test pass. When in doubt, favor simplicity and readability over cleverness.
-
-### References
-
-- Inspired by [Paul Hammond](https://github.com/citypaul/.dotfiles/blob/main/claude/.claude/CLAUDE.md)

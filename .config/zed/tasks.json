@@ -2,45 +2,34 @@
   {
     "label": "run tests with bloop",
     "command": "~/dotfiles/.config/zed/run-bloop-tests.sh ${ZED_RELATIVE_FILE} ${ZED_SYMBOL}",
-    "cwd": "${workspace_root}",
-    "env": {
-      "PATH": "${env.PATH}"
-    },
     "tags": [
       "scala-test"
     ]
   },
   {
     "label": "run commit check with sbt",
-    "command": "sbt commitCheck",
-    "cwd": "${workspace_root}",
-    "env": {
-      "PATH": "${env.PATH}"
-    }
+    "command": "sbt commitCheck"
   },
   {
     "label": "run scalafixAll with sbt",
-    "command": "sbt scalafixAll",
-    "cwd": "${workspace_root}",
-    "env": {
-      "PATH": "${env.PATH}"
-    }
+    "command": "sbt scalafixAll"
   },
   {
     "label": "tail metals logs",
-    "command": "tail -1000f .metals/metals.log",
-    "cwd": "${workspace_root}",
-    "env": {
-      "PATH": "${env.PATH}"
-    }
+    "command": "tail -1000f .metals/metals.log"
   },
   {
     "label": "metals-ui",
+    "command": "open http://127.0.0.1:5031/",
     "hide": "on_success"
   },
   {
     "label": "metals doctor",
     "command": "open http://127.0.0.1:5031/doctor",
     "hide": "on_success"
+  },
+  {
+    "label": "Lazygit",
+    "command": "lazygit"
   }
 ]
