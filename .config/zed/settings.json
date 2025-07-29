@@ -154,7 +154,9 @@
     "scrollbar": {
       "show": null
     },
-    "shell": "system",
+    "shell": {
+      "program": "/opt/homebrew/bin/zsh"
+    },
     "toolbar": {
       "breadcrumbs": true
     },
