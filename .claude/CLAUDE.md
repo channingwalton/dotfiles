@@ -269,4 +269,5 @@ Look for a directory called `example-projects` to base new code on.
 
 ### Summary
 
-The key is to write clean, testable, functional code that evolves through small, safe increments. Every change should be driven by a test that describes the desired behavior, and the implementation should be the simplest thing that makes that test pass. When in doubt, favor simplicity and readability over cleverness.
+The key is to write clean, testable, functional code that evolves through small, safe increments. Every change should be driven by a test that describes the desired behaviour,
+and the implementation should be the simplest thing that makes that test pass. When in doubt, favour simplicity and readability over cleverness.
