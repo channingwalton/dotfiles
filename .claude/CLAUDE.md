@@ -63,6 +63,12 @@
 - **No type assertions** (`asInstanceOf`) unless absolutely necessary with clear justification
 - These rules apply to test code as well as production code
 
+### GIT Guidelines
+
+- Provide a small summary message
+- Do not include lots of extra details
+- Do not include Co-Authored-By or links to [Claude Code](https://claude.ai/code)
+
 #### sbt
 
 Include the following command alias in `build.sbt`:
@@ -86,7 +92,7 @@ addDependencyTreePlugin
 
 ### Compilation
 
-If the project has a `.bloop` directory then use the bloop command to compile quickly when working through problems.
+Only If the project has a `.bloop` directory then use the bloop command to compile quickly when working through problems.
 - modules are compiled with `bloop compile <module-name>`
 - modules are tested with `bloop test <module-name>`
 - individual tests can be run with `bloop test <module-name> -o "*<filename>*"`
