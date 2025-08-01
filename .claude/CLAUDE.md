@@ -56,6 +56,10 @@
 - 100% coverage should be expected at all times but it isn't the goal, it should emerge from TDD 
 - Tests must document expected business behaviour
 
+### Unison guidelines
+
+- Fetch the instructions and guide from [here](https://github.com/unisoncomputing/unison-llm-support/)
+
 ### Scala Guidelines
 
 - **No `Any`** - ever
