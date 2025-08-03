@@ -10,21 +10,27 @@
      - Behaviours (interests, habits, etc.)
      - Preferences (communication style, preferred language, etc.)
      - Goals (goals, targets, aspirations, etc.)
+     - Organisations, people, significant events, projects
      - Relationships (personal and professional relationships)
-     - Projects
-
-   - If any new information was gathered during the interaction, update your memory as follows:
-     - Create entities for recurring organizations, people, significant events, projects
-     - Connect them to the current entities using relations
-     - Store facts about them as observations
    - Remember project specific information that would be useful when returning to the project
+   - IMPORTANT: If new information contradicts existing information, update the old memory with a reference to the new memory stating the new memory supersedes the old memory.
 
 2. Obsidian vault
-   - Refer to the obsidian vault at `~/Documents/Notes/` to garner more information
-     - Project specific information is in `~/Documents/Notes/Permanent/Projects`
-   - Refer to my GitHub profile and projects at: `https://github.com/channingwalton`
+  - An Obsidian vault is a knowledge management system of interconnected markdown documents
+    - Links to existing documents are maintained using double square brackets without the file extension: eg. [[Linked document]]
+  - My vault is at `~/Documents/Notes/`
+    - Project specific information is in `~/Documents/Notes/Permanent/Projects`
+    - Refer to it to learn about projects you are assisting with
+  - Always consider whether information you add to your memory could be added to my vault
+    - IMPORTANT: Never add to the vault without my permission
+    - Offer to add new information to the vault when working on projects
+    - Ensure that the new document is linked to at least one existing document
 
-## Development Guidelines for Claude
+## Unison guidelines
+
+When working with Unison, fetch the instructions and guide from [here](https://github.com/unisoncomputing/unison-llm-support/)
+
+## Scala Development Guidelines
 
 - Do not write comments
 - Use Context7 to pull up-to-date, version-specific, documentation and code examples.
@@ -33,13 +39,17 @@
   - Commit after writing the test and before implementing the code to make it pass
   - Commit after writing the implementation and the test passes
 
-- Functional programming principles
+- Typed, functional programming principles
   - No `Any` types, type assertions or null
   - Immutable data only
   - Small, pure functions
+  - **No `Any`** - ever
+  - **No null** - ever
+  - **No type assertions** (`asInstanceOf`) unless absolutely necessary with clear justification
 
-- Projects should be layered with clear responsibilities for each layer
-- Keep the README and any documents up-to-date.
+These rules apply to test code as well as production code.
+Projects should be layered with clear responsibilities for each layer.
+Keep the README and any documents up-to-date.
 
 **Preferred Scala Tools:**
 
@@ -56,16 +66,6 @@
 - 100% coverage should be expected at all times but it isn't the goal, it should emerge from TDD 
 - Tests must document expected business behaviour
 
-### Unison guidelines
-
-- Fetch the instructions and guide from [here](https://github.com/unisoncomputing/unison-llm-support/)
-
-### Scala Guidelines
-
-- **No `Any`** - ever
-- **No null** - ever
-- **No type assertions** (`asInstanceOf`) unless absolutely necessary with clear justification
-- These rules apply to test code as well as production code
 
 ### GIT Guidelines
 
