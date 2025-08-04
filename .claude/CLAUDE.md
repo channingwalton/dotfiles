@@ -38,7 +38,7 @@
 
 ### Memory format requirements:
 
-- **Include timestamp:** "YYYY-MM-DD:HH:mm:ss [observation]"
+- **Include a UTC timestamp:** "YYYY-MM-DD:HH:mm:ss [observation]" 
 - **For contradictions:** Add reference stating new info supersedes old
 - **Create entities for:** recurring organisations, people, events, projects
 - **Connect with relations:** Link new entities to existing ones
