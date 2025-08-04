@@ -2,6 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
+      "Bash(bloop :*)",
       "Bash(bloop:*)",
       "Bash(chmod:*)",
       "Bash(find:*)",
@@ -13,7 +14,6 @@
       "Bash(rg:*)",
       "Bash(sbt:*)",
       "Bash(sup)",
-      "Bash(bloop :*)",
       "mcp__Context7__get-library-docs",
       "mcp__Context7__resolve-library-id",
       "mcp__filesystem__directory_tree",
@@ -21,6 +21,8 @@
       "mcp__filesystem__list_directory",
       "mcp__filesystem__read_file",
       "mcp__filesystem__read_multiple_files",
+      "mcp__filesystem__read_text_file",
+      "mcp__filesystem__search_files",
       "mcp__memory__add_observations",
       "mcp__memory__create_entities",
       "mcp__memory__create_relations",
