@@ -48,7 +48,7 @@
 
 ## Obsidian Vault Integration
 
-**Location:** `~/Documents/Notes/` (Projects in `Permanent/Projects`)  
+**Location:** `~/Documents/Notes/` (Projects in `Projects`)  
 **Link format:** `[[Document Name]]` (no file extension)  
 **Purpose:** Knowledge management system of interconnected markdown documents
 
