@@ -1,0 +1,54 @@
+{
+  "selectedAuthType": "gemini-api-key",
+  "mcpServers": {
+    "unison": {
+      "command": "/Users/channing/dev/unison/.stack-work/install/aarch64-osx/ac7b7986978af228249fc99cb50e8fd3042fa2f18b90d29623021075e1eaff40/9.6.5/bin/unison",
+      "args": [
+        "mcp"
+      ]
+    },
+    "browsermcp": {
+      "command": "npx",
+      "args": [
+        "@browsermcp/mcp@latest"
+      ]
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/channing/dev",
+        "/Users/channing/Documents/Notes",
+        "/Users/channing/Documents/Ideaverse Lite 1.5"
+      ]
+    },
+    "fetch": {
+      "command": "uvx",
+      "args": [
+        "mcp-server-fetch"
+      ]
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "Context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    }
+  }
+}
