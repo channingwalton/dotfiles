@@ -26,3 +26,5 @@ log
 .config/pgcli/history
 .claude/local
 .claude/shell-snapshots
+.gemini/tmp
+.gemini/installation_id
