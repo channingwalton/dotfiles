@@ -171,12 +171,12 @@
 
 **Compilation Priority:**
 
-- Use `bloop` commands if `.bloop` directory exists:
+- Only if the project contains a `.bloop` directory, use `bloop` commands:
     - `bloop compile <module-name>`
     - `bloop test <module-name>`
     - `bloop test <module-name> -o "*<filename>*"`
 - Module name is `root` for non-modular projects
-- Only fall back to `sbt` if no bloop available
+- Fall back to `sbt` if no `.bloop` directory exists
 
 **Documentation Sources:**
 
