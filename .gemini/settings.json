@@ -1,8 +1,8 @@
 {
-  "selectedAuthType": "gemini-api-key",
+  "selectedAuthType": "oauth-personal",
   "mcpServers": {
     "unison": {
-      "command": "/Users/channing/dev/unison/.stack-work/install/aarch64-osx/ac7b7986978af228249fc99cb50e8fd3042fa2f18b90d29623021075e1eaff40/9.6.5/bin/unison",
+      "command": "/Users/channing/.local/bin/unison",
       "args": [
         "mcp"
       ]

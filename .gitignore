@@ -28,3 +28,5 @@ log
 .claude/shell-snapshots
 .gemini/tmp
 .gemini/installation_id
+.gemini/oauth_creds.json
+.gemini/google_accounts.json
