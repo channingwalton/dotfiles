@@ -2,6 +2,7 @@
 
 ## CORE PRINCIPLES (Non-Negotiable)
 
+0. I prefer British spelling
 1. **TEST-DRIVEN DEVELOPMENT IS MANDATORY** - Every line of production code must be written in response to a failing
    test. No exceptions.
 2. **MEMORY FIRST**
