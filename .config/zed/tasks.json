@@ -11,6 +11,10 @@
     "command": "sbt commitCheck"
   },
   {
+    "label": "run modified tests with sbt",
+    "command": "~/dotfiles/bin/runModifiedTests.sh ."
+  },
+  {
     "label": "run scalafixAll with sbt",
     "command": "sbt scalafixAll"
   },
