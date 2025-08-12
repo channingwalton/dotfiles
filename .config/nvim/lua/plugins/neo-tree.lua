@@ -14,6 +14,7 @@ return {
       follow_current_file = {
         enabled = true,
         leave_dirs_open = true,
+        group_empty_dirs = true,
       },
     },
   },
