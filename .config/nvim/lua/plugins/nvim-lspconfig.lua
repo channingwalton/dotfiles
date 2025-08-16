@@ -56,10 +56,19 @@ return {
             showImplicitArguments = true,
             showInferredType = true,
             superMethodLensesEnabled = true,
+            startMcpServer = true,
+            mcpClient = "claude",
             excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+            inlayHints = {
+              byNameParameters = { enable = true },
+              hintsInPatternMatch = { enable = true },
+              implicitArguments = { enable = true },
+              implicitConversions = { enable = true },
+              inferredTypes = { enable = true },
+              typeParameters = { enable = true },
+            },
             -- copied from VSCode settings
             serverProperties = {
-              "-Dmetals.enable-best-effort=true",
               "-Xss4m",
               "-XX:+UseStringDeduplication",
               "-XX:+IgnoreUnrecognizedVMOptions",
