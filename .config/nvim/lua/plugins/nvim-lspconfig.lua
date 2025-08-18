@@ -51,22 +51,22 @@ return {
             statusBarProvider = "off",
           },
           settings = {
-            defaultBspToBuildTool = true,
-            useGlobalExecutable = true, -- use the globally installed metals: cs install metals
+            defaultBspToBuildTool = false,
+            mcpClient = "claude",
             showImplicitArguments = true,
             showInferredType = true,
-            superMethodLensesEnabled = true,
             startMcpServer = true,
-            mcpClient = "claude",
+            superMethodLensesEnabled = true,
+            useGlobalExecutable = true, -- use the globally installed metals: cs install metals
             excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
             inlayHints = {
               byNameParameters = { enable = true },
               hintsInPatternMatch = { enable = true },
+              hintsXRayMode = { enable = true },
               implicitArguments = { enable = true },
               implicitConversions = { enable = true },
               inferredTypes = { enable = true },
               typeParameters = { enable = true },
-              hintsXRayMode = { enable = true },
             },
             -- copied from VSCode settings
             serverProperties = {
