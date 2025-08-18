@@ -8,18 +8,23 @@ icons = "unicode"
 
 [language-server.metals.config.metals]
 autoImportBuild = "all"
+defaultBspToBuildTool = true
+mcpClient = true
 showImplicitArguments = true
 showImplicitConversionsAndClasses = true
 showInferredType = true
+startMcpServer = true
 superMethodLensesEnabled = true
-defaultBspToBuildTool = true
+useGlobalExecutable = true
 
 [language-server.metals.config.metals.inlayHints]
-inferredTypes.enable = true
-typeParameters.enable = false
+byNameParameters.enable = true
 hintsInPatternMatch.enable = true
+hintsXRayMode.enble=true
 implicitArguments.enable = false
 implicitConversions.enable = false
+inferredTypes.enable = true
+typeParameters.enable = false
 
 [language-server.ucm]
 command = "nc"               # brew install netcat
