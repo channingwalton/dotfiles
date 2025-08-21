@@ -81,7 +81,6 @@
       "binary": {
         "arguments": [
           "-Dmetals.http=on",
-          "-Dmetals.enable-best-effort=true",
           "-Xss4m",
           "-XX:+UseStringDeduplication",
           "-XX:+IgnoreUnrecognizedVMOptions",
@@ -165,9 +164,9 @@
   "theme": {
     "mode": "dark",
     "light": "macOS Classic Light",
-    "dark": "Tokyo Night"
+    "dark": "Catppuccin Mocha"
   },
-  "ui_font_size": 15,
+  "ui_font_size": 14,
   "vim": {
     "use_system_clipboard": "always"
   },
