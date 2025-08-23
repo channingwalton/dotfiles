@@ -13,6 +13,7 @@
       }
     }
   },
+  "current_line_highlight": "gutter",
   "icon_theme": "Colored Zed Icons Theme Light",
   "agent": {
     "always_allow_tool_actions": true,
@@ -115,6 +116,7 @@
     "indent_size": 10
   },
   "relative_line_numbers": true,
+  "selection_highlight": true,
   "tab_size": 2,
   "tabs": {
     "activate_on_close": "history",
