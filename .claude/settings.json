@@ -32,7 +32,11 @@
       "mcp__memory__create_relations",
       "mcp__memory__read_graph",
       "mcp__memory__search_nodes",
-      "mcp__sequential-thinking__sequentialthinking"
+      "mcp__sequential-thinking__sequentialthinking",
+      "mcp__unison__get-current-project-context",
+      "mcp__unison__search-definitions-by-name",
+      "mcp__unison__view-definitions",
+      "mcp__unison__typecheck-code"
     ],
     "deny": []
   },
