@@ -7,7 +7,6 @@
   "permissions": {
     "allow": [
       "Bash(bloop :*)",
-      "Bash(bloop:*)",
       "Bash(chmod:*)",
       "Bash(find:*)",
       "Bash(git add:*)",
@@ -20,6 +19,7 @@
       "Bash(sup)",
       "mcp__Context7__get-library-docs",
       "mcp__Context7__resolve-library-id",
+      "mcp__fetch__fetch",
       "mcp__filesystem__directory_tree",
       "mcp__filesystem__edit_file",
       "mcp__filesystem__list_directory",
@@ -27,6 +27,7 @@
       "mcp__filesystem__read_multiple_files",
       "mcp__filesystem__read_text_file",
       "mcp__filesystem__search_files",
+      "mcp__filesystem__write_file",
       "mcp__memory__add_observations",
       "mcp__memory__create_entities",
       "mcp__memory__create_relations",
@@ -34,9 +35,10 @@
       "mcp__memory__search_nodes",
       "mcp__sequential-thinking__sequentialthinking",
       "mcp__unison__get-current-project-context",
+      "mcp__unison__list-project-libraries",
       "mcp__unison__search-definitions-by-name",
-      "mcp__unison__view-definitions",
-      "mcp__unison__typecheck-code"
+      "mcp__unison__typecheck-code",
+      "mcp__unison__view-definitions"
     ],
     "deny": []
   },
