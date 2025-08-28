@@ -72,6 +72,11 @@ Use the following modes and announce when switching mode:
 - No extra details
 - No Co-Authored-By or links
 
+## Unison Development
+
+- Ensure you have the unison language-reference in your memory, if not fetch it from https://www.unison-lang.org/docs/#language-reference
+- Type check everything using the unison MCP tool
+
 ## Scala Development
 
 **Philosophy:** Typed functional programming
