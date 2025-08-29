@@ -1,36 +1,36 @@
 [
   {
-    "label": "run test with bloop",
+    "label": "bloop test",
     "command": "~/dotfiles/bin/bloop-test.sh ${ZED_RELATIVE_FILE} ${ZED_SYMBOL}",
     "tags": [
       "scala-test"
     ]
   },
   {
-    "label": "run all tests with bloop",
+    "label": "bloop all tests",
     "command": "~/dotfiles/bin/bloop-test-all.sh",
     "tags": [
       "scala-test"
     ]
   },
   {
-    "label": "run commit check with sbt",
+    "label": "sbt commitCheck",
     "command": "sbt commitCheck"
   },
   {
-    "label": "run modified tests with sbt",
+    "label": "sbt run modified tests",
     "command": "~/dotfiles/bin/runModifiedTests.sh ."
   },
   {
-    "label": "run scalafixAll with sbt",
+    "label": "sbt scalafixAll",
     "command": "sbt scalafixAll"
   },
   {
-    "label": "tail metals logs",
+    "label": "metals logs",
     "command": "tail -1000f .metals/metals.log"
   },
   {
-    "label": "metals-ui",
+    "label": "metals ui",
     "command": "open http://127.0.0.1:5031/",
     "hide": "on_success"
   },
@@ -40,7 +40,7 @@
     "hide": "on_success"
   },
   {
-    "label": "Lazygit",
+    "label": "lazygit",
     "command": "lazygit"
   }
 ]
