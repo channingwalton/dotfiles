@@ -2,7 +2,7 @@
   "selectedAuthType": "oauth-personal",
   "mcpServers": {
     "unison": {
-      "command": "/Users/channing/.local/bin/unison",
+      "command": "/opt/homebrew/bin/ucm",
       "args": [
         "mcp"
       ]
@@ -19,8 +19,7 @@
         "-y",
         "@modelcontextprotocol/server-filesystem",
         "/Users/channing/dev",
-        "/Users/channing/Documents/Notes",
-        "/Users/channing/Documents/Ideaverse Lite 1.5"
+        "/Users/channing/Documents/Notes"
       ]
     },
     "fetch": {
