@@ -12,7 +12,7 @@
   - Obsidian Vault Integration
     - Location `~/Documents/Notes/` (Projects in `~/Documents/Notes/Projects`)  
     - Link format `[[Document Name]]` (no file extension)  
-    - Always consider whether new information is worth adding to the vault
+    - **Always** consider whether new information is worth adding to the vault
 3. Use the Development Workflows described below
 
 ---
