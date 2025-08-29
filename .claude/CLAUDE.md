@@ -5,10 +5,10 @@
 0. I prefer British spelling
 1. TEST-DRIVEN DEVELOPMENT IS MANDATORY
 2. MEMORY FIRST
-  - Retrieve relevant information from the knowledge graph when starting tasks
-  - Update your memory after tasks with relevant information for future use
-    - Include a UTC timestamp in the memory entry "YYYY-MM-DD:HH:mm:ss [observation]" 
-    - For contradictions add a reference to the contradictory memory stating new info supersedes old
+  - **BEFORE starting any task:** Search existing memory for relevant information
+  - **AFTER completing any task:** Add relevant information with UTC timestamp
+    - Format: "YYYY-MM-DD:HH:mm:ss [observation]"
+    - For contradictions: reference contradictory memory, state new info supersedes old
   - Obsidian Vault Integration
     - Location `~/Documents/Notes/` (Projects in `~/Documents/Notes/Projects`)  
     - Link format `[[Document Name]]` (no file extension)  
@@ -39,11 +39,11 @@ Use the following modes and announce when switching mode:
 4. **DO NOT proceed** until confirmed
 
 ### Step 2: Implementation
-
 1. **Red:** Write failing test (NO production code first)
 2. **Green:** Write MINIMUM code to pass test
-3. **Refactor:** Assess and improve if valuable, keep tests green
-4. **Commit:** After each green state
+3. **MANDATORY:** Run tests to verify green state before proceeding
+4. **Commit:** Only after confirmed green state
+5. **Refactor:** Assess and improve if valuable, keep tests green
 
 ---
 
@@ -90,18 +90,23 @@ Use the following modes and announce when switching mode:
 - ✅ **TDD mandatory** - every line driven by failing test
 - ✅ **Small, pure functions** only
 - ✅ **Immutable data structures** only
-- ✅ Use **Context7** for up-to-date documentation
+- ✅ **BEFORE using any library:** Search Context7 for up-to-date documentation
 
 **Compilation Priority:**
 
-- If `.bloop` directory exists in the project
-  - use `bloop` on the command line
+1. **ALWAYS check for `.bloop` directory first** using `ls -la` or similar
+2. **If `.bloop` directory EXISTS:**
+  - Use `bloop` commands exclusively
   - `bloop compile <module-name>`
   - `bloop test <module-name>`
   - `bloop test <module-name> -o "*<filename>*"`
   - Module name is `root` for non-modular projects
-- If `.bloop` does not exist use `sbt`
-- **After completing tasks**: If `build.sbt` contains an alias called `commitCheck` run `sbt commitCheck` otherwise run `sbt test
+3. **If `.bloop` directory does NOT exist:**
+  - Use `sbt` commands
+4. **After completing tasks:**
+  1. **ALWAYS check build.sbt first** using `grep commitCheck build.sbt`
+  2. **If `commitCheck` alias exists:** Run `sbt commitCheck`
+  3. **If `commitCheck` alias does NOT exist:** Run `sbt test`
 
 **Documentation Sources:**
 
