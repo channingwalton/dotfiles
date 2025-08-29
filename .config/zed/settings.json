@@ -95,9 +95,15 @@
         "isHttpEnabled": true
       },
       "settings": {
-        "defaultBspToBuildTool": true,
+        "defaultBspToBuildTool": false,
         "startMcpServer": true,
         "inlayHints": {
+          "implicitArguments": {
+            "enable": false
+          },
+          "implicitConversions": {
+            "enable": false
+          },
           "inferredTypes": {
             "enable": true
           },
@@ -106,9 +112,11 @@
           },
           "hintsInPatternMatch": {
             "enable": true
+          },
+          "hintsXRayMode": {
+            "enable": true
           }
-        },
-        "enableBestEffort": true
+        }
       }
     }
   },
