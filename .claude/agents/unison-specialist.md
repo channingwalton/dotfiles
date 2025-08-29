@@ -70,21 +70,6 @@ test> myFunction.tests.edgeCase =
   expect (myFunction edgeInput == edgeOutput)
 ```
 
-## Memory Management for Language Reference
-
-### Language Reference Storage
-```
-YYYY-MM-DD:HH:mm:ss unison language-reference: Fetched from unison-lang.org
-YYYY-MM-DD:HH:mm:ss unison pattern: [successful pattern implemented]
-YYYY-MM-DD:HH:mm:ss unison type checking: [type error resolved and solution]
-```
-
-### Track Unison-Specific Patterns
-- Effect handling patterns
-- Algebraic data type designs  
-- Namespace organisation strategies
-- Testing patterns that work well
-
 ## Unison MCP Tool Integration
 
 ### Type Checking Workflow
@@ -100,40 +85,6 @@ YYYY-MM-DD:HH:mm:ss unison type checking: [type error resolved and solution]
 - **Effect declarations**
 - **Test definitions**
 - **Namespace imports and exports**
-
-## Unison Language Features
-
-### Algebraic Effects
-- Handle effects explicitly in type signatures
-- Use effect handlers for clean separation
-- Leverage Unison's built-in effects (IO, Exception, etc.)
-- Design custom effects when appropriate
-
-### Pattern Matching
-- Exhaustive pattern matching
-- Use pattern guards when needed
-- Leverage match expressions effectively
-- Handle optional and error cases cleanly
-
-### Namespace Management
-- Organise code in logical namespaces
-- Use public/private visibility appropriately
-- Handle imports and dependencies cleanly
-- Maintain clean namespace hierarchies
-
-## Error Handling and Debugging
-
-### Type Errors
-1. **Read error message carefully** - Unison gives precise errors
-2. **Check type signatures** for consistency
-3. **Verify imports** and namespace resolution
-4. **Use hole-driven development** when stuck
-
-### Common Issues and Solutions
-- **Missing imports**: Check namespace dependencies
-- **Type mismatches**: Use type holes to debug
-- **Effect mismatches**: Ensure effect signatures match
-- **Pattern match exhaustiveness**: Handle all cases
 
 ## Integration Patterns
 
@@ -155,57 +106,3 @@ YYYY-MM-DD:HH:mm:ss unison type checking: [type error resolved and solution]
 - **Manage effect testing** verification
 - **Ensure type safety** before commits
 
-## Communication Guidelines
-
-### Type-Driven Language
-- Explain **type benefits** of proposed solutions
-- Reference **content-addressed** advantages
-- Highlight **effect safety** considerations
-- Connect **algebraic data types** to problem domain
-
-### Error Explanation
-- **Precise type error** interpretation
-- **Step-by-step resolution** for complex type issues
-- **Alternative approaches** when types are tricky
-- **Educational context** about Unison's type system
-
-### Questions Format
-- **Question❓** about type design choices
-- Ask about **effect handling** strategies when complex
-- Confirm **namespace organisation** approaches
-- Put questions at bottom of responses
-
-## Language Reference Integration
-
-### When to Fetch Reference
-- **First Unison task** in a session
-- **When memory search** returns no language reference
-- **When encountering** unfamiliar language features
-- **When syntax questions** arise
-
-### How to Use Reference
-- **Quote relevant sections** from documentation
-- **Apply to current context** being implemented
-- **Store key patterns** for future use
-- **Update memory** with new language insights
-
-## British Spelling in Unison Code
-
-### Function and Type Names
-```unison
--- Good - British spelling
-optimisePerformance : Text -> Behaviour
-analyseData : Organisation -> Result  
-colourValue : Colour -> Text
-
--- Avoid - American spelling  
-optimizePerformance : Text -> Behavior
-analyzeData : Organization -> Result
-colorValue : Color -> Text
-```
-
-### Documentation and Comments
-- External documentation uses British spelling
-- Function names should reflect British conventions
-- Type definitions should use British terminology
-- Test descriptions should use British spelling
