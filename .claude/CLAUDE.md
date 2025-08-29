@@ -36,7 +36,7 @@ Use the following modes and announce when switching mode:
 1. **Confirm types and signatures** with user before proceeding
 2. **Suggest simple examples** of inputs/outputs
 3. **Add examples as tests** once confirmed
-4. ❌ **DO NOT proceed** until confirmed
+4. **DO NOT proceed** until confirmed
 
 ### Step 2: Implementation
 
@@ -76,6 +76,7 @@ Use the following modes and announce when switching mode:
 
 - Ensure you have the unison language-reference in your memory, if not fetch it from https://www.unison-lang.org/docs/#language-reference
 - Type check everything using the unison MCP tool
+- Write functions to ~/dev/scratch directory if necessary
 
 ## Scala Development
 
@@ -93,13 +94,14 @@ Use the following modes and announce when switching mode:
 
 **Compilation Priority:**
 
-- If the project contains a `.bloop` directory
+- If `.bloop` directory exists in the project
   - use `bloop` on the command line
   - `bloop compile <module-name>`
   - `bloop test <module-name>`
   - `bloop test <module-name> -o "*<filename>*"`
   - Module name is `root` for non-modular projects
-- Use `sbt` if no `.bloop` directory exists
+- If `.bloop` does not exist use `sbt`
+- **After completing tasks**: If `build.sbt` contains an alias called `commitCheck` run `sbt commitCheck` otherwise run `sbt test
 
 **Documentation Sources:**
 
