@@ -1,7 +1,14 @@
 [
   {
-    "label": "run tests with bloop",
-    "command": "~/dotfiles/.config/zed/run-bloop-tests.sh ${ZED_RELATIVE_FILE} ${ZED_SYMBOL}",
+    "label": "run test with bloop",
+    "command": "~/dotfiles/bin/bloop-test.sh ${ZED_RELATIVE_FILE} ${ZED_SYMBOL}",
+    "tags": [
+      "scala-test"
+    ]
+  },
+  {
+    "label": "run all tests with bloop",
+    "command": "~/dotfiles/bin/bloop-test-all.sh",
     "tags": [
       "scala-test"
     ]
