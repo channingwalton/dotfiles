@@ -73,10 +73,9 @@ Use the following modes and announce when switching mode:
 - No Co-Authored-By or links
 
 ## Unison Development
-
-- Ensure you have the unison language-reference in your memory, if not fetch it from https://www.unison-lang.org/docs/#language-reference
-- Type check everything using the unison MCP tool
-- Write functions to ~/dev/scratch directory if necessary
+1. **ALWAYS check memory first** for unison language-reference
+2. **If NOT found:** Fetch from https://www.unison-lang.org/docs/#language-reference
+3. **ALWAYS** Type check everything using the unison MCP tool
 
 ## Scala Development
 
