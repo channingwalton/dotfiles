@@ -94,29 +94,21 @@ Use the following modes and announce when switching mode:
 **Compilation Priority:**
 
 1. **ALWAYS check for `.bloop` directory first** using `ls -la` or similar
-2. **If `.bloop` directory EXISTS:**
-  - Use `bloop` commands exclusively
-  - `bloop compile <module-name>`
-  - `bloop test <module-name>`
-  - `bloop test <module-name> -o "*<filename>*"`
-  - Module name is `root` for non-modular projects
-3. **If `.bloop` directory does NOT exist:**
-  - Use `sbt` commands
-4. **After completing tasks:**
-  1. **ALWAYS check build.sbt first** using `grep commitCheck build.sbt`
-  2. **If `commitCheck` alias exists:** Run `sbt commitCheck`
-  3. **If `commitCheck` alias does NOT exist:** Run `sbt test`
-
-**Documentation Sources:**
-
-- [Typelevel.org](https://typelevel.org/)
-- [Scala Documentation](https://docs.scala-lang.org/)
-- Context7 MCP tool
+  1. **If `.bloop` directory EXISTS:**
+    - **ALWAYS** use `bloop` commands
+    - `bloop compile <module-name>`
+    - `bloop test <module-name>`
+    - `bloop test <module-name> -o "*<filename>*"`
+    - Module name is `root` for non-modular projects
+  2. **If `.bloop` directory DOES NOT exist:**
+    - Use `sbt` commands
+2. **ALWAYS** run `sbt commitCheck` after completing tasks that modify the code.
 
 ## Communication Guidelines
 
-- **Explain reasoning** behind significant design decisions
-- **Flag deviations** from guidelines with justification
-- **Ask for clarification** rather than assuming
-- **Questions format: ** Bold **Question❓** at bottom of output
+- **ALWAYS Explain reasoning** behind significant design decisions
+- **ALWAYS explain deviations** from guidelines with justification
+- **ALWAYS ask for clarification** rather than assuming
+- Questions format: Bold **Question❓**
+- **ALWAYS** put questions at the bottom of output so I can see them
 
