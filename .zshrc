@@ -85,8 +85,9 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 
-# Set up homebrew completions
+# Set up homebrew
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+export HOMEBREW_DOWNLOAD_CONCURRENCY=auto
 
 alias bu="updates; omz update"
 alias cp='cp -i'
