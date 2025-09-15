@@ -17,10 +17,13 @@ return {
       function()
         require("fzf-lua").fzf_exec("git diff --name-only --diff-filter=U --relative", {
           prompt = "Conflicts❯ ",
-          actions = require("fzf-lua").defaults.actions.files,
+          actions = {
+            ["default"] = require("fzf-lua").actions.file_edit,
+          },
         })
       end,
       desc = "Conflicts",
     },
   },
 }
+
