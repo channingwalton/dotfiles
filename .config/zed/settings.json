@@ -174,7 +174,7 @@
   "theme": {
     "mode": "dark",
     "light": "macOS Classic Light",
-    "dark": "Catppuccin Mocha"
+    "dark": "Tokyo Night"
   },
   "ui_font_size": 14,
   "vim": {
