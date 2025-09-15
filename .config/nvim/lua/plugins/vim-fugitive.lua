@@ -1,4 +1,3 @@
--- stuff
 return {
   "tpope/vim-fugitive",
   keys = {

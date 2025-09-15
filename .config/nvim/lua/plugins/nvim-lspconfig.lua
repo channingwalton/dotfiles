@@ -3,7 +3,6 @@
 vim.lsp.set_log_level(vim.log.levels.ERROR)
 vim.g.autoformat = true
 
-vim.keymap.set("v", "<leader>ma", vim.lsp.buf.code_action)
 
 return {
   -- this is based on https://www.lazyvim.org/extras/lang/scala
