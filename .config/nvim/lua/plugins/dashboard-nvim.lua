@@ -3,7 +3,7 @@ return {
   optional = true,
   opts = function(_, opts)
     local projects = {
-      action = "Telescope projects",
+      action = "FzfLua projects",
       desc = " Projects",
       icon = " ",
       key = "p",
