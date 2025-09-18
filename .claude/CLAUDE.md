@@ -9,11 +9,92 @@
   - **AFTER completing any task:** Add relevant information with UTC timestamp
     - Format: "YYYY-MM-DD:HH:mm:ss [observation]"
     - For contradictions: reference contradictory memory, state new info supersedes old
+  - **Memory vs Vault Decision:**
+    - **Memory:** All insights, progress, solutions (comprehensive log)
+    - **Vault:** Only reusable patterns and substantial insights (curated knowledge)
   - Obsidian Vault Integration
     - Location `~/Documents/Notes/` (Projects in `~/Documents/Notes/Projects`)  
     - Link format `[[Document Name]]` (no file extension)  
-    - **Always** consider whether new information is worth adding to the vault
+    - **ALWAYS** update vault when insights have broader applicability
+    - **ALWAYS** maintain cross-links between related content
 3. Use the Development Workflows described below
+
+---
+
+## OBSIDIAN VAULT MAINTENANCE
+
+**Location:** `~/Documents/Notes/` 
+
+### When to Update Vault (Beyond Memory)
+
+**ALWAYS update vault files when:**
+- **New reusable patterns** emerge from problem-solving
+- **Technical insights** that apply beyond current project
+- **Hard-won knowledge** that would be expensive to rediscover
+- **Project architectures** become substantial enough to document
+- **Solutions to complex problems** that others might face
+
+### Update Decision Tree
+
+1. **Is this a general pattern/technique?** → Create/enhance HowTo guide
+2. **Is this project-specific progress?** → Enhance existing project overview
+3. **Is this a new significant project?** → Create new project file
+4. **Is this a bug fix or small task?** → Memory only (don't clutter vault)
+
+### HowTo Guide Strategy
+
+**Create NEW HowTo when:**
+- **No existing guide** covers the technique
+- **Substantially different approach** than existing guides
+- **Cross-cutting concern** that applies to multiple technologies
+
+**ENHANCE existing HowTo when:**
+- **Adding patterns** to established technique
+- **Discovered edge cases** or gotchas
+- **Better examples** or clearer explanations
+
+### Project Overview Strategy
+
+**Enhance existing project when:**
+- **Architecture evolves** significantly
+- **New major components** added
+- **Key technical challenges** solved
+- **Technology stack** changes
+
+**Create new project when:**
+- **Completely different** technology/approach
+- **Substantial independent** effort (>1 week)
+- **Different problem domain** than existing projects
+
+### Cross-Linking Requirements
+
+**MANDATORY for all vault updates:**
+1. **Link to [[HowTo]] index** from new HowTo guides
+2. **Link FROM relevant existing files** to new content
+3. **Link TO relevant existing files** from new content
+4. **Update parent indices** (Projects.md, HowTo.md, etc.)
+5. **Use explicit wikilinks** throughout: `[[Technology]]`, `[[Related Pattern]]`
+
+### Vault Update Process
+
+**During DEEP WORK mode:**
+- **After Step 1:** Consider if insights warrant vault updates
+- **After Step 2:** Update vault with architectural insights and patterns
+
+**During BASIC mode:**
+- **After each task:** Check if reusable patterns emerged
+- **Only update vault** if pattern applies beyond current context
+
+**During problem-solving sessions:**
+- **ALWAYS ask:** "Is this technique reusable?"
+- **ALWAYS ask:** "Would this save time if documented?"
+- **ALWAYS ask:** "Does this enhance existing documentation?"
+
+### Maintenance Schedule
+
+**Weekly:** Review memory for vault-worthy insights
+**Per project completion:** Update relevant project overview
+**When switching contexts:** Consider creating HowTo from recent patterns
 
 ---
 
@@ -111,4 +192,9 @@ Use the following modes and announce when switching mode:
 - **ALWAYS ask for clarification** rather than assuming
 - Questions format: Bold **Question❓**
 - **ALWAYS** put questions at the bottom of output so I can see them
+- **Vault Maintenance Reminders:**
+  - **When switching projects:** "Should I update project overviews with recent insights?"
+  - **After solving complex problems:** "Should this become a HowTo guide?"
+  - **When discovering new patterns:** "Is this worth documenting for future use?"
+  - **During weekly reviews:** "What memory insights should be added to the vault?"
 
