@@ -15,8 +15,9 @@
   - Obsidian Vault Integration
     - Location `~/Documents/Notes/` (Projects in `~/Documents/Notes/Projects`)  
     - Link format `[[Document Name]]` (no file extension)  
-    - **ALWAYS** update vault when insights have broader applicability
+    - **ALWAYS** suggest updating my vault when insights have broader applicability
     - **ALWAYS** maintain cross-links between related content
+    - **ALWAYS** add a link to today's date [[YYYY-mm-DD]]
 3. Use the Development Workflows described below
 
 ---
@@ -36,7 +37,7 @@
 
 ### Update Decision Tree
 
-1. **Is this a general pattern/technique?** → Create/enhance HowTo guide
+1. **Is this a general pattern/technique?** → Create/enhance a HowTo guide
 2. **Is this project-specific progress?** → Enhance existing project overview
 3. **Is this a new significant project?** → Create new project file
 4. **Is this a bug fix or small task?** → Memory only (don't clutter vault)
@@ -47,6 +48,7 @@
 - **No existing guide** covers the technique
 - **Substantially different approach** than existing guides
 - **Cross-cutting concern** that applies to multiple technologies
+- Add links to relevant guides or documents in the vault
 
 **ENHANCE existing HowTo when:**
 - **Adding patterns** to established technique
@@ -94,7 +96,7 @@
 
 **Weekly:** Review memory for vault-worthy insights
 **Per project completion:** Update relevant project overview
-**When switching contexts:** Consider creating HowTo from recent patterns
+**When switching contexts:** Consider creating a HowTo from recent patterns
 
 ---
 
