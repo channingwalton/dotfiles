@@ -1,26 +1,13 @@
 return {
-  "nvim-treesitter/nvim-treesitter",
-  build = ":TSUpdate",
-  event = { "BufReadPre", "BufNewFile" },
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-  },
-  config = function()
-    local treesitter = require("nvim-treesitter.configs")
-
-    -- configure treesitter
-    treesitter.setup({ -- enable syntax highlighting
-      highlight = {
-        enable = true,
-      },
-      -- enable indentation
-      indent = { enable = true },
-      -- ensure these language parsers are installed
-      ensure_installed = {
+  -- Extend LazyVim's default nvim-treesitter configuration
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      -- Extend the default ensure_installed list
+      vim.list_extend(opts.ensure_installed, {
         "bash",
         "c",
-        "css",
-        "diff",
+        "css", 
         "dockerfile",
         "gitignore",
         "graphql",
@@ -47,8 +34,16 @@ return {
         "vim",
         "vimdoc",
         "yaml",
-      },
-      incremental_selection = {
+      })
+
+      -- Override/extend other options
+      opts.highlight = opts.highlight or {}
+      opts.highlight.enable = true
+      
+      opts.indent = opts.indent or {}
+      opts.indent.enable = true
+      
+      opts.incremental_selection = {
         enable = true,
         keymaps = {
           init_selection = "<M-up>",
@@ -56,7 +51,7 @@ return {
           scope_incremental = false,
           node_decremental = "<M-down>",
         },
-      },
-    })
-  end,
+      }
+    end,
+  },
 }
