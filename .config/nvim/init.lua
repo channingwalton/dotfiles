@@ -2,12 +2,6 @@
 require("config.lazy")
 vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 6
-vim.opt.foldnestmax = 6
-
 vim.o.timeoutlen = 50
 
 if vim.g.neovide then
