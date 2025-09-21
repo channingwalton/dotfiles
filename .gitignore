@@ -31,3 +31,4 @@ log
 .gemini/oauth_creds.json
 .gemini/google_accounts.json
 .config/configstore/update-notifier-@google/gemini-cli.json
+.claude/agents
