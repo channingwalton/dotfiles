@@ -19,6 +19,8 @@
     - **ALWAYS** maintain cross-links between related content
     - **ALWAYS** add a link to today's date [[YYYY-mm-DD]]
 3. Use the Development Workflows described below
+4. Use the perplexity MCP tool to find information on the internet
+5. Use the fetch tool to get information from websites
 
 ---
 
