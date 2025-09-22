@@ -21,6 +21,7 @@
 3. Use the Development Workflows described below
 4. Use the perplexity MCP tool to find information on the internet
 5. Use the fetch tool to get information from websites
+6. **ALWAYS** show which agent you're using
 
 ---
 
@@ -30,7 +31,7 @@
 
 ### When to Update Vault (Beyond Memory)
 
-**ALWAYS update vault files when:**
+**ALWAYS ASK to update vault files when:**
 - **New reusable patterns** emerge from problem-solving
 - **Technical insights** that apply beyond current project
 - **Hard-won knowledge** that would be expensive to rediscover
