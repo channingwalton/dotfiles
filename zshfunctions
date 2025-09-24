@@ -70,3 +70,12 @@ jwt-decode() {
   jq -R 'split(".") |.[0:2] | map(@base64d) | map(fromjson)' <<< $1
 }
 
+swap_files() {
+  if [ $# -ne 2 ]; then
+    echo "Usage: swap_files file1 file2"
+    return 1
+  fi
+  local tmpfile
+  tmpfile="$(dirname "$1")/$1.swap"
+  mv "$1" "$tmpfile" && mv -f "$2" "$1" && mv -f "$tmpfile" "$2"
+}
