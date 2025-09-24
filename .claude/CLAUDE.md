@@ -2,7 +2,7 @@
 
 ## CORE PRINCIPLES (Non-Negotiable)
 
-0. I prefer British spelling
+0. British spelling
 1. TEST-DRIVEN DEVELOPMENT IS MANDATORY
 2. MEMORY FIRST
   - **BEFORE starting any task:** Search existing memory for relevant information
@@ -20,8 +20,8 @@
     - **ALWAYS** add a link to today's date [[YYYY-mm-DD]]
 3. Use the Development Workflows described below
 4. Use the perplexity MCP tool to find information on the internet
-5. Use the fetch tool to get information from websites
-6. **ALWAYS** show which agent you're using
+5. Use the sequential thinking tool for complex tasks
+6. Use the fetch tool to get information from websites
 
 ---
 
