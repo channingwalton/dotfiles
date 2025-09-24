@@ -16,6 +16,7 @@
   "current_line_highlight": "gutter",
   "icon_theme": "Colored Zed Icons Theme Light",
   "agent": {
+    "use_modifier_to_send": true,
     "always_allow_tool_actions": true,
     "model_parameters": [],
     "default_model": {
