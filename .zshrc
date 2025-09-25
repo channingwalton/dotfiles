@@ -148,3 +148,5 @@ eval "$(atuin init zsh)"
 source ~/dotfiles/zshfunctions
 
 alias claude="/Users/channing/.claude/local/claude"
+
+UCM_MERGETOOL='opendiff "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"'
