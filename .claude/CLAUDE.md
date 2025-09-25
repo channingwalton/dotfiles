@@ -7,8 +7,12 @@
 2. MEMORY FIRST
   - **BEFORE starting any task:** Search existing memory for relevant information
   - **AFTER completing any task:** Add relevant information with UTC timestamp
-    - Format: "YYYY-MM-DD:HH:mm:ss [observation]"
-    - For contradictions: reference contradictory memory, state new info supersedes old
+    - Format: "YYYY-MM-DDTHH:mm:ssZ [observation]"
+    - **Timestamp Generation by Environment:**
+      - **Claude Desktop (with analysis tool):** Use `new Date().toISOString()` in JavaScript
+      - **Claude Code (with shell access):** Use `date -u +"%Y-%m-%dT%H:%M:%SZ"`
+      - **Fallback:** EXPLICITLY STATE timestamp may be inaccurate, never create obviously wrong timestamps
+    - For contradictions: reference contradictory memory, state new info supersedes ol
   - **Memory vs Vault Decision:**
     - **Memory:** All insights, progress, solutions (comprehensive log)
     - **Vault:** Only reusable patterns and substantial insights (curated knowledge)
