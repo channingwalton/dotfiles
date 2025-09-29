@@ -6,7 +6,6 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.cursorline = false
-vim.opt.confirm = false
 vim.opt.spell = false
 vim.opt.spelllang = { "en_gb" }
 vim.opt.scrolloff = 10
