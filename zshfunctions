@@ -22,12 +22,17 @@ function y() {
 }
 
 function updates {
+  echo "Brew\n"
   brew update
   brew upgrade
   brew upgrade --cask
   brew cleanup
   brew autoremove
+  echo "Coursier\n"
   coursier update
+  echo "Claude\n"
+  /Users/channing/.claude/local/claude update
+  echo "Repos\n"
   $HOME/dotfiles/bin/backupRepos.sh
 }
 
