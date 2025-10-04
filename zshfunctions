@@ -28,11 +28,11 @@ function updates {
   brew upgrade --cask
   brew cleanup
   brew autoremove
-  echo "Coursier\n"
+  echo "\nCoursier\n"
   coursier update
-  echo "Claude\n"
+  echo "\nClaude\n"
   /Users/channing/.claude/local/claude update
-  echo "Repos\n"
+  echo "\nRepos\n"
   $HOME/dotfiles/bin/backupRepos.sh
 }
 

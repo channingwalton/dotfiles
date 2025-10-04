@@ -32,3 +32,5 @@ log
 .gemini/google_accounts.json
 .config/configstore/update-notifier-@google/gemini-cli.json
 .claude/agents
+.claude/file-history
+.claude/history.jsonl
