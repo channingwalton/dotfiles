@@ -1,4 +1,5 @@
 {
+  "selectedAuthType": "oauth-personal",
   "mcpServers": {
     "unison": {
       "command": "/opt/homebrew/bin/ucm",
@@ -47,11 +48,6 @@
         "-y",
         "@upstash/context7-mcp"
       ]
-    }
-  },
-  "security": {
-    "auth": {
-      "selectedType": "oauth-personal"
     }
   }
 }
