@@ -34,3 +34,4 @@ log
 .claude/agents
 .claude/file-history
 .claude/history.jsonl
+.claude/debug

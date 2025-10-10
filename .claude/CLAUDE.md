@@ -123,10 +123,12 @@ Use the following modes and announce when switching mode:
 
 ### Step 1: Confirm Before Coding
 
+0. **MANDATORY** Test driven development
 1. **Confirm types and signatures** with user before proceeding
 2. **Suggest simple examples** of inputs/outputs
 3. **Add examples as tests** once confirmed
 4. **DO NOT proceed** until confirmed
+5. **ALWAYS** commit changes between tasks
 
 ### Step 2: Implementation
 1. **Red:** Write failing test (NO production code first)
