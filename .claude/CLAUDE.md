@@ -5,27 +5,50 @@
 0. British spelling
 1. TEST-DRIVEN DEVELOPMENT IS MANDATORY
 2. MEMORY FIRST
-  - **BEFORE starting any task:** Search existing memory for relevant information
-  - **AFTER completing any task:** Add relevant information with UTC timestamp
-    - Format: "YYYY-MM-DDTHH:mm:ssZ [observation]"
-    - **Timestamp Generation by Environment:**
-      - **Claude Desktop (with analysis tool):** Use `new Date().toISOString()` in JavaScript
-      - **Claude Code (with shell access):** Use `date -u +"%Y-%m-%dT%H:%M:%SZ"`
-      - **Fallback:** EXPLICITLY STATE timestamp may be inaccurate, never create obviously wrong timestamps
-    - For contradictions: reference contradictory memory, state new info supersedes ol
-  - **Memory vs Vault Decision:**
+  - **BEFORE starting any task:** Search existing memory
+    - **Use single terms:** `foggysky` or `foggysky-authentication` or `postgresql`
+    - **NOT multi-term:** ~~`foggysky database auth`~~ (returns zero)
+    - **Memory matches entity NAMES only**, not observation content
+  
+  - **AFTER completing any task:** Add information with UTC timestamp
+    - **Format:** `YYYY-MM-DDTHH:mm:ssZ [observation]`
+    - **Timestamp by environment:**
+      - Claude Desktop: `new Date().toISOString()` in analysis tool
+      - Claude Code: `date -u +"%Y-%m-%dT%H:%M:%SZ"`
+      - Fallback: State timestamp may be inaccurate
+    - **For contradictions:** Reference old memory, state new info supersedes
+  
+  - **Entity Structure (Fine-Grained):**
+    - ✅ **ONE fact per observation** - never combine multiple facts
+    - ✅ **Atomic entities:** Split by component/feature/concern
+    - ✅ **Naming:** `project-component-feature` (use searchable full words)
+    - ❌ **No code blocks, paragraphs, or documentation dumps**
+    
+    **Entity Decomposition:**
+    ```
+    project-overview          # High-level only
+    project-architecture      # Architectural decisions
+    project-stack-language    # Language choice
+    project-stack-database    # Database tech
+    project-feature-X         # Individual features
+    project-issue-N           # Specific problems
+    project-solution-N        # Specific solutions
+    ```
+    
+    **Use Relations:**
+    - Link entities with `depends-on`, `solves`, `uses`, `implements`
+    - Avoid duplicating information across entities
+  
+  - **Memory vs Vault:**
     - **Memory:** All insights, progress, solutions (comprehensive log)
     - **Vault:** Only reusable patterns and substantial insights (curated knowledge)
-  - Obsidian Vault Integration
-    - Location `~/Documents/Notes/` (Projects in `~/Documents/Notes/Projects`)  
-    - Link format `[[Document Name]]` (no file extension)  
-    - **ALWAYS** suggest updating my vault when insights have broader applicability
-    - **ALWAYS** maintain cross-links between related content
-    - **ALWAYS** add a link to today's date [[YYYY-mm-DD]]
+  
+  - **Obsidian Vault:** `~/Documents/Notes/` - **ALWAYS** suggest vault updates for reusable insights
 3. Use the Development Workflows described below
 4. Use the perplexity MCP tool to find information on the internet
 5. Use the sequential thinking tool for complex tasks
 6. Use the fetch tool to get information from websites
+7. **NEVER** commit code without permission
 
 ---
 
