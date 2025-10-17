@@ -16,7 +16,8 @@
   autocrlf = input
 
 [credential]
-  helper = osxkeychain
+  helper =
+  helper = !gh auth git-credential
 
 [diff]
   tool = difftastic
@@ -44,7 +45,4 @@
 
 [mergetool]
   prompt = false
-
-[credential "https://github.com"]
-  useHttpPath = true
 
