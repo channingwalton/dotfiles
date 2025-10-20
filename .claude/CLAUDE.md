@@ -24,7 +24,18 @@
     - ✅ **Atomic entities:** Split by component/feature/concern
     - ✅ **Naming:** `project-component-feature` (use searchable full words)
     - ❌ **No code blocks, paragraphs, or documentation dumps**
-    
+
+  - Obsidian Vault
+    - interconnected markdown notes
+    - Location: ~/channing/Documents/Notes
+    - Project notes location in the vault in the `Projects` directory
+    - link format: [[OtherNote]]
+    - Consider Add memories to the vault when adding memories
+    - **ALWAYS** ask if I want to add memories to my vault
+    - **When switching projects:** "Should I update project overviews with recent insights?"
+    - **After solving complex problems:** Consider adding a `HowTo` under the `HowTo` directory
+    - **When discovering new patterns:** "Is this worth documenting for future use?"
+
     **Entity Decomposition:**
     ```
     project-overview          # High-level only
@@ -123,9 +134,3 @@ Use the following modes and announce when switching mode:
 - **ALWAYS ask for clarification** rather than assuming
 - Questions format: Bold **Question❓**
 - **ALWAYS** put questions at the bottom of output so I can see them
-- **Vault Maintenance Reminders:**
-  - **When switching projects:** "Should I update project overviews with recent insights?"
-  - **After solving complex problems:** "Should this become a HowTo guide?"
-  - **When discovering new patterns:** "Is this worth documenting for future use?"
-  - **During weekly reviews:** "What memory insights should be added to the vault?"
-
