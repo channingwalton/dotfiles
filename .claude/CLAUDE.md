@@ -4,11 +4,12 @@
 
 0. British spelling
 1. TEST-DRIVEN DEVELOPMENT IS MANDATORY
-2. MEMORY FIRST
+2. MEMORY FIRST (MCP Memory Server)
   - **BEFORE starting any task:** Search existing memory
-    - **Use single terms:** `foggysky` or `foggysky-authentication` or `postgresql`
-    - **NOT multi-term:** ~~`foggysky database auth`~~ (returns zero)
-    - **Memory matches entity NAMES only**, not observation content
+    - **Search matches:** entity names, entity types, AND observation content
+    - **Best practice:** Start with specific terms (`foggysky`, `foggysky-authentication`)
+    - **Multi-term searches work** if terms appear in observations
+    - **Use hyphenated entity names** for precise retrieval
   
   - **AFTER completing any task:** Add information with UTC timestamp
     - **Format:** `YYYY-MM-DDTHH:mm:ssZ [observation]`
@@ -40,10 +41,11 @@
     - Avoid duplicating information across entities
   
 3. Use the Development Workflows described below
-4. Use the perplexity MCP tool to find information on the internet
-5. Use the sequential thinking tool for complex tasks
+4. Use the sequential thinking tool for complex tasks
+5. Use the perplexity MCP tool to find information on the internet
 6. Use the fetch tool to get information from websites
-7. **NEVER** commit code without permission
+7. Use the Context7 tool to get library documentation
+8. **NEVER** commit code without permission
 
 ---
 
