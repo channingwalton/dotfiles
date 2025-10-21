@@ -110,3 +110,5 @@ AppView
 ATProto
 SQLite
 FTS5
+rg
+ripgrep
