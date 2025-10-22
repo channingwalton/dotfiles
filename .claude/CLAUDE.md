@@ -48,35 +48,6 @@ Use the following modes and announce when switching mode:
 
 ---
 
-## Implement Workflow
-
-### Step 1: Confirm Before Coding
-
-0. **MANDATORY** Test driven development
-1. **Confirm types and signatures** with user before proceeding
-2. **Suggest simple examples** of inputs/outputs
-3. **Add examples as tests** once confirmed
-4. **DO NOT proceed** until confirmed
-5. **ALWAYS** commit changes between tasks
-
-### Step 2: Implementation
-1. **Red:** Write failing test (NO production code first)
-2. **Green:** Write MINIMUM code to pass test
-3. **MANDATORY:** Run tests to verify green state before proceeding
-4. **Commit:** Only after confirmed green state
-5. **Refactor:** Assess and improve if valuable, keep tests green
-
-**Philosophy:** Typed functional programming
-- ❌ **No `Any`**
-- ❌ **No `null`**
-- ❌ **No type assertions** (`asInstanceOf`, `isInstanceOf`)
-- ❌ **No comments** in code (self-documenting code only)
-- ✅ **Small, pure functions** only
-- ✅ **Immutable data structures** only
-- ✅ **BEFORE using any library:** Search Context7 for up-to-date documentation
-
----
-
 ## Git Commit Format
 
 - Small summary message only

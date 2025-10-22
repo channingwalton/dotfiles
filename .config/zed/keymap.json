@@ -1,1 +1,19 @@
-[]
+[
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "cmd-s": [
+        "workspace::SendKeystrokes",
+        "escape cmd-s"
+      ]
+    }
+  },
+  {
+    "bindings": {
+      "cmd-k": [
+        "workspace::SendKeystrokes",
+        "cmd-0 shift-x"
+      ]
+    }
+  }
+]
