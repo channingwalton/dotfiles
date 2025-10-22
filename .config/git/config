@@ -16,8 +16,7 @@
   autocrlf = input
 
 [credential]
-  helper =
-  helper = !gh auth git-credential
+  helper = osxkeychain
 
 [diff]
   tool = difftastic
