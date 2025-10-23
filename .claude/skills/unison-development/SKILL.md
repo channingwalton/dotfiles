@@ -5,7 +5,7 @@ A comprehensive skill for writing, testing, and updating Unison code following b
 ## Core Principles
 
 1. **Test-Driven Development is MANDATORY**
-2. **Typecheck everything before adding to scratch.u**
+2. **Typecheck** code. The MCP tool can typecheck source code itself as a string, OR a file path
 3. **Always use fully qualified names in scratch.u**
 4. **NEVER** run UCM commands on the command line
 5. After the UCM has been updated with changes in `*.u` files the
