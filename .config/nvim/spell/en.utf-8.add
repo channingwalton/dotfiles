@@ -114,3 +114,10 @@ rg
 ripgrep
 Grep
 foggyball
+Passwordless
+HttpOnly
+SameSite
+OAuth
+XSS
+CSRF
+SPAs
