@@ -149,4 +149,4 @@ source ~/dotfiles/zshfunctions
 
 alias claude="/Users/channing/.claude/local/claude"
 
-UCM_MERGETOOL='opendiff "$LOCAL" "$REMOTE" -ancestor "$BASE" -merge "$MERGED"'
+UCM_MERGETOOL='"~/Applications/IntelliJ\ IDEA\ Community\ Edition.app/Contents/MacOS/idea" merge "$LOCAL" "$REMOTE" "$BASE" "$MERGED"'
