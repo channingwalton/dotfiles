@@ -7,6 +7,7 @@ A comprehensive skill for writing, testing, and updating Unison code following b
 1. **Test-Driven Development is MANDATORY**
 2. **Typecheck everything before adding to scratch.u**
 3. **Always use fully qualified names in scratch.u**
+4. **NEVER** run ucm commands on the command line
 
 ## Workflow
 
