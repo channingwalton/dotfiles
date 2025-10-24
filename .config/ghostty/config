@@ -4,7 +4,6 @@ scrollback-limit=100000000
 
 theme = tokyonight
 background = 000000
-#split-divider-color = #E09869
 split-divider-color = #E0AF69
 unfocused-split-opacity=1.0
 window-padding-x = 5

@@ -7,8 +7,9 @@ A comprehensive skill for writing, testing, and updating Unison code following b
 1. **Test-Driven Development is MANDATORY**
 2. **Typecheck** code. The MCP tool can typecheck source code itself as a string, OR a file path
 3. **Always use fully qualified names in scratch.u**
-4. **NEVER** run UCM commands on the command line
-5. After the UCM has been updated with changes in `*.u` files the
+4. **NEVER** create multiple scratch files, its too confusing
+5. **NEVER** run UCM commands on the command line
+6. After the UCM has been updated with changes in `*.u` files the
    contents of those files is redundant, and the user might delete them.
 
 ## Workflow
