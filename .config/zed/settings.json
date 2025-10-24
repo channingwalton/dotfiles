@@ -28,6 +28,14 @@
     "border_size": 1,
     "inactive_opacity": 1
   },
+  "agent_servers": {
+    "Claude Code": {
+      "command": "claude-code",
+      "args": [
+        "acp"
+      ]
+    }
+  },
   "auto_install_extensions": {
     "docker-compose": true,
     "dockerfile": true,
