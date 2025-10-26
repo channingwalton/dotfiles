@@ -1,3 +1,9 @@
+---
+name: Unison Development
+description: Comprehensive skill for writing, testing, and updating Unison code. Use when working with Unison language files (.u extension), UCM operations, or Unison projects. Follows TDD methodology with strict typechecking.
+allowed-tools: Read, Write, Edit, mcp__unison__typecheck-code, mcp__unison__view-definitions, mcp__unison__search-definitions-by-name, mcp__unison__docs, mcp__unison__list-project-definitions, mcp__unison__get-current-project-context, mcp__unison__lib-install, mcp__unison__share-project-search, mcp__unison__share-project-readme, mcp__unison__list-project-libraries, mcp__unison__list-library-definitions, mcp__unison__list-local-projects, mcp__unison__list-project-branches, mcp__unison__search-by-type, mcp__unison__list-definition-dependencies, mcp__unison__list-definition-dependents
+---
+
 # Unison Development Skill
 
 A comprehensive skill for writing, testing, and updating Unison code following best practices.
