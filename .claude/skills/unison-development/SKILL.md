@@ -174,6 +174,20 @@ Stream.filter (cases (_, predId) -> predId === id)
 Ensure function signatures include all required effects:
 ```unison
 myFunction : Type ->{Transaction, Exception, Random} Result
+
+## Handling typecheck errors after updates
+
+UCM will add the following comment to scratch.u and add functions that need fixing:
+
+```
+-- The definitions below no longer typecheck with the changes above.
+-- Please fix the errors and try `update` again.
+```
+
+- **DO NOT** delete functions for `scratch.u` in these phase, it will remove them from the codebase
+- Ask the user to verify your changes by checking the output of the UCM
+```
+```
 ```
 
 ## Checklist
