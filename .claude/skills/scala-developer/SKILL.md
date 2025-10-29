@@ -1,9 +1,29 @@
 ---
 name: Scala development
 description: The skills of a senior scala developer.
+dependencies:
+  - development
+  - test-driven-development
+  - code-reviewer
+  - commit-helper
+related-skills:
+  - unison-development
 ---
 
 # Scala Development
+
+## Dependencies
+
+### Required Skills
+- **development** - Base development workflow and modes
+- **test-driven-development** - Core TDD methodology for implementation
+- **code-reviewer** - Code quality and best practices review
+- **commit-helper** - Generating meaningful commit messages
+
+### Related Skills
+- **unison-development** - Similar language-specific workflow patterns
+
+## Principles
 
 - Use functional programming techniques
 
