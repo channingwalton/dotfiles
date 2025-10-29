@@ -1,9 +1,19 @@
 ---
 name: Generating Commit Messages
 description: Generates clear commit messages from git diffs. Use when writing commit messages or reviewing staged changes.
+dependencies: []
+related-skills:
+  - test-driven-development
 ---
 
 # Generating Commit Messages
+
+## Dependencies
+
+**None** - Standalone skill for commit message generation.
+
+### Related Skills
+- **test-driven-development** - Commits follow TDD cycle (e.g., "add test for X", "implement X")
 
 ## Instructions
 

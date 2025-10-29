@@ -2,31 +2,43 @@
 name: Unison Development
 description: Comprehensive skill for writing, testing, and updating Unison code. Use when working with Unison language files (.u extension), UCM operations, or Unison projects. Follows TDD methodology with strict typechecking.
 allowed-tools: Read, Write, Edit, mcp__unison__typecheck-code, mcp__unison__view-definitions, mcp__unison__search-definitions-by-name, mcp__unison__docs, mcp__unison__list-project-definitions, mcp__unison__get-current-project-context, mcp__unison__lib-install, mcp__unison__share-project-search, mcp__unison__share-project-readme, mcp__unison__list-project-libraries, mcp__unison__list-library-definitions, mcp__unison__list-local-projects, mcp__unison__list-project-branches, mcp__unison__search-by-type, mcp__unison__list-definition-dependencies, mcp__unison__list-definition-dependents
+dependencies:
+  - development
+  - test-driven-development
+  - code-reviewer
+related-skills:
+  - scala-developer
 ---
 
 # Unison Development Skill
 
 A comprehensive skill for writing, testing, and updating Unison code following best practices.
 
+## Dependencies
+
+### Required Skills
+- **development** - Base development workflow and modes (DISCOVERY, LEARN, PLAN, IMPLEMENT)
+- **test-driven-development** - Core TDD methodology with red-green-refactor cycle
+- **code-reviewer** - Code quality verification before finalising changes
+
+### Related Skills
+- **scala-developer** - Similar functional programming and language-specific patterns
+
 ## Core Principles
 
-1. **Test-Driven Development is MANDATORY**
+1. **Test-Driven Development is MANDATORY** using the Test Driven Development skill
 2. **Typecheck** code. The MCP tool can typecheck source code itself as a string, OR a file path
 3. **Always use fully qualified names in scratch.u**
 4. **NEVER** create multiple scratch files, its too confusing
 5. **NEVER** run UCM commands on the command line
-6. After the UCM has been updated with changes in `*.u` files the
+6. After the UCM has been updated with changes in `*.u` files by the user, the
    contents of those files is redundant, and the user might delete them.
 
 ## Workflow
 
-### 1. Research & Understanding
+Use the Development skill enhanced with the following Unison specific features:
 
-**Check Memory First:**
-```
-Search memory for: "unison language-reference"
-If NOT found: Fetch from https://www.unison-lang.org/docs/#language-reference
-```
+### 1. Research & Understanding
 
 **Understand the Codebase:**
 - Use `mcp__unison__view-definitions` to see existing implementations
@@ -36,20 +48,14 @@ If NOT found: Fetch from https://www.unison-lang.org/docs/#language-reference
 
 ### 2. Branch
 
-1. Ask the user to create a feature branch
+1. Ask the user to create a feature branch before beginning work
 
-### 3. Write Tests First (TDD)
+### 3. Use the Test Drive Development Skill
 
-**Before implementing any feature:**
-1. Write a comprehensive test that validates the desired behaviour
-2. Test should cover:
-   - Setup/preconditions
-   - Action/operation
-   - Assertions/verification
-3. Use `test.verify`, `labeled`, and `ensureEqual`
-4. Typecheck the test using `mcp__unison__typecheck-code`
+1. Use `test.verify`, `labeled`, and `ensureEqual`
+2. Typecheck the test using `mcp__unison__typecheck-code`
 
-**Example Test Structure:**
+**Example Test Structure for an IO test:**
 ```unison
 projectName.module.tests.featureTest : '{IO, Exception} [Result]
 projectName.module.tests.featureTest = do
@@ -80,32 +86,9 @@ Use: mcp__unison__typecheck-code with {"text": "code here"}
 - Ensure function signatures match
 - Verify effects are correct ({Transaction}, {Remote}, etc.)
 
-### 5. Implementation
+### 5. Add to scratch.u with Fully Qualified Names
 
-**Understand the data structures:**
-- View the type definitions (e.g., `Tables`, domain models)
-- Understand composite keys (e.g., `(UserId, PredictionId)`)
-- Know which tables/indices need updates
-
-**Common Patterns:**
-- `OrderedTable.tryRead.tx` - Read within transaction
-- `OrderedTable.write.tx` - Write within transaction
-- `OrderedTable.delete.tx` - Delete within transaction
-- `toStream.keys.tx` - Stream all keys in transaction
-- `rangeClosed.prefix.keys.tx` - Range query by prefix
-- `Stream.filter`, `Stream.toList` - Stream operations
-- `List.foreach` - Iterate with side effects
-
-**Effect Handling:**
-- `{Transaction}` - Database transactions
-- `{Remote}` - Remote/distributed operations
-- `{Exception}` - Error handling
-- `{Random}` - Random number generation
-- `{IO}` - I/O operations
-
-### 6. Add to scratch.u with Fully Qualified Names
-
-**CRITICAL: Use fully qualified names**
+**CRITICAL: Use fully qualified names to avoid creating duplicate functions**
 
 ❌ **WRONG:**
 ```unison
@@ -126,7 +109,7 @@ foggyball.store.FoggyBallStore.default.deletePredictionImpl tables id = ...
 
 **Verify you see `~` for modifications!**
 
-### 7. Final Typecheck
+### 6. Final Typecheck
 
 **Before completing:**
 ```
@@ -138,6 +121,24 @@ mcp__unison__typecheck-code with {"filePath": "/path/to/scratch.u"}
 + projectName.module.tests.newTest : '{IO, Exception} [Result]
 ~ projectName.module.existingFunction : Type -> Signature
 ```
+
+### 7. Handling typecheck errors after update
+
+The UCM will add the following comment to scratch.u and add functions that need fixing after changes
+have been added to the codebase:
+
+```
+-- The definitions below no longer typecheck with the changes above.
+-- Please fix the errors and try `update` again.
+```
+
+- Repair the issues
+- **DO NOT** delete functions from `scratch.u` in this phase as they will be removed from the codebase
+- Ask the user to verify your changes by checking the output of the UCM
+
+### 8. Update memory
+
+Update your memory about the change and anything learnt during development
 
 ## Common Pitfalls
 
@@ -174,72 +175,8 @@ Stream.filter (cases (_, predId) -> predId === id)
 Ensure function signatures include all required effects:
 ```unison
 myFunction : Type ->{Transaction, Exception, Random} Result
-
-## Handling typecheck errors after updates
-
-UCM will add the following comment to scratch.u and add functions that need fixing:
-
-```
--- The definitions below no longer typecheck with the changes above.
--- Please fix the errors and try `update` again.
 ```
 
-- **DO NOT** delete functions for `scratch.u` in these phase, it will remove them from the codebase
-- Ask the user to verify your changes by checking the output of the UCM
-```
-```
-```
-
-## Checklist
-
-Before finalising any Unison code:
-
-- [ ] Searched memory for relevant context
-- [ ] Reviewed existing implementations
-- [ ] **Wrote test first** (TDD)
-- [ ] Typechecked test successfully
-- [ ] Implemented solution
-- [ ] Typechecked implementation incrementally
-- [ ] Added to scratch.u with **fully qualified names**
-- [ ] Final typecheck shows `~` for modifications (not `+`)
-- [ ] Test verifies the behaviour
-- [ ] Updated memory with timestamp if needed
-
-## Tools Reference
-
-### Essential MCP Tools
-- `mcp__unison__typecheck-code` - Validate code
-- `mcp__unison__view-definitions` - See existing code
-- `mcp__unison__search-definitions-by-name` - Find functions
-- `mcp__unison__docs` - Read documentation
-- `mcp__unison__list-project-definitions` - Explore project
-- `mcp__unison__get-current-project-context` - Check project/branch
-
-### File Operations
-- Write code to scratch.u: `Write` tool with absolute path
-- Always use: `/full/path/to/project/scratch.u`
-
-## Example Session
-
-1. **Understand requirement:** "Implement cascade deletes"
-2. **Search memory:** Look for existing patterns
-3. **View existing code:** `view-definitions` for current implementation
-4. **Write test first:**
-   - Create comprehensive test
-   - Typecheck: `{"text": "test code"}`
-   - Iterate until clean
-5. **Implement solution:**
-   - Write implementation
-   - Typecheck: `{"text": "implementation code"}`
-   - Iterate until clean
-6. **Add to scratch.u:**
-   - Use fully qualified names
-   - Include both test and implementation
-   - Final typecheck: `{"filePath": "scratch.u"}`
-7. **Verify output:**
-   - Check for `~` (modified) on existing functions
-   - Check for `+` (added) on new tests
-8. **Update memory** with timestamp
 
 ## Success Criteria
 

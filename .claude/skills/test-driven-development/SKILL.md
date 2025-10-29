@@ -2,9 +2,21 @@
 name: Test-Driven Development
 description: Implement features using test-driven development methodology. Use when writing new code, implementing features, fixing bugs, or when the user explicitly requests TDD. Follows red-green-refactor cycle with strict discipline.
 allowed-tools: Read, Write, Edit, Execute, Git
+dependencies: []
+related-skills:
+  - code-reviewer
+  - commit-helper
 ---
 
 # Test-Driven Development
+
+## Dependencies
+
+**None** - Core methodology skill that other skills build upon.
+
+### Related Skills
+- **code-reviewer** - Complements TDD for comprehensive code quality
+- **commit-helper** - Used after each green state for meaningful commits
 
 ## Core Rules (Non-Negotiable)
 
