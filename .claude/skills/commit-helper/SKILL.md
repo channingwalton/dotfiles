@@ -8,12 +8,6 @@ description: Generates clear commit messages from git diffs. Use when writing co
 ## Instructions
 
 1. Run `git diff --staged` to see changes
-2. I'll suggest a commit message with:
-   - Summary under 50 characters
-   - Detailed description
-   - Affected components
+2. Suggest a commit message with a summary under 50 characters
+3. **DO NOT** add contributors
 
-## Best practices
-
-- Use present tense
-- Explain what and why, not how

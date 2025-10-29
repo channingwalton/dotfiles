@@ -36,44 +36,6 @@
 
 ---
 
-## Development Workflows
-
-Use the following modes and announce when switching mode:
-
-- 🔍 **DISCOVERY** → Searching for libraries with Context7
-- 🧑‍🎓 **LEARN** → Familiarizing with library/codebase before coding
-- 📋 **PLAN** → Steps to implement
-- 🐣 **IMPLEMENT** → Narrow, small, well-defined tasks (≤3 steps)
-- 📝 **DOCUMENTING** → Adding documentation to existing code
-
----
-
-## Git Commit Format
-
-- Small summary message only
-- No extra details
-- No Co-Authored-By or links
-
-## Unison Development
-1. **ALWAYS check memory first** for unison language-reference
-2. **If NOT found:** Fetch from https://www.unison-lang.org/docs/#language-reference
-3. **ALWAYS** Type check everything using the unison MCP tool
-
-## Scala Development
-
-**Compilation Priority:**
-
-1. **ALWAYS check for `.bloop` directory first** using `ls -la` or similar
-  1. **If `.bloop` directory EXISTS:**
-    - **ALWAYS** use `bloop` commands
-    - `bloop compile <module-name>`
-    - `bloop test <module-name>`
-    - `bloop test <module-name> -o "*<filename>*"`
-    - Module name is `root` for non-modular projects
-  2. **If `.bloop` directory DOES NOT exist:**
-    - Use `sbt` commands
-2. **ALWAYS** run `sbt commitCheck` after completing tasks that modify the code.
-
 ## Communication Guidelines
 
 - **ALWAYS Explain reasoning** behind significant design decisions
