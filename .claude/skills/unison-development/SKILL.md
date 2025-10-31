@@ -26,13 +26,14 @@ A comprehensive skill for writing, testing, and updating Unison code following b
 
 ## Core Principles
 
-1. **Test-Driven Development is MANDATORY** using the Test Driven Development skill
+0. Code is not tracked in GIT or external version control systems, it is stored by the Unison Code Manager (ucm)
+1. **Test-Driven Development is MANDATORY** using the Test Driven Development skill but be aware
+  that after updating the ucm with new code, the ucm may go into "Handling typecheck errors after update"
 2. **Typecheck** code. The MCP tool can typecheck source code itself as a string, OR a file path
 3. **Always use fully qualified names in scratch.u**
 4. **NEVER** create multiple scratch files, its too confusing
 5. **NEVER** run UCM commands on the command line
-6. After the UCM has been updated with changes in `*.u` files by the user, the
-   contents of those files is redundant, and the user might delete them.
+6. After the UCM has been updated check for "Handling typecheck errors after update"
 
 ## Workflow
 
