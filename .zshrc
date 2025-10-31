@@ -89,7 +89,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 export HOMEBREW_DOWNLOAD_CONCURRENCY=auto
 
-alias bu="updates; omz update"
 alias cp='cp -i'
 alias kj='killall java'
 alias ls=lsd
@@ -102,8 +101,6 @@ alias vim=nvim
 
 # sbt / mill
 alias sup='sbt ";dependencyUpdates; reload plugins; dependencyUpdates"'
-alias mf='./mill smithy.format'
-alias mp='./mill smithy.publishLocal'
 alias sfmt='sbt scalafmtAll'
 alias cc='sbt commitCheck'
 
@@ -121,7 +118,7 @@ export MY_BIN=/Users/channing/dotfiles/bin
 export PATH=${MY_BIN}:$PATH
 
 export PATH="/Users/channing/Library/Application Support/Coursier/bin:$PATH"
-eval "$(cs java --jvm zulu:25 --env)"
+eval "$(cs java --jvm zulu:21 --env)"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 export PATH="/Applications/OrbStack.app/Contents/MacOS/xbin:$PATH"
