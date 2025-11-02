@@ -6,8 +6,6 @@ dependencies:
   - development
   - test-driven-development
   - code-reviewer
-related-skills:
-  - scala-developer
 ---
 
 # Unison Development Skill
@@ -17,12 +15,8 @@ A comprehensive skill for writing, testing, and updating Unison code following b
 ## Dependencies
 
 ### Required Skills
-- **development** - Base development workflow and modes (DISCOVERY, LEARN, PLAN, IMPLEMENT)
-- **test-driven-development** - Core TDD methodology with red-green-refactor cycle
-- **code-reviewer** - Code quality verification before finalising changes
-
-### Related Skills
-- **scala-developer** - Similar functional programming and language-specific patterns
+- **development** - Base development workflow
+- unison MCP server
 
 ## Core Principles
 
@@ -33,7 +27,8 @@ A comprehensive skill for writing, testing, and updating Unison code following b
 3. **Always use fully qualified names in scratch.u**
 4. **NEVER** create multiple scratch files, its too confusing
 5. **NEVER** run UCM commands on the command line
-6. After the UCM has been updated check for "Handling typecheck errors after update"
+6. After the UCM has been updated check for "Handling typecheck errors after update" in scratch.u
+7. If the ucm is in "Handling typecheck errors after update" mode DO NOT delete functions in `scratch.u`, doing so will remove the functions from the code manager.
 
 ## Workflow
 
@@ -51,7 +46,7 @@ Use the Development skill enhanced with the following Unison specific features:
 
 1. Ask the user to create a feature branch before beginning work
 
-### 3. Use the Test Drive Development Skill
+### 3. Use the Development Skill
 
 1. Use `test.verify`, `labeled`, and `ensureEqual`
 2. Typecheck the test using `mcp__unison__typecheck-code`
