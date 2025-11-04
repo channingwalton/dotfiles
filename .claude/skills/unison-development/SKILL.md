@@ -118,18 +118,19 @@ mcp__unison__typecheck-code with {"filePath": "/path/to/scratch.u"}
 ~ projectName.module.existingFunction : Type -> Signature
 ```
 
-### 7. Handling typecheck errors after update
+### 7. UPDATE MODE: Handling typecheck errors after update
 
-The UCM will add the following comment to scratch.u and add functions that need fixing after changes
-have been added to the codebase:
+
+**CRITICAL**:  After doing an update in the ucm, the icm MAY add the following comment to scratch.u with other functions.
 
 ```
 -- The definitions below no longer typecheck with the changes above.
 -- Please fix the errors and try `update` again.
 ```
 
-- Repair the issues
+If this happens, YOU CANNOT DELETE FUNCTIONS IN `scratch.u`
 - **DO NOT** delete functions from `scratch.u` in this phase as they will be removed from the codebase
+- Repair the broken code, typechecking as you go
 - Ask the user to verify your changes by checking the output of the UCM
 
 ### 8. Update memory
