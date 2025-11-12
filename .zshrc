@@ -144,6 +144,10 @@ eval "$(atuin init zsh)"
 
 source ~/dotfiles/zshfunctions
 
-alias claude="/Users/channing/.claude/local/claude"
-
 UCM_MERGETOOL='"~/Applications/IntelliJ\ IDEA\ Community\ Edition.app/Contents/MacOS/idea" merge "$LOCAL" "$REMOTE" "$BASE" "$MERGED"'
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
