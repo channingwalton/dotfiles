@@ -35,11 +35,11 @@ function updates {
   echo "\nCoursier\n"
   coursier update
 
-  echo "\nClaude\n"
-  /Users/channing/.claude/local/claude update
-
   echo "\nRepos\n"
   $HOME/dotfiles/bin/backupRepos.sh
+
+  echo "\nDotfiles submodules\n"
+  (cd $HOME/dotfiles && git submodule update --init --recursive)
 }
 
 function killDockerServices {
