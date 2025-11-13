@@ -1,0 +1,3 @@
+[submodule ".claude/skills/rails-dev"]
+	path = .claude/skills/rails-dev
+	url = https://github.com/alec-c4/claude-skills-rails-dev.git
