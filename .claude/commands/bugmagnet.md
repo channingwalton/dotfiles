@@ -200,6 +200,7 @@ At the end of each phase, pause and wait for user input or confirmation to proce
     - Calendar vs duration arithmetic, date/time format parsing (multiple formats, ambiguous formats, locale-specific)
     - Timeouts (operation, network, response)
     - Time synchronization (clock differences, drift, skew)
+    - Use of LocalDateTime (no timezone information) when the timezone matters (daylight savings for example)
 
 24. **Test string edge cases** (where applicable):
     - See checklist: **For Functions Taking Strings**, **For Internationalized Text**
@@ -592,6 +593,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Timeouts: operation, network, response timeouts
 - [ ] Time synchronization: clock differences between machines
 - [ ] Clock drift and skew
+- [ ] Dates and times expressed without timezone information used in calculations of duration
 
 ### For Functions Taking Strings
 - [ ] Empty string
