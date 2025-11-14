@@ -43,6 +43,9 @@ related-skills:
   - [ ] Edge cases covered
   - [ ] Tests are maintainable
 
+  ### 6. Bugs
+  - [ ] Use the `bugmagnet` command on modified or new files
+
   ## Output Format
   Provide findings as:
   - 🔴 CRITICAL: Must fix before merge
