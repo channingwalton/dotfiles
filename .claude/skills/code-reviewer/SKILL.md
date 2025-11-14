@@ -11,10 +11,7 @@ related-skills:
 
 ## Dependencies
 
-**None** - Standalone skill for code review.
-
-### Related Skills
-- **test-driven-development** - Reviews should verify TDD principles are followed
+**None** - Stand-alone skill for code review.
 
 ## Review Checklist
 
@@ -33,7 +30,7 @@ related-skills:
   ### 3. Performance
   - [ ] No obvious inefficiencies (N+1, unnecessary loops)
   - [ ] Appropriate data structures
-  - [ ] Resource cleanup (files, connections)
+  - [ ] Resource clean-up (files, connections)
 
   ### 4. Security
   - [ ] Input validation
