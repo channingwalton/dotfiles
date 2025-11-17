@@ -1,6 +1,7 @@
 ---
 name: Development
-description: Implement features using test-driven development methodology. Use when writing new code, implementing features, fixing bugs, or when the user explicitly requests TDD. Follows red-green-refactor cycle with strict discipline.
+description: As an expert software developer, implement features using the test-driven development methodology.
+Use this skill when writing new code, implementing features, fixing bugs, or when the user explicitly requests TDD.
 allowed-tools: Read, Write, Edit, Execute, Git
 dependencies: []
 ---
@@ -98,7 +99,7 @@ Code: return a + b  ✅ Now justified
 5. **DO NOT PROCEED** until all tests green
 6. **Announce:** `✅ All tests passing`
 
-### Step 5: Commit
+### Step 5: Commit with the commit-helper skill
 
 1. Create commit message describing the behaviour
 2. Format: `add [behaviour description] test` or `implement [behaviour]`
