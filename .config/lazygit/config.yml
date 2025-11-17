@@ -1,3 +1,6 @@
+gui:
+  sidePanelWidth: 0.2 # gives you more space to show things side-by-side
 git:
   pagers:
-    - pager: delta --dark --paging=never
+    - colorArg: never
+      pager: ydiff -p cat -s --wrap --width={{columnWidth}}
