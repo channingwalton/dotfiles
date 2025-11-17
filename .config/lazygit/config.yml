@@ -1,3 +1,5 @@
+gui:
+  sidePanelWidth: 0.2
 git:
   pagers:
-    - pager: delta --dark --paging=never
+    - pager: delta --dark --paging=never --side-by-side
