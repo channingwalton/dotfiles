@@ -18,10 +18,11 @@ dependencies: []
 ## Core Rules (Non-Negotiable)
 
 1. **NEVER write production code without a failing test first**
-2. **Write minimum code to pass the test**
-3. **Run tests and verify green state before proceeding**
-4. **Commit only when all tests pass**
-5. **One behaviour per test**
+2. **One behaviour per test**
+3. **Write minimum code to pass the test**
+4. **Run tests and verify green state before proceeding**
+5. **Commit only when all tests pass**
+6. **ALWAYS** keep project documentation up to date
 
 ## The TDD Cycle
 
