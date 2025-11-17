@@ -1,6 +1,8 @@
 # added to make git signing with GPG work. See https://github.com/Homebrew/homebrew-core/issues/14737
 export GPG_TTY=$(tty)
 
+export XDG_CONFIG_HOME="$HOME/.config"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.

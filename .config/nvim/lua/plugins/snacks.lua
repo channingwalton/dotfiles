@@ -4,6 +4,12 @@ return {
     words = {
       enabled = true,
     },
+    image = {
+      enabled = true,
+    },
+    lazygit = {
+      configure = true,
+    },
     dashboard = {
       sections = {
         { section = "header" },
