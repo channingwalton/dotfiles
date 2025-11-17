@@ -1,10 +1,8 @@
 ---
 name: Code Reviewer
-description: Review code for best practices and potential issues. Use when reviewing code, checking PRs, or analyzing code quality.
+description: Review code for best practices and potential issues. Use when reviewing code, checking pull requests, or analyzing code quality.
 allowed-tools: Read, Grep, Glob
 dependencies: []
-related-skills:
-  - test-driven-development
 ---
 
 # Code Reviewer
@@ -39,7 +37,7 @@ related-skills:
   - [ ] SQL injection prevention (if applicable)
 
   ### 5. Test Coverage
-  - [ ] Critical paths tested
+  - [ ] All code must have tests
   - [ ] Edge cases covered
   - [ ] Tests are maintainable
 

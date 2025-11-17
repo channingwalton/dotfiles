@@ -1,6 +1,6 @@
 ---
 name: Scala development
-description: The skills of a senior scala developer.
+description: The skills of a senior scala developer using functional programming techniques.
 dependencies:
   - development
   - test-driven-development

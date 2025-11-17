@@ -1,6 +1,6 @@
 ---
 name: Memory
-description: Use the memory MCP server to record important information.
+description: Remember important information that could be useful in the future with the memory MCP server.
 allowed-tools: Memory
 ---
 
