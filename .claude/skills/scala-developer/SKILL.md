@@ -6,8 +6,6 @@ dependencies:
   - test-driven-development
   - code-reviewer
   - commit-helper
-related-skills:
-  - unison-development
 ---
 
 # Scala Development
