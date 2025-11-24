@@ -104,7 +104,6 @@ alias vim=nvim
 # sbt / mill
 alias sup='sbt ";dependencyUpdates; reload plugins; dependencyUpdates"'
 alias sfmt='sbt scalafmtAll'
-alias cc='sbt commitCheck'
 
 # git
 alias gclean='git clean -fdx'
