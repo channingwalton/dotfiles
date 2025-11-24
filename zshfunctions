@@ -96,6 +96,8 @@ function cc() {
     ./commitCheck.sh
   elif [ -f "build.sbt" ]; then
     sbt commitCheck
+  elif [ -f "gradlew" ]; then
+    ./gradlew clean build
   elif [ "$(basename "$PWD")" = "PatchworkApps" ]; then
     pnpm run-all
   else
