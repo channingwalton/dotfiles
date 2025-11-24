@@ -90,3 +90,15 @@ swap_files() {
   tmpfile="$(dirname "$1")/$1.swap"
   mv "$1" "$tmpfile" && mv -f "$2" "$1" && mv -f "$tmpfile" "$2"
 }
+
+function cc() {
+  if [ -f "commitCheck.sh" ]; then
+    ./commitCheck.sh
+  elif [ -f "build.sbt" ]; then
+    sbt commitCheck
+  elif [ "$(basename "$PWD")" = "PatchworkApps" ]; then
+    pnpm run-all
+  else
+    echo "No commit check found for this directory"
+  fi
+}
