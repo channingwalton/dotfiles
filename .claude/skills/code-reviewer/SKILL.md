@@ -18,6 +18,8 @@ dependencies: []
   - [ ] Appropriate abstraction levels
   - [ ] Clear naming conventions
   - [ ] Logical file/module organisation
+  - [ ] Can code be simplified?
+  - [ ] Check for duplication
 
   ### 2. Error Handling
   - [ ] All error cases handled
