@@ -33,5 +33,10 @@
     "mode": "system",
     "light": "Tokyo Night",
     "dark": "Tokyo Night"
+  },
+  "languages": {
+    "Kotlin": {
+      "language_servers": ["kotlin-lsp"]
+    }
   }
 }
