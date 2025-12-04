@@ -15,6 +15,7 @@ A comprehensive skill for writing, testing, and updating Unison code following b
 ## Dependencies
 
 ### Required Skills
+
 - **development** - Base development workflow
 - unison MCP server
 
@@ -30,6 +31,7 @@ A comprehensive skill for writing, testing, and updating Unison code following b
 7. **NEVER** run UCM commands on the command line
 8. After the UCM has been updated check for "Handling typecheck errors after update" in scratch.u
 9. If the ucm is in "Handling typecheck errors after update" mode DO NOT delete functions in `scratch.u`, doing so will remove the functions from the code manager.
+10. After the user has performed an `update` in the UCM, you can remove code from scratch.u if it is helpful to do so.
 
 ## Workflow
 
@@ -38,6 +40,7 @@ Use the Development skill enhanced with the following Unison specific features:
 ### 1. Research & Understanding
 
 **Understand the Codebase:**
+
 - Use `mcp__unison__view-definitions` to see existing implementations
 - Use `mcp__unison__search-definitions-by-name` to find related functions
 - Use `mcp__unison__docs` to understand library functions
@@ -53,6 +56,7 @@ Use the Development skill enhanced with the following Unison specific features:
 2. Typecheck the test using `mcp__unison__typecheck-code`
 
 **Example Test Structure for an IO test:**
+
 ```unison
 projectName.module.tests.featureTest : '{IO, Exception} [Result]
 projectName.module.tests.featureTest = do
@@ -73,11 +77,13 @@ projectName.module.tests.featureTest = do
 ### 4. Typecheck Incrementally
 
 **Always typecheck before finalising code:**
+
 ```
 Use: mcp__unison__typecheck-code with {"text": "code here"}
 ```
 
 **Iterate until clean:**
+
 - Fix type errors
 - Add missing imports/uses
 - Ensure function signatures match
@@ -88,11 +94,13 @@ Use: mcp__unison__typecheck-code with {"text": "code here"}
 **CRITICAL: Use fully qualified names to avoid creating duplicate functions**
 
 ❌ **WRONG:**
+
 ```unison
 deletePredictionImpl : Tables -> PredictionId -> ...
 ```
 
 ✅ **CORRECT:**
+
 ```unison
 foggyball.store.FoggyBallStore.default.deletePredictionImpl : Tables -> PredictionId -> ...
 foggyball.store.FoggyBallStore.default.deletePredictionImpl tables id = ...
@@ -101,6 +109,7 @@ foggyball.store.FoggyBallStore.default.deletePredictionImpl tables id = ...
 **Why:** Without fully qualified names, Unison treats it as a new function instead of modifying the existing one.
 
 **Typecheck output indicates:**
+
 - `+` (added) - New definition
 - `~` (modified) - Updated existing definition
 
@@ -109,11 +118,13 @@ foggyball.store.FoggyBallStore.default.deletePredictionImpl tables id = ...
 ### 6. Final Typecheck
 
 **Before completing:**
+
 ```
 mcp__unison__typecheck-code with {"filePath": "/path/to/scratch.u"}
 ```
 
 **Expected output:**
+
 ```
 + projectName.module.tests.newTest : '{IO, Exception} [Result]
 ~ projectName.module.existingFunction : Type -> Signature
@@ -121,8 +132,7 @@ mcp__unison__typecheck-code with {"filePath": "/path/to/scratch.u"}
 
 ### 7. UPDATE MODE: Handling typecheck errors after update
 
-
-**CRITICAL**:  After doing an update in the ucm, the icm MAY add the following comment to scratch.u with other functions.
+**CRITICAL**:  After doing an update in the ucm, the ucm MAY add the following comment to scratch.u with other functions.
 
 ```
 -- The definitions below no longer typecheck with the changes above.
@@ -130,6 +140,7 @@ mcp__unison__typecheck-code with {"filePath": "/path/to/scratch.u"}
 ```
 
 If this happens, YOU CANNOT DELETE FUNCTIONS IN `scratch.u`
+
 - **DO NOT** delete functions from `scratch.u` in this phase as they will be removed from the codebase
 - Repair the broken code, typechecking as you go
 - Ask the user to verify your changes by checking the output of the UCM
@@ -141,40 +152,49 @@ Update your memory about the change and anything learnt during development
 ## Common Pitfalls
 
 ### 1. Pipe Operator Syntax
+
 ❌ **WRONG:**
+
 ```unison
 postKeys = rangeClosed.prefix.keys.tx table prefix id id
   |> Stream.toList
 ```
 
 ✅ **CORRECT:**
+
 ```unison
 postKeys = (rangeClosed.prefix.keys.tx table prefix id id |> Stream.toList)
 ```
 
 ### 2. List.foreach Argument Order
+
 ❌ **WRONG:**
+
 ```unison
 List.foreach items (item -> doSomething item)
 ```
 
 ✅ **CORRECT:**
+
 ```unison
 List.foreach (item -> doSomething item) items
 ```
 
 ### 3. Pattern Matching Tuples
+
 ✅ **CORRECT:**
+
 ```unison
 Stream.filter (cases (_, predId) -> predId === id)
 ```
 
 ### 4. Effect Signatures
+
 Ensure function signatures include all required effects:
+
 ```unison
 myFunction : Type ->{Transaction, Exception, Random} Result
 ```
-
 
 ## Success Criteria
 
