@@ -4,13 +4,14 @@
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 GREY='\033[0;90m'
+BLUE='\033[0;94m'
 NC='\033[0m'
 
 gh search prs --author=@me --updated=">=$(date -v-7d +%Y-%m-%d)" --state=open --limit=20 \
   --json repository,title,number,url \
   --jq '.[] | "\(.number)|\(.repository.name)|\(.title)|\(.url)"' | while IFS='|' read -r num repo title url; do
   printf "${GREEN}#%s${NC} %s: %s\n" "$num" "$repo" "$title"
-  printf "                         ${GREY}%s${NC}\n" "$url"
+  printf "                         ${BLUE}%s${NC}\n" "$url"
 done
 
 echo ""
@@ -19,5 +20,5 @@ gh search prs --review-requested=@me --state=open --limit=10 \
   --json repository,title,number,author,url \
   --jq '.[] | "\(.number)|\(.repository.name)|\(.title)|\(.author.login)|\(.url)"' | while IFS='|' read -r num repo title author url; do
   printf "${YELLOW}#%s${NC} %s: %s ${GREY}(%s)${NC}\n" "$num" "$repo" "$title" "$author"
-  printf "                         ${GREY}%s${NC}\n" "$url"
+  printf "                         ${BLUE}%s${NC}\n" "$url"
 done
