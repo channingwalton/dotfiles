@@ -1,0 +1,40 @@
+wtf:
+  colors:
+    border:
+      focusable: darkslateblue
+      focused: orange
+      normal: gray
+  grid:
+    columns: [140]
+    rows: [15, 15]
+  refreshInterval: 1s
+  mods:
+    # Local Git Repos - auto-discovered from ~/dev
+    repos:
+      args: []
+      cmd: "/Users/channing/dotfiles/bin/wtf-repos"
+      enabled: true
+      pty: true
+      position:
+        top: 0
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 30s
+      title: "Local Repos"
+      type: cmdrunner
+
+    # GitHub PRs - my PRs and review requests from last week
+    prs:
+      args: []
+      cmd: "/Users/channing/dotfiles/bin/wtf-prs"
+      enabled: true
+      pty: true
+      position:
+        top: 1
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 5m
+      title: "GitHub PRs"
+      type: cmdrunner

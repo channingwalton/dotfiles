@@ -104,3 +104,8 @@ function cc() {
     echo "No commit check found for this directory"
   fi
 }
+
+function wtf() {
+  export WTF_GITHUB_TOKEN=$(security find-generic-password -s "wtfutil-github" -w)
+  wtfutil
+}
