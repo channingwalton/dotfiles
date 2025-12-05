@@ -6,7 +6,7 @@ wtf:
       normal: gray
   grid:
     columns: [140]
-    rows: [15, 15]
+    rows: [40, 15]
   refreshInterval: 1s
   mods:
     # Local Git Repos - auto-discovered from ~/dev

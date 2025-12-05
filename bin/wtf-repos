@@ -5,7 +5,8 @@ RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[0;33m'
 GREY='\033[0;90m'
-NC='\033[0m' # No Color
+BLUE='\033[0;94m'
+NC='\033[0m'
 
 find ~/dev -maxdepth 3 -name ".git" -type d 2>/dev/null | while read gitdir; do
   repo=$(dirname "$gitdir")
@@ -30,5 +31,5 @@ find ~/dev -maxdepth 3 -name ".git" -type d 2>/dev/null | while read gitdir; do
   [ "$ahead" -gt 0 ] && sync="${YELLOW}↑${ahead}${NC}"
   [ "$behind" -gt 0 ] && sync="${sync}${YELLOW}↓${behind}${NC}"
 
-  printf "%b %-25s ${GREY}%-15s${NC} %b\n" "$state" "$name" "$branch" "$sync"
+  printf "%b %-25s ${GREY}%-15s${NC} %-10b ${BLUE}%s${NC}\n" "$state" "$name" "$branch" "$sync" "file://${repo}"
 done | sort
