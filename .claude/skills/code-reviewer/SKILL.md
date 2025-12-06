@@ -7,13 +7,20 @@ description: Review code for best practices, security, performance, and potentia
 
 Review code using the checklist in `references/checklist.md`.
 
+## Review Scope
+
+- **PR/diff review:** Focus on changed lines plus immediate context
+- **Full file review:** Apply all checklist criteria
+- **Architecture review:** Focus on structure, abstractions, dependencies
+
 ## Instructions
 
-1. Read target files
-2. Search for patterns using Grep/rg
-3. Find related files using Glob
-4. Apply checklist criteria
-5. Run `bugmagnet` on modified or new files
+1. Determine review scope (diff, file, or architecture)
+2. Read target files
+3. Search for patterns using Grep/rg
+4. Find related files using Glob
+5. Apply checklist criteria
+6. Run `bugmagnet` command for test coverage and bug discovery
 
 ## Output Format
 
