@@ -1,25 +1,15 @@
 ---
-name: Ruby development
-description: The skills of a senior Ruby developer using functional programming techniques.
-dependencies:
-  - development
-  - test-driven-development
-  - code-reviewer
-  - commit-helper
+name: Ruby Development
+description: Senior Ruby developer using functional programming techniques. Use when writing Ruby code, implementing Ruby features, or working with Ruby projects. Follows TDD methodology via development skill.
 ---
 
 # Ruby Development
 
-## Dependencies
-
-### Required Skills
-- **development** - Base development workflow and modes
-- **test-driven-development** - Core TDD methodology for implementation
-- **code-reviewer** - Code quality and best practices review
-- **commit-helper** - Generating meaningful commit messages
+Uses `development` skill for TDD workflow.
 
 ## Principles
 
 - Use functional programming techniques
-- DO NOT user early returns, a function should have one return only
-
+- Single return per function (no early returns)
+- Prefer immutable data structures
+- Use `map`, `reduce`, `select` over imperative loops

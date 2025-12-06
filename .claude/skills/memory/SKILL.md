@@ -1,30 +1,33 @@
 ---
 name: Memory
-description: Remember important information that could be useful in the future with the memory MCP server.
-allowed-tools: Memory
+description: Persist and retrieve information using the MCP Memory Server. Use before starting work to search existing knowledge, and after completing tasks to store learnings. Essential for maintaining context across sessions.
 ---
 
-# MEMORY FIRST (MCP Memory Server)
+# Memory (MCP Memory Server)
 
-- **BEFORE starting work:** Search existing memory
-  - **Search matches:** entity names, entity types, AND observation content
-  - **Best practice:** Start with specific terms (`foggysky`, `foggysky-authentication`)
-  - **Multi-term searches work** if terms appear in observations
-  - **Use hyphenated entity names** for precise retrieval
+## Before Starting Work
 
-- **AFTER completing tasks:** Add information with UTC timestamp
-  - **Format:** `YYYY-MM-DDTHH:mm:ssZ [observation]`
-  - **Timestamp by environment:**
-    - Claude Desktop: `new Date().toISOString()` in analysis tool
-    - Claude Code: `date -u +"%Y-%m-%dT%H:%M:%SZ"`
-    - Fallback: State timestamp may be inaccurate
-  - **For contradictions:** Remove the old memory
+Search existing memory first:
+- Search matches entity names, types, AND observation content
+- Start with specific terms (`foggysky`, `foggysky-authentication`)
+- Use hyphenated entity names for precise retrieval
 
-- **Entity Structure (Fine-Grained):**
-  - ✅ **ONE fact per observation** - never combine multiple facts
-  - ✅ **Atomic entities:** Split by component/feature/concern
-  - ✅ **Naming:** `project component feature keywords` (use searchable full words)
-  - ❌ **No code blocks, paragraphs, or documentation dumps**
-- **Use Relations:**
-  - Link entities with `depends-on`, `solves`, `uses`, `implements`
-  - Avoid duplicating information across entities
+## After Completing Tasks
+
+Add information with UTC timestamp:
+- Format: `YYYY-MM-DDTHH:mm:ssZ [observation]`
+- Claude Desktop: `new Date().toISOString()` in analysis tool
+- Claude Code: `date -u +"%Y-%m-%dT%H:%M:%SZ"`
+- For contradictions: remove old memory first
+
+## Entity Structure (Fine-Grained)
+
+✅ ONE fact per observation — never combine multiple facts
+✅ Atomic entities — split by component/feature/concern
+✅ Naming: `project component feature keywords` (searchable full words)
+❌ No code blocks, paragraphs, or documentation dumps
+
+## Relations
+
+Link entities with: `depends-on`, `solves`, `uses`, `implements`
+Avoid duplicating information across entities.
