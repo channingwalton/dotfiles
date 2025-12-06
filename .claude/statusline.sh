@@ -157,14 +157,27 @@ get_max_context() {
   esac
 }
 
-if [ -n "$session_id" ] && [ "$HAS_JQ" -eq 1 ]; then
+if [ "$HAS_JQ" -eq 1 ]; then
   MAX_CONTEXT=$(get_max_context "$model_name")
-  
+
   # Convert current dir to session file path
   project_dir=$(echo "$current_dir" | sed "s|~|$HOME|g" | sed 's|/|-|g' | sed 's|^-||')
-  session_file="$HOME/.claude/projects/-${project_dir}/${session_id}.jsonl"
-  
-  if [ -f "$session_file" ]; then
+  project_session_dir="$HOME/.claude/projects/-${project_dir}"
+
+  # Debug: uncomment to log to /tmp/statusline-debug.log
+  # echo "current_dir=$current_dir project_dir=$project_dir session_id=$session_id" >> /tmp/statusline-debug.log
+
+  # If session_id is available, use it; otherwise find the most recently modified session file
+  if [ -n "$session_id" ]; then
+    session_file="${project_session_dir}/${session_id}.jsonl"
+  fi
+
+  # If session file not found or session_id not provided, find most recent session file
+  if [ ! -f "$session_file" ] && [ -d "$project_session_dir" ]; then
+    session_file=$(ls -t "$project_session_dir"/*.jsonl 2>/dev/null | grep -v 'agent-' | head -1)
+  fi
+
+  if [ -n "$session_file" ] && [ -f "$session_file" ]; then
     # Get the latest input token count from the session file
     latest_tokens=$(tail -20 "$session_file" | jq -r 'select(.message.usage) | .message.usage | ((.input_tokens // 0) + (.cache_read_input_tokens // 0))' 2>/dev/null | tail -1)
     
