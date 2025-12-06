@@ -44,11 +44,9 @@
     "command": "~/.claude/statusline.sh",
     "padding": 0
   },
-  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {},
+  "alwaysThinkingEnabled": false,
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
-  },
-  "enabledPlugins": {
-    "episodic-memory@superpowers-marketplace": true
   }
 }
