@@ -13,6 +13,12 @@ use_color=1
 C() { if [ "$use_color" -eq 1 ]; then printf '\033[%sm' "$1"; fi; }
 RST() { if [ "$use_color" -eq 1 ]; then printf '\033[0m'; fi; }
 
+# ---- check for jq availability ----
+HAS_JQ=0
+if command -v jq >/dev/null 2>&1; then
+  HAS_JQ=1
+fi
+
 # ---- modern sleek colors ----
 dir_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;117m'; fi; }    # sky blue
 model_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;147m'; fi; }  # light purple  
