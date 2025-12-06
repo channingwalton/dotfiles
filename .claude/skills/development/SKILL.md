@@ -17,6 +17,7 @@ description: Implement features using strict test-driven development. Use when w
 ## The TDD Cycle
 
 ```
+📋 TASK   → Create/update task file (vault skill)
 🔴 RED    → Write failing test
 🟢 GREEN  → Write minimum code to pass
 ✅ VERIFY → Run all tests, confirm passing
@@ -25,6 +26,7 @@ description: Implement features using strict test-driven development. Use when w
 ⚠️ FIX    → Address review issues
 🔵 REFACTOR → Improve code (keep tests green)
 💾 COMMIT → Save refactored state
+📝 LOG    → Update task file with decisions/outcomes
 ```
 
 See `references/tdd-workflow.md` for detailed step-by-step instructions.
@@ -64,3 +66,30 @@ Language-specific test syntax provided by language skills (scala-developer, ruby
 ## Common Mistakes
 
 See `references/common-mistakes.md` for anti-patterns to avoid.
+
+## Vault Integration
+
+Use the **vault skill** to track work:
+
+**Before starting:**
+```bash
+# Find project directory
+fd -t d -d 1 -i "<project>" ~/Documents/Notes/Projects
+```
+Create task file: `Projects/<project>/Tasks/<YYYY-MM-DD HHMMSS> <Title>.md`
+
+**During development:**
+Log significant decisions in the task file:
+```markdown
+### <timestamp>
+
+- [decision] Used X approach because Y
+- [gotcha] Watch out for Z
+- [ ] Still need to handle edge case
+```
+
+**After completing:**
+1. Update task frontmatter: `status: done`
+2. Write summary in Outcome section
+3. Create knowledge notes for reusable patterns
+4. Update memory skill with atomic facts
