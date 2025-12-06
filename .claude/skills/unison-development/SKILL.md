@@ -1,206 +1,92 @@
 ---
 name: Unison Development
-description: Comprehensive skill for writing, testing, and updating Unison code. Use when working with Unison language files (.u extension), UCM operations, or Unison projects. Follows TDD methodology with strict typechecking.
-allowed-tools: Read, Write, Edit, mcp__unison__typecheck-code, mcp__unison__view-definitions, mcp__unison__search-definitions-by-name, mcp__unison__docs, mcp__unison__list-project-definitions, mcp__unison__get-current-project-context, mcp__unison__lib-install, mcp__unison__share-project-search, mcp__unison__share-project-readme, mcp__unison__list-project-libraries, mcp__unison__list-library-definitions, mcp__unison__list-local-projects, mcp__unison__list-project-branches, mcp__unison__search-by-type, mcp__unison__list-definition-dependencies, mcp__unison__list-definition-dependents
-dependencies:
-  - development
-  - test-driven-development
-  - code-reviewer
+description: Write, test, and update Unison code using MCP tools. Use when working with Unison language files (.u extension), UCM operations, or Unison projects. Enforces TDD with strict typechecking via development skill.
 ---
 
-# Unison Development Skill
+# Unison Development
 
-A comprehensive skill for writing, testing, and updating Unison code following best practices.
-
-## Dependencies
-
-### Required Skills
-
-- **development** - Base development workflow
-- unison MCP server
+Uses `development` skill for TDD workflow, enhanced with Unison-specific tooling.
 
 ## Core Principles
 
-1. DO NOT EVER RUN ucm COMMANDS. EVER!!!
-2. Code is not tracked in GIT or external version control systems, it is stored by the Unison Code Manager (ucm)
-3. **Test-Driven Development is MANDATORY** using the Test Driven Development skill but be aware
-  that after updating the ucm with new code, the ucm may go into "Handling typecheck errors after update"
-4. **Typecheck** code. The MCP tool can typecheck source code itself as a string, OR a file path
-5. **Always use fully qualified names in scratch.u**
-6. **NEVER** create multiple scratch files, its too confusing
-7. **NEVER** run UCM commands on the command line
-8. After the UCM has been updated check for "Handling typecheck errors after update" in scratch.u
-9. If the ucm is in "Handling typecheck errors after update" mode DO NOT delete functions in `scratch.u`, doing so will remove the functions from the code manager.
-10. After the user has performed an `update` in the UCM, you can remove code from scratch.u if it is helpful to do so.
+1. **NEVER run UCM commands on command line** — use MCP tools only
+2. Code stored by Unison Code Manager, not Git
+3. **TDD is mandatory** — be aware UCM may enter "Handling typecheck errors after update"
+4. Always use fully qualified names in scratch.u
+5. Never create multiple scratch files
 
 ## Workflow
 
-Use the Development skill enhanced with the following Unison specific features:
-
 ### 1. Research & Understanding
 
-**Understand the Codebase:**
-
-- Use `mcp__unison__view-definitions` to see existing implementations
-- Use `mcp__unison__search-definitions-by-name` to find related functions
-- Use `mcp__unison__docs` to understand library functions
-- Use `mcp__unison__list-project-definitions` to explore the project
+- `mcp__unison__view-definitions` — see implementations
+- `mcp__unison__search-definitions-by-name` — find related functions
+- `mcp__unison__docs` — understand library functions
+- `mcp__unison__list-project-definitions` — explore project
 
 ### 2. Branch
 
-1. Ask the user to create a feature branch before beginning work
+Ask user to create feature branch before beginning.
 
-### 3. Use the Development Skill
+### 3. Write Tests First
 
-1. Use `test.verify`, `labeled`, and `ensureEqual`
-2. Typecheck the test using `mcp__unison__typecheck-code`
-
-**Example Test Structure for an IO test:**
+Use `test.verify`, `labeled`, and `ensureEqual`:
 
 ```unison
 projectName.module.tests.featureTest : '{IO, Exception} [Result]
 projectName.module.tests.featureTest = do
   test.verify do
-    labeled "Description of what is being tested" do
+    labeled "Description" do
       use test ensureEqual
-
-      -- Setup
-      testData = createTestData()
-
-      -- Action
       result = performOperation testData
-
-      -- Verification
       ensureEqual result expectedValue
 ```
 
 ### 4. Typecheck Incrementally
 
-**Always typecheck before finalising code:**
-
 ```
-Use: mcp__unison__typecheck-code with {"text": "code here"}
+mcp__unison__typecheck-code with {"text": "code here"}
 ```
 
-**Iterate until clean:**
-
-- Fix type errors
-- Add missing imports/uses
-- Ensure function signatures match
-- Verify effects are correct ({Transaction}, {Remote}, etc.)
+Iterate until clean — fix type errors, add imports, verify effects.
 
 ### 5. Add to scratch.u with Fully Qualified Names
 
-**CRITICAL: Use fully qualified names to avoid creating duplicate functions**
+❌ **WRONG:** `deletePredictionImpl : Tables -> ...`
+✅ **CORRECT:** `foggyball.store.FoggyBallStore.default.deletePredictionImpl : Tables -> ...`
 
-❌ **WRONG:**
+**Why:** Without FQN, Unison creates new function instead of modifying.
 
-```unison
-deletePredictionImpl : Tables -> PredictionId -> ...
-```
-
-✅ **CORRECT:**
-
-```unison
-foggyball.store.FoggyBallStore.default.deletePredictionImpl : Tables -> PredictionId -> ...
-foggyball.store.FoggyBallStore.default.deletePredictionImpl tables id = ...
-```
-
-**Why:** Without fully qualified names, Unison treats it as a new function instead of modifying the existing one.
-
-**Typecheck output indicates:**
-
-- `+` (added) - New definition
-- `~` (modified) - Updated existing definition
+Typecheck output:
+- `+` (added) — new definition
+- `~` (modified) — updated existing
 
 **Verify you see `~` for modifications!**
 
 ### 6. Final Typecheck
 
-**Before completing:**
-
 ```
 mcp__unison__typecheck-code with {"filePath": "/path/to/scratch.u"}
 ```
 
-**Expected output:**
+### 7. UPDATE MODE: Handling Typecheck Errors
 
-```
-+ projectName.module.tests.newTest : '{IO, Exception} [Result]
-~ projectName.module.existingFunction : Type -> Signature
-```
-
-### 7. UPDATE MODE: Handling typecheck errors after update
-
-**CRITICAL**:  After doing an update in the ucm, the ucm MAY add the following comment to scratch.u with other functions.
-
+If UCM adds this comment after update:
 ```
 -- The definitions below no longer typecheck with the changes above.
 -- Please fix the errors and try `update` again.
 ```
 
-If this happens, YOU CANNOT DELETE FUNCTIONS IN `scratch.u`
+**CRITICAL:**
+- **DO NOT** delete functions from scratch.u — they will be removed from codebase
+- Repair broken code, typechecking as you go
+- Ask user to verify via UCM output
+- After successful update, you may remove code from scratch.u
 
-- **DO NOT** delete functions from `scratch.u` in this phase as they will be removed from the codebase
-- Repair the broken code, typechecking as you go
-- Ask the user to verify your changes by checking the output of the UCM
+### 8. Update Memory
 
-### 8. Update memory
-
-Update your memory about the change and anything learnt during development
+Store learnings about the change.
 
 ## Common Pitfalls
 
-### 1. Pipe Operator Syntax
-
-❌ **WRONG:**
-
-```unison
-postKeys = rangeClosed.prefix.keys.tx table prefix id id
-  |> Stream.toList
-```
-
-✅ **CORRECT:**
-
-```unison
-postKeys = (rangeClosed.prefix.keys.tx table prefix id id |> Stream.toList)
-```
-
-### 2. List.foreach Argument Order
-
-❌ **WRONG:**
-
-```unison
-List.foreach items (item -> doSomething item)
-```
-
-✅ **CORRECT:**
-
-```unison
-List.foreach (item -> doSomething item) items
-```
-
-### 3. Pattern Matching Tuples
-
-✅ **CORRECT:**
-
-```unison
-Stream.filter (cases (_, predId) -> predId === id)
-```
-
-### 4. Effect Signatures
-
-Ensure function signatures include all required effects:
-
-```unison
-myFunction : Type ->{Transaction, Exception, Random} Result
-```
-
-## Success Criteria
-
-✅ All code typechecks successfully
-✅ Tests written before implementation
-✅ Fully qualified names in scratch.u
-✅ Modified functions show `~` not `+`
-✅ Comprehensive test coverage
-✅ Memory updated with learnings
+See `references/pitfalls.md` for syntax gotchas.
