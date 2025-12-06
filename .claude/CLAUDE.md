@@ -6,6 +6,7 @@
 - Be as concise as possible
 - Do NOT expand the scope of tasks
 - Use the memory skill before and after tasks
+- Use the vault skill for notes, tasks, and context building
 - Use the sequential thinking tool for complex tasks
 - Use the perplexity MCP tool to find information on the internet
 - Use the fetch tool to get information from websites

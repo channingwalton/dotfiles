@@ -109,3 +109,177 @@ function wtf() {
   export WTF_GITHUB_TOKEN=$(security find-generic-password -s "wtfutil-github" -w)
   wtfutil
 }
+
+# ============================================
+# OBSIDIAN VAULT HELPERS
+# ============================================
+
+NOTES_DIR="$HOME/Documents/Notes"
+
+# Search vault content with context
+function notes-search() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: notes-search <pattern>"
+    return 1
+  fi
+  rg --type md -i -C 2 --color=always "$@" "$NOTES_DIR"
+}
+
+# Search for WikiLinks to a note
+function notes-links() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: notes-links <note-name>"
+    return 1
+  fi
+  rg --type md -i --color=always "\[\[$1" "$NOTES_DIR"
+}
+
+# Search observations by category
+function notes-obs() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: notes-obs <category>"
+    echo "Categories: pattern, technique, gotcha, decision, reference, issue, done, todo, question, insight"
+    return 1
+  fi
+  rg --type md -i --color=always "^\s*-\s*\[$1\]" "$NOTES_DIR"
+}
+
+# List files matching pattern (no content)
+function notes-files() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: notes-files <pattern>"
+    return 1
+  fi
+  rg --type md -l -i "$@" "$NOTES_DIR"
+}
+
+# Find notes by filename
+function notes-find() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: notes-find <name-pattern>"
+    return 1
+  fi
+  fd -e md -i "$@" "$NOTES_DIR"
+}
+
+# Find recent notes (default: last 7 days)
+function notes-recent() {
+  local days="${1:-7}"
+  fd -e md --changed-within "${days}d" "$NOTES_DIR" | head -30
+}
+
+# Find task files for a project
+function notes-tasks() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: notes-tasks <project-pattern>"
+    return 1
+  fi
+  fd -e md . "$NOTES_DIR/Projects/"*"$1"*/Tasks 2>/dev/null
+}
+
+# Build context from a topic
+function notes-context() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: notes-context <topic>"
+    return 1
+  fi
+  local topic="$1"
+  echo "=== Notes containing '$topic' ==="
+  rg --type md -l -i "$topic" "$NOTES_DIR" | head -15
+  echo ""
+  echo "=== WikiLinks to [[$topic]] ==="
+  rg --type md -l "\[\[$topic" "$NOTES_DIR" | head -15
+}
+
+# Extract observations and links from a note
+function notes-extract() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: notes-extract <file-path>"
+    return 1
+  fi
+  echo "=== Observations ==="
+  rg "^\s*-\s*\[" "$1" 2>/dev/null | sed 's/^[[:space:]]*//'
+  echo ""
+  echo "=== WikiLinks ==="
+  rg -o "\[\[[^\]]+\]\]" "$1" 2>/dev/null | sort -u
+}
+
+# List all projects
+function notes-projects-list() {
+  fd -t d -d 1 . "$NOTES_DIR/Projects" | sort | sed "s|$NOTES_DIR/Projects/||"
+}
+
+# List open tasks
+function notes-tasks-open() {
+  rg --type md -l "^status:\s*in-progress" "$NOTES_DIR/Projects/"*/Tasks 2>/dev/null
+}
+
+# Create new task file with template
+function notes-tasks-new() {
+  if [[ -z "$1" || -z "$2" ]]; then
+    echo "Usage: notes-tasks-new <project-pattern> <task-title>"
+    return 1
+  fi
+  local proj_dir=$(fd -t d -d 1 "$1" "$NOTES_DIR/Projects" | head -1)
+  if [[ -z "$proj_dir" ]]; then
+    echo "Project not found: $1"
+    return 1
+  fi
+
+  local tasks_dir="$proj_dir/Tasks"
+  mkdir -p "$tasks_dir"
+
+  local timestamp=$(date +"%Y-%m-%d %H%M%S")
+  local iso_date=$(date -Iseconds)
+  local filename="$tasks_dir/$timestamp $2.md"
+  local proj_name=$(basename "$proj_dir" | sed 's/^[0-9-]* //')
+
+  cat > "$filename" << EOF
+---
+status: in-progress
+priority: normal
+projects:
+  - "[[${proj_name}]]"
+dateCreated: ${iso_date}
+dateModified: ${iso_date}
+tags:
+  - task
+---
+
+# $2
+
+## Goal
+
+<!-- What needs to be accomplished -->
+
+## Context
+
+<!-- Links to relevant notes, files involved -->
+
+## Log
+
+### $(date +"%Y-%m-%d %H:%M")
+
+<!-- What was done, decisions made, problems encountered -->
+
+## Outcome
+
+<!-- Summary when complete -->
+
+## Related
+
+<!-- Links to created notes, follow-up tasks -->
+EOF
+
+  echo "Created: $filename"
+}
+
+# Go to notes directory
+function notes-cd() {
+  cd "$NOTES_DIR"
+}
+
+# Timestamp for log entries
+function notes-now() {
+  echo "### $(date +"%Y-%m-%d %H:%M")"
+}
