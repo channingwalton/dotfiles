@@ -36,13 +36,28 @@ fd -e md -i "<name>" ~/Documents/Notes
 fd -e md --changed-within 7d ~/Documents/Notes
 ```
 
+## Timestamps
+
+Always use real timestamps, never placeholders. Get current time with:
+
+```bash
+# For task filename: YYYY-MM-DD HHMMSS
+date +"%Y-%m-%d %H%M%S"
+
+# For log entry header: YYYY-MM-DD HH:MM
+date +"%Y-%m-%d %H:%M"
+
+# For frontmatter (ISO-8601)
+date -Iseconds
+```
+
 ## Creating Task Files
 
 Use Filesystem MCP to create task files directly:
 
 Path: `~/Documents/Notes/Projects/<YYYY[-MM] Project>/Tasks/<YYYY-MM-DD HHMMSS> <Title>.md`
 
-Template:
+Template (replace timestamps with real values from commands above):
 ```markdown
 ---
 status: in-progress
@@ -81,7 +96,7 @@ tags:
 
 ## During Work
 
-Log decisions in task file at `Projects/<project>/Tasks/`:
+Log decisions in task file at `Projects/<project>/Tasks/`. Use `date +"%Y-%m-%d %H:%M"` for the header:
 
 ```markdown
 ### 2025-12-06 14:30
