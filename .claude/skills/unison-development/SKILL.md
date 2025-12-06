@@ -15,14 +15,26 @@ Uses `development` skill for TDD workflow, enhanced with Unison-specific tooling
 4. Always use fully qualified names in scratch.u
 5. Never create multiple scratch files
 
+## MCP Tools
+
+| Tool | Purpose |
+|------|---------|
+| `mcp__unison__typecheck-code` | Validate code (string or file path) |
+| `mcp__unison__view-definitions` | See implementations |
+| `mcp__unison__search-definitions-by-name` | Find functions |
+| `mcp__unison__search-by-type` | Find by type signature |
+| `mcp__unison__docs` | Library documentation |
+| `mcp__unison__list-project-definitions` | Explore project |
+| `mcp__unison__run-tests` | Execute tests |
+
 ## Workflow
 
 ### 1. Research & Understanding
 
-- `mcp__unison__view-definitions` — see implementations
-- `mcp__unison__search-definitions-by-name` — find related functions
-- `mcp__unison__docs` — understand library functions
-- `mcp__unison__list-project-definitions` — explore project
+Use MCP tools to explore before writing:
+- `view-definitions` for existing implementations
+- `search-definitions-by-name` for related functions
+- `docs` for library functions
 
 ### 2. Branch
 
@@ -57,7 +69,7 @@ Iterate until clean — fix type errors, add imports, verify effects.
 
 **Why:** Without FQN, Unison creates new function instead of modifying.
 
-Typecheck output:
+Typecheck output indicators:
 - `+` (added) — new definition
 - `~` (modified) — updated existing
 
@@ -86,6 +98,15 @@ If UCM adds this comment after update:
 ### 8. Update Memory
 
 Store learnings about the change.
+
+## Success Criteria
+
+✅ All code typechecks successfully
+✅ Tests written before implementation
+✅ Fully qualified names in scratch.u
+✅ Modified functions show `~` not `+`
+✅ Comprehensive test coverage
+✅ Memory updated with learnings
 
 ## Common Pitfalls
 

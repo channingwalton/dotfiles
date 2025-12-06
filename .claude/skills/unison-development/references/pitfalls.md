@@ -40,11 +40,29 @@ Ensure function signatures include all required effects:
 myFunction : Type ->{Transaction, Exception, Random} Result
 ```
 
-## Success Criteria
+## Delayed Computations
 
-✅ All code typechecks successfully
-✅ Tests written before implementation
-✅ Fully qualified names in scratch.u
-✅ Modified functions show `~` not `+`
-✅ Comprehensive test coverage
-✅ Memory updated with learnings
+Use `'` for thunks (delayed computations):
+
+```unison
+-- Type: '{IO} Result means "a computation that when forced, does IO and returns Result"
+myAction : '{IO, Exception} Result
+myAction = do
+  -- code here
+```
+
+## Do Blocks
+
+`do` creates a delayed computation. Don't double-wrap:
+
+❌ **WRONG:**
+```unison
+myTest = do
+  '(test.verify do ...)
+```
+
+✅ **CORRECT:**
+```unison
+myTest = do
+  test.verify do ...
+```
