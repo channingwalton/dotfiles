@@ -47,5 +47,8 @@
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
+  },
+  "enabledPlugins": {
+    "episodic-memory@superpowers-marketplace": true
   }
 }

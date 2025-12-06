@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "plugins": {
+    "episodic-memory@superpowers-marketplace": {
+      "version": "1.0.13",
+      "installedAt": "2025-12-06T18:35:32.157Z",
+      "lastUpdated": "2025-12-06T18:35:32.157Z",
+      "installPath": "/Users/channing/.claude/plugins/cache/episodic-memory",
+      "gitCommitSha": "911b1c7a0bc31931a2883f7be807a5faf29e39e3",
+      "isLocal": false
+    }
+  }
+}
