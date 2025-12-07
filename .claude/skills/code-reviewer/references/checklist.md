@@ -6,7 +6,7 @@
 - [ ] Clear naming conventions
 - [ ] Logical file/module organisation
 - [ ] Can code be simplified?
-- [ ] Check for duplication
+- [ ] Check for duplication → use `refactor` skill to address
 
 ## 2. Functional Programming
 - [ ] Functions are pure where possible

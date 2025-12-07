@@ -24,7 +24,7 @@ description: Implement features using strict test-driven development. Use when w
 💾 COMMIT → Save working state (use commit-helper)
 👀 REVIEW → Use code-reviewer skill
 ⚠️ FIX    → Address review issues
-🔵 REFACTOR → Improve code (use te refactor skill)
+🔵 REFACTOR → Improve code (use refactor skill)
 💾 COMMIT → Save refactored state
 📝 LOG    → Update task file with decisions/outcomes
 ```
