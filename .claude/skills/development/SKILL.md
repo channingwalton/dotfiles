@@ -9,10 +9,10 @@ description: Implement features using strict test-driven development. Use when w
 
 1. **NEVER write production code without a failing test first**
 2. One behaviour per test
-3. Write minimum code to pass the test
+3. Write minimum code to make the test pass
 4. Run tests and verify green state before proceeding
-5. Commit only when all tests pass
-6. Keep project documentation up to date
+5. Keep project documentation up to date
+6. Use the vault skill
 
 ## The TDD Cycle
 
@@ -24,7 +24,7 @@ description: Implement features using strict test-driven development. Use when w
 💾 COMMIT → Save working state (use commit-helper)
 👀 REVIEW → Use code-reviewer skill
 ⚠️ FIX    → Address review issues
-🔵 REFACTOR → Improve code (keep tests green)
+🔵 REFACTOR → Improve code (use te refactor skill)
 💾 COMMIT → Save refactored state
 📝 LOG    → Update task file with decisions/outcomes
 ```
@@ -72,14 +72,17 @@ See `references/common-mistakes.md` for anti-patterns to avoid.
 Use the **vault skill** to track work:
 
 **Before starting:**
+
 ```bash
 # Find project directory
 fd -t d -d 1 -i "<project>" ~/Documents/Notes/Projects
 ```
+
 Create task file: `Projects/<project>/Tasks/<YYYY-MM-DD HHMMSS> <Title>.md`
 
 **During development:**
 Log significant decisions in the task file:
+
 ```markdown
 ### <timestamp>
 
@@ -89,6 +92,7 @@ Log significant decisions in the task file:
 ```
 
 **After completing:**
+
 1. Update task frontmatter: `status: done`
 2. Write summary in Outcome section
 3. Create knowledge notes for reusable patterns
