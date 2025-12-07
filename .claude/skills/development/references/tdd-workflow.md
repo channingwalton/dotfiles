@@ -62,19 +62,23 @@ Code: return a + b  ✅ Now justified by failing test
 
 ## REFACTOR Phase (If Valuable)
 
+**Invoke the `refactor` skill** for structured refactoring workflow.
+
 **When to refactor:**
 - Code duplication exists
 - Code is unclear or overly complex
 - Better abstraction is obvious
-- Performance improvement needed
+- Code smells identified
 
-**Process:**
+**Quick inline refactoring** (simple renames, extract variable):
 1. Announce: `🔵 REFACTOR → [what you're improving]`
 2. Make small changes
 3. Run tests after each change
 4. **If tests fail:** Revert immediately
-5. Show refactored code to user
-6. Commit with: `refactor: [description]`
+5. Commit with: `refactor: [description]`
+
+**Significant refactoring** (extract class, restructure modules):
+Use the `refactor` skill for the full cycle with safety checklist.
 
 **If no refactoring needed:** Announce `No refactoring needed`
 
