@@ -172,14 +172,19 @@ if [ "$HAS_JQ" -eq 1 ]; then
     session_file="${project_session_dir}/${session_id}.jsonl"
   fi
 
-  # If session file not found or session_id not provided, find most recent session file
+  # If session file not found or session_id not provided, find most recent non-empty session file
   if [ ! -f "$session_file" ] && [ -d "$project_session_dir" ]; then
-    session_file=$(ls -t "$project_session_dir"/*.jsonl 2>/dev/null | grep -v 'agent-' | head -1)
+    # Find most recent non-empty, non-agent session file
+    for candidate in $(ls -t "$project_session_dir"/*.jsonl 2>/dev/null); do
+      case "$candidate" in *agent-*) continue ;; esac
+      [ -s "$candidate" ] && { session_file="$candidate"; break; }
+    done
   fi
 
   if [ -n "$session_file" ] && [ -f "$session_file" ]; then
     # Get the latest input token count from the session file
-    latest_tokens=$(tail -20 "$session_file" | jq -r 'select(.message.usage) | .message.usage | ((.input_tokens // 0) + (.cache_read_input_tokens // 0))' 2>/dev/null | tail -1)
+    # Read last 50 lines, extract all usage entries, take the last valid one
+    latest_tokens=$(tail -50 "$session_file" 2>/dev/null | jq -r '.message.usage | select(.) | ((.input_tokens // 0) + (.cache_read_input_tokens // 0))' 2>/dev/null | grep -E '^[0-9]+$' | tail -1)
     
     if [ -n "$latest_tokens" ] && [ "$latest_tokens" -gt 0 ]; then
       context_used_pct=$(( latest_tokens * 100 / MAX_CONTEXT ))
