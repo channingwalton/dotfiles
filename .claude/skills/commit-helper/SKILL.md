@@ -37,11 +37,13 @@ description: Generate clear conventional commit messages from git diffs. Use whe
 ## Examples
 
 **Simple:**
+
 ```
 feat: add user authentication
 ```
 
 **With body (complex changes):**
+
 ```
 refactor: extract validation logic to separate module
 
@@ -50,6 +52,7 @@ to improve testability and reuse across endpoints.
 ```
 
 **With breaking change:**
+
 ```
 feat: change API response format
 
@@ -58,6 +61,6 @@ BREAKING CHANGE: responses now wrap data in `result` key
 
 ## Rules
 
-- **DO NOT** add contributors
+- **NEVER** add contributors
 - One logical change per commit
 - If you need "and" in the summary, consider splitting
