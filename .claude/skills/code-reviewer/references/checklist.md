@@ -41,5 +41,13 @@
 - [ ] Tests are maintainable
 - [ ] Tests verify behaviour, not implementation
 
-## 7. Bug Discovery
+## 7. Date/Time Handling
+- [ ] Timezone-aware types used (not LocalDateTime when timezone matters)
+- [ ] DST transitions handled (missing/duplicate hours)
+- [ ] UTC used for storage, local for display
+- [ ] Date arithmetic accounts for DST (1 day ≠ 24 hours)
+- [ ] 32-bit timestamp limits considered (pre-1970, post-2038)
+- [ ] Leap year edge cases handled (Feb 29, century boundaries)
+
+## 8. Bug Discovery
 - [ ] Run `bugmagnet` command — comprehensive test coverage and bug discovery workflow
