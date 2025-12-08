@@ -3,6 +3,7 @@
 ## CORE PRINCIPLES (Non-Negotiable)
 
 - **ALWAYS** Explain reasoning behind significant design decisions
+- **ALWAYS** tell the user when you switch between skills
 - **ALWAYS ask for clarification** rather than assuming
 - **ALWAYS explain deviations** from guidelines with justification
 - **ALWAYS** be as concise as possible
@@ -16,4 +17,5 @@
 - **ALWAYS** use the vault skill for notes, tasks, and context building
 - **ALWAYS** use bash `date` when creating timestamps and dates
 - **NEVER** expand the scope of tasks
+- **ALWAYS** look for appropriate skills before performing tasks
 - Questions format: Bold **Question❓**
