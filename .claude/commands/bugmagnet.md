@@ -1,16 +1,18 @@
 
 # BugMagnet - Comprehensive Test Coverage and Bug Discovery Workflow
 
-(from https://github.com/gojko/bugmagnet-ai-assistant)
+(from <https://github.com/gojko/bugmagnet-ai-assistant>)
 
 Execute systematic test coverage analysis and implementation for a code module to discover edge cases and potential bugs.
 
 ## Usage
+
 ```
 /bugmagnet <implementation-file-path>
 ```
 
 Examples:
+
 ```
 /bugmagnet lib/script/src/module-name.js
 /bugmagnet src/main/java/com/example/Service.java
@@ -91,42 +93,47 @@ At the end of each phase, pause and wait for user input or confirmation to proce
    - **Low Priority**: Rare edge cases, performance-specific tests
 
 10. **Present analysis to user**:
-   - List missing test categories with specific examples
-   - STOP and ask the user if all tests should be implemented, or if the user wants to skip some of them
+
+- List missing test categories with specific examples
+- STOP and ask the user if all tests should be implemented, or if the user wants to skip some of them
 
 11. **Clarify undecided behaviour**:
-   - For any identified gaps with unclear expected behaviour, prompt the user to explain or decide the expected behaviour so you can use it in the next phase
+
+- For any identified gaps with unclear expected behaviour, prompt the user to explain or decide the expected behaviour so you can use it in the next phase
 
 ### Phase 3: Iterative Test Implementation
+
 12. **Write tests one at a time**:
-   - Pick highest priority test from the list
-   - Add gap tests to existing test suites based on the flow or method they are testing
-   - Write a single test (or small group of 2-3 related tests)
-   - **Name test to describe the outcome, not the action**:
-     - Format: "returns X when Y", "throws error when Z"
-     - ✅ GOOD: "returns chunks without error when text contains newlines"
-     - ❌ BAD: "handles newline characters"
-   - **CRITICAL: Ensure assertions match the test title**
-     - If testing "allows creating objects with different properties", assert the actual property values
-     - If testing "preserves order", check the actual order of elements
-     - If testing "applies transformation X", verify the transformation result directly
-     - Avoid indirect checks (e.g., checking length when you should check actual values)
-   - Use complete equality assertions with full expected values
-   - Avoid partial string matching for short strings - check whole output
-   - Follow arrange-act-assert structure clearly
-   - Run the test immediately
+
+- Pick highest priority test from the list
+- Add gap tests to existing test suites based on the flow or method they are testing
+- Write a single test (or small group of 2-3 related tests)
+- **Name test to describe the outcome, not the action**:
+  - Format: "returns X when Y", "throws error when Z"
+  - ✅ GOOD: "returns chunks without error when text contains newlines"
+  - ❌ BAD: "handles newline characters"
+- **CRITICAL: Ensure assertions match the test title**
+  - If testing "allows creating objects with different properties", assert the actual property values
+  - If testing "preserves order", check the actual order of elements
+  - If testing "applies transformation X", verify the transformation result directly
+  - Avoid indirect checks (e.g., checking length when you should check actual values)
+- Use complete equality assertions with full expected values
+- Avoid partial string matching for short strings - check whole output
+- Follow arrange-act-assert structure clearly
+- Run the test immediately
 
 13. **Handle test failures**:
-   - If test fails, analyze the actual vs expected output
-   - Determine if:
-     - **Test expectation is wrong**: Update test to match actual behavior
-     - **Bug discovered**: Create skipped test with bug documentation
-     - **Need more context**: Try 2 more variations with different approaches
-   - **When you discover something surprising**:
-     - Explore the surrounding territory with additional tests
-     - Bugs often cluster together - test similar scenarios
-     - Try variations of the same input pattern
-     - Test inverse/opposite operations
+
+- If test fails, analyze the actual vs expected output
+- Determine if:
+  - **Test expectation is wrong**: Update test to match actual behavior
+  - **Bug discovered**: Create skipped test with bug documentation
+  - **Need more context**: Try 2 more variations with different approaches
+- **When you discover something surprising**:
+  - Explore the surrounding territory with additional tests
+  - Bugs often cluster together - test similar scenarios
+  - Try variations of the same input pattern
+  - Test inverse/opposite operations
 
 14. **Document bugs in skipped tests**:
     - Use framework's skip/ignore mechanism
@@ -264,6 +271,7 @@ At the end of each phase, pause and wait for user input or confirmation to proce
 ## Best Practices
 
 ### Test Writing Guidelines
+
 - **Use descriptive test names**: Clear description of what behavior is tested
 - **Test names describe outcomes, not actions**:
   - Format: "returns X when Y", "throws error when Z"
@@ -290,6 +298,7 @@ At the end of each phase, pause and wait for user input or confirmation to proce
 - **Test the happy path first**: Then add edge cases and error cases
 
 ### Test Structure Guidelines
+
 - **Arrange-Act-Assert flow**: Clearly separate test setup, execution, and verification
 - **Consistent naming**: Use clear names like `underTest`, `result`, `actual` for test subjects
 - **Setup patterns**: Create test subject and wire mocks in setup blocks. Avoid unnecessary recreation
@@ -299,6 +308,7 @@ At the end of each phase, pause and wait for user input or confirmation to proce
 - **Test order**: Test usual/happy path scenarios first, then edge cases, then error cases
 
 ### Bug Discovery Guidelines
+
 - **Bugs cluster together**: When you find one bug, look for similar bugs nearby
   - If a function fails for one edge case, try related edge cases
   - If a property is handled incorrectly, check other similar properties
@@ -313,6 +323,7 @@ At the end of each phase, pause and wait for user input or confirmation to proce
   - Do NOT test external dependencies (npm packages, etc.)
 
 ### Bug Documentation
+
 - **Always include expected vs actual**: Show what should happen
 - **Provide code location**: File path and line number
 - **Suggest a fix**: Don't just identify, propose solution
@@ -320,12 +331,14 @@ At the end of each phase, pause and wait for user input or confirmation to proce
 - **Mark test name with - BUG**: Makes it easy to find
 
 ### Running Tests
+
 - **Run after each test**: Don't batch multiple untested changes
 - **Run specific test file**: Run only the file being modified when possible
 - **Fix failures immediately**: Don't accumulate broken tests
 - **Maximum 3 attempts**: Move on if stuck
 
 ### Reading Project Files
+
 - **You may read any files in the same project**: To understand implementation
 - **Do not read external dependencies**: Stay within project boundaries
 - **Read imported modules**: To understand behavior and contracts
@@ -336,6 +349,7 @@ At the end of each phase, pause and wait for user input or confirmation to proce
 **Note:** These examples use JavaScript/Jest syntax for illustration. Treat them as pseudo-code and adapt to your language and testing framework's conventions.
 
 ### Basic Test (Good Assertions)
+
 ```javascript
 // ❌ BAD: Test says "sets username" but only checks object exists
 test('sets username correctly', () => {
@@ -351,6 +365,7 @@ test('sets username correctly', () => {
 ```
 
 ### Testing Actual Values Not Just Counts
+
 ```javascript
 // ❌ BAD: Test says "creates items with different IDs" but only checks count
 test('creates items with different IDs', () => {
@@ -368,6 +383,7 @@ test('creates items with different IDs', () => {
 ```
 
 ### Boundary Condition Test
+
 ```javascript
 test('handles empty input correctly', () => {
     const result = moduleUnderTest.operation('');
@@ -385,6 +401,7 @@ test('handles very long input', () => {
 ```
 
 ### Exploring Bug Clusters
+
 ```javascript
 // You find this bug:
 test.skip('fails to handle negative index - BUG', () => {
@@ -411,6 +428,7 @@ test('handles non-integer index', () => {
 ```
 
 ### Minimal Bug Reproduction
+
 ```javascript
 // Original complex test that exposed bug:
 test.skip('complex scenario fails - BUG', () => {
@@ -431,6 +449,7 @@ test.skip('operation3 returns wrong value - BUG', () => {
 ```
 
 ### Numeric Edge Case Tests
+
 ```javascript
 test('handles zero correctly', () => {
     const result = moduleUnderTest.calculate(0);
@@ -449,6 +468,7 @@ test('handles very large numbers', () => {
 ```
 
 ### Collection Edge Cases
+
 ```javascript
 test('handles empty array', () => {
     const result = moduleUnderTest.process([]);
@@ -469,6 +489,7 @@ test('handles many elements', () => {
 ```
 
 ### Error Test
+
 ```javascript
 test('reports error for invalid input', () => {
     moduleUnderTest.operation('invalid');
@@ -482,6 +503,7 @@ test('reports error for invalid input', () => {
 ```
 
 ### Skipped Bug Test with Minimal Reproduction
+
 ```javascript
 test.skip('feature returns wrong value - BUG', () => {
     /*
@@ -513,6 +535,7 @@ test.skip('feature returns wrong value - BUG', () => {
 ## Output Format
 
 ### Progress Updates
+
 - "Writing test 1/12: <category> - <specific test>"
 - "✓ Test passed: <test name>"
 - "⚠ Test failed (attempt 2/3): <reason>"
@@ -520,6 +543,7 @@ test.skip('feature returns wrong value - BUG', () => {
 - "🔍 Exploring bug cluster: trying <related scenario>"
 
 ### Final Summary
+
 ```
 ## Test Coverage Summary
 
@@ -544,6 +568,7 @@ test.skip('feature returns wrong value - BUG', () => {
 When analyzing a module, consider these common scenarios:
 
 ### For Functions Taking Numbers
+
 - [ ] Zero (various representations: 0, 0.0, -0)
 - [ ] Zero in context (false/missing, timers at zero, counters at zero, display with 0 items, contextual data mapping to 0)
 - [ ] Numbers close to zero (0.0001, -0.0001)
@@ -559,6 +584,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Powers of 2: 128, 256, 512, 1024, 2048
 
 ### For Size/Length Boundaries
+
 - [ ] Common system limits: 127/128 bytes (ASCII boundary), 255/256 bytes (single-byte limit)
 - [ ] Buffer boundaries: 32KB - 1, 32KB, 32KB + 1
 - [ ] Buffer boundaries: 64KB - 1, 64KB, 64KB + 1
@@ -566,6 +592,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Test with and without whitespace to distinguish byte vs character limits
 
 ### For Currency/Financial Numbers
+
 - [ ] Varying decimal places: 0 decimals (JPY), 2 decimals (USD), 3 decimals (KWD)
 - [ ] Locale-specific formatting: 1,234.56 (US) vs 1 234,56 (France)
 - [ ] Input variations: 5000, $5,000, $5 000, $5,000.00
@@ -574,6 +601,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Negative amounts (returns, refunds)
 
 ### For Date/Time Values
+
 - [ ] Leap seconds (86,401 second days, e.g., 31 Dec 2016)
 - [ ] Leap years: Feb 29, century boundaries (1900, 2000, 2100)
 - [ ] Invalid dates: Feb 30/31, Apr 31, Sept 31, Nov 31
@@ -596,6 +624,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Dates and times expressed without timezone information used in calculations of duration
 
 ### For Functions Taking Strings
+
 - [ ] Empty string
 - [ ] Single character
 - [ ] Very long strings (10000+ chars)
@@ -606,6 +635,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Null/nil values vs empty string (based on language)
 
 ### For Functions Taking Names (person names, usernames)
+
 - [ ] Single character names
 - [ ] Very long names (35+ characters, up to 64 per ICAO)
 - [ ] Extremely long names (Wolfeschlegelsteinhausenbergerdorff, 58+ char Welsh names)
@@ -621,6 +651,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Name changes (test update workflows)
 
 ### For Functions Taking Email Addresses
+
 - [ ] Valid formats: subdomain, plus addressing, IP addresses
 - [ ] Valid formats: dots and special characters in the first part
 - [ ] Invalid formats: leading and trailing dots, multiple dots in a sequence
@@ -628,12 +659,14 @@ When analyzing a module, consider these common scenarios:
 - [ ] Invalid formats: missing components, multiple @, dots in wrong places
 
 ### For Functions Taking URLs
+
 - [ ] With/without protocols
 - [ ] With ports and paths
 - [ ] Internationalized domains
 - [ ] Invalid: malformed, incomplete, with spaces
 
 ### For Functions Taking Geographic Data
+
 - [ ] Single-letter city names (Y in France, Å in Norway)
 - [ ] Very long place names (58+ characters: Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch)
 - [ ] Special characters (Scandinavian: Ærøskøbing, Malmö)
@@ -644,12 +677,14 @@ When analyzing a module, consider these common scenarios:
 - [ ] Legacy data with old postal code formats
 
 ### For User Input with Security Implications
+
 - [ ] SQL injection patterns
 - [ ] XSS/script injection attempts
 - [ ] HTML injection and malformed markup
 - [ ] Path traversal attempts
 
 ### For File Paths and File System Operations
+
 - [ ] Very long paths (>255 chars, test OS limits: 260 Windows, 4096 Linux/Mac)
 - [ ] Long filenames (>255 chars)
 - [ ] Special characters in filenames: * ? / \ | < > spaces, dots, etc.
@@ -674,6 +709,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Path separator variations (/, \, mixed, multiple //, trailing)
 
 ### For Internationalized Text
+
 - [ ] Multiple character sets (Latin, Cyrillic, Arabic, Chinese, etc.)
 - [ ] Right-to-left text (Hebrew U+05D0-U+05FF, Arabic U+0600-U+06FF)
 - [ ] Homograph attacks: Cyrillic 'а' (U+0430) vs Latin 'a' (U+0061)
@@ -687,6 +723,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Regional indicators (flag emoji): 🇺🇸 = U+1F1FA+U+1F1F8 (two characters), string length varies by encoding
 
 ### For Functions Taking Collections (Arrays/Lists)
+
 - [ ] Empty collection
 - [ ] Single element
 - [ ] Many elements (100+)
@@ -695,6 +732,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Collection with null/nil elements (if language allows)
 
 ### For Functions Taking Objects/Structures/Maps
+
 - [ ] Empty object/structure
 - [ ] Object with extra properties/fields
 - [ ] Object with missing properties/fields
@@ -702,6 +740,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Null/nil values vs empty objects (based on language)
 
 ### For Stateful Operations
+
 - [ ] Operation before initialization
 - [ ] Multiple consecutive operations
 - [ ] Operation after reset/clear
@@ -712,6 +751,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Executing one action multiple times within a sequence
 
 ### For Error Conditions
+
 - [ ] Invalid type (string instead of number)
 - [ ] Out of range values
 - [ ] Missing required parameters
@@ -723,6 +763,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Errors don't crash or prevent subsequent operations
 
 ### For Complex Interactions
+
 - [ ] Multiple features used together
 - [ ] State changes across multiple operations
 - [ ] Three-way interactions between different features
@@ -731,16 +772,19 @@ When analyzing a module, consider these common scenarios:
 - [ ] Property conflicts and precedence rules
 
 ### For Multiple/Related Parameters
+
 - [ ] Same values for different parameters (e.g., same length strings, identical arrays, completely same values)
 - [ ] Very close values (string one character shorter, numbers differing by 0.00001)
 - [ ] Parameters with interdependencies
 
 ### For Documentation/Requirements
+
 - [ ] Edge cases mentioned in documentation but not tested
 - [ ] Requirements listed but not covered by tests
 - [ ] Behavior specified in design docs but missing tests
 
 ### For Violated Domain Constraints (Implicit Assumptions)
+
 - [ ] Duplicate values where uniqueness assumed (IDs, usernames, keys)
 - [ ] Null/empty/missing where mandatory assumed
 - [ ] Empty collections where non-empty assumed
@@ -762,6 +806,7 @@ When analyzing a module, consider these common scenarios:
 - [ ] Expired dates for active items
 
 ## Notes
+
 - This workflow discovers bugs through systematic testing
 - Skipped tests serve as regression tests for when bugs are fixed
 - Focus on behavior verification, not implementation details
