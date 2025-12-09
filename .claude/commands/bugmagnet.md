@@ -8,8 +8,10 @@ Execute systematic test coverage analysis and implementation for a code module t
 ## Usage
 
 ```
-/bugmagnet <implementation-file-path>
+/bugmagnet $ARGUMENTS
 ```
+
+Where `$ARGUMENTS` is the path to the implementation file to analyse.
 
 Examples:
 
