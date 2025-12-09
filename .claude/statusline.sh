@@ -20,11 +20,11 @@ if command -v jq >/dev/null 2>&1; then
 fi
 
 # ---- modern sleek colors ----
-dir_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;117m'; fi; }    # sky blue
-model_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;147m'; fi; }  # light purple  
-version_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;180m'; fi; } # soft yellow
+dir_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;117m'; fi; }        # sky blue
+model_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;147m'; fi; }      # light purple
+version_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;180m'; fi; }    # soft yellow
 cc_version_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;249m'; fi; } # light gray
-style_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;245m'; fi; } # gray
+style_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;245m'; fi; }      # gray
 rst() { if [ "$use_color" -eq 1 ]; then printf '\033[0m'; fi; }
 
 # ---- time helpers ----
@@ -45,15 +45,22 @@ fmt_time_hm() {
 }
 
 progress_bar() {
-  pct="${1:-0}"; width="${2:-10}"
-  [[ "$pct" =~ ^[0-9]+$ ]] || pct=0; ((pct<0))&&pct=0; ((pct>100))&&pct=100
-  filled=$(( pct * width / 100 )); empty=$(( width - filled ))
+  pct="${1:-0}"
+  width="${2:-10}"
+  [[ "$pct" =~ ^[0-9]+$ ]] || pct=0
+  ((pct < 0)) && pct=0
+  ((pct > 100)) && pct=100
+  filled=$((pct * width / 100))
+  empty=$((width - filled))
   printf '%*s' "$filled" '' | tr ' ' '='
   printf '%*s' "$empty" '' | tr ' ' '-'
 }
 
 # git utilities
-num_or_zero() { v="$1"; [[ "$v" =~ ^[0-9]+$ ]] && echo "$v" || echo 0; }
+num_or_zero() {
+  v="$1"
+  [[ "$v" =~ ^[0-9]+$ ]] && echo "$v" || echo 0
+}
 
 # ---- JSON extraction utilities ----
 # Pure bash JSON value extractor (fallback when jq not available)
@@ -61,24 +68,24 @@ extract_json_string() {
   local json="$1"
   local key="$2"
   local default="${3:-}"
-  
+
   # For nested keys like workspace.current_dir, get the last part
   local field="${key##*.}"
-  field="${field%% *}"  # Remove any jq operators
-  
+  field="${field%% *}" # Remove any jq operators
+
   # Try to extract string value (quoted)
   local value=$(echo "$json" | grep -o "\"\${field}\"[[:space:]]*:[[:space:]]*\"[^\"]*\"" | head -1 | sed 's/.*:[[:space:]]*"\([^"]*\)".*/\1/')
-  
+
   # Convert escaped backslashes to forward slashes for Windows paths
   if [ -n "$value" ]; then
     value=$(echo "$value" | sed 's/\\\\/\//g')
   fi
-  
+
   # If no string value found, try to extract number value (unquoted)
   if [ -z "$value" ] || [ "$value" = "null" ]; then
     value=$(echo "$json" | grep -o "\"\${field}\"[[:space:]]*:[[:space:]]*[0-9.]\+" | head -1 | sed 's/.*:[[:space:]]*\([0-9.]\+\).*/\1/')
   fi
-  
+
   # Return value or default
   if [ -n "$value" ] && [ "$value" != "null" ]; then
     echo "$value"
@@ -99,21 +106,21 @@ else
   # Bash fallback for JSON extraction
   # Extract current_dir from workspace object - look for the pattern workspace":{"current_dir":"..."}
   current_dir=$(echo "$input" | grep -o '"workspace"[[:space:]]*:[[:space:]]*{[^}]*"current_dir"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"current_dir"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/' | sed 's/\\\\/\//g')
-  
+
   # Fall back to cwd if workspace extraction failed
   if [ -z "$current_dir" ] || [ "$current_dir" = "null" ]; then
     current_dir=$(echo "$input" | grep -o '"cwd"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"cwd"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/' | sed 's/\\\\/\//g')
   fi
-  
+
   # Fallback to unknown if all extraction failed
   [ -z "$current_dir" ] && current_dir="unknown"
   current_dir=$(echo "$current_dir" | sed "s|^$HOME|~|g")
-  
+
   # Extract model name from nested model object
   model_name=$(echo "$input" | grep -o '"model"[[:space:]]*:[[:space:]]*{[^}]*"display_name"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"display_name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
   [ -z "$model_name" ] && model_name="Claude"
-  # Model version is in the model ID, not a separate field  
-  model_version=""  # Not available in Claude Code JSON
+  # Model version is in the model ID, not a separate field
+  model_version="" # Not available in Claude Code JSON
   session_id=$(extract_json_string "$input" "session_id" "")
   # CC version is at the root level
   cc_version=$(echo "$input" | grep -o '"version"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
@@ -122,7 +129,7 @@ else
 fi
 
 # ---- git colors ----
-git_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;150m'; fi; }  # soft green
+git_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;150m'; fi; } # soft green
 rst() { if [ "$use_color" -eq 1 ]; then printf '\033[0m'; fi; }
 
 # ---- git ----
@@ -133,27 +140,27 @@ fi
 
 # ---- context window calculation ----
 context_pct=""
-context_color() { if [ "$use_color" -eq 1 ]; then printf '\033[1;37m'; fi; }  # default white
+context_color() { if [ "$use_color" -eq 1 ]; then printf '\033[1;37m'; fi; } # default white
 
 # Determine max context based on model
 get_max_context() {
   local model_name="$1"
   case "$model_name" in
-    *"Opus 4"*|*"opus 4"*|*"Opus"*|*"opus"*)
-      echo "200000"  # 200K for all Opus versions
-      ;;
-    *"Sonnet 4"*|*"sonnet 4"*|*"Sonnet 3.5"*|*"sonnet 3.5"*|*"Sonnet"*|*"sonnet"*)
-      echo "200000"  # 200K for Sonnet 3.5+ and 4.x
-      ;;
-    *"Haiku 3.5"*|*"haiku 3.5"*|*"Haiku 4"*|*"haiku 4"*|*"Haiku"*|*"haiku"*)
-      echo "200000"  # 200K for modern Haiku
-      ;;
-    *"Claude 3 Haiku"*|*"claude 3 haiku"*)
-      echo "100000"  # 100K for original Claude 3 Haiku
-      ;;
-    *)
-      echo "200000"  # Default to 200K
-      ;;
+  *"Opus 4"* | *"opus 4"* | *"Opus"* | *"opus"*)
+    echo "200000" # 200K for all Opus versions
+    ;;
+  *"Sonnet 4"* | *"sonnet 4"* | *"Sonnet 3.5"* | *"sonnet 3.5"* | *"Sonnet"* | *"sonnet"*)
+    echo "200000" # 200K for Sonnet 3.5+ and 4.x
+    ;;
+  *"Haiku 3.5"* | *"haiku 3.5"* | *"Haiku 4"* | *"haiku 4"* | *"Haiku"* | *"haiku"*)
+    echo "200000" # 200K for modern Haiku
+    ;;
+  *"Claude 3 Haiku"* | *"claude 3 haiku"*)
+    echo "100000" # 100K for original Claude 3 Haiku
+    ;;
+  *)
+    echo "200000" # Default to 200K
+    ;;
   esac
 }
 
@@ -177,7 +184,10 @@ if [ "$HAS_JQ" -eq 1 ]; then
     # Find most recent non-empty, non-agent session file
     for candidate in $(ls -t "$project_session_dir"/*.jsonl 2>/dev/null); do
       case "$candidate" in *agent-*) continue ;; esac
-      [ -s "$candidate" ] && { session_file="$candidate"; break; }
+      [ -s "$candidate" ] && {
+        session_file="$candidate"
+        break
+      }
     done
   fi
 
@@ -185,47 +195,54 @@ if [ "$HAS_JQ" -eq 1 ]; then
     # Get the latest input token count from the session file
     # Read last 50 lines, extract all usage entries, take the last valid one
     latest_tokens=$(tail -50 "$session_file" 2>/dev/null | jq -r '.message.usage | select(.) | ((.input_tokens // 0) + (.cache_read_input_tokens // 0))' 2>/dev/null | grep -E '^[0-9]+$' | tail -1)
-    
+
     if [ -n "$latest_tokens" ] && [ "$latest_tokens" -gt 0 ]; then
-      context_used_pct=$(( latest_tokens * 100 / MAX_CONTEXT ))
-      context_remaining_pct=$(( 100 - context_used_pct ))
-      
+      context_used_pct=$((latest_tokens * 100 / MAX_CONTEXT))
+      context_remaining_pct=$((100 - context_used_pct))
+
       # Set color based on remaining percentage
       if [ "$context_remaining_pct" -le 20 ]; then
-        context_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;203m'; fi; }  # coral red
+        context_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;203m'; fi; } # coral red
       elif [ "$context_remaining_pct" -le 40 ]; then
-        context_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;215m'; fi; }  # peach
+        context_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;215m'; fi; } # peach
       else
-        context_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;158m'; fi; }  # mint green
+        context_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;158m'; fi; } # mint green
       fi
-      
+
       context_pct="${context_remaining_pct}%"
     fi
   fi
 fi
 
 # ---- usage colors ----
-usage_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;189m'; fi; }  # lavender
-cost_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;222m'; fi; }   # light gold
-burn_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;220m'; fi; }   # bright gold
-session_color() { 
-  rem_pct=$(( 100 - session_pct ))
-  if   (( rem_pct <= 10 )); then SCLR='38;5;210'  # light pink
-  elif (( rem_pct <= 25 )); then SCLR='38;5;228'  # light yellow  
-  else                          SCLR='38;5;194'; fi  # light green
+usage_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;189m'; fi; } # lavender
+cost_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;222m'; fi; }  # light gold
+burn_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;220m'; fi; }  # bright gold
+session_color() {
+  rem_pct=$((100 - session_pct))
+  if ((rem_pct <= 10)); then
+    SCLR='38;5;210' # light pink
+  elif ((rem_pct <= 25)); then
+    SCLR='38;5;228'        # light yellow
+  else SCLR='38;5;194'; fi # light green
   if [ "$use_color" -eq 1 ]; then printf '\033[%sm' "$SCLR"; fi
 }
 
 # ---- cost and usage extraction ----
-session_txt=""; session_pct=0; session_bar=""
-cost_usd=""; cost_per_hour=""; tpm=""; tot_tokens=""
+session_txt=""
+session_pct=0
+session_bar=""
+cost_usd=""
+cost_per_hour=""
+tpm=""
+tot_tokens=""
 
 # Extract cost data from Claude Code input
 if [ "$HAS_JQ" -eq 1 ]; then
   # Get cost data from Claude Code's input
   cost_usd=$(echo "$input" | jq -r '.cost.total_cost_usd // empty' 2>/dev/null)
   total_duration_ms=$(echo "$input" | jq -r '.cost.total_duration_ms // empty' 2>/dev/null)
-  
+
   # Calculate burn rate ($/hour) from cost and duration
   if [ -n "$cost_usd" ] && [ -n "$total_duration_ms" ] && [ "$total_duration_ms" -gt 0 ]; then
     # Convert ms to hours and calculate rate
@@ -234,8 +251,8 @@ if [ "$HAS_JQ" -eq 1 ]; then
 else
   # Bash fallback for cost extraction
   cost_usd=$(echo "$input" | grep -o '"total_cost_usd"[[:space:]]*:[[:space:]]*[0-9.]*' | sed 's/.*:[[:space:]]*\([0-9.]*\).*/\1/')
-  total_duration_ms=$(echo "$input" | grep -o '"total_duration_ms"[[:space:]]*:[[:space:]]*[0-9]*' | sed 's/.*:[[:space:]]*\([0-9]*\).*/\1/')  
-  
+  total_duration_ms=$(echo "$input" | grep -o '"total_duration_ms"[[:space:]]*:[[:space:]]*[0-9]*' | sed 's/.*:[[:space:]]*\([0-9]*\).*/\1/')
+
   # Calculate burn rate ($/hour) from cost and duration
   if [ -n "$cost_usd" ] && [ -n "$total_duration_ms" ] && [ "$total_duration_ms" -gt 0 ]; then
     # Convert ms to hours and calculate rate
@@ -246,7 +263,7 @@ fi
 # Get token data and session info from ccusage if available
 if command -v ccusage >/dev/null 2>&1 && [ "$HAS_JQ" -eq 1 ]; then
   blocks_output=""
-  
+
   # Try ccusage with timeout for token data and session info
   if command -v timeout >/dev/null 2>&1; then
     blocks_output=$(timeout 5s ccusage blocks --json 2>/dev/null)
@@ -264,18 +281,25 @@ if command -v ccusage >/dev/null 2>&1 && [ "$HAS_JQ" -eq 1 ]; then
       tot_tokens=$(echo "$active_block" | jq -r '.totalTokens // empty')
       # Get tokens per minute from ccusage
       tpm=$(echo "$active_block" | jq -r '.burnRate.tokensPerMinute // empty')
-      
+
       # Session time calculation from ccusage
       reset_time_str=$(echo "$active_block" | jq -r '.usageLimitResetTime // .endTime // empty')
       start_time_str=$(echo "$active_block" | jq -r '.startTime // empty')
-      
+
       if [ -n "$reset_time_str" ] && [ -n "$start_time_str" ]; then
-        start_sec=$(to_epoch "$start_time_str"); end_sec=$(to_epoch "$reset_time_str"); now_sec=$(date +%s)
-        total=$(( end_sec - start_sec )); (( total<1 )) && total=1
-        elapsed=$(( now_sec - start_sec )); (( elapsed<0 ))&&elapsed=0; (( elapsed>total ))&&elapsed=$total
-        session_pct=$(( elapsed * 100 / total ))
-        remaining=$(( end_sec - now_sec )); (( remaining<0 )) && remaining=0
-        rh=$(( remaining / 3600 )); rm=$(( (remaining % 3600) / 60 ))
+        start_sec=$(to_epoch "$start_time_str")
+        end_sec=$(to_epoch "$reset_time_str")
+        now_sec=$(date +%s)
+        total=$((end_sec - start_sec))
+        ((total < 1)) && total=1
+        elapsed=$((now_sec - start_sec))
+        ((elapsed < 0)) && elapsed=0
+        ((elapsed > total)) && elapsed=$total
+        session_pct=$((elapsed * 100 / total))
+        remaining=$((end_sec - now_sec))
+        ((remaining < 0)) && remaining=0
+        rh=$((remaining / 3600))
+        rm=$(((remaining % 3600) / 60))
         end_hm=$(fmt_time_hm "$end_sec")
         session_txt="$(printf '%dh %dm until reset at %s (%d%%)' "$rh" "$rm" "$end_hm" "$session_pct")"
         session_bar=$(progress_bar "$session_pct" 10)
@@ -320,30 +344,30 @@ fi
 
 # Line 3: Cost and usage analytics
 line3=""
-if [ -n "$cost_usd" ] && [[ "$cost_usd" =~ ^[0-9.]+$ ]]; then
-  if [ -n "$cost_per_hour" ] && [[ "$cost_per_hour" =~ ^[0-9.]+$ ]]; then
-    cost_per_hour_formatted=$(printf '%.2f' "$cost_per_hour")
-    line3="💰 $(cost_color)\$$(printf '%.2f' "$cost_usd")$(rst) ($(burn_color)\$${cost_per_hour_formatted}/h$(rst))"
-  else
-    line3="💰 $(cost_color)\$$(printf '%.2f' "$cost_usd")$(rst)"
-  fi
-fi
-if [ -n "$tot_tokens" ] && [[ "$tot_tokens" =~ ^[0-9]+$ ]]; then
-  if [ -n "$tpm" ] && [[ "$tpm" =~ ^[0-9.]+$ ]]; then
-    tpm_formatted=$(printf '%.0f' "$tpm")
-    if [ -n "$line3" ]; then
-      line3="$line3  📊 $(usage_color)${tot_tokens} tok (${tpm_formatted} tpm)$(rst)"
-    else
-      line3="📊 $(usage_color)${tot_tokens} tok (${tpm_formatted} tpm)$(rst)"
-    fi
-  else
-    if [ -n "$line3" ]; then
-      line3="$line3  📊 $(usage_color)${tot_tokens} tok$(rst)"
-    else
-      line3="📊 $(usage_color)${tot_tokens} tok$(rst)"
-    fi
-  fi
-fi
+# if [ -n "$cost_usd" ] && [[ "$cost_usd" =~ ^[0-9.]+$ ]]; then
+#   if [ -n "$cost_per_hour" ] && [[ "$cost_per_hour" =~ ^[0-9.]+$ ]]; then
+#     cost_per_hour_formatted=$(printf '%.2f' "$cost_per_hour")
+#     line3="💰 $(cost_color)\$$(printf '%.2f' "$cost_usd")$(rst) ($(burn_color)\$${cost_per_hour_formatted}/h$(rst))"
+#   else
+#     line3="💰 $(cost_color)\$$(printf '%.2f' "$cost_usd")$(rst)"
+#   fi
+# fi
+# if [ -n "$tot_tokens" ] && [[ "$tot_tokens" =~ ^[0-9]+$ ]]; then
+#   if [ -n "$tpm" ] && [[ "$tpm" =~ ^[0-9.]+$ ]]; then
+#     tpm_formatted=$(printf '%.0f' "$tpm")
+#     if [ -n "$line3" ]; then
+#       line3="$line3  📊 $(usage_color)${tot_tokens} tok (${tpm_formatted} tpm)$(rst)"
+#     else
+#       line3="📊 $(usage_color)${tot_tokens} tok (${tpm_formatted} tpm)$(rst)"
+#     fi
+#   else
+#     if [ -n "$line3" ]; then
+#       line3="$line3  📊 $(usage_color)${tot_tokens} tok$(rst)"
+#     else
+#       line3="📊 $(usage_color)${tot_tokens} tok$(rst)"
+#     fi
+#   fi
+# fi
 
 # Print lines
 if [ -n "$line2" ]; then
