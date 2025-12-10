@@ -56,7 +56,8 @@ date -Iseconds
 
 ## Workflow
 
-1. **Before work:** Search memory skill for atomic facts, find related notes
+1. **Before work:** Search memory skill for atomic facts
+2. **Before work**: Search the vault for related notes
 2. **During work:** Log in task file using templates from workflow doc
 3. **After work:** Update status to `done`, write outcome, create knowledge notes, update memory skill
 
