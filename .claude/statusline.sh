@@ -339,7 +339,7 @@ if [ -n "$session_txt" ]; then
   fi
 fi
 if [ -z "$line2" ] && [ -z "$context_pct" ]; then
-  line2="🧠 $(context_color)Context Remaining: TBD$(rst)"
+  line2="🧠 $(context_color)Context Remaining: 100%$(rst)"
 fi
 
 # Line 3: Cost and usage analytics
