@@ -7,7 +7,9 @@ description: Read and write notes in the Obsidian vault. Use for task logs, know
 
 Location: `~/Documents/Notes/`
 
-## Bash Commands for Claude Code
+**Templates & notation:** See `~/Documents/Notes/Process/Claude Code Knowledge Workflow.md`
+
+## Bash Commands
 
 ```bash
 # List in-progress tasks
@@ -19,9 +21,6 @@ rg --type md -l "\[\[<topic>" ~/Documents/Notes
 
 # Full-text search with context
 rg --type md -i -C 2 "<pattern>" ~/Documents/Notes
-
-# Search by observation category (pattern, gotcha, decision, etc.)
-rg --type md -i "^\s*-\s*\[<category>\]" ~/Documents/Notes
 
 # Find project directory (handles YYYY[-MM] prefix)
 fd -t d -d 1 -i "<project>" ~/Documents/Notes/Projects
@@ -38,7 +37,7 @@ fd -e md --changed-within 7d ~/Documents/Notes
 
 ## Timestamps
 
-Always use real timestamps, never placeholders. Get current time with:
+Always use real timestamps, never placeholders:
 
 ```bash
 # For task filename: YYYY-MM-DD HHMMSS
@@ -51,109 +50,58 @@ date +"%Y-%m-%d %H:%M"
 date -Iseconds
 ```
 
-## Creating Task Files
+## Task File Path
 
-Use Filesystem MCP to create task files directly:
+`~/Documents/Notes/Projects/<YYYY[-MM] Project>/Tasks/<YYYY-MM-DD HHMMSS> <Title>.md`
 
-Path: `~/Documents/Notes/Projects/<YYYY[-MM] Project>/Tasks/<YYYY-MM-DD HHMMSS> <Title>.md`
+## Workflow
 
-Template (replace timestamps with real values from commands above):
-```markdown
----
-status: in-progress
-priority: normal
-projects:
-  - "[[Project Name]]"
-dateCreated: <ISO-8601>
-dateModified: <ISO-8601>
-tags:
-  - task
----
+1. **Before work:** Search memory skill for atomic facts, find related notes
+2. **During work:** Log in task file using templates from workflow doc
+3. **After work:** Update status to `done`, write outcome, create knowledge notes, update memory skill
 
-# Task Title
+## Linking Related Notes
 
-## Goal
+During tasks, find and link related notes:
 
-## Context
+```bash
+# Find notes mentioning topic
+rg --type md -l -i "<topic>" ~/Documents/Notes
 
-## Log
-
-### <YYYY-MM-DD HH:MM>
-
-## Outcome
-
-## Related
+# Find existing WikiLinks to topic
+rg --type md -l "\[\[<topic>" ~/Documents/Notes
 ```
 
-## Before Starting Work
+Add discovered notes as WikiLinks in task **Context** section or use breadcrumb pattern: `[[Parent]] | [[Related]]`
 
-1. Search memory skill for atomic facts
-2. Find related notes:
-   ```bash
-   rg --type md -l -i "topic" ~/Documents/Notes
-   ```
-3. Read key notes via Filesystem MCP
+## Capture Heuristics
 
-## During Work
+**Worth capturing when:**
 
-Log decisions in task file at `Projects/<project>/Tasks/`. Use `date +"%Y-%m-%d %H:%M"` for the header:
+| Marker | Trigger |
+|--------|---------|
+| `[pattern]` | Principle applies across multiple contexts |
+| `[gotcha]` | Caused debugging time or surprised me |
+| `[technique]` | Method that could save time later |
+| `[decision]` | Non-obvious choice with reasoning worth preserving |
 
-```markdown
-### 2025-12-06 14:30
+**Where to capture:**
 
-- [done] Completed item
-- [decision] Why X over Y
-- [gotcha] Problem encountered
-- [ ] Remaining work
-```
+| Destination | When |
+|-------------|------|
+| **Existing note** | Discovery extends/refines an existing topic (search first) |
+| **New note** | Substantial, standalone, referenceable by other notes |
+| **Task log only** | One-off detail that won't generalise |
+| **Memory skill** | Atomic fact for quick retrieval |
 
-## After Completing Work
+## Note Locations
 
-1. Update task frontmatter: `status: done`
-2. Write summary in Outcome section
-3. Create knowledge notes for reusable patterns
-4. Update memory skill with atomic facts
-5. Add WikiLinks: `[[Note Name]]`
-
-## Observation Categories
-
-- `[pattern]` — reusable approach
-- `[technique]` — how to do something
-- `[gotcha]` — common trap
-- `[decision]` — why X over Y
-- `[reference]` — link to docs
-- `[issue]` — problem encountered
-- `[done]` — completed item
-- `[ ]` — todo (unchecked)
-- `[x]` — todo (checked)
-- `[question]` — unanswered query
-- `[insight]` — realisation
-
-## Knowledge Note Template
-
-```markdown
----
-tags:
-  - <domain>
-created: <YYYY-MM-DD>
----
-
-# [[Note Title]]
-
-[[Parent Topic]] | [[Related Topic]]
-
-Brief summary.
-
-## Observations
-
-- [pattern] Description
-- [gotcha] Trap to avoid
-- [technique] How to do X
-
-## Related
-
-- [[Related Note]] - how it relates
-```
+| Folder | Purpose | Examples |
+|--------|---------|----------|
+| `Development/` | Conceptual topics, paradigms, architectural patterns | "Functional Programming", "Test Driven Development", "Unison Web Application Patterns" |
+| `HowTo/` | Procedural guides, specific techniques, step-by-step instructions | "Unison Testing with Effect Handlers", "TDD with Functional Programming" |
+| `Tools/` | Software tools and their usage | "Claude", "Git", "HTMX", "Obsidian" |
+| `Projects/<project>/Tasks/` | Task logs only — never knowledge notes |
 
 ## Integration with Memory Skill
 
@@ -163,5 +111,3 @@ Brief summary.
 | Detailed docs | Vault (this skill) |
 | Task logs | `Projects/<project>/Tasks/` |
 | Fast search | Bash commands above |
-
-Full workflow doc: `~/Documents/Notes/Process/Claude Code Knowledge Workflow.md`
