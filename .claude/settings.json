@@ -3,6 +3,7 @@
   "cleanupPeriodDays": 99999,
   "permissions": {
     "allow": [
+      "Read(/Users/channing/Documents/Notes/**)",
       "Bash(bloop :*)",
       "Bash(chmod:*)",
       "Bash(find:*)",

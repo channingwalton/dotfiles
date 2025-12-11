@@ -13,6 +13,7 @@ description: Implement features using strict test-driven development. Use when w
 4. Run tests and verify green state before proceeding
 5. Keep project documentation up to date
 6. Use the vault skill to maintain tasks, notes, and memory
+7. Use the code-reviewer skill to check changes
 
 ## The TDD Cycle
 
