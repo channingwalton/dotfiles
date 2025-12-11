@@ -54,16 +54,9 @@ date -Iseconds
 
 `~/Documents/Notes/Projects/<YYYY[-MM] Project>/Tasks/<YYYY-MM-DD HHMMSS> <Title>.md`
 
-## Workflow
-
-1. **Before work:** Search memory skill for atomic facts
-2. **Before work**: Search the vault for related notes
-2. **During work:** Log in task file using templates from workflow doc
-3. **After work:** Update status to `done`, write outcome, create knowledge notes, update memory skill
-
 ## Linking Related Notes
 
-During tasks, find and link related notes:
+When adding to notes in the vault,find and link related notes:
 
 ```bash
 # Find notes mentioning topic
@@ -79,18 +72,18 @@ Add discovered notes as WikiLinks in task **Context** section or use breadcrumb 
 
 **Worth capturing when:**
 
-| Marker | Trigger |
-|--------|---------|
-| `[pattern]` | Principle applies across multiple contexts |
-| `[gotcha]` | Caused debugging time or surprised me |
-| `[technique]` | Method that could save time later |
-| `[decision]` | Non-obvious choice with reasoning worth preserving |
+| Marker | concept | Trigger |
+|--------|---------|---------|
+| 📋 | principle | Principle applies across multiple contexts |
+| 🤔 | gotcha | Caused debugging time or surprised me |
+| ⚙️ | technique | Method that could save time later |
+| ☝️ | decision | Non-obvious choice with reasoning worth preserving |
 
 **Where to capture:**
 
 | Destination | When |
 |-------------|------|
-| **Existing note** | Discovery extends/refines an existing topic (search first) |
+| **Existing note** | Discovery extends/refines an existing topic (search firs ) |
 | **New note** | Substantial, standalone, referenceable by other notes |
 | **Task log only** | One-off detail that won't generalise |
 | **Memory skill** | Atomic fact for quick retrieval |
@@ -102,7 +95,7 @@ Add discovered notes as WikiLinks in task **Context** section or use breadcrumb 
 | `Development/` | Conceptual topics, paradigms, architectural patterns | "Functional Programming", "Test Driven Development", "Unison Web Application Patterns" |
 | `HowTo/` | Procedural guides, specific techniques, step-by-step instructions | "Unison Testing with Effect Handlers", "TDD with Functional Programming" |
 | `Tools/` | Software tools and their usage | "Claude", "Git", "HTMX", "Obsidian" |
-| `Projects/<project>/Tasks/` | Task logs only — never knowledge notes |
+| `Projects/<project>/Tasks/` | Task logs only — never knowledge notes | |
 
 ## Integration with Memory Skill
 

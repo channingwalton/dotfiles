@@ -12,7 +12,7 @@ description: Implement features using strict test-driven development. Use when w
 3. Write minimum code to make the test pass
 4. Run tests and verify green state before proceeding
 5. Keep project documentation up to date
-6. Use the vault skill
+6. Use the vault skill to maintain tasks, notes, and memory
 
 ## The TDD Cycle
 
@@ -38,7 +38,7 @@ See `references/tdd-workflow.md` for detailed step-by-step instructions.
 | RED | `🔴 RED → Writing failing test for [behaviour]` | Write ONE test, verify it fails |
 | GREEN | `🟢 GREEN → Writing minimum code` | Pass current test only |
 | VERIFY | `✅ All tests passing` | Run ALL tests |
-| REFACTOR | `🔵 REFACTOR → [improvement]` | Small changes, tests stay green |
+| REFACTOR | `🔵 REFACTOR → [improvement]` | Smal changes, tests stay green |
 
 ## Test Structure (AAA Pattern)
 
@@ -49,7 +49,7 @@ testData = createTestData()
 -- Act: execute the code
 result = functionUnderTest(testData)
 
--- Assert: verify result
+-- Assert: verify resul
 assertEqual(result, expectedValue)
 ```
 
@@ -67,33 +67,13 @@ Language-specific test syntax provided by language skills (scala-developer, ruby
 
 See `references/common-mistakes.md` for anti-patterns to avoid.
 
-## Vault Integration
+## Vault and Memory Integration
 
-Use the **vault skill** to track work:
-
-**Before starting:**
-
-```bash
-# Find project directory
-fd -t d -d 1 -i "<project>" ~/Documents/Notes/Projects
-```
-
-Create task file: `Projects/<project>/Tasks/<YYYY-MM-DD HHMMSS> <Title>.md`
-
-**During development:**
-Log significant decisions in the task file:
-
-```markdown
-### <timestamp>
-
-- [decision] Used X approach because Y
-- [gotcha] Watch out for Z
-- [ ] Still need to handle edge case
-```
-
-**After completing:**
-
-1. Update task frontmatter: `status: done`
-2. Write summary in Outcome section
-3. Create knowledge notes for reusable patterns
-4. Update memory skill with atomic facts
+- **Before work:** Search memory skill for atomic facts
+- **Before work**: Search the vault for related notes
+- **During work**: Use the **vault skill** to track work in the tasks note
+- **During work**: Use the **vault skill** to add new information in the vault
+- **After work**: Update memory skill with atomic facts
+- **After work**: Update task frontmatter when done: `status: done`
+- **After work**: Write a summary in the Outcome section
+- **After work**: Use the vault skill to add new information learnt in development to the vault
