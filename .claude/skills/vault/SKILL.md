@@ -9,6 +9,9 @@ Location: `~/Documents/Notes/`
 
 **Templates & notation:** See `~/Documents/Notes/Process/Claude Code Knowledge Workflow.md`
 
+- Use the Knowledge Note Template when creating knowledge notes
+- Use the Task Template when creating new task
+
 ## Bash Commands
 
 ```bash
