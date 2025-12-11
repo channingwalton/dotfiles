@@ -23,29 +23,18 @@ description: Generate clear conventional commit messages from git diffs. Use whe
 
 **Summary:** Under 50 characters, imperative mood ("add" not "added")
 
-## Types
-
-| Type | Use for |
-|------|---------|
-| `feat` | New feature or behaviour |
-| `fix` | Bug fix |
-| `refactor` | Code change that neither fixes nor adds |
-| `test` | Adding or updating tests |
-| `docs` | Documentation only |
-| `chore` | Build, tooling, dependencies |
-
 ## Examples
 
 **Simple:**
 
 ```
-feat: add user authentication
+Add user authentication
 ```
 
 **With body (complex changes):**
 
 ```
-refactor: extract validation logic to separate module
+Extract validation logic to separate module
 
 Moved input validation from UserController to ValidationService
 to improve testability and reuse across endpoints.
@@ -54,7 +43,7 @@ to improve testability and reuse across endpoints.
 **With breaking change:**
 
 ```
-feat: change API response format
+Change API response format
 
 BREAKING CHANGE: responses now wrap data in `result` key
 ```
@@ -62,5 +51,3 @@ BREAKING CHANGE: responses now wrap data in `result` key
 ## Rules
 
 - **NEVER** add contributors
-- One logical change per commit
-- If you need "and" in the summary, consider splitting
