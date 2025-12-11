@@ -105,3 +105,7 @@ Add discovered notes as WikiLinks in task **Context** section or use breadcrumb 
 | Detailed docs | Vault (this skill) |
 | Task logs | `Projects/<project>/Tasks/` |
 | Fast search | Bash commands above |
+
+## What NOT to include
+
+- **DO NOT** include changed files
