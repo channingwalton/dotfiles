@@ -32,6 +32,7 @@ Uses `development` skill for TDD workflow, enhanced with Unison-specific tooling
 ### 1. Research & Understanding
 
 Use MCP tools to explore before writing:
+
 - `view-definitions` for existing implementations
 - `search-definitions-by-name` for related functions
 - `docs` for library functions
@@ -64,12 +65,13 @@ Iterate until clean — fix type errors, add imports, verify effects.
 
 ### 5. Add to scratch.u with Fully Qualified Names
 
-❌ **WRONG:** `deletePredictionImpl : Tables -> ...`
-✅ **CORRECT:** `foggyball.store.FoggyBallStore.default.deletePredictionImpl : Tables -> ...`
+- ❌ **WRONG:** `deletePredictionImpl : Tables -> ...`
+- ✅ **CORRECT:** `foggyball.store.FoggyBallStore.default.deletePredictionImpl : Tables -> ...`
 
 **Why:** Without FQN, Unison creates new function instead of modifying.
 
 Typecheck output indicators:
+
 - `+` (added) — new definition
 - `~` (modified) — updated existing
 
@@ -84,12 +86,14 @@ mcp__unison__typecheck-code with {"filePath": "/path/to/scratch.u"}
 ### 7. UPDATE MODE: Handling Typecheck Errors
 
 If UCM adds this comment after update:
+
 ```
 -- The definitions below no longer typecheck with the changes above.
 -- Please fix the errors and try `update` again.
 ```
 
 **CRITICAL:**
+
 - **DO NOT** delete functions from scratch.u — they will be removed from codebase
 - Repair broken code, typechecking as you go
 - Ask user to verify via UCM output
