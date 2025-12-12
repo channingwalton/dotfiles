@@ -82,6 +82,8 @@ Add discovered notes as WikiLinks in task **Context** section or use breadcrumb 
 | ⚙️ | technique | Method that could save time later |
 | ☝️ | decision | Non-obvious choice with reasoning worth preserving |
 
+Use the icons rather than concept in Notes.
+
 **Where to capture:**
 
 | Destination | When |
