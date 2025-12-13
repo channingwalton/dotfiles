@@ -154,4 +154,4 @@ export NVM_DIR="$HOME/.nvm"
 # Added by Antigravity
 export PATH="/Users/channing/.antigravity/antigravity/bin:$PATH"
 
-
+export UNISON_PAGER=cat

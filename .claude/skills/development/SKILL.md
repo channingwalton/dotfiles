@@ -18,7 +18,8 @@ description: Implement features using strict test-driven development. Use when w
 ## The TDD Cycle
 
 ```
-📋 TASK   → Create/update task file (vault skill)
+📋 TASK   → Create/update task file using the vault skill
+🔎 SEARCH → Search the vault for similar tasks for this project to provide context
 🔴 RED    → Write failing test
 🟢 GREEN  → Write minimum code to pass
 ✅ VERIFY → Run all tests, confirm passing
