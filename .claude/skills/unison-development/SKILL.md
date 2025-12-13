@@ -112,3 +112,8 @@ Store learnings about the change.
 ## Common Pitfalls
 
 See `references/pitfalls.md` for syntax gotchas.
+
+### Modifying abilities
+
+It is easier to modify the ability but not implementations, then `update` in the ucm,
+then fix the code the ucm put in an update branch that need attention.
