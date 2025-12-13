@@ -15,6 +15,8 @@ Uses `development` skill for TDD workflow, enhanced with Unison-specific tooling
 4. **Always** use fully qualified names in scratch.u
 5. **Never** create multiple scratch files
 6. **ALWAYS** wait for the user to tell you when an `update` has completed, DO NOT continue editing the scratch file until the user has told you the `update` is complete.
+7. You should typecheck code with the unison MCP server before adding it to the scratch file
+8. When an `update` has been performed successfully, you can delete the scratch file if you wish
 
 ## MCP Tools
 
