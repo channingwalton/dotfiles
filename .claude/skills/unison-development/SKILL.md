@@ -12,20 +12,13 @@ Uses `development` skill for TDD workflow, enhanced with Unison-specific tooling
 1. **NEVER run UCM commands on command line** — use MCP tools only
 2. Code stored by Unison Code Manager, not Git
 3. **TDD is mandatory** — be aware UCM may enter "Handling typecheck errors after update"
-4. Always use fully qualified names in scratch.u
-5. Never create multiple scratch files
+4. **Always** use fully qualified names in scratch.u
+5. **Never** create multiple scratch files
+6. **ALWAYS** wait for the user to tell you when an `update` has completed, DO NOT continue editing the scratch file until the user has told you the `update` is complete.
 
 ## MCP Tools
 
-| Tool | Purpose |
-|------|---------|
-| `mcp__unison__typecheck-code` | Validate code (string or file path) |
-| `mcp__unison__view-definitions` | See implementations |
-| `mcp__unison__search-definitions-by-name` | Find functions |
-| `mcp__unison__search-by-type` | Find by type signature |
-| `mcp__unison__docs` | Library documentation |
-| `mcp__unison__list-project-definitions` | Explore project |
-| `mcp__unison__run-tests` | Execute tests |
+Use the unison MCP server commands
 
 ## Workflow
 
@@ -41,7 +34,11 @@ Use MCP tools to explore before writing:
 
 Ask user to create feature branch before beginning.
 
-### 3. Write Tests First
+### 3. Clear scratch files
+
+Ask user if they want the `scratch.u` deleted.
+
+### 4. Write Tests First
 
 Use `test.verify`, `labeled`, and `ensureEqual`:
 
@@ -63,7 +60,7 @@ mcp__unison__typecheck-code with {"text": "code here"}
 
 Iterate until clean — fix type errors, add imports, verify effects.
 
-### 5. Add to scratch.u with Fully Qualified Names
+### 6. Add to scratch.u with Fully Qualified Names
 
 - ❌ **WRONG:** `deletePredictionImpl : Tables -> ...`
 - ✅ **CORRECT:** `foggyball.store.FoggyBallStore.default.deletePredictionImpl : Tables -> ...`
@@ -77,13 +74,13 @@ Typecheck output indicators:
 
 **Verify you see `~` for modifications!**
 
-### 6. Final Typecheck
+### 7. Final Typecheck
 
 ```
 mcp__unison__typecheck-code with {"filePath": "/path/to/scratch.u"}
 ```
 
-### 7. UPDATE MODE: Handling Typecheck Errors
+### 8. UPDATE MODE: Handling Typecheck Errors
 
 If UCM adds this comment after update:
 
@@ -99,7 +96,7 @@ If UCM adds this comment after update:
 - Ask user to verify via UCM output
 - After successful update, you may remove code from scratch.u
 
-### 8. Update Memory
+### 9. Update Memory
 
 Store learnings about the change.
 
