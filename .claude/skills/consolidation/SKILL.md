@@ -68,6 +68,14 @@ rg --type md -l "\[\[<topic>" ~/Documents/Notes
 | Library/tool pattern | Existing note for that tool, or `HowTo/` |
 | Reusable pattern | `Development/` or `HowTo/` |
 | Workflow/process | `Tools/` or `Process/` |
+| **Claude workflow improvement** | **Skill in `~/.claude/skills/`** |
+
+**Vault vs Skill distinction:**
+
+- Vault = declarative knowledge (facts, patterns, gotchas) — for human and Claude reference
+- Skill = procedural knowledge (how Claude should operate) — instructions for Claude
+
+Ask: "Is this about **what** (→ vault) or **how Claude should work** (→ skill)?"
 
 ### 5. Update Notes
 
