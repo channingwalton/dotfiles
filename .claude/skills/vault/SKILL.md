@@ -11,6 +11,7 @@ Location: `~/Documents/Notes/`
 
 - Use the Knowledge Note Template when creating knowledge notes
 - Use the Task Template when creating new task
+- Use the Glossary Template when creating new glossary entries for a projects
 
 ## Bash Commands
 
@@ -101,6 +102,7 @@ Use the icons rather than concept in Notes.
 | `HowTo/` | Procedural guides, specific techniques, step-by-step instructions | "Unison Testing with Effect Handlers", "TDD with Functional Programming" |
 | `Tools/` | Software tools and their usage | "Claude", "Git", "HTMX", "Obsidian" |
 | `Projects/<project>/Tasks/` | Task logs only — never knowledge notes | |
+| `Projects/<project>/Glossary` | Glossary entries | |
 
 ## Integration with Memory Skill
 
