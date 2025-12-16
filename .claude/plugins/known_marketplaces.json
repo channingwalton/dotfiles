@@ -5,7 +5,7 @@
       "repo": "obra/superpowers-marketplace"
     },
     "installLocation": "/Users/channing/.claude/plugins/marketplaces/superpowers-marketplace",
-    "lastUpdated": "2025-12-16T14:11:28.472Z"
+    "lastUpdated": "2025-12-16T20:37:27.563Z"
   },
   "claude-plugins-official": {
     "source": {
@@ -13,6 +13,6 @@
       "repo": "anthropics/claude-plugins-official"
     },
     "installLocation": "/Users/channing/.claude/plugins/marketplaces/claude-plugins-official",
-    "lastUpdated": "2025-12-16T14:40:40.209Z"
+    "lastUpdated": "2025-12-16T16:07:42.894Z"
   }
 }
