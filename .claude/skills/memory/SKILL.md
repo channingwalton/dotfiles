@@ -9,35 +9,33 @@ description: Persist and retrieve information using the MCP-Memory Server. Use b
 
 Search existing memory first:
 
-- Matches entity names, types, AND observation content
-- Start with specific terms (`foggysky`, `foggysky-authentication`)
+- `retrieve_memory` — semantic search by content
+- `recall_memory` — natural language time queries ("last week", "yesterday")
+- `search_by_tag` — find memories by tags
 
 ## After Completing Tasks
 
-Add information with UTC timestamp after tasks that would potentially be useful
-in the future.
+Store information with `store_memory`:
 
-## Entity Structure
+```json
+{
+  "content": "One atomic fact or learning",
+  "metadata": {
+    "tags": "project-name,topic,category",
+    "type": "note"
+  }
+}
+```
 
-✅ ONE fact per observation — never combine multiple facts
-✅ Atomic entities — split by component/feature/concern
+## Content Structure
+
+✅ ONE fact per memory — never combine multiple facts
+✅ Atomic memories — split by component/feature/concern
+✅ Use descriptive tags for searchability
 ❌ No code blocks, paragraphs, or documentation dumps
 
-**Good naming:**
-
-- `foggyball-authentication-jwt`
-- `orders-database-schema`
-- `scala-bloop-commands`
-
-**Bad naming:**
-
-- `auth` (too vague)
-- `stuff I learned today` (not searchable)
-
-## Relations
-
-Link entities with: `depends-on`, `solves`, `uses`, `implements`, `related-to`
-Avoid duplicating information across entities.
+**Good tags:** `foggyball-auth`, `scala-bloop`, `database-schema`
+**Bad tags:** `stuff`, `misc`, `temp`
 
 ## When NOT to Store
 
