@@ -82,6 +82,9 @@ source $ZSH/oh-my-zsh.sh
 export DEFAULT_USER=channing
 export EDITOR=nvim
 
+# uv - default to Python 3.13 (3.14 is pre-release and breaks packages)
+export UV_PYTHON=3.13
+
 # zstyle 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' menu no
