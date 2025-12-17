@@ -35,6 +35,9 @@ function updates {
   echo "\nCoursier\n"
   coursier update
 
+  echo "\nuv\n"
+  uv tool upgrade --all
+
   echo "\nRepos\n"
   $HOME/dotfiles/bin/backupRepos.sh
 
