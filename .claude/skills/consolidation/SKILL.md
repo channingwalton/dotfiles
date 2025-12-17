@@ -88,6 +88,7 @@ Ask: "Is this about **what** (→ vault) or **how Claude should work** (→ skil
 - `#decision` — Why X was chosen over Y
 
 Example:
+
 ```markdown
 ## Section Name
 
@@ -123,6 +124,7 @@ Add links in a `## Related` section or inline where contextually appropriate.
 **Any note can become a hub** by accumulating links to related notes. No special naming needed.
 
 A note naturally becomes a hub when:
+
 - It links to 5+ related notes
 - It serves as an entry point for a topic area
 - Other notes link back to it
@@ -130,6 +132,7 @@ A note naturally becomes a hub when:
 **Don't pre-create hubs.** Let them emerge from the link structure.
 
 Example: `Unison Programming Language.md` became a hub by adding Related section:
+
 ```markdown
 ## Related
 
@@ -151,11 +154,12 @@ update_memory_metadata(content_hash, {"tags": [...existing, "consolidated"]})
 | `consolidated` | Memory distilled into vault |
 | `ephemeral` | Do not consolidate, will decay |
 | Domain tags | Topic area (unison, scala, patchwork) |
-| Project tags | Project name (foggyball, txodds) |
+| Project tags | Project name |
 
 ## Quality Heuristics
 
 **Worth consolidating:**
+
 - Patterns that apply across contexts
 - Gotchas that caused debugging time
 - Techniques that save time
@@ -163,6 +167,7 @@ update_memory_metadata(content_hash, {"tags": [...existing, "consolidated"]})
 - Library/API knowledge that's hard to find
 
 **Skip consolidation:**
+
 - Project-specific context (keep as episodic memory)
 - Information already in project files
 - Trivial facts
