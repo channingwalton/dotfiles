@@ -29,7 +29,7 @@
       "mcp__mcp-memory__search_by_tag",
       "mcp__mcp-memory__retrieve_memory",
       "mcp__sequential-thinking",
-      "mcp__unison",
+      "mcp__unison"
     ],
     "deny": []
   },
