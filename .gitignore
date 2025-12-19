@@ -39,3 +39,4 @@ log
 .gemini/antigravity
 .claude/stats-cache.json
 .claude/plugins/marketplaces/superpowers-marketplace
+.gemini/settings.json
