@@ -40,3 +40,5 @@ log
 .claude/stats-cache.json
 .claude/plugins/marketplaces/superpowers-marketplace
 .gemini/settings.json
+.claude/plugins/known_marketplaces.json
+.gemini/state.json
