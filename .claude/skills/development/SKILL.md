@@ -12,35 +12,40 @@ description: Implement features using strict test-driven development. Use when w
 3. Write minimum code to make the test pass
 4. Run tests and verify green state before proceeding
 5. Keep project documentation up to date
-6. Use the vault skill to maintain tasks, notes, and memory
-7. Use the code-reviewer skill to check changes
 
 ## The TDD Cycle
 
 ```
-📋 TASK   → Create/update task file using the vault skill
-🔎 SEARCH → Search the vault for similar tasks for this project to provide context
-🔴 RED    → Write failing test
-🟢 GREEN  → Write minimum code to pass
-✅ VERIFY → Run all tests, confirm passing
-💾 COMMIT → Save working state (use commit-helper)
-👀 REVIEW → Use code-reviewer skill
-⚠️ FIX    → Address review issues
-🔵 REFACTOR → Improve code (use refactor skill)
-💾 COMMIT → Save refactored state
-📝 LOG    → Update task file with decisions/outcomes
+📋 TASK    → Create/update task file (vault skill)
+🔎 SEARCH  → Search vault for similar tasks for context
+🔴 RED     → Write failing test
+🟢 GREEN   → Write minimum code to pass
+✅ VERIFY  → Run all tests, confirm passing
+💾 COMMIT  → Save working state (commit-helper agent)
+👀 REVIEW  → Check changes (code-reviewer agent)
+⚠️ FIX     → Address review issues
+🔵 REFACTOR → Improve code (refactor skill)
+💾 COMMIT  → Save refactored state
+📝 LOG     → Update task file with decisions/outcomes
 ```
 
-See `references/tdd-workflow.md` for detailed step-by-step instructions.
+## Agent/Skill Integration
 
-## Quick Reference
+| Phase | Invoke |
+|-------|--------|
+| TASK, SEARCH, LOG | `vault` skill |
+| COMMIT | `commit-helper` agent |
+| REVIEW | `code-reviewer` agent |
+| REFACTOR | `refactor` skill |
 
-| Phase | Announce | Action |
-|-------|----------|--------|
-| RED | `🔴 RED → Writing failing test for [behaviour]` | Write ONE test, verify it fails |
-| GREEN | `🟢 GREEN → Writing minimum code` | Pass current test only |
-| VERIFY | `✅ All tests passing` | Run ALL tests |
-| REFACTOR | `🔵 REFACTOR → [improvement]` | Smal changes, tests stay green |
+## Phase Announcements
+
+| Phase | Announce |
+|-------|----------|
+| RED | `🔴 RED → Writing failing test for [behaviour]` |
+| GREEN | `🟢 GREEN → Writing minimum code` |
+| VERIFY | `✅ All tests passing` |
+| REFACTOR | `🔵 REFACTOR → [improvement]` |
 
 ## Test Structure (AAA Pattern)
 
@@ -51,7 +56,7 @@ testData = createTestData()
 -- Act: execute the code
 result = functionUnderTest(testData)
 
--- Assert: verify resul
+-- Assert: verify result
 assertEqual(result, expectedValue)
 ```
 
@@ -65,17 +70,18 @@ Language-specific test syntax provided by language skills (scala-developer, ruby
 | Bug fix | Write test reproducing bug first, then fix |
 | Refactoring | Add tests for current behaviour first, then refactor |
 
+## Memory Integration
+
+- **Before work:** Search memory skill for atomic facts
+- **Before work:** Search vault for related notes
+- **During work:** Update vault task file with progress
+- **After work:** Store atomic facts in memory skill
+- **After work:** Update task frontmatter: `status: done`
+
 ## Common Mistakes
 
 See `references/common-mistakes.md` for anti-patterns to avoid.
 
-## Vault and Memory Integration
+## Detailed Workflow
 
-- **Before work:** Search memory skill for atomic facts
-- **Before work**: Search the vault for related notes
-- **During work**: Use the **vault skill** to track work in the tasks note
-- **During work**: Use the **vault skill** to add new information in the vault
-- **After work**: Update memory skill with atomic facts
-- **After work**: Update task frontmatter when done: `status: done`
-- **After work**: Write a summary in the Outcome section
-- **After work**: Use the vault skill to add new information learnt in development to the vault
+See `references/tdd-workflow.md` for step-by-step phase instructions.

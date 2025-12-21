@@ -14,20 +14,19 @@ Uses `development` skill for TDD workflow, enhanced with Unison-specific tooling
 3. **TDD is mandatory** — be aware UCM may enter "Handling typecheck errors after update"
 4. **Always** use fully qualified names in scratch.u
 5. **Never** create multiple scratch files
-6. **ALWAYS** wait for the user to tell you when an `update` has completed, DO NOT continue editing the scratch file until the user has told you the `update` is complete.
-7. You should typecheck code with the unison MCP server before adding it to the scratch file
-8. When an `update` has been performed successfully, you can delete the scratch file if you wish
+6. **ALWAYS** wait for user confirmation after `update` before continuing
+7. Typecheck code with unison MCP server before adding to scratch file
+8. After successful update, you may delete the scratch file
 
 ## MCP Tools
 
-Use the unison MCP server commands
+Use the unison MCP server commands for all operations.
 
 ## Workflow
 
 ### 1. Research & Understanding
 
 Use MCP tools to explore before writing:
-
 - `view-definitions` for existing implementations
 - `search-definitions-by-name` for related functions
 - `docs` for library functions
@@ -38,7 +37,7 @@ Ask user to create feature branch before beginning.
 
 ### 3. Clear scratch files
 
-Ask user if they want the `scratch.u` deleted.
+Ask user if they want `scratch.u` deleted.
 
 ### 4. Write Tests First
 
@@ -54,7 +53,7 @@ projectName.module.tests.featureTest = do
       ensureEqual result expectedValue
 ```
 
-### 4. Typecheck Incrementally
+### 5. Typecheck Incrementally
 
 ```
 mcp__unison__typecheck-code with {"text": "code here"}
@@ -64,13 +63,12 @@ Iterate until clean — fix type errors, add imports, verify effects.
 
 ### 6. Add to scratch.u with Fully Qualified Names
 
-- ❌ **WRONG:** `deletePredictionImpl : Tables -> ...`
-- ✅ **CORRECT:** `foggyball.store.FoggyBallStore.default.deletePredictionImpl : Tables -> ...`
+- **WRONG:** `deletePredictionImpl : Tables -> ...`
+- **CORRECT:** `foggyball.store.FoggyBallStore.default.deletePredictionImpl : Tables -> ...`
 
 **Why:** Without FQN, Unison creates new function instead of modifying.
 
 Typecheck output indicators:
-
 - `+` (added) — new definition
 - `~` (modified) — updated existing
 
@@ -92,7 +90,6 @@ If UCM adds this comment after update:
 ```
 
 **CRITICAL:**
-
 - **DO NOT** delete functions from scratch.u — they will be removed from codebase
 - Repair broken code, typechecking as you go
 - Ask user to verify via UCM output
@@ -100,22 +97,21 @@ If UCM adds this comment after update:
 
 ### 9. Update Memory
 
-Store learnings about the change.
+Use memory skill to store learnings about the change.
 
 ## Success Criteria
 
-✅ All code typechecks successfully
-✅ Tests written before implementation
-✅ Fully qualified names in scratch.u
-✅ Modified functions show `~` not `+`
-✅ Comprehensive test coverage
-✅ Memory updated with learnings
+- All code typechecks successfully
+- Tests written before implementation
+- Fully qualified names in scratch.u
+- Modified functions show `~` not `+`
+- Comprehensive test coverage
+- Memory updated with learnings
 
 ## Common Pitfalls
 
 See `references/pitfalls.md` for syntax gotchas.
 
-### Modifying abilities
+### Modifying Abilities
 
-It is easier to modify the ability but not implementations, then `update` in the ucm,
-then fix the code the ucm put in an update branch that need attention.
+It is easier to modify the ability but not implementations, then `update` in UCM, then fix the code UCM put in an update branch that needs attention.
