@@ -1,4 +1,3 @@
-
 # BugMagnet - Comprehensive Test Coverage and Bug Discovery Workflow
 
 (from <https://github.com/gojko/bugmagnet-ai-assistant>)
