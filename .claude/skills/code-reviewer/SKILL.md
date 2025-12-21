@@ -5,25 +5,44 @@ description: Review code for best practices, security, performance, and potentia
 
 # Code Reviewer
 
-Review code using the checklist in `references/checklist.md`.
+This skill invokes the `code-reviewer` agent for autonomous code review.
 
-## Review Scope
+## Quick Reference
 
-- **PR/diff review:** Focus on changed lines plus immediate context
-- **Full file review:** Apply all checklist criteria
-- **Architecture review:** Focus on structure, abstractions, dependencies
+**Invoke:** `/code-reviewer [target]`
 
-## Instructions
+**Targets:**
+- File path(s)
+- Git diff/PR reference
+- Directory to scan
 
-1. Determine review scope (diff, file, or architecture)
-2. Read target files
-3. Search for patterns using Grep/rg
-4. Find related files using Glob
-5. Apply checklist criteria
-6. Run `bugmagnet` command for test coverage and bug discovery
+## Output Severity Levels
 
-## Output Format
+- 🔴 **CRITICAL:** Must fix before merge
+- 🟡 **WARNING:** Should address
+- ℹ️ **SUGGESTION:** Nice to have
 
-- 🔴 CRITICAL: Must fix before merge
-- 🟡 WARNING: Should address
-- ℹ️ SUGGESTION: Nice to have
+## Checklist Categories
+
+See `references/checklist.md` for full criteria:
+
+1. Code Organisation & Structure
+2. Functional Programming
+3. Error Handling
+4. Performance
+5. Security
+6. Test Coverage
+7. Date/Time Handling
+8. Bug Discovery (bugmagnet)
+
+## Agent Behaviour
+
+The code-reviewer agent:
+1. Determines review scope
+2. Reads target files
+3. Searches for patterns (Grep/Glob)
+4. Applies checklist criteria
+5. Runs bugmagnet for test gaps
+6. Returns structured findings report
+
+Runs autonomously without user interaction.

@@ -15,15 +15,15 @@ description: Improve code design without changing behaviour. Use when restructur
 ## The Refactor Cycle
 
 ```
-✅ VERIFY  → Run all tests, confirm green state
-🔍 ANALYSE → Identify code smell or improvement opportunity
+✅ VERIFY   → Run all tests, confirm green state
+🔍 ANALYSE  → Identify code smell or improvement opportunity
 🔵 REFACTOR → Apply ONE transformation
-✅ VERIFY  → Run all tests, confirm still green
-💾 COMMIT  → Save working state
-🔁 REPEAT  → Continue until goal achieved
+✅ VERIFY   → Run all tests, confirm still green
+💾 COMMIT   → Save working state (commit-helper agent)
+🔁 REPEAT   → Continue until goal achieved
 ```
 
-## Goals
+## Goals & Techniques
 
 | Goal | Techniques |
 |------|------------|
@@ -31,7 +31,7 @@ description: Improve code design without changing behaviour. Use when restructur
 | Improve clarity | Rename, inline temp, introduce explaining variable |
 | Simplify conditionals | Decompose conditional, consolidate conditional |
 | Improve structure | Extract class, move method, replace inheritance with delegation |
-| Reduce code size | Eliminate nesting by extracting helper functions/methods |
+| Reduce code size | Eliminate nesting by extracting helper functions |
 
 ## Code Smells to Address
 
@@ -42,7 +42,6 @@ description: Improve code design without changing behaviour. Use when restructur
 - **Feature envy** — method uses another class more than its own
 - **Data clumps** — groups of data that appear together repeatedly
 - **Primitive obsession** — using primitives instead of small objects
-- **Inappropriate intimacy** — classes too dependent on each other's internals
 
 ## What Refactoring Is NOT
 
@@ -58,7 +57,6 @@ description: Improve code design without changing behaviour. Use when restructur
 ```
 
 Examples:
-
 - `🔵 REFACTOR → duplication: Extract method calculateTotal`
 - `🔵 REFACTOR → long method: Split processOrder into validate and execute`
 - `🔵 REFACTOR → feature envy: Move calculateDiscount to Order class`
@@ -66,13 +64,11 @@ Examples:
 ## Safety Checklist
 
 Before starting:
-
 - [ ] All tests pass
 - [ ] Working copy is clean (committed)
 - [ ] Understand the code being refactored
 
 After each change:
-
 - [ ] Tests still pass
 - [ ] Behaviour unchanged
 - [ ] Code is cleaner/clearer
@@ -84,4 +80,4 @@ Refactoring is the BLUE phase of TDD:
 1. Complete RED-GREEN cycle
 2. Invoke refactor skill
 3. Apply improvements while keeping tests green
-4. Commit refactored state
+4. Use `commit-helper` agent to save refactored state
