@@ -1,3 +1,8 @@
+---
+name: BugMagnet
+description: Comprehensive Test Coverage and Bug Discovery Workflow (user)
+---
+
 # BugMagnet - Comprehensive Test Coverage and Bug Discovery Workflow
 
 (from <https://github.com/gojko/bugmagnet-ai-assistant>)
@@ -7,10 +12,10 @@ Execute systematic test coverage analysis and implementation for a code module t
 ## Usage
 
 ```
-/bugmagnet $ARGUMENTS
+/bugmagnet <file-path>
 ```
 
-Where `$ARGUMENTS` is the path to the implementation file to analyse.
+Where `<file-path>` is the path to the implementation file to analyse.
 
 Examples:
 
@@ -111,8 +116,8 @@ At the end of each phase, pause and wait for user input or confirmation to proce
 - Write a single test (or small group of 2-3 related tests)
 - **Name test to describe the outcome, not the action**:
   - Format: "returns X when Y", "throws error when Z"
-  - ✅ GOOD: "returns chunks without error when text contains newlines"
-  - ❌ BAD: "handles newline characters"
+  - GOOD: "returns chunks without error when text contains newlines"
+  - BAD: "handles newline characters"
 - **CRITICAL: Ensure assertions match the test title**
   - If testing "allows creating objects with different properties", assert the actual property values
   - If testing "preserves order", check the actual order of elements
@@ -276,19 +281,19 @@ At the end of each phase, pause and wait for user input or confirmation to proce
 - **Use descriptive test names**: Clear description of what behavior is tested
 - **Test names describe outcomes, not actions**:
   - Format: "returns X when Y", "throws error when Z"
-  - ✅ GOOD: "returns chunks without error when text contains newlines"
-  - ❌ BAD: "handles newline characters"
+  - GOOD: "returns chunks without error when text contains newlines"
+  - BAD: "handles newline characters"
 - **Assertions must match the test title**:
-  - ❌ BAD: Test titled "creates objects with different IDs" but only checks count/length
-  - ✅ GOOD: Test titled "creates objects with different IDs" and actually verifies the IDs differ
-  - ❌ BAD: Test titled "applies correct transformation" but only checks result is truthy
-  - ✅ GOOD: Test titled "applies correct transformation" and checks the actual transformed values
+  - BAD: Test titled "creates objects with different IDs" but only checks count/length
+  - GOOD: Test titled "creates objects with different IDs" and actually verifies the IDs differ
+  - BAD: Test titled "applies correct transformation" but only checks result is truthy
+  - GOOD: Test titled "applies correct transformation" and checks the actual transformed values
   - **Always verify the specific property/behavior mentioned in the test name**
 - **Specific value assertions over type checks**:
-  - ✅ GOOD: `assert result.chunks equals ['First.', ' Second.']`
-  - ❌ BAD: `assert result.chunks.length > 1`
-  - ✅ GOOD: `assert result equals {chunks: ['text'], context: {line: 10}, properties: {}, error: null}`
-  - ❌ BAD: `assert result has property 'chunks'`
+  - GOOD: `assert result.chunks equals ['First.', ' Second.']`
+  - BAD: `assert result.chunks.length > 1`
+  - GOOD: `assert result equals {chunks: ['text'], context: {line: 10}, properties: {}, error: null}`
+  - BAD: `assert result has property 'chunks'`
   - Expect specific values, NOT just type checks or vague assertions
 - **One assertion per concept**: Test one thing clearly
 - **Full comparisons**: Use complete expected values, not partial matches
@@ -352,13 +357,13 @@ At the end of each phase, pause and wait for user input or confirmation to proce
 ### Basic Test (Good Assertions)
 
 ```javascript
-// ❌ BAD: Test says "sets username" but only checks object exists
+// BAD: Test says "sets username" but only checks object exists
 test('sets username correctly', () => {
     const user = createUser({username: 'alice'});
     expect(user).toBeDefined();
 });
 
-// ✅ GOOD: Actually checks the username
+// GOOD: Actually checks the username
 test('sets username correctly', () => {
     const user = createUser({username: 'alice'});
     expect(user.username).toEqual('alice');
@@ -368,13 +373,13 @@ test('sets username correctly', () => {
 ### Testing Actual Values Not Just Counts
 
 ```javascript
-// ❌ BAD: Test says "creates items with different IDs" but only checks count
+// BAD: Test says "creates items with different IDs" but only checks count
 test('creates items with different IDs', () => {
     const items = createMultipleItems(['a', 'b']);
     expect(items.length).toEqual(2);
 });
 
-// ✅ GOOD: Actually verifies the IDs are different
+// GOOD: Actually verifies the IDs are different
 test('creates items with different IDs', () => {
     const items = createMultipleItems(['a', 'b']);
     expect(items[0].id).not.toEqual(items[1].id);
@@ -538,10 +543,10 @@ test.skip('feature returns wrong value - BUG', () => {
 ### Progress Updates
 
 - "Writing test 1/12: <category> - <specific test>"
-- "✓ Test passed: <test name>"
-- "⚠ Test failed (attempt 2/3): <reason>"
-- "⏭ Skipped test: <name> - Bug documented"
-- "🔍 Exploring bug cluster: trying <related scenario>"
+- "Test passed: <test name>"
+- "Test failed (attempt 2/3): <reason>"
+- "Skipped test: <name> - Bug documented"
+- "Exploring bug cluster: trying <related scenario>"
 
 ### Final Summary
 
@@ -668,12 +673,12 @@ When analyzing a module, consider these common scenarios:
 
 ### For Functions Taking Geographic Data
 
-- [ ] Single-letter city names (Y in France, Å in Norway)
+- [ ] Single-letter city names (Y in France, A in Norway)
 - [ ] Very long place names (58+ characters: Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch)
-- [ ] Special characters (Scandinavian: Ærøskøbing, Malmö)
+- [ ] Special characters (Scandinavian: AEroskoebing, Malmoe)
 - [ ] Various postal code formats: 3-digit (Faroe), 4-digit (Austria), 5-digit (USA), 6 alphanumeric (UK/Canada), 10-digit (Iran)
 - [ ] Postal codes optional (Fiji, UAE don't use)
-- [ ] Postal code format changes (Singapore: 2→4→6 digits, Ireland added 2014)
+- [ ] Postal code format changes (Singapore: 2-4-6 digits, Ireland added 2014)
 - [ ] Regional postal code differences (China yes, Hong Kong no)
 - [ ] Legacy data with old postal code formats
 
@@ -713,15 +718,15 @@ When analyzing a module, consider these common scenarios:
 
 - [ ] Multiple character sets (Latin, Cyrillic, Arabic, Chinese, etc.)
 - [ ] Right-to-left text (Hebrew U+05D0-U+05FF, Arabic U+0600-U+06FF)
-- [ ] Homograph attacks: Cyrillic 'а' (U+0430) vs Latin 'a' (U+0061)
-- [ ] Mixed scripts in single string (e.g., "раypal" mixing Cyrillic and Latin)
-- [ ] Multiple representations: "café" precomposed (U+00E9) vs combining (U+0065+U+0301)
-- [ ] Case transformation edge cases (ß→SS, Turkish İ/i, Greek Σ/σ/ς)
+- [ ] Homograph attacks: Cyrillic 'a' (U+0430) vs Latin 'a' (U+0061)
+- [ ] Mixed scripts in single string (e.g., "paypal" mixing Cyrillic and Latin)
+- [ ] Multiple representations: "cafe" precomposed (U+00E9) vs combining (U+0065+U+0301)
+- [ ] Case transformation edge cases (eszett to SS, Turkish I/i, Greek Sigma variants)
 - [ ] Combining characters and diacritics (U+0300-U+036F range)
 - [ ] Zero-width characters (U+200B-U+200D, U+FEFF)
 - [ ] Directional overrides (U+202D LTR, U+202E RTL)
 - [ ] Emoji with modifiers (skin tones U+1F3FB-U+1F3FF, ZWJ sequences)
-- [ ] Regional indicators (flag emoji): 🇺🇸 = U+1F1FA+U+1F1F8 (two characters), string length varies by encoding
+- [ ] Regional indicators (flag emoji): two characters, string length varies by encoding
 
 ### For Functions Taking Collections (Arrays/Lists)
 
