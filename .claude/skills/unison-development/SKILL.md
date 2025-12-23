@@ -27,6 +27,7 @@ Use the unison MCP server commands for all operations.
 ### 1. Research & Understanding
 
 Use MCP tools to explore before writing:
+
 - `view-definitions` for existing implementations
 - `search-definitions-by-name` for related functions
 - `docs` for library functions
@@ -69,6 +70,7 @@ Iterate until clean — fix type errors, add imports, verify effects.
 **Why:** Without FQN, Unison creates new function instead of modifying.
 
 Typecheck output indicators:
+
 - `+` (added) — new definition
 - `~` (modified) — updated existing
 
@@ -90,6 +92,7 @@ If UCM adds this comment after update:
 ```
 
 **CRITICAL:**
+
 - **DO NOT** delete functions from scratch.u — they will be removed from codebase
 - Repair broken code, typechecking as you go
 - Ask user to verify via UCM output
@@ -107,10 +110,6 @@ Use memory skill to store learnings about the change.
 - Modified functions show `~` not `+`
 - Comprehensive test coverage
 - Memory updated with learnings
-
-## Common Pitfalls
-
-See `references/pitfalls.md` for syntax gotchas.
 
 ### Modifying Abilities
 

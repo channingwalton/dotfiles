@@ -7,24 +7,24 @@ description: Read and write notes in the Obsidian vault. Use for task logs, know
 
 Location: `~/Documents/Notes/`
 
-**Templates & notation:** See `~/Documents/Notes/Process/Claude Code Knowledge Workflow.md`
+## Principles
 
-- Use the Knowledge Note Template when creating knowledge notes
-- Use the Task Template when creating new task
-- Use the Glossary Template when creating new glossary entries for a projects
+1. **Memory MCP for atomic facts** - Quick retrieval of entities, observations, relations
+2. **Obsidian vault for documents** - Detailed notes, task logs, project context
+3. **Unix tools for fast search** - ripgrep, fd for finding content efficiently
+4. **WikiLinks for connections** - Build traversable knowledge graph
+
+## Templates
+
+- `templates/knowledge-note.md` - For knowledge notes
+- `templates/task.md` - For new tasks
+- `templates/glossary.md` - For project glossary entries
 
 ## Bash Commands
 
 ```bash
 # List in-progress tasks
 rg --type md -l "^status:\s*in-progress" ~/Documents/Notes/Projects/*/Tasks
-
-# Find notes + WikiLinks for a topic
-rg --type md -l -i "<topic>" ~/Documents/Notes
-rg --type md -l "\[\[<topic>" ~/Documents/Notes
-
-# Full-text search with context
-rg --type md -i -C 2 "<pattern>" ~/Documents/Notes
 
 # Find project directory (handles YYYY[-MM] prefix)
 fd -t d -d 1 -i "<project>" ~/Documents/Notes/Projects
@@ -58,32 +58,63 @@ date -Iseconds
 
 `~/Documents/Notes/Projects/<YYYY[-MM] Project>/Tasks/<YYYY-MM-DD HHMMSS> <Title>.md`
 
-## Linking Related Notes
+## Linking Strategy
 
-When adding to notes in the vault,find and link related notes:
+> Link if it helps understand the note, not just because it matches a term.
+
+### What to search for
+
+| Search for | Example (if writing about "Unison abilities") |
+|------------|-----------------------------------------------|
+| Direct terms | "abilities", "Unison abilities" |
+| Parent concepts | "effect handlers", "functional programming" |
+| Sibling techniques | "monads", "algebraic effects" |
+| Tools/tech used | "UCM", "Jit" |
+
+### Semantic search (mdfind)
 
 ```bash
-# Find notes mentioning topic
-rg --type md -l -i "<topic>" ~/Documents/Notes
+# Find semantically related notes (uses Spotlight index)
+mdfind -interpret -onlyin ~/Documents/Notes "<concept>"
 
-# Find existing WikiLinks to topic
-rg --type md -l "\[\[<topic>" ~/Documents/Notes
+# Finds related concepts, not just literal matches
+# e.g. "effect handlers" finds "Algebraic Effects", "Abilities" articles
 ```
 
-Add discovered notes as WikiLinks in task **Context** section or use breadcrumb pattern: `[[Parent]] | [[Related]]`
+### Precise search (rg)
+
+```bash
+# Find notes mentioning topic (literal)
+rg --type md -l -i "<topic>" ~/Documents/Notes
+
+# Find existing WikiLinks to topic (backlinks)
+rg --type md -l "\[\[<topic>" ~/Documents/Notes
+
+# Find notes with specific tag
+rg --type md -l "^  - <tag>$" ~/Documents/Notes
+
+# Full-text search with context
+rg --type md -i -C 2 "<pattern>" ~/Documents/Notes
+```
+
+### Linking workflow
+
+1. **Semantic discovery** — `mdfind -interpret` for related concepts
+2. **Backlinks** — `rg "\[\[<concept>"` to find what links to your topics
+3. **Tags overlap** — `rg "^  - <tag>$"` for notes sharing tags
+4. Add discovered notes as WikiLinks using breadcrumb pattern: `[[Parent]] | [[Related]]`
 
 ## Capture Heuristics
 
 **Worth capturing when:**
 
-| Marker | concept | Trigger |
-|--------|---------|---------|
-| 📋 | principle | Principle applies across multiple contexts |
-| 🤔 | gotcha | Caused debugging time or surprised me |
-| ⚙️ | technique | Method that could save time later |
-| ☝️ | decision | Non-obvious choice with reasoning worth preserving |
-
-Use the icons rather than concept in Notes.
+| Marker | Trigger |
+|--------|---------|
+| 📋 | Principle applies across multiple contexts |
+| 🤔 | Caused debugging time or surprised me |
+| ⚙️ | Method that could save time later |
+| 📎 | Link to documentation or source |
+| ☝️ | Non-obvious choice with reasoning worth preserving |
 
 **Where to capture:**
 
