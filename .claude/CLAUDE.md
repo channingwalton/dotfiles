@@ -8,7 +8,7 @@
 - **ALWAYS** use British spelling
 - **ALWAYS** use the Context7 tool to get library documentation
 - **ALWAYS** use the fetch tool to get information from websites
-- **ALWAYS** use the memory skill during sessions to remember information that will be useful in future tasks
+- **ALWAYS** use the memory skill: search at session start, store insights when triggers are met (see skill for triggers)
 - **ALWAYS** use the perplexity MCP tool to find information on the internet
 - **ALWAYS** use the sequential thinking tool for complex tasks
 - **ALWAYS** use the vault skill for notes, tasks, and context building

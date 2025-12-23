@@ -5,13 +5,19 @@ description: Persist and retrieve information using the MCP-Memory Server. Use b
 
 # Memory (MCP Memory Server)
 
-## Before Starting Work
+## Session Start
 
-Search existing memory first:
+Search existing memory for relevant context:
 
 - `retrieve_memory` — semantic search by content
 - `recall_memory` — natural language time queries ("last week", "yesterday")
-- `search_by_tag` — find memories by tags
+- `search_by_tag` — find memories by project/topic tags
+
+Query examples: current project name, technology stack, user preferences
+
+## Session End (before user leaves)
+
+Review the session and store any insights matching the triggers below. Don't wait to be asked.
 
 ## After Completing Tasks
 
@@ -37,9 +43,24 @@ Store information with `store_memory`:
 **Good tags:** `foggyball-auth`, `scala-bloop`, `database-schema`
 **Bad tags:** `stuff`, `misc`, `temp`
 
+## Automatic Storage Triggers
+
+Store a memory when ANY of these occur:
+
+1. **User corrects me** — their preferred approach/style
+2. **Non-obvious solution found** — debugging insight that took effort
+3. **Project convention discovered** — naming, structure, patterns not in docs
+4. **User expresses preference** — explicit or implied ("I prefer X")
+5. **Custom tooling encountered** — scripts, aliases, workflows unique to user
+6. **Architectural decision made** — and its rationale
+7. **Recurring issue identified** — something that keeps coming up
+8. **Domain knowledge learned** — business logic, terminology, constraints
+
 ## When NOT to Store
 
 - Ephemeral session-specific details
 - Information easily found in project files
 - Trivial facts that don't aid future work
 - Sensitive credentials or secrets
+- Standard library usage (use Context7 instead)
+- One-off tasks unlikely to recur
