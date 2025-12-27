@@ -130,9 +130,10 @@ rg --type md -i -C 2 "<pattern>" ~/Documents/Notes
 
 | Folder | Purpose | Examples |
 |--------|---------|----------|
-| `Development/` | Conceptual topics, paradigms, architectural patterns | "Functional Programming", "Test Driven Development", "Unison Web Application Patterns" |
-| `HowTo/` | Procedural guides, specific techniques, step-by-step instructions | "Unison Testing with Effect Handlers", "TDD with Functional Programming" |
+| `Development/` | Conceptual, non-project, topics, paradigms, architectural patterns | "Functional Programming", "Test Driven Development", "Unison Web Application Patterns" |
+| `HowTo/` | Procedural guides, specific techniques, step-by-step instructions, unrelated to projects | "Unison Testing with Effect Handlers", "TDD with Functional Programming" |
 | `Tools/` | Software tools and their usage | "Claude", "Git", "HTMX", "Obsidian" |
+| `Projects/<project>/` | Project level knowledge  in an appropriate note in the project folder | |
 | `Projects/<project>/Tasks/` | Task logs only — never knowledge notes | |
 | `Projects/<project>/Glossary` | Glossary entries | |
 
