@@ -24,7 +24,7 @@ What needs to be accomplished.
 
 ## Log
 
-### <YYYY-MM-DD HH:MM>
+### [[YYYY-MM-DD]] HH:MM>
 
 - [x] Completed item
 - ❗️Why X was chosen over Y

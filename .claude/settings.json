@@ -51,33 +51,33 @@
   "hooks": {
     "SessionStart": [
       {
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/channing/.claude/hooks/core/session-start.js\"",
-            "timeout": 10
+            "command": "/Users/channing/.claude/hooks/session-start-wrapper.sh"
           }
         ]
       }
     ],
     "SessionEnd": [
       {
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/channing/.claude/hooks/core/session-end.js\"",
-            "timeout": 15
+            "command": "/Users/channing/.nvm/versions/node/v25.2.0/bin/node /Users/channing/.claude/hooks/core/session-end.js"
           }
         ]
       }
     ],
     "UserPromptSubmit": [
       {
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/channing/.claude/hooks/core/mid-conversation.js\"",
-            "timeout": 8
+            "command": "/Users/channing/.nvm/versions/node/v25.2.0/bin/node /Users/channing/.claude/hooks/core/mid-conversation.js"
           }
         ]
       }
