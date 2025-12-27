@@ -1,4 +1,49 @@
 {
   "version": 2,
-  "plugins": {}
+  "plugins": {
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2025-12-27T14:34:04.080Z",
+        "lastUpdated": "2025-12-27T14:34:04.080Z",
+        "gitCommitSha": "c32e4b9972eba9a75a78e9903eb395a55db4175c",
+        "isLocal": true
+      }
+    ],
+    "pyright-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/pyright-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2025-12-27T14:34:04.091Z",
+        "lastUpdated": "2025-12-27T14:34:04.091Z",
+        "gitCommitSha": "c32e4b9972eba9a75a78e9903eb395a55db4175c",
+        "isLocal": true
+      }
+    ],
+    "jdtls-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/jdtls-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2025-12-27T14:34:04.101Z",
+        "lastUpdated": "2025-12-27T14:34:04.101Z",
+        "gitCommitSha": "c32e4b9972eba9a75a78e9903eb395a55db4175c",
+        "isLocal": true
+      }
+    ],
+    "lua-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/lua-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2025-12-27T14:34:04.110Z",
+        "lastUpdated": "2025-12-27T14:34:04.110Z",
+        "gitCommitSha": "c32e4b9972eba9a75a78e9903eb395a55db4175c",
+        "isLocal": true
+      }
+    ]
+  }
 }

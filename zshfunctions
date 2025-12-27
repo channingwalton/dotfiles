@@ -42,6 +42,7 @@ function updates {
   $HOME/dotfiles/bin/backupRepos.sh
 
   echo "\nClaude memory\n"
+  update-mcp-memory
   command cp -rf ~/Library/Application\ Support/mcp-memory ~/Documents/Archive
 }
 

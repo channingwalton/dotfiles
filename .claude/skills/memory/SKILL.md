@@ -1,27 +1,29 @@
 ---
 name: Memory
-description: Persist and retrieve information using the MCP-Memory Server. Use before starting work to search existing knowledge, and after completing tasks to store learnings. Essential for maintaining context across sessions.
+description: Persist and retrieve information using the MCP-Memory Server. Session start/end context is handled automatically by hooks. Use tools mid-session for explicit storage and retrieval.
 ---
 
 # Memory (MCP Memory Server)
 
-## Session Start
+## Automatic (via Hooks)
 
-Search existing memory for relevant context:
+- **Session Start**: Relevant memories injected automatically based on project context
+- **Session End**: Insights captured automatically when conversation ends
+- **Mid-Conversation**: Pattern detection triggers memory retrieval (e.g., "what did we decide about...")
+
+No action needed — hooks handle this.
+
+## Manual Tools (use mid-session)
+
+When you need context the hooks didn't provide:
 
 - `retrieve_memory` — semantic search by content
 - `recall_memory` — natural language time queries ("last week", "yesterday")
 - `search_by_tag` — find memories by project/topic tags
 
-Query examples: current project name, technology stack, user preferences
+## Storing Memories
 
-## Session End (before user leaves)
-
-Review the session and store any insights matching the triggers below. Don't wait to be asked.
-
-## After Completing Tasks
-
-Store information with `store_memory`:
+Use `store_memory` when triggers below are met:
 
 ```json
 {
