@@ -13,6 +13,7 @@ Location: `~/Documents/Notes/`
 2. **Obsidian vault for documents** - Detailed notes, task logs, project context
 3. **Unix tools for fast search** - ripgrep, fd for finding content efficiently
 4. **WikiLinks for connections** - Build traversable knowledge graph
+5. New tasks should be in an `open` state
 
 ## Templates
 

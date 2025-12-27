@@ -1,0 +1,24 @@
+#!/bin/bash
+# Update mcp-memory-service and hooks
+
+set -e
+
+echo "=== Updating mcp-memory-service ==="
+uv tool upgrade mcp-memory-service
+
+echo ""
+echo "=== Updating hooks from repo ==="
+cd ~/dev/mcp-memory-service
+git pull
+python3 claude-hooks/install_hooks.py --natural-triggers
+
+echo ""
+echo "=== Restarting HTTP server ==="
+launchctl unload ~/Library/LaunchAgents/com.mcp-memory.http-server.plist 2>/dev/null || true
+launchctl load ~/Library/LaunchAgents/com.mcp-memory.http-server.plist
+
+echo ""
+echo "=== Verifying ==="
+sleep 2
+curl -s http://127.0.0.1:8000/api/health | jq -r '"HTTP Server: " + .version'
+echo "Done!"

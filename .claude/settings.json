@@ -38,9 +38,49 @@
     "command": "~/.claude/statusline.sh",
     "padding": 0
   },
-  "enabledPlugins": {},
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true
+  },
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/channing/.claude/hooks/core/session-start.js\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/channing/.claude/hooks/core/session-end.js\"",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/channing/.claude/hooks/core/mid-conversation.js\"",
+            "timeout": 8
+          }
+        ]
+      }
+    ]
   }
 }
