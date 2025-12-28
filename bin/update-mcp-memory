@@ -4,14 +4,40 @@
 set -e
 
 NODE_PATH="/Users/channing/.nvm/versions/node/v25.2.0/bin/node"
+NEEDS_UPDATE=false
+FORCE=${1:-}
 
-echo "=== Updating mcp-memory-service ==="
-uv tool upgrade mcp-memory-service
+echo "=== Checking mcp-memory-service ==="
+uv_output=$(uv tool upgrade mcp-memory-service 2>&1)
+echo "$uv_output"
+if [[ ! "$uv_output" =~ "already at latest" ]] && [[ ! "$uv_output" =~ "Nothing to upgrade" ]]; then
+    NEEDS_UPDATE=true
+    echo "→ Package updated"
+fi
 
 echo ""
-echo "=== Updating hooks from repo ==="
+echo "=== Checking hooks repo ==="
 cd ~/dev/mcp-memory-service
-git pull
+git_output=$(git pull 2>&1)
+echo "$git_output"
+if [[ "$git_output" != "Already up to date." ]]; then
+    NEEDS_UPDATE=true
+    echo "→ Repo updated"
+fi
+
+if [[ "$FORCE" == "--force" ]] || [[ "$FORCE" == "-f" ]]; then
+    NEEDS_UPDATE=true
+    echo "→ Force flag set"
+fi
+
+if [[ "$NEEDS_UPDATE" == "false" ]]; then
+    echo ""
+    echo "✓ Everything up to date, skipping reinstall"
+    exit 0
+fi
+
+echo ""
+echo "=== Installing hooks ==="
 python3 claude-hooks/install_hooks.py --natural-triggers
 
 echo ""
