@@ -9,4 +9,4 @@ Use the `Vault` skill to add a glossary item to project notes in the vault.
 
 Location: `~/Documents/Notes/`
 
-**Templates & notation:** See `~/Documents/Notes/Process/Claude Code Knowledge Workflow.md`
+**Templates & notation:** See `templates/glossary.md`

@@ -8,7 +8,7 @@ description: Improve code design without changing behaviour. Use when restructur
 ## Core Rules (Non-Negotiable)
 
 1. **NEVER change behaviour** — refactoring preserves existing functionality
-2. **All tests must pass** before starting and after completing
+2. **All tests must pass** before starting and after refactoring
 3. **Small incremental changes** — commit after each successful refactoring
 4. **Run tests after every change** — catch regressions immediately
 
@@ -31,7 +31,8 @@ description: Improve code design without changing behaviour. Use when restructur
 | Improve clarity | Rename, inline temp, introduce explaining variable |
 | Simplify conditionals | Decompose conditional, consolidate conditional |
 | Improve structure | Extract class, move method, replace inheritance with delegation |
-| Reduce code size | Eliminate nesting by extracting helper functions |
+| Eliminate nesting | Eliminate nesting by extracting helper functions |
+| Eliminate large functions | Extract smaller functions from large functions |
 
 ## Code Smells to Address
 

@@ -5,22 +5,19 @@ description: Write, test, and update Unison code using MCP tools. Use when worki
 
 # Unison Development
 
-Uses `development` skill for TDD workflow, enhanced with Unison-specific tooling.
+- Uses `development` skill for TDD workflow, enhanced with Unison-specific tooling.
+- Use the unison MCP server commands for all operations.
 
 ## Core Principles
 
-1. **NEVER run UCM commands on command line** — use MCP tools only
-2. Code stored by Unison Code Manager, not Git
+1. **NEVER run UCM commands on the command line** — use MCP tools only
+2. Code is stored by the Unison Code Manager, not Git
 3. **TDD is mandatory** — be aware UCM may enter "Handling typecheck errors after update"
 4. **Always** use fully qualified names in scratch.u
 5. **Never** create multiple scratch files
 6. **ALWAYS** wait for user confirmation after `update` before continuing
-7. Typecheck code with unison MCP server before adding to scratch file
+7. **ALWAYS** Typecheck code with unison MCP server before adding to scratch file
 8. After successful update, you may delete the scratch file
-
-## MCP Tools
-
-Use the unison MCP server commands for all operations.
 
 ## Workflow
 
@@ -34,11 +31,11 @@ Use MCP tools to explore before writing:
 
 ### 2. Branch
 
-Ask user to create feature branch before beginning.
+Ask the user to create feature branch before beginning.
 
 ### 3. Clear scratch files
 
-Ask user if they want `scratch.u` deleted.
+Ask the user if they want `scratch.u` deleted.
 
 ### 4. Write Tests First
 
@@ -64,10 +61,10 @@ Iterate until clean — fix type errors, add imports, verify effects.
 
 ### 6. Add to scratch.u with Fully Qualified Names
 
-- **WRONG:** `deletePredictionImpl : Tables -> ...`
-- **CORRECT:** `foggyball.store.FoggyBallStore.default.deletePredictionImpl : Tables -> ...`
+- **WRONG:** `foo : Text -> ...`
+- **CORRECT:** `projectName.module.foo : Text -> ...`
 
-**Why:** Without FQN, Unison creates new function instead of modifying.
+**Why:** Without Fully Qualified Names, Unison creates new function instead of modifying existing functions.
 
 Typecheck output indicators:
 
@@ -98,10 +95,6 @@ If UCM adds this comment after update:
 - Ask user to verify via UCM output
 - After successful update, you may remove code from scratch.u
 
-### 9. Update Memory
-
-Use memory skill to store learnings about the change.
-
 ## Success Criteria
 
 - All code typechecks successfully
@@ -109,8 +102,7 @@ Use memory skill to store learnings about the change.
 - Fully qualified names in scratch.u
 - Modified functions show `~` not `+`
 - Comprehensive test coverage
-- Memory updated with learnings
 
 ### Modifying Abilities
 
-It is easier to modify the ability but not implementations, then `update` in UCM, then fix the code UCM put in an update branch that needs attention.
+When modifying `abilities` it is easier to modify the ability first, ask the user to `update` in the UCM which will result in an `update` branch, fix the code in the `update` branch, then ask the user to `update`.
