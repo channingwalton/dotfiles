@@ -11,15 +11,14 @@ Location: `~/Documents/Notes/`
 
 1. **Memory MCP for atomic facts** - Quick retrieval of entities, observations, relations
 2. **Obsidian vault for documents** - Detailed notes, task logs, project context
-3. **Unix tools for fast search** - ripgrep, fd for finding content efficiently
+3. **Unix tools for fast search** - ripgrep (rg), fd, or mdfind for finding content efficiently
 4. **WikiLinks for connections** - Build traversable knowledge graph
-5. New tasks should be in an `open` state
+5. **ALWAYS**: New tasks should be in an `open` state
 
 ## Templates
 
 - `templates/knowledge-note.md` - For knowledge notes
 - `templates/task.md` - For new tasks
-- `templates/glossary.md` - For project glossary entries
 
 ## Bash Commands
 
@@ -38,6 +37,9 @@ fd -e md -i "<name>" ~/Documents/Notes
 
 # Recently modified (last 7 days)
 fd -e md --changed-within 7d ~/Documents/Notes
+
+# Find with Spotlight index
+mdfind -interpret -onlyin ~/Documents/Notes "<concept>"
 ```
 
 ## Timestamps
@@ -61,7 +63,7 @@ date -Iseconds
 
 ## Linking Strategy
 
-> Link if it helps understand the note, not just because it matches a term.
+> Link if it improves the note, not just because it matches a term.
 
 ### What to search for
 
@@ -71,32 +73,6 @@ date -Iseconds
 | Parent concepts | "effect handlers", "functional programming" |
 | Sibling techniques | "monads", "algebraic effects" |
 | Tools/tech used | "UCM", "Jit" |
-
-### Semantic search (mdfind)
-
-```bash
-# Find semantically related notes (uses Spotlight index)
-mdfind -interpret -onlyin ~/Documents/Notes "<concept>"
-
-# Finds related concepts, not just literal matches
-# e.g. "effect handlers" finds "Algebraic Effects", "Abilities" articles
-```
-
-### Precise search (rg)
-
-```bash
-# Find notes mentioning topic (literal)
-rg --type md -l -i "<topic>" ~/Documents/Notes
-
-# Find existing WikiLinks to topic (backlinks)
-rg --type md -l "\[\[<topic>" ~/Documents/Notes
-
-# Find notes with specific tag
-rg --type md -l "^  - <tag>$" ~/Documents/Notes
-
-# Full-text search with context
-rg --type md -i -C 2 "<pattern>" ~/Documents/Notes
-```
 
 ### Linking workflow
 

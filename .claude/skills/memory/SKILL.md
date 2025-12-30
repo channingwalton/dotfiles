@@ -5,15 +5,15 @@ description: Persist and retrieve information using the MCP-Memory Server. Sessi
 
 # Memory (MCP Memory Server)
 
-## Automatic (via Hooks)
+**MCP Server**: mcp-memory
+
+## Automatic triggers via hooks
 
 - **Session Start**: Relevant memories injected automatically based on project context
 - **Session End**: Insights captured automatically when conversation ends
 - **Mid-Conversation**: Pattern detection triggers memory retrieval (e.g., "what did we decide about...")
 
-No action needed — hooks handle this.
-
-## Manual Tools (use mid-session)
+## Manual Tools
 
 When you need context the hooks didn't provide:
 
@@ -40,7 +40,7 @@ Use `store_memory` when triggers below are met:
 ✅ ONE fact per memory — never combine multiple facts
 ✅ Atomic memories — split by component/feature/concern
 ✅ Use descriptive tags for searchability
-❌ No code blocks, paragraphs, or documentation dumps
+❌ No code blocks or documentation dumps
 
 **Good tags:** `foggyball-auth`, `scala-bloop`, `database-schema`
 **Bad tags:** `stuff`, `misc`, `temp`
@@ -62,7 +62,7 @@ Store a memory when ANY of these occur:
 
 - Ephemeral session-specific details
 - Information easily found in project files
-- Trivial facts that don't aid future work
+- Trivial facts that won't aid future work
 - Sensitive credentials or secrets
 - Standard library usage (use Context7 instead)
 - One-off tasks unlikely to recur
