@@ -66,6 +66,15 @@
             "command": "/Users/channing/.claude/hooks/session-start-wrapper.sh"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/channing/.claude/hooks/core/session-start.js\"",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "SessionEnd": [
@@ -77,6 +86,15 @@
             "command": "/Users/channing/.nvm/versions/node/v25.2.0/bin/node /Users/channing/.claude/hooks/core/session-end.js"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/channing/.claude/hooks/core/session-end.js\"",
+            "timeout": 15
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
@@ -86,6 +104,15 @@
           {
             "type": "command",
             "command": "/Users/channing/.nvm/versions/node/v25.2.0/bin/node /Users/channing/.claude/hooks/core/mid-conversation.js"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/channing/.claude/hooks/core/mid-conversation.js\"",
+            "timeout": 8
           }
         ]
       }
