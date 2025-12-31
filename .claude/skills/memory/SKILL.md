@@ -66,3 +66,52 @@ Store a memory when ANY of these occur:
 - Sensitive credentials or secrets
 - Standard library usage (use Context7 instead)
 - One-off tasks unlikely to recur
+
+## Quality Criteria (for HIGH scores ≥0.7)
+
+The MCP Memory Service scores memories 0.0-1.0 using AI + usage signals.
+
+### Content Quality (DeBERTa classifier - 70% weight)
+
+| DO | DON'T |
+|----|-------|
+| Specific, concrete details | Vague ("maybe", "todo", "look into") |
+| Self-contained context | Requires external knowledge |
+| Include rationale/why | Just facts without reasoning |
+| Searchable keywords | Generic terms |
+
+**Example HIGH:**
+```
+Python async: Use `asyncio.gather(return_exceptions=True)` for parallel API calls.
+Prevents one timeout from cancelling siblings. Learned debugging webhook handler.
+```
+
+**Example LOW:**
+```
+async stuff - gather does something with exceptions?
+```
+
+### Usage Signals (30% weight)
+
+- **Access frequency** (40%) — Store things you'll search for
+- **Recency** (30%) — Active knowledge beats stale
+- **Search ranking** (30%) — Use specific, findable terms
+
+### Network Bonuses
+
+| Tag | Retention Multiplier |
+|-----|---------------------|
+| `critical` | 2.0× |
+| `important` | 1.5× |
+| `reference` | 1.3× |
+
+Memories with ≥5 connections to others get +20% quality boost.
+
+### Quality Checklist
+
+Before storing, verify:
+- [ ] One atomic fact (not multiple combined)
+- [ ] Includes context/rationale
+- [ ] Contains searchable keywords
+- [ ] Tagged with project + topic
+- [ ] Would be useful if retrieved in 6 months
