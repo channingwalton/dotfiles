@@ -18,11 +18,19 @@ fi
 echo ""
 echo "=== Checking hooks repo ==="
 cd ~/dev/mcp-memory-service
-git_output=$(git pull 2>&1)
-echo "$git_output"
-if [[ "$git_output" != "Already up to date." ]]; then
+# Fetch upstream and update main branch (hooks come from upstream)
+git fetch upstream 2>&1
+current_main=$(git rev-parse main)
+upstream_main=$(git rev-parse upstream/main)
+if [[ "$current_main" != "$upstream_main" ]]; then
+    echo "Updating main: $(git log --oneline main..upstream/main | wc -l | tr -d ' ') commits behind"
+    git checkout main 2>&1
+    git merge upstream/main --ff-only 2>&1
+    git checkout - 2>&1
     NEEDS_UPDATE=true
     echo "→ Repo updated"
+else
+    echo "Already up to date."
 fi
 
 if [[ "$FORCE" == "--force" ]] || [[ "$FORCE" == "-f" ]]; then
@@ -38,7 +46,12 @@ fi
 
 echo ""
 echo "=== Installing hooks ==="
+# Run installer from main branch (where releases come from)
+git stash -q 2>/dev/null || true
+git checkout main -q
 python3 claude-hooks/install_hooks.py --natural-triggers
+git checkout - -q
+git stash pop -q 2>/dev/null || true
 
 echo ""
 echo "=== Recreating session-start wrapper ==="
