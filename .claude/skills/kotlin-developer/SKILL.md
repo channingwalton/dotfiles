@@ -1,11 +1,9 @@
 ---
 name: Kotlin Development
-description: Senior Kotlin developer using http4k and functional patterns. Use when writing Kotlin code, implementing features, or working with Gradle projects. Follows TDD methodology via development skill.
+description: Senior Kotlin developer using http4k and functional patterns. Use when writing Kotlin code, implementing features, or working with Gradle projects. Used as a part of the XP skill.
 ---
 
 # Kotlin Development
-
-Uses `development` skill for TDD workflow.
 
 ## Principles
 

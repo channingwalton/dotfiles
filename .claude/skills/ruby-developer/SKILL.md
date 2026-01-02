@@ -1,11 +1,9 @@
 ---
 name: Ruby Development
-description: Senior Ruby developer using functional programming techniques. Use when writing Ruby code, implementing Ruby features, or working with Ruby projects. Follows TDD methodology via development skill.
+description: Senior Ruby developer using functional programming techniques. Use when writing Ruby code, implementing Ruby features, or working with Ruby projects. Follows TDD methodology via development skill. Used as a part of the XP skill.
 ---
 
 # Ruby Development
-
-Uses `development` skill for TDD workflow.
 
 ## Principles
 
@@ -37,6 +35,7 @@ end
 ```
 
 Run tests:
+
 ```bash
 bundle exec rspec           # RSpec
 bundle exec rake test       # Minitest
@@ -53,6 +52,7 @@ bundle exec rubocop -A      # Auto-fix all (review changes)
 ## Functional Patterns
 
 **Transform with map:**
+
 ```ruby
 # ❌ Imperative
 results = []
@@ -63,17 +63,20 @@ results = items.map { |i| transform(i) }
 ```
 
 **Filter with select/reject:**
+
 ```ruby
 valid_items = items.select(&:valid?)
 invalid_items = items.reject(&:valid?)
 ```
 
 **Reduce for accumulation:**
+
 ```ruby
 total = items.reduce(0) { |sum, item| sum + item.value }
 ```
 
 **Chain operations:**
+
 ```ruby
 items
   .select(&:active?)
@@ -82,6 +85,7 @@ items
 ```
 
 **Immutability:**
+
 ```ruby
 CONSTANTS = ['a', 'b', 'c'].freeze
 hash = { key: 'value' }.freeze
