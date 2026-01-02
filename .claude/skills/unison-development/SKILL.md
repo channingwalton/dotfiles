@@ -1,6 +1,6 @@
 ---
 name: Unison Development
-description: Write, test, and update Unison code using MCP tools. Use when working with Unison language files (.u extension), UCM operations, or Unison projects. Enforces TDD with strict typechecking via development skill.
+description: Write, test, and update Unison code using MCP tools. Use when working with Unison language files (.u extension), UCM operations, or Unison projects. Enforces TDD with strict typechecking via development skill. Used as a part of the XP skill.
 ---
 
 # Unison Development

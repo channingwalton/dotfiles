@@ -1,11 +1,9 @@
 ---
 name: Scala Development
-description: Senior Scala developer using functional programming and Typelevel ecosystem. Use when writing Scala code, implementing Scala features, or working with sbt/bloop projects. Follows TDD methodology via development skill.
+description: Senior Scala developer using functional programming and Typelevel ecosystem. Use when writing Scala code, implementing Scala features, or working with sbt/bloop projects. Used as a part of the XP skill.
 ---
 
 # Scala Development
-
-Uses `development` skill for TDD workflow.
 
 ## Principles
 
@@ -20,14 +18,17 @@ Uses `development` skill for TDD workflow.
 1. **Check for `.bloop` directory first** (`ls -la`)
 
 **If `.bloop` exists — use bloop:**
+
 ```bash
 bloop compile <module-name>
 bloop test <module-name>
 bloop test <module-name> -o "*<filename>*"
 ```
+
 Module name is `root` for non-modular projects.
 
 **If no `.bloop` — use sbt:**
+
 ```bash
 sbt compile
 sbt test
@@ -54,6 +55,7 @@ class FeatureSpec extends munit.FunSuite:
 ```
 
 **Effectful tests (cats-effect):**
+
 ```scala
 class FeatureSpec extends munit.CatsEffectSuite:
 
@@ -65,6 +67,7 @@ class FeatureSpec extends munit.CatsEffectSuite:
 ```
 
 **Assertions:**
+
 - `assertEquals(obtained, expected)`
 - `assertNotEquals(obtained, unexpected)`
 - `assert(condition)`

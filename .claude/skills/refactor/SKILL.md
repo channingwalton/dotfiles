@@ -1,6 +1,6 @@
 ---
 name: Refactor
-description: Improve code design without changing behaviour. Use when restructuring code, eliminating duplication, or improving readability. All tests must pass before and after.
+description: Improve code design without changing behaviour. Use for the REFACTOR phase of XP workflow. All tests must pass before and after.
 ---
 
 # Refactor
@@ -8,8 +8,8 @@ description: Improve code design without changing behaviour. Use when restructur
 ## Core Rules (Non-Negotiable)
 
 1. **NEVER change behaviour** — refactoring preserves existing functionality
-2. **All tests must pass** before starting and after refactoring
-3. **Small incremental changes** — commit after each successful refactoring
+2. **All tests must pass** before and after refactoring
+3. **Small incremental changes** — one transformation at a time
 4. **Run tests after every change** — catch regressions immediately
 
 ## The Refactor Cycle
@@ -19,7 +19,6 @@ description: Improve code design without changing behaviour. Use when restructur
 🔍 ANALYSE  → Identify code smell or improvement opportunity
 🔵 REFACTOR → Apply ONE transformation
 ✅ VERIFY   → Run all tests, confirm still green
-💾 COMMIT   → Save working state (commit-helper agent)
 🔁 REPEAT   → Continue until goal achieved
 ```
 
@@ -31,8 +30,6 @@ description: Improve code design without changing behaviour. Use when restructur
 | Improve clarity | Rename, inline temp, introduce explaining variable |
 | Simplify conditionals | Decompose conditional, consolidate conditional |
 | Improve structure | Extract class, move method, replace inheritance with delegation |
-| Eliminate nesting | Eliminate nesting by extracting helper functions |
-| Eliminate large functions | Extract smaller functions from large functions |
 
 ## Code Smells to Address
 
@@ -41,14 +38,12 @@ description: Improve code design without changing behaviour. Use when restructur
 - **Large classes** — too many responsibilities
 - **Long parameter lists** — difficult to call correctly
 - **Feature envy** — method uses another class more than its own
-- **Data clumps** — groups of data that appear together repeatedly
 - **Primitive obsession** — using primitives instead of small objects
 
 ## What Refactoring Is NOT
 
 - Adding new features
 - Fixing bugs (unless the fix is purely structural)
-- Optimising performance (unless it doesn't change behaviour)
 - Changing external APIs
 
 ## Announcing Changes
@@ -58,27 +53,19 @@ description: Improve code design without changing behaviour. Use when restructur
 ```
 
 Examples:
+
 - `🔵 REFACTOR → duplication: Extract method calculateTotal`
 - `🔵 REFACTOR → long method: Split processOrder into validate and execute`
-- `🔵 REFACTOR → feature envy: Move calculateDiscount to Order class`
 
 ## Safety Checklist
 
 Before starting:
+
 - [ ] All tests pass
-- [ ] Working copy is clean (committed)
 - [ ] Understand the code being refactored
 
 After each change:
+
 - [ ] Tests still pass
 - [ ] Behaviour unchanged
 - [ ] Code is cleaner/clearer
-
-## Integration with Development Skill
-
-Refactoring is the BLUE phase of TDD:
-
-1. Complete RED-GREEN cycle
-2. Invoke refactor skill
-3. Apply improvements while keeping tests green
-4. Use `commit-helper` agent to save refactored state
