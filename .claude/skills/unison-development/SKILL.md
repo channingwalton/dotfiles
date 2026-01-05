@@ -17,7 +17,8 @@ description: Write, test, and update Unison code using MCP tools. Use when worki
 5. **Never** create multiple scratch files
 6. **ALWAYS** wait for user confirmation after `update` before continuing
 7. **ALWAYS** Typecheck code with unison MCP server before adding to scratch file
-8. After successful update, you may delete the scratch file
+8. Write code to the scratch.u file after it typechecks
+9. After successful update, you may delete the scratch file
 
 ## Workflow
 

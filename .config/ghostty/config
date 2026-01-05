@@ -8,6 +8,8 @@ split-divider-color = #E0AF69
 unfocused-split-opacity=1.0
 window-padding-x = 5
 
+# background-opacity = 0.9
+
 font-family = "JetBrainsMonoNL NFM Regular"
 font-size = 12
 
