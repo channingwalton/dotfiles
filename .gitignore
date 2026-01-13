@@ -45,3 +45,5 @@ log
 .claude/last-session-context.txt
 .claude/settings.json.backup
 .claude/plugins/install-counts-cache.json
+.claude/cache
+.config/opencode/opencode.json
