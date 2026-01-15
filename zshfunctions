@@ -281,6 +281,3 @@ function notes-now() {
   echo "### $(date +"%Y-%m-%d %H:%M")"
 }
 
-function memory-web {
-  MCP_OAUTH_ENABLED=false /Users/channing/.local/pipx/venvs/mcp-memory-service/bin/python -m uvicorn mcp_memory_service.web.app:app --port 8081
-}

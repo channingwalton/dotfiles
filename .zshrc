@@ -159,10 +159,6 @@ export PATH="/Users/channing/.antigravity/antigravity/bin:$PATH"
 
 export UNISON_PAGER=cat
 
-# This is for the mcp-memory-service. Setting it to none is
-# good for my purposes so memory score is calculated by use.
-export MCP_QUALITY_AI_PROVIDER=none
-
 # Go
 export GOBIN=~/dev/gobin
 export PATH=$GOBIN/bin:$PATH

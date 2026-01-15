@@ -1,6 +1,6 @@
 ---
 name: Vault
-description: Read and write notes in the Obsidian vault. Use for task logs, knowledge capture, and building context. Use memory skill for atomic facts.
+description: Read and write notes in the Obsidian vault. Use for task logs, knowledge capture, and building context.
 ---
 
 # Vault (Obsidian Notes)
@@ -9,11 +9,10 @@ Location: `~/Documents/Notes/`
 
 ## Principles
 
-1. **Memory MCP for atomic facts** - Quick retrieval of entities, observations, relations
-2. **Obsidian vault for documents** - Detailed notes, task logs, project context
-3. **Unix tools for fast search** - ripgrep (rg), fd, or mdfind for finding content efficiently
-4. **WikiLinks for connections** - Build traversable knowledge graph
-5. **ALWAYS**: New tasks should be in an `open` state
+1. **Obsidian vault for documents** - Detailed notes, task logs, project context
+2. **Unix tools for fast search** - ripgrep (rg), fd, or mdfind for finding content efficiently
+3. **WikiLinks for connections** - Build traversable knowledge graph
+4. **ALWAYS**: New tasks should be in an `open` state
 
 ## Templates
 
@@ -100,7 +99,6 @@ date -Iseconds
 | **Existing note** | Discovery extends/refines an existing topic (search firs ) |
 | **New note** | Substantial, standalone, referenceable by other notes |
 | **Task log only** | One-off detail that won't generalise |
-| **Memory skill** | Atomic fact for quick retrieval |
 
 ## Note Locations
 
@@ -112,15 +110,6 @@ date -Iseconds
 | `Projects/<project>/` | Project level knowledge  in an appropriate note in the project folder | |
 | `Projects/<project>/Tasks/` | Task logs only — never knowledge notes | |
 | `Projects/<project>/Glossary` | Glossary entries | |
-
-## Integration with Memory Skill
-
-| Need | Tool |
-|------|------|
-| Atomic facts | Memory skill |
-| Detailed docs | Vault (this skill) |
-| Task logs | `Projects/<project>/Tasks/` |
-| Fast search | Bash commands above |
 
 ## What NOT to include
 
