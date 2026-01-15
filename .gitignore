@@ -2,14 +2,18 @@
 *.log
 .DS_Store
 .claude/__store.db
+.claude/cache
 .claude/debug
 .claude/file-history
 .claude/history.jsonl
+.claude/last-session-context.txt
 .claude/local
 .claude/plugins/cache
+.claude/plugins/install-counts-cache.json
 .claude/plugins/known_marketplaces.json
 .claude/plugins/marketplaces/superpowers-marketplace
 .claude/projects
+.claude/settings.json.backup
 .claude/settings.local.json
 .claude/shell-snapshots
 .claude/stats-cache.json
@@ -24,6 +28,7 @@
 .config/nvim/lazyvim.json
 .config/nvim/lazyvim/lazy-lock.json
 .config/nvim/plugin/packer_compiled.lua
+.config/opencode/opencode.json
 .config/pgcli/history
 .config/pgcli/log
 .config/raycast/extensions
@@ -41,8 +46,3 @@
 .gemini/state.json
 .gemini/tmp
 log
-.claude/last-session-context.txt
-.claude/settings.json.backup
-.claude/plugins/install-counts-cache.json
-.claude/cache
-.config/opencode/opencode.json
