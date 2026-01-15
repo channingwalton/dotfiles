@@ -1,0 +1,13 @@
+{
+  "timestamp": "2026-01-15T22:27:31.480Z",
+  "sessionId": "test-session",
+  "project": "dotfiles",
+  "memoriesLoaded": 2,
+  "recentCount": 5,
+  "gitCommits": 6,
+  "gitKeywords": [
+    "add",
+    "config"
+  ],
+  "storageBackend": "sqlite-vec"
+}

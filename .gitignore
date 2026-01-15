@@ -41,7 +41,6 @@
 .gemini/state.json
 .gemini/tmp
 log
-.claude/hooks/
 .claude/last-session-context.txt
 .claude/settings.json.backup
 .claude/plugins/install-counts-cache.json
