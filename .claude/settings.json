@@ -56,39 +56,5 @@
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
   },
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/channing/.claude/hooks/session-start-wrapper.sh"
-          }
-        ]
-      }
-    ],
-    "SessionEnd": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/channing/.nvm/versions/node/v25.2.0/bin/node /Users/channing/.claude/hooks/core/session-end.js"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/channing/.nvm/versions/node/v25.2.0/bin/node /Users/channing/.claude/hooks/core/mid-conversation.js"
-          }
-        ]
-      }
-    ]
-  }
+  "hooks": {}
 }
