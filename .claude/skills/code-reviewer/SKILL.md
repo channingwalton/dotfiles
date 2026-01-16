@@ -1,20 +1,29 @@
 ---
-name: Code Reviewer
-description: Review code for best practices, security, performance, and potential issues. Use when reviewing code, checking pull requests, analysing code quality, or when asked to critique implementation.
+name: code-reviewer
+description: Autonomous code review for best practices, security, performance, and potential issues. Runs in isolation with read-only tools using Opus model. Use when reviewing code, checking PRs, or analysing code quality.
+context: agent
+skills: bugmagnet
 ---
 
 # Code Reviewer
 
-This skill invokes the `code-reviewer` agent for autonomous code review.
+Autonomous code review agent that analyses code for best practices, security, performance, and potential issues.
 
-## Quick Reference
+## When to Use
 
-**Invoke:** `/code-reviewer [target]`
+- After completing a feature (before merging)
+- When reviewing pull requests
+- When asked to critique or analyse implementation
+- As part of quality gates in the XP workflow
 
-**Targets:**
-- File path(s)
-- Git diff/PR reference
-- Directory to scan
+## What It Does
+
+1. Determines review scope (diff, file, or directory)
+2. Reads target files
+3. Searches for related patterns using Grep/Glob
+4. Applies checklist criteria
+5. Runs bugmagnet for test coverage gaps
+6. Returns structured findings report
 
 ## Output Severity Levels
 
@@ -24,25 +33,41 @@ This skill invokes the `code-reviewer` agent for autonomous code review.
 
 ## Checklist Categories
 
-See `references/checklist.md` for full criteria:
+### Code Organisation & Structure
+- Single Responsibility Principle
+- Appropriate abstraction levels
+- Clear naming conventions
+- Duplication identified
 
-1. Code Organisation & Structure
-2. Functional Programming
-3. Error Handling
-4. Performance
-5. Security
-6. Test Coverage
-7. Date/Time Handling
-8. Bug Discovery (bugmagnet)
+### Functional Programming
+- Pure functions where possible
+- Side effects explicit and contained
+- Immutable data preferred
+- No early returns
 
-## Agent Behaviour
+### Error Handling
+- All error cases handled
+- Appropriate error types
+- No silent failures
 
-The code-reviewer agent:
-1. Determines review scope
-2. Reads target files
-3. Searches for patterns (Grep/Glob)
-4. Applies checklist criteria
-5. Runs bugmagnet for test gaps
-6. Returns structured findings report
+### Performance
+- No obvious inefficiencies
+- Appropriate data structures
+- Resource clean-up
 
-Runs autonomously without user interaction.
+### Security
+- Input validation present
+- No hardcoded secrets
+- Injection prevention
+
+### Test Coverage
+- All code paths tested
+- Edge cases covered
+- Behaviour-focused tests
+
+## Agent Properties
+
+- **Model:** Opus (for thorough analysis)
+- **Tools:** Read, Grep, Glob, Bash (read-only)
+- **Skills:** bugmagnet (for test gap analysis)
+- **Isolation:** Runs in separate context

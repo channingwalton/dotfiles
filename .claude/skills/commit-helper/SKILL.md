@@ -1,19 +1,27 @@
 ---
-name: Commit Helper
-description: Generate clear conventional commit messages from git diffs. Use when writing commit messages, reviewing staged changes, or after completing TDD cycles.
+name: commit-helper
+description: Generate conventional commit messages from staged changes. Runs autonomously using Haiku model. Use after completing TDD cycles, after refactoring sessions, or when ready to commit.
+context: agent
 ---
 
 # Commit Helper
 
-This skill invokes the `commit-helper` agent to generate commit messages.
+Autonomous commit message generation that analyses staged changes and generates conventional commit messages.
 
-## Quick Reference
+## When to Use
 
-**Invoke:** `/commit-helper [options]`
+- After completing a TDD cycle (tests pass)
+- After a refactoring session
+- After completing a task in the XP workflow
+- Whenever you have staged changes ready to commit
 
-**Options:**
-- No argument = analyse staged changes, return message
-- `--commit` = generate message AND create commit
+## What It Does
+
+1. Checks git status for staged changes
+2. Reads the staged diff
+3. Checks recent commits for style consistency
+4. Analyses change type and scope
+5. Generates a conventional commit message
 
 ## Conventional Commit Format
 
@@ -41,41 +49,10 @@ This skill invokes the `commit-helper` agent to generate commit messages.
 - Under 50 characters
 - Imperative mood ("add" not "added")
 - No period at end
+- Capitalise first letter
 
-## Examples
-
-**Simple:**
-```
-Add user authentication endpoint
-```
-
-**With body:**
-```
-Extract validation logic to separate module
-
-Moved input validation from UserController to ValidationService
-to improve testability and reuse across endpoints.
-```
-
-**Breaking change:**
-```
-Change API response format
-
-BREAKING CHANGE: responses now wrap data in `result` key
-```
-
-## Agent Behaviour
-
-The commit-helper agent:
-1. Checks git status for staged changes
-2. Reads staged diff
-3. Checks recent commits for style consistency
-4. Analyses change type and scope
-5. Generates conventional commit message
-
-Runs autonomously without user interaction.
-
-## Rules
+## Safety Rules
 
 - **NEVER** add contributors unless explicitly requested
 - **NEVER** commit files containing secrets
+- **NEVER** use `--amend` unless explicitly requested
