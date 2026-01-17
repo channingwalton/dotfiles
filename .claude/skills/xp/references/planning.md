@@ -1,8 +1,3 @@
----
-name: Planning
-description: Break down features into tasks through collaborative discussion. Use for the PLAN phase of XP workflow.
----
-
 # Planning
 
 ## Core Rules (Non-Negotiable)

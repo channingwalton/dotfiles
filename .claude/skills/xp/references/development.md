@@ -1,8 +1,3 @@
----
-name: Development
-description: Implement features using strict test-driven development. Use for the DEVELOP phase of XP workflow.
----
-
 # Development (TDD)
 
 ## Core Rules (Non-Negotiable)

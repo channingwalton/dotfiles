@@ -7,7 +7,20 @@ description: Extreme Programming workflow orchestrator. Use when implementing fe
 
 ## Overview
 
-This skill orchestrates the full XP workflow for feature implementation. It coordinates sub-skills and agents to ensure proper sequencing of phases with user checkpoints.
+This skill orchestrates the full XP workflow for feature implementation. It uses reference documentation for interactive phases and delegates to agents for autonomous tasks.
+
+## Getting Started
+
+1. **Detect project type** from files in working directory
+2. **Read the language skill** for the detected type:
+   - `build.sbt` or `*.scala` → `scala-developer`
+   - `build.gradle.kts` or `*.kt` → `kotlin-developer`
+   - `Gemfile` or `*.rb` → `ruby-developer`
+   - `*.u` or `.unison/` → `unison-development`
+3. **Check for project CLAUDE.md** — may contain project-specific guidance that supplements or overrides language defaults
+4. **Begin with PLAN phase**
+
+---
 
 ## The XP Workflow
 
@@ -24,32 +37,13 @@ This skill orchestrates the full XP workflow for feature implementation. It coor
 
 ---
 
-## Language-Specific Guidance
-
-Claude automatically loads the appropriate language skill based on project type:
-
-| Project Type | Skill | Detection |
-|--------------|-------|-----------|
-| Scala | `scala-developer` | `build.sbt`, `.bloop/`, `*.scala` |
-| Kotlin | `kotlin-developer` | `build.gradle.kts`, `*.kt` |
-| Ruby | `ruby-developer` | `Gemfile`, `*.rb` |
-| Unison | `unison-development` | `*.u`, `.unison/` |
-
-Language skills provide:
-- Build/test commands
-- Testing patterns and assertions
-- Error handling idioms
-- Framework-specific guidance
-
----
-
 ## Phase 1: Planning (📋 PLAN)
 
 **Goal:** Understand and decompose the feature before writing any code.
 
 **Type:** Interactive (requires user discussion)
 
-**Invoke:** Switch to `planning` skill
+**Reference:** See `references/planning.md`
 
 ### Supporting Skills
 - `glossary` — Define unfamiliar domain terms encountered during discussion
@@ -68,7 +62,7 @@ Language skills provide:
 
 **Type:** Interactive (user sees tests and implementation)
 
-**Invoke:** Switch to `development` skill + language skill
+**Reference:** See `references/development.md` + language skill
 
 ### The TDD Cycle
 ```
@@ -90,7 +84,7 @@ Language skills provide:
 
 **Type:** Interactive (user approves changes)
 
-**Invoke:** Switch to `refactor` skill
+**Reference:** See `references/refactor.md`
 
 ### Checkpoint
 - [ ] All tests pass before refactoring
@@ -201,11 +195,11 @@ When switching phases, announce clearly:
 
 | Phase | Component | Type | User Interaction |
 |-------|-----------|------|------------------|
-| PLAN | `planning` skill | Skill | Discussion required |
+| PLAN | `references/planning.md` | Reference | Discussion required |
 | PLAN | `glossary` skill | Skill | Define terms |
-| DEVELOP | `development` skill | Skill | Sees tests/code |
-| DEVELOP | Language skill | Skill | Build/test commands |
-| REFACTOR | `refactor` skill | Skill | Approves changes |
+| DEVELOP | `references/development.md` | Reference | Sees tests/code |
+| DEVELOP | Language skill (detected in Getting Started) | Skill | Build/test commands |
+| REFACTOR | `references/refactor.md` | Reference | Approves changes |
 | REVIEW | `code-reviewer` agent | Agent | Reviews report |
 | REVIEW | `bugmagnet` skill | Skill | Deep coverage (optional) |
 | COMMIT | `commit-helper` agent | Agent | Confirms message |

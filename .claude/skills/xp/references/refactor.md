@@ -1,8 +1,3 @@
----
-name: Refactor
-description: Improve code design without changing behaviour. Use for the REFACTOR phase of XP workflow. All tests must pass before and after.
----
-
 # Refactor
 
 ## Core Rules (Non-Negotiable)
