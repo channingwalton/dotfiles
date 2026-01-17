@@ -16,8 +16,10 @@ Location: `~/Documents/Notes/`
 
 ## Templates
 
-- `templates/knowledge-note.md` - For knowledge notes
-- `templates/task.md` - For new tasks
+Templates are in the skill directory, not the notes directory:
+
+- `.claude/skills/vault/templates/knowledge-note.md` - For knowledge notes
+- `.claude/skills/vault/templates/task.md` - For new tasks
 
 ## Bash Commands
 
