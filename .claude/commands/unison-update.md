@@ -4,7 +4,7 @@ Triggered after editing Unison code when UCM creates an update branch.
 
 ## Context
 
-When you update definitions in Unison and the ucm creates a new branch
+When you update definitions in Unison and the UCM creates a new branch
 named `update-<original branch>`, and the `scratch.u` contains the
 text:
 
@@ -15,7 +15,7 @@ text:
 
 ## Workflow
 
-1. typecheck `scratch.u` with the mcp server
+1. typecheck `scratch.u` with the MCP server
 2. Repair issues
 
 ## Critical Rules

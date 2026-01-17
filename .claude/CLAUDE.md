@@ -13,6 +13,7 @@
 - **ALWAYS** use the perplexity MCP tool to find information on the internet
 - **ALWAYS** use the sequential thinking tool for complex tasks
 - **ALWAYS** use the vault skill for notes, tasks, and context building
+- When the user refers to `vault`, use the vault skill
 - **ALWAYS** use bash `date` when creating timestamps and dates
 - **NEVER** expand the scope of tasks
 - **ALWAYS** look for appropriate skills before performing tasks
