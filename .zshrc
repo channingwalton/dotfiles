@@ -123,7 +123,6 @@ export PATH=${MY_BIN}:$PATH
 
 export PATH="/Users/channing/Library/Application Support/Coursier/bin:$PATH"
 eval "$(cs java --jvm zulu:25 --env)"
-export PATH="$JAVA_HOME/bin:$PATH"
 
 export PATH="/Applications/OrbStack.app/Contents/MacOS/xbin:$PATH"
 
@@ -163,3 +162,4 @@ export UNISON_PAGER=cat
 export GOBIN=~/dev/gobin
 export PATH=$GOBIN/bin:$PATH
 
+eval "$(rbenv init - zsh)"
