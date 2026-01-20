@@ -39,6 +39,15 @@ function updates {
   $HOME/dotfiles/bin/backupRepos.sh
 }
 
+function jdk() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: jdk <version>"
+    echo "Examples: jdk 21, jdk graalvm-java21, jdk temurin:21"
+    return 1
+  fi
+  eval "$(cs java --jvm "$1" --env)"
+}
+
 function killDockerServices {
   if [[ $(docker ps -q | wc -c) -eq 0 ]]; then
     echo "Nothing running"
