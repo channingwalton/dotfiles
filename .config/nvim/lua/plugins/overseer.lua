@@ -22,7 +22,7 @@ return {
       name = "sbt integration tests",
       params = {},
       condition = {
-        dir = "~/dev/sxm",
+        dir = vim.fn.expand("~/dev/sxm"),
       },
       builder = function()
         return {

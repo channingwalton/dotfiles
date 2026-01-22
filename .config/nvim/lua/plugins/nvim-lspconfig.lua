@@ -56,7 +56,7 @@ return {
       { "<leader>mo", "<cmd>Outline<CR>", desc = "Outline" },
       { "<leader>ms", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature" },
       { "<leader>x<space>", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace diagnostics" },
-      
+
       -- Metals-specific commands
       {
         "<leader>mm",
@@ -64,7 +64,7 @@ return {
           local fzf = require("fzf-lua")
           local commands = {
             "MetalsCompileCancel",
-            "MetalsCompileCascade", 
+            "MetalsCompileCascade",
             "MetalsCompileClean",
             "MetalsImportBuild",
             "MetalsInfo",
@@ -117,7 +117,7 @@ return {
           quit = { "q", "<esc>" },
           edit = { "<cr>" },
           close_in_preview = "q",
-          expand_or_jump = "<>",
+          expand_or_jump = "<CR>",
         },
       },
       definition = {
@@ -139,7 +139,6 @@ return {
       "neovim/nvim-lspconfig",
       "nvim-tree/nvim-web-devicons",
       "nvim-treesitter/nvim-treesitter",
-      "WhoIsSethDaniel/lualine-lsp-progress.nvim",
     },
     keys = {
       -- LSP Saga Actions
@@ -175,7 +174,7 @@ return {
       { "<leader>mN", "<cmd>lua require('metals').new_scala_file()<cr>", desc = "New Scala File" },
       { "<leader>mW", "<cmd>lua require('metals').quick_worksheet()<cr>", desc = "Quick Worksheet" },
 
-      -- Tree View Commands  
+      -- Tree View Commands
       { "<leader>tr", "<cmd>lua require('metals.tvp').reveal_in_tree()<cr>", desc = "Reveal in Tree" },
       { "<leader>tv", "<cmd>lua require('metals.tvp').toggle_tree_view()<cr>", desc = "Toggle Tree View" },
 
@@ -198,7 +197,13 @@ return {
     event = "LspAttach",
     opts = {},
     keys = {
-      { "<leader>cL", function() require("lsp_lines").toggle() end, desc = "Toggle lsp_lines" },
+      {
+        "<leader>cL",
+        function()
+          require("lsp_lines").toggle()
+        end,
+        desc = "Toggle lsp_lines",
+      },
     },
     config = function()
       require("lsp_lines").setup()
