@@ -46,3 +46,7 @@
 .gemini/state.json
 .gemini/tmp
 log
+.claude/paste-cache
+.claude/plans
+.claude/tasks
+.config/swiftpm

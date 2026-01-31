@@ -126,6 +126,8 @@ This skill orchestrates the full XP workflow for feature implementation. It uses
 
 ## Phase 5: Commit (💾 COMMIT)
 
+**CONFIRM BEFORE PROCEEDING**
+
 **Goal:** Save working state with clear, conventional commit message.
 
 **Type:** Autonomous (generates message for approval)

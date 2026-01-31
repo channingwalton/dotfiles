@@ -20,7 +20,7 @@ description: Write, test, and update Unison code using the Unison MCP tool. Use 
 9. After successful update, you may delete the scratch file
 10. Use the MCP service tool to explore the codebase before writing code
 
-### UPDATE MODE: Handling Typecheck Errors
+### **CRITICAL**: UPDATE MODE: Handling Typecheck Errors
 
 When an update is performed that results in further changes required, the UCM adds this comment after the user updates:
 

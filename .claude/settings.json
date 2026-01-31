@@ -36,6 +36,7 @@
     ],
     "deny": []
   },
+  "hooks": {},
   "statusLine": {
     "type": "command",
     "command": "~/.claude/statusline.sh",
@@ -45,11 +46,11 @@
     "typescript-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
     "jdtls-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true
+    "lua-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
-  },
-  "hooks": {}
+  }
 }
