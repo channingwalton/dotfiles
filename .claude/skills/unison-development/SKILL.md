@@ -10,19 +10,24 @@ description: Write, test, and update Unison code using the Unison MCP tool. Use 
 
 ## Core Principles
 
-1. **NEVER run Unison Code Manager (UCM) commands on the command line** — use MCP tools only
-2. Code is stored by the UCM, not Git
-4. **Always** use fully qualified names in `scratch.u`
-5. **Never** create multiple scratch files
-6. **ALWAYS** wait for user confirmation after `update` before continuing
-7. **ALWAYS** Typecheck code with unison MCP server before adding to scratch file
-8. Write code to the scratch.u file in the current directory after it typechecks
-9. After successful update, you may delete the scratch file
-10. Use the MCP service tool to explore the codebase before writing code
+1. **ALWAYS** work in branches - create one with an appropriate name
+2. **NEVER run UCM commands on the command line** — use MCP tools only
+3. **NEVER use scratch.u files** — use MCP tools directly
+4. **Code is stored by the UCM, NOT Git** — NEVER suggest git commits for code changes
+5. **NEVER use commit-helper skill** — Unison code is managed by UCM
+6. **Always** use fully qualified names when writing code
+7. Use the MCP tools to explore the codebase before writing code
 
-### **CRITICAL**: UPDATE MODE: Handling Typecheck Errors
+## Workflow
 
-When an update is performed that results in further changes required, the UCM adds this comment after the user updates:
+1. **Explore**: Use `view-definitions`, `search-definitions-by-name`, `list-project-definitions` to understand existing code
+2. **Typecheck**: Use `mcp__unison__typecheck-code` to validate code before updating
+3. **Update**: Use `mcp__unison__update-definitions` to apply changes directly to the codebase
+4. **Test**: Use `mcp__unison__run-tests` to verify changes
+
+## Handling Typecheck Errors During Update
+
+When `update-definitions` returns affected definitions that no longer typecheck:
 
 ```
 -- The definitions below no longer typecheck with the changes above.
@@ -31,17 +36,22 @@ When an update is performed that results in further changes required, the UCM ad
 
 **CRITICAL:**
 
-- **DO NOT** delete functions from scratch.u — they will be removed from codebase
-- Repair broken code, typechecking as you go
-- Ask user to verify via UCM output
-- After successful update, you may remove code from scratch.u
+- The MCP server creates a temporary branch with affected code in `sourceCodeUpdates`
+- Fix ALL affected definitions and include them in the next `update-definitions` call
+- **DO NOT** omit functions — they will be removed from codebase
+- Include all fixes in a single `update-definitions` call
+
+## Modifying Abilities
+
+When modifying abilities, include all affected dependents in the same update:
+
+1. View the ability and its `default` handler
+2. Use `list-definition-dependents` to find all callers
+3. Update the ability AND all dependents together in one `update-definitions` call
 
 ## Success Criteria
 
-- All code typechecks successfully
-- Fully qualified names in scratch.u
-
-### Modifying Abilities
-
-When modifying `abilities` it is easier to modify the ability first, ask the user to `update` in the UCM which will result in an `update` branch, fix the code in the `update` branch, then ask the user to `update`.
+- All code typechecks successfully via MCP tools
+- Tests pass via `mcp__unison__run-tests`
+- Fully qualified names used throughout
 

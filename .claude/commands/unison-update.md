@@ -1,12 +1,10 @@
 # Unison Update
 
-Triggered after editing Unison code when UCM creates an update branch.
+Triggered when `mcp__unison__update-definitions` returns affected definitions that no longer typecheck.
 
 ## Context
 
-When you update definitions in Unison and the UCM creates a new branch
-named `update-<original branch>`, and the `scratch.u` contains the
-text:
+When the MCP server returns `sourceCodeUpdates` containing:
 
 ```
 -- The definitions below no longer typecheck with the changes above.
@@ -15,11 +13,14 @@ text:
 
 ## Workflow
 
-1. typecheck `scratch.u` with the MCP server
-2. Repair issues
+1. Review all affected definitions in the `sourceCodeUpdates` response
+2. Fix all type errors and update signatures as needed
+3. Include ALL fixed definitions in a single `mcp__unison__update-definitions` call
+4. Repeat until update succeeds
 
 ## Critical Rules
 
-- **DO NOT delete functions** — this removes them from the codebase entirely
+- **DO NOT omit functions** — they will be removed from the codebase
+- Fix ALL affected definitions together in one update call
 - Repair by fixing type mismatches or updating signatures
 - Preserve all existing functionality
