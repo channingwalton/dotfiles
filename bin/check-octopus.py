@@ -1,14 +1,20 @@
+#!/usr/bin/env python3
 import subprocess,os
 import datetime
 
 my_env = os.environ.copy()
 my_env["PATH"] = f"/Users/channing/dotfiles/bin:{my_env['PATH']}"
 
-# Find the secret key in the keychain
-# Add it with security add-generic-password -a $LOGNAME -s octopus-sk -w 'sk_SECRET'
+# Find credentials in the keychain
+# Add them with:
+#   security add-generic-password -a $LOGNAME -s octopus-sk -w 'sk_SECRET'
+#   security add-generic-password -a $LOGNAME -s octopus-mpan -w 'METER_POINT_ID'
+#   security add-generic-password -a $LOGNAME -s octopus-msn -w 'METER_SERIAL'
 sk = subprocess.check_output("security find-generic-password -w -a $LOGNAME -s octopus-sk", shell=True).strip().decode("utf-8")
+mpan = subprocess.check_output("security find-generic-password -w -a $LOGNAME -s octopus-mpan", shell=True).strip().decode("utf-8")
+msn = subprocess.check_output("security find-generic-password -w -a $LOGNAME -s octopus-msn", shell=True).strip().decode("utf-8")
 
-cmd=f"curl -s -u \"{sk}\" https://api.octopus.energy/v1/electricity-meter-points/1900005046235/meters/17K0496555/consumption/ | jq -r '.results | .[0].interval_end '"
+cmd=f"curl -s -u \"{sk}:\" https://api.octopus.energy/v1/electricity-meter-points/{mpan}/meters/{msn}/consumption/ | jq -r '.results | .[0].interval_end '"
 
 # Run the shell command and capture its output
 output = subprocess.check_output(cmd, env=my_env, shell=True)
