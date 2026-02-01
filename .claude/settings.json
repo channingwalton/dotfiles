@@ -20,6 +20,7 @@
       "Bash(timeout 5 bloop test:*)",
       "Bash(tree:*)",
       "Bash(uv tool list:*)",
+      "Read(/Users/channing/.claude/**)",
       "Read(/Users/channing/Documents/Notes/**)",
       "Skill(*)",
       "mcp__Context7",
