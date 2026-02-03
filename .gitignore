@@ -50,3 +50,4 @@ log
 .claude/plans
 .claude/tasks
 .config/swiftpm
+.unisonHistory
