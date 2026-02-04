@@ -14,7 +14,7 @@ description: Write, test, and update Unison code using the Unison MCP tool. Use 
 2. **NEVER run UCM commands on the command line** — use MCP tools only (exception: branch creation)
 3. **NEVER use scratch.u files** — use MCP tools directly
 4. **Code is stored by the UCM, NOT Git** — NEVER suggest git commits for code changes
-5. **NEVER use commit-helper skill** — Unison code is managed by UCM
+5. **NEVER use commit-helper agent** — Unison code is managed by UCM
 6. **Always** use fully qualified names when writing code
 7. Use the MCP tools to explore the codebase before writing code
 

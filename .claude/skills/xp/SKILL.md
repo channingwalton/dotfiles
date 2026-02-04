@@ -100,7 +100,7 @@ This skill orchestrates the full XP workflow for feature implementation. It uses
 
 **Type:** Autonomous (runs in isolation)
 
-**Invoke:** Delegate to `code-reviewer` agent
+**Invoke:** `code-reviewer` agent
 
 ### When to Use
 - Before merging feature branches
@@ -108,12 +108,10 @@ This skill orchestrates the full XP workflow for feature implementation. It uses
 - When requested by user
 - For complex or security-sensitive changes
 
-### Supporting Skills
-- `bugmagnet` — Deep test coverage analysis if review identifies gaps
-
-### Agent Properties
+### Agent: code-reviewer
 - **Model:** Opus (thorough analysis)
-- **Tools:** Read-only (cannot modify code)
+- **Tools:** Read, Grep, Glob, Bash (read-only operations)
+- **Skills:** bugmagnet (for test coverage gaps)
 - **Output:** Structured findings report
 
 ### Checkpoint
@@ -132,7 +130,7 @@ This skill orchestrates the full XP workflow for feature implementation. It uses
 
 **Type:** Autonomous (generates message for approval)
 
-**Invoke:** Delegate to `commit-helper` agent
+**Invoke:** `commit-helper` agent
 
 ### When to Commit
 - After each passing test (small commits)
@@ -140,8 +138,8 @@ This skill orchestrates the full XP workflow for feature implementation. It uses
 - After refactoring session
 - Before switching branches
 
-### Agent Properties
-- **Model:** Haiku (fast and cheap)
+### Agent: commit-helper
+- **Model:** Haiku (fast, cheap)
 - **Tools:** Bash only (git commands)
 - **Output:** Conventional commit message
 
@@ -202,8 +200,7 @@ When switching phases, announce clearly:
 | DEVELOP | `references/development.md` | Reference | Sees tests/code |
 | DEVELOP | Language skill (detected in Getting Started) | Skill | Build/test commands |
 | REFACTOR | `references/refactor.md` | Reference | Approves changes |
-| REVIEW | `code-reviewer` agent | Agent | Reviews report |
-| REVIEW | `bugmagnet` skill | Skill | Deep coverage (optional) |
+| REVIEW | `code-reviewer` agent | Agent | Reviews report, invokes bugmagnet |
 | COMMIT | `commit-helper` agent | Agent | Confirms message |
 | ITERATE | `vault` skill | Skill | Capture learnings |
 
