@@ -114,6 +114,7 @@ alias gcleand='find . -name .git -print -execdir git clean -fdx \;'
 alias gcmd='find . -name .git -print -execdir git checkout main \;'
 alias gld='find . -name .git -print -execdir git pull \;'
 alias gsd='find . -name .git -print -execdir git status \;'
+alias lg=lazygit
 
 export DIRENV_ALLOW=$HOME
 
