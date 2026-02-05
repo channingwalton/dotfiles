@@ -8,6 +8,8 @@
 .claude/history.jsonl
 .claude/last-session-context.txt
 .claude/local
+.claude/paste-cache
+.claude/plans
 .claude/plugins/cache
 .claude/plugins/install-counts-cache.json
 .claude/plugins/known_marketplaces.json
@@ -18,7 +20,9 @@
 .claude/shell-snapshots
 .claude/stats-cache.json
 .claude/statsig
+.claude/tasks
 .claude/todos
+.claude/usage-data
 .config/configstore/update-notifier-@google/gemini-cli.json
 .config/github-copilot
 .config/iterm2
@@ -33,6 +37,7 @@
 .config/pgcli/log
 .config/raycast/extensions
 .config/stripe/config.toml
+.config/swiftpm
 .config/zed/.tmp*
 .config/zed/conversations
 .config/zed/embeddings
@@ -45,9 +50,5 @@
 .gemini/settings.json
 .gemini/state.json
 .gemini/tmp
-log
-.claude/paste-cache
-.claude/plans
-.claude/tasks
-.config/swiftpm
 .unisonHistory
+log
