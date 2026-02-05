@@ -10,3 +10,4 @@ vim.opt.spell = false
 vim.opt.spelllang = { "en_gb" }
 vim.opt.scrolloff = 10
 vim.opt.linebreak = true
+vim.o.timeoutlen = 300

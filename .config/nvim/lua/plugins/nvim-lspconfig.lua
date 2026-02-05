@@ -9,59 +9,17 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = false },
-      servers = {
-        metals = {
-          init_options = {
-            statusBarProvider = "off",
-          },
-          settings = {
-            defaultBspToBuildTool = false,
-            mcpClient = "claude",
-            showImplicitArguments = true,
-            showInferredType = true,
-            startMcpServer = true,
-            superMethodLensesEnabled = true,
-            useGlobalExecutable = true, -- use the globally installed metals: cs install metals
-            excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
-            inlayHints = {
-              byNameParameters = { enable = true },
-              hintsInPatternMatch = { enable = true },
-              hintsXRayMode = { enable = true },
-              implicitArguments = { enable = true },
-              implicitConversions = { enable = true },
-              inferredTypes = { enable = true },
-              typeParameters = { enable = true },
-            },
-            -- copied from VSCode settings
-            serverProperties = {
-              "-Xss4m",
-              "-XX:+UseStringDeduplication",
-              "-XX:+IgnoreUnrecognizedVMOptions",
-              "-XX:ZCollectionInterval=5",
-              "-XX:ZUncommitDelay=30",
-              "-XX:+UseZGC",
-              "-Xmx2G",
-            },
-            --serverVersion = "1.4.2+80-2b937bb1-SNAPSHOT",
-          },
-        },
-      },
     },
     keys = {
-      -- Basic LSP commands
-      { "<leader>md", "<cmd>FzfLua lsp_definitions<cr>", desc = "Definition" },
-      { "<leader>mR", "<cmd>FzfLua lsp_references<cr>", desc = "References" },
-      { "<leader>mi", "<cmd>FzfLua lsp_implementations<cr>", desc = "Implementation" },
+      -- LSP commands (gd/gr/gI/<leader>sd are handled by LazyVim snacks_picker defaults)
       { "<leader>ml", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Codelens run" },
       { "<leader>mo", "<cmd>Outline<CR>", desc = "Outline" },
       { "<leader>ms", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature" },
-      { "<leader>x<space>", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace diagnostics" },
 
-      -- Metals-specific commands
+      -- Metals command picker
       {
         "<leader>mm",
         function()
-          local fzf = require("fzf-lua")
           local commands = {
             "MetalsCompileCancel",
             "MetalsCompileCascade",
@@ -77,12 +35,17 @@ return {
             "MetalsUpdate",
           }
 
-          fzf.fzf_exec(commands, {
-            actions = {
-              ["default"] = function(selected)
-                vim.cmd(selected[1])
-              end,
-            },
+          Snacks.picker.pick({
+            title = "Metals",
+            items = vim.tbl_map(function(cmd)
+              return { text = cmd, cmd = cmd }
+            end, commands),
+            confirm = function(picker, item)
+              picker:close()
+              if item then
+                vim.cmd(item.cmd)
+              end
+            end,
           })
         end,
         desc = "Metals commands",

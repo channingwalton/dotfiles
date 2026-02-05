@@ -1,9 +1,14 @@
 return {
   "stevearc/overseer.nvim",
-  config = function()
+  opts = function(_, opts)
+    return vim.tbl_deep_extend("force", opts, {
+      templates = { "builtin" },
+    })
+  end,
+  config = function(_, opts)
     local overseer = require("overseer")
-    
-    -- Register custom templates
+    overseer.setup(opts)
+
     overseer.register_template({
       name = "sbt test",
       params = {},

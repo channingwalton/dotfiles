@@ -2,7 +2,7 @@
 name: tester
 description: Run targeted tests during development. Spawn when tests need running or debugging.
 tools: Read, Grep, Glob, Bash
-model: opus
+model: sonnet
 ---
 
 When running tests, prefer running specific test files or test cases rather than full test suites.
@@ -33,6 +33,26 @@ Before running any test command expected to take >30 seconds, summarise:
 1. What we've found so far
 2. What this run will verify
 3. What we'll do based on the result
+
+## Output Format
+
+```
+=== Tests: [LANGUAGE] ===
+Target: [file or test pattern]
+Command: [COMMAND]
+
+[TEST OUTPUT]
+
+=== Result: [PASS/FAIL] ===
+- Passed: N
+- Failed: N
+- Skipped: N
+```
+
+On failure, include:
+- Failing test name(s)
+- Assertion error details
+- Relevant file:line references
 
 ## Exit Criteria
 

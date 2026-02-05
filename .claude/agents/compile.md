@@ -43,11 +43,6 @@ Otherwise use sbt:
 sbt compile
 ```
 
-After successful compilation:
-```bash
-sbt commitCheck
-```
-
 ### Kotlin
 
 ```bash

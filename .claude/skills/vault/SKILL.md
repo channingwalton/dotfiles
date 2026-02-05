@@ -13,6 +13,7 @@ Location: `~/Documents/Notes/`
 2. **Unix tools for fast search** - ripgrep (rg), fd, or mdfind for finding content efficiently
 3. **WikiLinks for connections** - Build traversable knowledge graph
 4. **ALWAYS**: New tasks should be in an `open` state
+5. Branches in git repos are often named after or prefixed with JIRA ticket number
 
 ## Templates
 
@@ -98,7 +99,7 @@ date -Iseconds
 
 | Destination | When |
 |-------------|------|
-| **Existing note** | Discovery extends/refines an existing topic (search firs ) |
+| **Existing note** | Discovery extends/refines an existing topic (search first) |
 | **New note** | Substantial, standalone, referenceable by other notes |
 | **Task log only** | One-off detail that won't generalise |
 

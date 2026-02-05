@@ -16,6 +16,7 @@ This skill orchestrates the full XP workflow for feature implementation. It uses
    - `build.sbt` or `*.scala` → `scala-developer`
    - `build.gradle.kts` or `*.kt` → `kotlin-developer`
    - `Gemfile` or `*.rb` → `ruby-developer`
+   - `tsconfig.json` or `package.json` with TypeScript deps → `typescript-developer`
    - `*.u` or `.unison/` → `unison-development`
 3. **Check for project CLAUDE.md** — may contain project-specific guidance that supplements or overrides language defaults
 4. **Begin with PLAN phase**

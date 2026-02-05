@@ -88,12 +88,12 @@ Identify:
 
 **Simple:**
 ```
-Add user authentication endpoint
+feat: Add user authentication endpoint
 ```
 
 **With body:**
 ```
-Extract validation logic to separate module
+refactor: Extract validation logic to separate module
 
 Moved input validation from UserController to ValidationService
 to improve testability and reuse across endpoints.
@@ -101,7 +101,7 @@ to improve testability and reuse across endpoints.
 
 **Breaking change:**
 ```
-Change API response format
+fix: Change API response format
 
 BREAKING CHANGE: responses now wrap data in `result` key
 ```
