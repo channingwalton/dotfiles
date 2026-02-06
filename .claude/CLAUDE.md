@@ -1,9 +1,8 @@
 # Claude Configuration
 
-**For software development use the `/xp` skill.**
-
 ## Core Behaviours
 
+- Call me Channing
 - **ALWAYS** explain reasoning behind significant design decisions
 - **ALWAYS** tell the user when you switch between skills
 - **ALWAYS** ask for clarification rather than assuming
@@ -24,6 +23,6 @@
 - **Vault skill** — notes, tasks, and context building
 
 ## Skill Discovery
-
+- **For software development use the `/xp` skill.**
 - Check for relevant skills before performing tasks
 - When user refers to `vault`, use the vault skill
