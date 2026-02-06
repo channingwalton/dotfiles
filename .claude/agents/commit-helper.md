@@ -1,6 +1,6 @@
 ---
 name: commit-helper
-description: Autonomous commit message generator. Use after code changes to analyse staged diff and generate conventional commit messages.
+description: Autonomous commit message generator. Use when the user says "commit", "commit this", "commit it", "make a commit", or any request to commit changes. Analyses staged diff and generates conventional commit messages. Do NOT use Skill(commit) — use this agent instead.
 tools: Bash
 model: haiku
 ---
