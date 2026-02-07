@@ -1,12 +1,15 @@
 {
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "cleanupPeriodDays": 99999,
   "permissions": {
     "allow": [
-      "WebFetch(domain:www.http4k.org)",
+      "WebFetch(domain:*)",
       "Bash(./gradlew:*)",
       "Bash(bloop:*)",
-      "Bash(bundle exec:*)",
+      "Bash(bundle:*)",
       "Bash(cat:*)",
       "Bash(chmod:*)",
       "Bash(cloc:*)",
@@ -35,7 +38,6 @@
       "Read(/Users/channing/Documents/Notes/**)",
       "Skill(code-reviewer)",
       "Skill(vault)",
-      "WebFetch(domain:github.com)",
       "WebSearch",
       "mcp__context7__resolve-library-id",
       "mcp__fetch__fetch",

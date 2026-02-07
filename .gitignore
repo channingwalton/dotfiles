@@ -52,3 +52,4 @@
 .gemini/tmp
 .unisonHistory
 log
+.claude/teams/codebase-review
