@@ -26,3 +26,6 @@
 - **For software development use the `/xp` skill.**
 - Check for relevant skills before performing tasks
 - When user refers to `vault`, use the vault skill
+- When user says `daily note` or `end of day`, use the vault skill to generate today's daily note
+- When user says `weekly summary`, use the vault skill to generate a weekly summary
+- When user says `recipe`, use the vault skill and the recipe template

@@ -1,7 +1,6 @@
 ---
 tags:
   - <domain>
-created: [[YYYY-mm-DD]]
 ---
 
 # [[Note Title]]

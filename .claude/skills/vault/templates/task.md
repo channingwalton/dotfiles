@@ -1,8 +1,6 @@
 ---
 status: open
 priority: normal
-projects:
-  - "[[Project Name]]"
 dateCreated: <ISO-8601>
 dateModified: <ISO-8601>
 tags:
