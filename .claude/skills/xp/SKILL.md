@@ -117,8 +117,8 @@ This skill orchestrates the full XP workflow for feature implementation. It uses
 
 ### Checkpoint
 - [ ] Review any 🔴 CRITICAL findings
-- [ ] Address 🟡 WARNINGs if time permits
-- [ ] Note ℹ️ SUGGESTIONs for future
+- [ ] Address 🟡 WARNING  findings
+- [ ] Note ℹ️ SUGGESTION findings for future
 - [ ] Run `bugmagnet` if test gaps identified
 - [ ] Look for code simplification with the code-simplifier agent
 
