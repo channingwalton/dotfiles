@@ -1,0 +1,56 @@
+#!/bin/bash
+# Show the latest daily note (with content) from the Obsidian vault
+
+JOURNAL="$HOME/Documents/Notes/Journal"
+
+RED='\033[0;31m'
+CYAN='\033[0;36m'
+GREY='\033[0;90m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+today=$(date +%Y-%m-%d)
+yesterday=$(date -v-1d +%Y-%m-%d)
+
+strip_markdown() {
+  sed '
+    /^---$/,/^---$/d
+    /^\[\[.*\]\]$/d
+  ' | sed '
+    s/^## \(.*\)/'"$(printf '\033[0;33m\033[1m')"'\1'"$(printf '\033[0m')"'/
+    s/^# \(.*\)/'"$(printf '\033[0;36m\033[1m')"'\1'"$(printf '\033[0m')"'/
+    s/\[\[[^]|]*|\([^]]*\)\]\]/\1/g
+    s/\[\[\([^]]*\)\]\]/\1/g
+    s/\*\*\([^*]*\)\*\*/'"$(printf '\033[1m')"'\1'"$(printf '\033[0m')"'/g
+    s/\*\([^*]*\)\*/\1/g
+    s/^- /  • /
+    s/^  - /    ◦ /
+  ' | sed '/^[[:space:]]*$/{ N; /^\n[[:space:]]*$/d; }'
+}
+
+has_content() {
+  local content
+  content=$(sed '/^---$/,/^---$/d; /^[[:space:]]*$/d; /^# /d' "$1")
+  [ -n "$content" ]
+}
+
+latest=""
+while IFS= read -r f; do
+  if has_content "$f"; then
+    latest="$f"
+    break
+  fi
+done < <(find "$JOURNAL/Daily Notes" -name "*.md" -type f 2>/dev/null | sort -r)
+
+if [ -n "$latest" ]; then
+  day_name=$(basename "$latest" .md)
+  stale=""
+  if [ "$day_name" != "$today" ] && [ "$day_name" != "$yesterday" ]; then
+    days_ago=$(( ( $(date +%s) - $(date -j -f "%Y-%m-%d" "$day_name" +%s) ) / 86400 ))
+    stale="  ${RED}${BOLD}(${days_ago}d ago)${NC}"
+  fi
+  printf "${CYAN}${BOLD}%s${NC}%b\n\n" "$day_name" "$stale"
+  strip_markdown < "$latest"
+else
+  printf "${GREY}No daily notes found${NC}\n"
+fi

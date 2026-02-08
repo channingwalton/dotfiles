@@ -5,8 +5,8 @@ wtf:
       focused: orange
       normal: gray
   grid:
-    columns: [140]
-    rows: [40, 15]
+    columns: [-1, -1]
+    rows: [-2, -1]
   refreshInterval: 1s
   mods:
     # Local Git Repos - auto-discovered from ~/dev
@@ -37,4 +37,34 @@ wtf:
         width: 1
       refreshInterval: 5m
       title: "GitHub PRs"
+      type: cmdrunner
+
+    # Daily note - latest with content from Obsidian vault
+    daily:
+      args: []
+      cmd: "/Users/channing/dotfiles/bin/wtf-daily"
+      enabled: true
+      pty: true
+      position:
+        top: 0
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 5m
+      title: "Daily Note"
+      type: cmdrunner
+
+    # Weekly note - latest from Obsidian vault
+    weekly:
+      args: []
+      cmd: "/Users/channing/dotfiles/bin/wtf-weekly"
+      enabled: true
+      pty: true
+      position:
+        top: 1
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 5m
+      title: "Weekly Note"
       type: cmdrunner

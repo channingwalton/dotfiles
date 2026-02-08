@@ -1,0 +1,51 @@
+#!/bin/bash
+# Show the latest weekly note from the Obsidian vault
+
+JOURNAL="$HOME/Documents/Notes/Journal"
+
+RED='\033[0;31m'
+CYAN='\033[0;36m'
+GREY='\033[0;90m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+this_week=$(date +%Y-W%V)
+last_week=$(date -v-7d +%Y-W%V)
+
+strip_markdown() {
+  sed '
+    /^---$/,/^---$/d
+    /^\[\[.*\]\]$/d
+  ' | sed '
+    s/^## \(.*\)/'"$(printf '\033[0;33m\033[1m')"'\1'"$(printf '\033[0m')"'/
+    s/^# \(.*\)/'"$(printf '\033[0;36m\033[1m')"'\1'"$(printf '\033[0m')"'/
+    s/\[\[[^]|]*|\([^]]*\)\]\]/\1/g
+    s/\[\[\([^]]*\)\]\]/\1/g
+    s/\*\*\([^*]*\)\*\*/'"$(printf '\033[1m')"'\1'"$(printf '\033[0m')"'/g
+    s/\*\([^*]*\)\*/\1/g
+    s/^- /  • /
+    s/^  - /    ◦ /
+  ' | sed '/^[[:space:]]*$/{ N; /^\n[[:space:]]*$/d; }'
+}
+
+latest=$(find "$JOURNAL/Weekly Notes" -name "*.md" -not -name "Weekly Notes.md" -type f 2>/dev/null | sort -r | head -1)
+
+if [ -n "$latest" ]; then
+  week_name=$(basename "$latest" .md)
+  stale=""
+  if [ "$week_name" != "$this_week" ] && [ "$week_name" != "$last_week" ]; then
+    w_year="${week_name%-W*}"
+    w_num="${week_name#*-W}"
+    week_start=$(date -j -f "%Y %V %u" "$w_year $w_num 1" +%s 2>/dev/null)
+    if [ -n "$week_start" ]; then
+      weeks_ago=$(( ( $(date +%s) - week_start ) / 604800 ))
+      stale="  ${RED}${BOLD}(${weeks_ago}w ago)${NC}"
+    else
+      stale="  ${RED}${BOLD}(stale)${NC}"
+    fi
+  fi
+  printf "${CYAN}${BOLD}%s${NC}%b\n\n" "$week_name" "$stale"
+  strip_markdown < "$latest"
+else
+  printf "${GREY}No weekly notes found${NC}\n"
+fi
