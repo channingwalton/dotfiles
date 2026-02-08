@@ -223,66 +223,6 @@ function notes-tasks-open() {
   rg --type md -l "^status:\s*in-progress" "$NOTES_DIR/Projects/"*/Tasks 2>/dev/null
 }
 
-# Create new task file with template
-function notes-tasks-new() {
-  if [[ -z "$1" || -z "$2" ]]; then
-    echo "Usage: notes-tasks-new <project-pattern> <task-title>"
-    return 1
-  fi
-  local proj_dir=$(fd -t d -d 1 "$1" "$NOTES_DIR/Projects" | head -1)
-  if [[ -z "$proj_dir" ]]; then
-    echo "Project not found: $1"
-    return 1
-  fi
-
-  local tasks_dir="$proj_dir/Tasks"
-  mkdir -p "$tasks_dir"
-
-  local timestamp=$(date +"%Y-%m-%d %H%M%S")
-  local iso_date=$(date -Iseconds)
-  local filename="$tasks_dir/$timestamp $2.md"
-  local proj_name=$(basename "$proj_dir" | sed 's/^[0-9-]* //')
-
-  cat > "$filename" << EOF
----
-status: in-progress
-priority: normal
-projects:
-  - "[[${proj_name}]]"
-dateCreated: ${iso_date}
-dateModified: ${iso_date}
-tags:
-  - task
----
-
-# $2
-
-## Goal
-
-<!-- What needs to be accomplished -->
-
-## Context
-
-<!-- Links to relevant notes, files involved -->
-
-## Log
-
-### $(date +"%Y-%m-%d %H:%M")
-
-<!-- What was done, decisions made, problems encountered -->
-
-## Outcome
-
-<!-- Summary when complete -->
-
-## Related
-
-<!-- Links to created notes, follow-up tasks -->
-EOF
-
-  echo "Created: $filename"
-}
-
 # Go to notes directory
 function notes-cd() {
   cd "$NOTES_DIR"

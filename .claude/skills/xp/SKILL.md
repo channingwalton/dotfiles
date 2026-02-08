@@ -120,6 +120,7 @@ This skill orchestrates the full XP workflow for feature implementation. It uses
 - [ ] Address 🟡 WARNINGs if time permits
 - [ ] Note ℹ️ SUGGESTIONs for future
 - [ ] Run `bugmagnet` if test gaps identified
+- [ ] Look for code simplification with the code-simplifier agent
 
 ---
 
