@@ -6,7 +6,7 @@ wtf:
       normal: gray
   grid:
     columns: [-1, -1]
-    rows: [-2, -1]
+    rows: [-1, -1]
   refreshInterval: 1s
   mods:
     # Local Git Repos - auto-discovered from ~/dev
