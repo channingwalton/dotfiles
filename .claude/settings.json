@@ -39,6 +39,7 @@
       "Read(//Users/channing/.claude/**)",
       "Read(//Users/channing/dev/**)",
       "Read(//Users/channing/Documents/Notes/**)",
+      "Read(//tmp/**)",
       "Skill(code-reviewer)",
       "Skill(vault)",
       "WebSearch",
