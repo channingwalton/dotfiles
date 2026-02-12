@@ -96,6 +96,7 @@ export HOMEBREW_DOWNLOAD_CONCURRENCY=auto
 
 alias cp='cp -i'
 alias kj='killall java'
+alias kruby='pkill -f rb-fsevent'
 alias ls=lsd
 alias mv='mv -i'
 alias rm='rm -i'
