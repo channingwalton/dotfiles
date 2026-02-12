@@ -3,6 +3,7 @@
 ## Core Behaviours
 
 - Call me Channing
+- **ALWAYS** read `AGENTS.md` in the current working directory, its equivalent to `CLAUDE.md`
 - **ALWAYS** explain reasoning behind significant design decisions
 - **ALWAYS** tell the user when you switch between skills
 - **ALWAYS** ask for clarification rather than assuming
