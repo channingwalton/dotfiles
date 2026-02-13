@@ -6,9 +6,20 @@ echo "Unison backup starting at $(date)"
 export ARCHIVE=$HOME/Documents/Archive/Code/unison
 mkdir -p "$ARCHIVE"
 
+# Track whether .unisonHistory exists before we start
+original_dir="$(pwd)"
+had_history=false
+[ -f "$original_dir/.unisonHistory" ] && had_history=true
+
 # Create temp directory for UCM to write scratch.u
 temp_dir=$(mktemp -d)
-trap "rm -rf $temp_dir" EXIT
+cleanup() {
+  rm -rf "$temp_dir"
+  if [ "$had_history" = false ] && [ -f "$original_dir/.unisonHistory" ]; then
+    rm -f "$original_dir/.unisonHistory"
+  fi
+}
+trap cleanup EXIT
 
 # Discover all projects from UCM
 echo "Discovering projects..."
