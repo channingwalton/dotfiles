@@ -1,3 +1,17 @@
+function del() {
+  if [[ $# -eq 0 ]]; then
+    echo "Usage: del <file|directory> ..."
+    return 1
+  fi
+  for item in "$@"; do
+    if [[ ! -e "$item" ]]; then
+      echo "del: $item: No such file or directory"
+    else
+      osascript -e "tell application \"Finder\" to delete POSIX file \"$(realpath "$item")\"" > /dev/null
+    fi
+  done
+}
+
 function ff() {
   fd --type f --hidden --exclude .git | fzf --preview 'bat --style=numbers --color always {}' | xargs $EDITOR
 }

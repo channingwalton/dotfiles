@@ -51,7 +51,6 @@
     ],
     "deny": []
   },
-  "teammateMode": "tmux",
   "hooks": {},
   "statusLine": {
     "type": "command",
@@ -66,6 +65,7 @@
     "swift-lsp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
+  "teammateMode": "tmux",
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
   }
