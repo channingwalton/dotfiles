@@ -25,6 +25,7 @@
       "Bash(ls:*)",
       "Bash(mkdir:*)",
       "Bash(nslookup:*)",
+      "Bash(obsidian:*)",
       "Bash(pnpm:*)",
       "Bash(python:*)",
       "Bash(rg:*)",
