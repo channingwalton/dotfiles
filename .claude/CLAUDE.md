@@ -12,6 +12,7 @@
 - **ALWAYS** use British spelling
 - **ALWAYS** use bash `date` when creating timestamps
 - **NEVER** expand the scope of tasks
+- Before responding tell me what additional information would make your response better
 - **ALWAYS** put questions at the bottom of output so I can see them
   - Format: Bold **Question❓**
 

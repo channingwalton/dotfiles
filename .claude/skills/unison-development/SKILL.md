@@ -1,5 +1,5 @@
 ---
-name: Unison Development
+name: unison-development
 description: Write, test, and update Unison code using the Unison MCP tool. Use when working with Unison language files (.u extension), UCM operations, or Unison projects. An extension to the XP skill.
 ---
 

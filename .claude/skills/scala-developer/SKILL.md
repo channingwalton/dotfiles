@@ -1,5 +1,5 @@
 ---
-name: Scala Development
+name: scala-developer
 description: Senior Scala developer using functional programming and Typelevel ecosystem. Use when writing Scala code, implementing Scala features, or working with sbt/bloop projects. Used as a part of the XP skill.
 ---
 

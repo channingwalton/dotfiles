@@ -1,5 +1,5 @@
 ---
-name: Vault
+name: vault
 description: Read and write notes in the Obsidian vault. Use for task logs, knowledge capture, and building context.
 ---
 

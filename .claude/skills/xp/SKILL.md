@@ -1,5 +1,5 @@
 ---
-name: XP
+name: xp
 description: Extreme Programming workflow orchestrator. Use when implementing features, adding functionality, or doing test-driven development. Coordinates planning, TDD, refactoring, and commits.
 ---
 

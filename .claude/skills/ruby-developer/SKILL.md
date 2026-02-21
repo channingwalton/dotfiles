@@ -1,5 +1,5 @@
 ---
-name: Ruby Development
+name: ruby-developer
 description: Senior Ruby developer using functional programming techniques. Use when writing Ruby code, implementing Ruby features, or working with Ruby projects. Follows TDD methodology via development skill. Used as a part of the XP skill.
 ---
 

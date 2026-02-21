@@ -1,5 +1,5 @@
 ---
-name: TypeScript Development
+name: typescript-developer
 description: Senior TypeScript developer using functional programming patterns. Use when writing TypeScript code, implementing features, or working with Node.js/Deno/Bun projects. Used as a part of the XP skill.
 ---
 
