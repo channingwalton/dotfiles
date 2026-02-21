@@ -53,3 +53,6 @@
 .unisonHistory
 log
 .claude/teams/codebase-review
+/.claude/backups
+/.claude/plugins
+/.claude/mcp-needs-auth-cache.json

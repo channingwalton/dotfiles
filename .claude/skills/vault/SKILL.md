@@ -264,7 +264,10 @@ fd -e md --changed-within 7d ~/Documents/Notes/Projects/*/Recipes
 
 ### Workflow
 
-1. Gather modified tasks and new notes using commands above
+1. Gather the following using the commands above
+  - modified tasks
+  - new notes
+  - outstanding tasks from the previous week
 2. Read each modified task's log entries: `obsidian read file="<task>"`
 3. Populate the weekly summary template
 4. Create the summary: `obsidian create name="<YYYY>-W<WW>" path="Journal/Weekly Notes" content="<text>"`
