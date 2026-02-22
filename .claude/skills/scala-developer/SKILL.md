@@ -35,7 +35,7 @@ sbt test
 sbt "testOnly *SpecName*"
 ```
 
-2. **ALWAYS** run `sbt commitCheck` after completing code changes.
+2. **ALWAYS** run `devtool check` after completing code changes.
 
 ## Testing (MUnit)
 

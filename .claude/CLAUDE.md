@@ -23,6 +23,11 @@
 - **Fetch** — retrieve specific URLs
 - **Sequential thinking** — genuinely complex multi-step reasoning
 - **Vault skill** — notes, tasks, and context building
+- **`devtool`** — unified build tool. Detects project type automatically. Run via Bash:
+  - `devtool check` — compile + lint + test. Use when asked to "commit check" or before committing.
+  - `devtool compile` — compile only. Use when asked "does it compile", "check compilation", or "build the project".
+  - `devtool test [pattern]` — run tests, optional filter. Use when asked to "run tests" or "run this test".
+  - `devtool lint` — lint only.
 
 ## Skill Discovery
 - **For software development use the `/xp` skill.**

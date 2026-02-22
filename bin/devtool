@@ -1,0 +1,205 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ============================================
+# devtool — unified project build tool
+# ============================================
+# Detects project type and runs compile, lint,
+# test, or all three (check).
+#
+# Usage:
+#   devtool check            # compile + lint + test
+#   devtool compile          # compile only
+#   devtool lint             # lint only
+#   devtool test [pattern]   # test only, optional filter
+# ============================================
+
+# --- Project detection ---
+
+PROJECT_TYPE=""
+SBT_HAS_COMMIT_CHECK=false
+USE_BLOOP=false
+GW="gradle"
+PM="npm"
+RUBY_TEST="rake"
+
+detect_project() {
+  if [[ -f "build.sbt" ]]; then
+    PROJECT_TYPE="scala"
+    if [[ -d ".bloop" ]]; then USE_BLOOP=true; fi
+    if grep -q "commitCheck" build.sbt 2>/dev/null; then SBT_HAS_COMMIT_CHECK=true; fi
+  elif [[ -f "build.gradle.kts" || -f "build.gradle" ]]; then
+    PROJECT_TYPE="kotlin"
+    if [[ -f "./gradlew" ]]; then GW="./gradlew"; fi
+  elif [[ -f "package.json" ]]; then
+    PROJECT_TYPE="node"
+    if [[ -f "pnpm-lock.yaml" ]]; then PM="pnpm"; fi
+    if [[ -f "yarn.lock" ]]; then PM="yarn"; fi
+  elif [[ -f "Gemfile" ]]; then
+    PROJECT_TYPE="ruby"
+    if [[ -d "spec" ]]; then RUBY_TEST="rspec"; fi
+  fi
+}
+
+# --- Actions ---
+
+do_compile() {
+  case "$PROJECT_TYPE" in
+    scala)
+      if $USE_BLOOP; then
+        bloop compile root
+      else
+        sbt compile
+      fi
+      ;;
+    kotlin)
+      $GW compileKotlin
+      ;;
+    node)
+      if [[ -f "tsconfig.json" ]]; then
+        npx tsc --noEmit
+      else
+        $PM run build
+      fi
+      ;;
+    ruby)
+      bundle exec rubocop
+      ;;
+    *)
+      echo "devtool: no project detected"
+      return 1
+      ;;
+  esac
+}
+
+do_lint() {
+  case "$PROJECT_TYPE" in
+    scala)
+      # No standalone linter — handled by compiler
+      ;;
+    kotlin)
+      $GW ktlintCheck
+      ;;
+    node)
+      $PM run lint 2>/dev/null || true
+      ;;
+    ruby)
+      bundle exec rubocop
+      ;;
+    *)
+      echo "devtool: no project detected"
+      return 1
+      ;;
+  esac
+}
+
+do_test() {
+  local pattern="${1:-}"
+
+  case "$PROJECT_TYPE" in
+    scala)
+      if $USE_BLOOP; then
+        if [[ -n "$pattern" ]]; then
+          bloop test root -o "*${pattern}*"
+        else
+          bloop test root
+        fi
+      else
+        if [[ -n "$pattern" ]]; then
+          sbt "testOnly *${pattern}*"
+        else
+          sbt test
+        fi
+      fi
+      ;;
+    kotlin)
+      if [[ -n "$pattern" ]]; then
+        $GW test --tests "*${pattern}*"
+      else
+        $GW test
+      fi
+      ;;
+    node)
+      if [[ -n "$pattern" ]]; then
+        $PM test -- --testPathPattern="$pattern"
+      else
+        $PM test
+      fi
+      ;;
+    ruby)
+      if [[ -n "$pattern" ]]; then
+        if [[ "$RUBY_TEST" == "rspec" ]]; then
+          bundle exec rspec --pattern "**/*${pattern}*"
+        else
+          bundle exec rake test TEST="test/**/*${pattern}*"
+        fi
+      else
+        if [[ "$RUBY_TEST" == "rspec" ]]; then
+          bundle exec rspec
+        else
+          bundle exec rake test
+        fi
+      fi
+      ;;
+    *)
+      echo "devtool: no project detected"
+      return 1
+      ;;
+  esac
+}
+
+do_check() {
+  # Custom commitCheck.sh takes priority
+  if [[ -f "commitCheck.sh" ]]; then
+    ./commitCheck.sh
+    return $?
+  fi
+
+  # Scala with commitCheck sbt target
+  if [[ "$PROJECT_TYPE" == "scala" ]] && $SBT_HAS_COMMIT_CHECK; then
+    sbt commitCheck
+    return $?
+  fi
+
+  do_compile && do_lint && do_test
+}
+
+# --- Main ---
+
+usage() {
+  echo "Usage: devtool <command> [args]"
+  echo ""
+  echo "Commands:"
+  echo "  check            compile + lint + test"
+  echo "  compile          compile only"
+  echo "  lint             lint only"
+  echo "  test [pattern]   test only, optional filter"
+}
+
+main() {
+  local cmd="${1:-}"
+  shift 2>/dev/null || true
+
+  detect_project
+
+  if [[ -z "$PROJECT_TYPE" && "$cmd" != "check" ]]; then
+    echo "devtool: no project detected"
+    return 1
+  fi
+
+  if [[ -n "$PROJECT_TYPE" ]]; then
+    echo "=== devtool $cmd [$PROJECT_TYPE] ==="
+  fi
+
+  case "$cmd" in
+    check)    do_check ;;
+    compile)  do_compile ;;
+    lint)     do_lint ;;
+    test)     do_test "$@" ;;
+    *)        usage; return 1 ;;
+  esac
+
+  echo "=== devtool $cmd: OK ==="
+}
+
+main "$@"

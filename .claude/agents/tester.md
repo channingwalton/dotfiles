@@ -5,17 +5,14 @@ tools: Read, Grep, Glob, Bash
 model: sonnet
 ---
 
-When running tests, prefer running specific test files or test cases rather than full test suites.
+Use `devtool test [pattern]` to run tests. It detects the project type and test framework automatically.
 
-Use language-appropriate patterns to minimise wait time:
+```bash
+devtool test              # full test suite
+devtool test MySpec       # run tests matching pattern
+```
 
-- **JavaScript/TypeScript:** `npm test -- --testPathPattern=<file>` or `vitest <file>`
-- **Python:** `pytest <file>::<test_name>`
-- **Kotlin/Gradle:** `./gradlew test --tests "fully.qualified.TestClass.testMethod"`
-- **Scala/sbt:** `sbt "testOnly *TestClass -- -z testName"`
-- **Ruby:** `rspec <file>:<line>` or `ruby -Itest <file> -n /test_name/`
-
-Before running tests, infer which specific tests are relevant from modified files. Avoid running the entire test suite unless explicitly requested.
+Prefer running with a pattern to minimise wait time. Before running tests, infer which specific tests are relevant from modified files. Avoid running the entire test suite unless explicitly requested.
 
 ## Debugging Workflow
 

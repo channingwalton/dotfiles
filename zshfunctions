@@ -114,19 +114,8 @@ swap_files() {
   mv "$1" "$tmpfile" && mv -f "$2" "$1" && mv -f "$tmpfile" "$2"
 }
 
-function cc() {
-  if [ -f "commitCheck.sh" ]; then
-    ./commitCheck.sh
-  elif [ -f "build.sbt" ]; then
-    sbt commitCheck
-  elif [ -f "gradlew" ]; then
-    ./gradlew clean build
-  elif [ "$(basename "$PWD")" = "PatchworkApps" ]; then
-    pnpm run-all
-  else
-    echo "No commit check found for this directory"
-  fi
-}
+alias cc='devtool check'
+alias compile='devtool compile'
 
 function wtf() {
   export WTF_GITHUB_TOKEN=$(security find-generic-password -s "wtfutil-github" -w)
