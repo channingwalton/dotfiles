@@ -235,6 +235,24 @@ date -Iseconds
 
 **Extraction signal:** When a task log contains steps you'd need to repeat for a different task, extract those steps into a recipe and link to it from the task.
 
+## Task Reference Resolution
+
+When writing any note (daily, weekly, or otherwise), **every mention of a JIRA issue number must be a wiki-link to its task note**. Never leave a bare issue number like `RH-6949` in the output.
+
+### How to resolve
+
+1. You already have the task filenames from `fd` results during data gathering
+2. Build a lookup from issue number → full filename (e.g. `RH-6949` → `2026-02-13 141534 RH-6949 Performance issue sending unfilled rosters to bank`)
+3. If a filename wasn't in the `fd` results, search: `obsidian search query="RH-6949" path="Projects" matches`
+
+### Link format
+
+Use aliased wiki-links for readability:
+- `[[2026-02-13 141534 RH-6949 Performance issue sending unfilled rosters to bank|RH-6949]]` in prose
+- `[[2026-02-13 141534 RH-6949 Performance issue sending unfilled rosters to bank|RH-6949 Performance issue]]` in task lists
+
+This applies to **all sections** — summaries, blockers, carryover, next week, etc. — not just the task lists.
+
 ## Generating Weekly Summaries
 
 Weekly summaries are generated from vault data, not written by hand.
@@ -269,8 +287,9 @@ fd -e md --changed-within 7d ~/Documents/Notes/Projects/*/Recipes
   - new notes
   - outstanding tasks from the previous week
 2. Read each modified task's log entries: `obsidian read file="<task>"`
-3. Populate the weekly summary template
-4. Create the summary: `obsidian create name="<YYYY>-W<WW>" path="Journal/Weekly Notes" content="<text>"`
+3. Build a JIRA issue → full filename lookup from the gathered filenames (see **Task Reference Resolution** above)
+4. Populate the weekly summary template, wiki-linking every JIRA issue reference
+5. Create the summary: `obsidian create name="<YYYY>-W<WW>" path="Journal/Weekly Notes" content="<text>"`
 
 ## Generating Daily Notes
 
@@ -320,8 +339,9 @@ Keep entries minimal — a wiki link and a one-line summary. Read each task's lo
 
 1. Find tasks, meetings, and notes modified today using commands above
 2. Read each modified task: `obsidian read file="<task>"`
-3. Populate or update the daily note
-4. Create: `obsidian create name="<YYYY-MM-DD>" path="Journal/Daily Notes/<YYYY>/<YYYY-MM>" content="<text>"`
+3. Build a JIRA issue → full filename lookup from the gathered filenames (see **Task Reference Resolution** above)
+4. Populate or update the daily note, wiki-linking every JIRA issue reference
+5. Create: `obsidian create name="<YYYY-MM-DD>" path="Journal/Daily Notes/<YYYY>/<YYYY-MM>" content="<text>"`
    Or append if it already exists: `obsidian append file="<YYYY-MM-DD>" content="<text>"`
 
 ## What NOT to include
