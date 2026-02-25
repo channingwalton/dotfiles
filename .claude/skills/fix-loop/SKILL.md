@@ -13,7 +13,7 @@ Autonomous review-fix cycle that iterates until all critical issues are resolved
 One of:
 - File path(s) to review
 - Directory to scan
-- No argument (defaults to recently changed files via `git diff --name-only HEAD~3`)
+- No argument check everything
 
 ## Workflow
 
