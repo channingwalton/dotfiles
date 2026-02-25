@@ -54,7 +54,7 @@ Set `iteration = 1` and `scope = <initial files>`.
    - Receive the findings report
 
 2. **TRIAGE** — Extract only 🔴 **Critical** findings from the report
-   - If **zero** critical findings → break to Step 3
+   - If **zero** critical findings → break out the loop, we are done.
    - List the critical findings for visibility
 
 3. **🔧 FIX (iteration N)** — Announce: `🔧 FIX iteration N/5 — addressing N critical issue(s)`
