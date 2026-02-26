@@ -56,3 +56,4 @@ log
 /.claude/backups
 /.claude/plugins
 /.claude/mcp-needs-auth-cache.json
+/.claude/.credentials.json

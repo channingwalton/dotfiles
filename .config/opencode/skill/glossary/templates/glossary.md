@@ -1,5 +1,0 @@
-# [[<TERM>]]
-
-[[<PROJECT>]]
-
-<Definition>
