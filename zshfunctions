@@ -22,7 +22,7 @@ function sf() {
       --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
       --preview-window '~3,+{2}+3/2' |
   cut -d ':' -f1 |
-  xargs -r $EDITOR
+  xargs $EDITOR
 }
 
 # Yazi
@@ -73,7 +73,6 @@ function killDockerServices {
     docker ps
   fi
 }
-alias kd=killDockerServices
 
 function deleteDockerContainers {
   if [[ $(docker ps -a -q | wc -c) -eq 0 ]]; then
@@ -82,21 +81,25 @@ function deleteDockerContainers {
     docker rm -f $(docker ps -a -q)
   fi
 }
-alias ddc=deleteDockerContainers
 
 function tailDockerLogs {
   if [ -z "$1" ]; then
     echo "name missing"
-    exit
+    return 1
   fi
 
-  id=$(docker ps -f name=$1 --format "{{.ID}}")
-  if [[ -z $id ]]
-  then
+  local retries="${2:-15}"
+  local id
+  id=$(docker ps -f name="$1" --format "{{.ID}}")
+  if [[ -z "$id" ]]; then
+    if (( retries <= 0 )); then
+      echo "tailDockerLogs: container '$1' not found after retries"
+      return 1
+    fi
     sleep 2
-    tailDockerLogs $1
+    tailDockerLogs "$1" $((retries - 1))
   else
-    docker logs -f $id
+    docker logs -f "$id"
   fi
 }
 
@@ -110,70 +113,12 @@ swap_files() {
     return 1
   fi
   local tmpfile
-  tmpfile="$(dirname "$1")/$1.swap"
+  tmpfile="$(dirname "$1")/$(basename "$1").swap"
   mv "$1" "$tmpfile" && mv -f "$2" "$1" && mv -f "$tmpfile" "$2"
 }
-
-alias cc='devtool check'
-alias compile='devtool compile'
 
 function wtf() {
   export WTF_GITHUB_TOKEN=$(security find-generic-password -s "wtfutil-github" -w)
   wtfutil
 }
-
-# ============================================
-# OBSIDIAN VAULT HELPERS
-# ============================================
-
-NOTES_DIR="${NOTES_DIR:-$HOME/Documents/Notes}"
-
-# Search for WikiLinks to a note
-function notes-links() {
-  if [[ -z "$1" ]]; then
-    echo "Usage: notes-links <note-name>"
-    return 1
-  fi
-  rg --type md -i --color=always "\[\[$1" "$NOTES_DIR"
-}
-
-# Search observations by category
-function notes-obs() {
-  if [[ -z "$1" ]]; then
-    echo "Usage: notes-obs <category>"
-    echo "Categories: pattern, technique, gotcha, decision, reference, issue, done, todo, question, insight"
-    return 1
-  fi
-  rg --type md -i --color=always "^\s*-\s*\[$1\]" "$NOTES_DIR"
-}
-
-# Find notes by filename
-function notes-find() {
-  if [[ -z "$1" ]]; then
-    echo "Usage: notes-find <name-pattern>"
-    return 1
-  fi
-  fd -e md -i "$@" "$NOTES_DIR"
-}
-
-# Find recent notes (default: last 7 days)
-function notes-recent() {
-  local days="${1:-7}"
-  fd -e md --changed-within "${days}d" "$NOTES_DIR" | head -30
-}
-
-# Find task files for a project
-function notes-tasks() {
-  if [[ -z "$1" ]]; then
-    echo "Usage: notes-tasks <project-pattern>"
-    return 1
-  fi
-  fd -e md . "$NOTES_DIR/Projects/"*"$1"*/Tasks 2>/dev/null
-}
-
-# List open tasks
-function notes-tasks-open() {
-  rg --type md -l "^status:\s*in-progress" "$NOTES_DIR/Projects/"*/Tasks 2>/dev/null
-}
-
 
