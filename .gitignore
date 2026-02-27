@@ -29,7 +29,6 @@
 .config/jgit/config
 .config/kube
 .config/nvim/lazy-lock.json
-.config/nvim/lazyvim.json
 .config/nvim/lazyvim/lazy-lock.json
 .config/nvim/plugin/packer_compiled.lua
 .config/opencode/opencode.json

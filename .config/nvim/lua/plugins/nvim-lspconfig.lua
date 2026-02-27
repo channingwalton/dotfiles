@@ -15,6 +15,13 @@ return {
       { "<leader>ml", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Codelens run" },
       { "<leader>mo", "<cmd>Outline<CR>", desc = "Outline" },
       { "<leader>ms", "<cmd>lua vim.lsp.buf.signature_help()<cr>", desc = "Signature" },
+      {
+        "<leader>mi",
+        function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+        end,
+        desc = "Toggle Inlay Hints",
+      },
 
       -- Metals command picker
       {
@@ -91,7 +98,6 @@ return {
       },
       lightbulb = {
         enable = false,
-        enable_in_insert = true,
       },
       symbol_in_winbar = {
         enable = true,
@@ -137,18 +143,6 @@ return {
       { "<leader>mN", "<cmd>lua require('metals').new_scala_file()<cr>", desc = "New Scala File" },
       { "<leader>mW", "<cmd>lua require('metals').quick_worksheet()<cr>", desc = "Quick Worksheet" },
 
-      -- Tree View Commands
-      { "<leader>tr", "<cmd>lua require('metals.tvp').reveal_in_tree()<cr>", desc = "Reveal in Tree" },
-      { "<leader>tv", "<cmd>lua require('metals.tvp').toggle_tree_view()<cr>", desc = "Toggle Tree View" },
-
-      -- Special Function Keys for Debugging
-      { "<F9>", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Toggle Breakpoint" },
-      { "<F5>", "<cmd>lua require('dap').continue()<cr>", desc = "Continue" },
-      { "<F10>", "<cmd>lua require('dap').step_over()<cr>", desc = "Step Over" },
-      { "<F11>", "<cmd>lua require('dap').step_into()<cr>", desc = "Step Into" },
-      { "<S-F11>", "<cmd>lua require('dap').step_out()<cr>", desc = "Step Out" },
-      { "<C-F8>", "<cmd>lua require('dap').run_to_cursor()<cr>", desc = "Run to Cursor" },
-
       -- Scala-specific overrides
       { "K", "<cmd>lua require('metals').hover_worksheet()<cr>", desc = "Hover Worksheet", ft = "scala" },
     },
@@ -158,7 +152,6 @@ return {
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     event = "LspAttach",
-    opts = {},
     keys = {
       {
         "<leader>cL",

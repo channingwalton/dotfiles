@@ -1,8 +1,13 @@
 if vim.g.neovide then
-  -- neovide smooth scrolls
+  -- neovide smooth scrolls natively
   return {}
 else
   return {
-    "psliwka/vim-smoothie",
+    {
+      "folke/snacks.nvim",
+      opts = {
+        scroll = { enabled = true },
+      },
+    },
   }
 end
