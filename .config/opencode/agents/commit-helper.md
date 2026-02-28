@@ -1,7 +1,8 @@
 ---
 name: commit-helper
 description: Autonomous commit message generator. Use when the user says "commit", "commit this", "commit it", "make a commit", or any request to commit changes. Do NOT use Skill(commit) — use this agent instead.
-tools: Bash
+tools:
+  bash: true
 model: haiku
 ---
 
