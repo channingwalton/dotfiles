@@ -16,11 +16,13 @@ Prefer running with a pattern to minimise wait time. Before running tests, infer
 
 ## Debugging Workflow
 
-When debugging test failures, prioritise quick feedback loops:
+A test failure means one of two things: either the code is wrong, or the test's expectation is wrong. Both are worth knowing — **never dismiss a failure without determining which.**
 
-1. Read the failing test first
-2. Identify the minimal reproduction
-3. Run only that specific test
+When debugging, prioritise quick feedback loops:
+
+1. Read the failing test first — understand what claim is being made
+2. Identify the minimal reproduction — isolate the failing premise
+3. Run only that specific test — eliminate confounding variables
 4. Fix and verify before running broader suites
 
 ## Checkpoints

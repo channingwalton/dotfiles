@@ -22,11 +22,13 @@ You will receive:
 
 ## Fixing Principles
 
-- **Minimal changes only** — fix the finding, nothing else
-- **One finding at a time** — fix, then move to the next
+Fixing is **controlled experimentation.** Each fix is a hypothesis: "this change resolves the finding without breaking anything else." The principles below keep your experiments valid.
+
+- **Minimal changes only** — fix the finding, nothing else. Changing multiple things at once makes it impossible to isolate which change caused a new failure.
+- **One finding at a time** — fix, then move to the next. This is **variable isolation** — change one thing, observe the result, then proceed.
 - **Preserve style** — match the existing code conventions
-- **No scope creep** — do not refactor, improve, or tidy surrounding code
-- **Revert on failure** — if a fix breaks tests, revert it and mark as unfixable
+- **No scope creep** — do not refactor, improve, or tidy surrounding code. The temptation to "improve while you're in there" is the fixer's version of **stopping too soon** — acting on intuition before the evidence (tests) confirms your fix works.
+- **Revert on failure** — if a fix breaks tests, revert it and mark as unfixable. A fix that creates a new failure has **replaced one unsound premise with another.**
 
 ## Test Verification
 
