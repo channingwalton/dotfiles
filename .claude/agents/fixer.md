@@ -32,13 +32,7 @@ Fixing is **controlled experimentation.** Each fix is a hypothesis: "this change
 
 ## Test Verification
 
-Run tests after fixing all findings. Use language-appropriate targeted test commands:
-
-- **JavaScript/TypeScript:** `npm test` or `vitest`
-- **Kotlin/Gradle:** `./gradlew test`
-- **Scala/sbt:** `sbt test`
-- **Ruby:** `rspec` or `rake test`
-- **Python:** `pytest`
+Run `devtool test` after fixing all findings. It detects the project type automatically.
 
 If tests fail after fixes:
 1. Identify which fix caused the failure

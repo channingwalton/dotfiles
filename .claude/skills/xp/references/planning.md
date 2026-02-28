@@ -28,48 +28,41 @@
 
 ### ❓ CLARIFY — Surface Hidden Premises
 
-Requirements are arguments in disguise — they have stated conclusions ("the system should do X") resting on unstated premises. Your job is to find what's been left unsaid.
+Requirements are arguments in disguise — stated conclusions resting on unstated premises. Your job is to find what's been left unsaid.
 
-**Find the enthymemes** — the hidden premises in every requirement:
+**Find the enthymemes** — restate the requirement as "Given [premises], then [conclusion]" and ask what premises are missing:
 
-1. Restate the requirement as: "Given [premises], then [conclusion]"
-2. Ask: **what premises are missing?** Common hiding places:
-   - **Who** — which actor triggers this, and do different actors expect different things?
-   - **When** — at what point in the process does this happen? What state must already exist?
-   - **Boundaries** — what counts as valid input? What's the smallest/largest/emptiest case?
-   - **Failure** — what happens when this *can't* work? Who finds out and how?
-   - **Definitions** — are we using the same words to mean the same things? (→ `glossary` skill)
-3. Challenge assumptions — especially those that feel obvious
-4. **STOP** — Do not proceed until questions are answered
+- **Who** — which actor triggers this, and do different actors expect different things?
+- **When** — at what point in the process? What state must already exist?
+- **Boundaries** — what counts as valid input? Smallest/largest/emptiest case?
+- **Failure** — what happens when this *can't* work? Who finds out and how?
+- **Definitions** — are we using the same words to mean the same things? (→ `glossary` skill)
+
+Challenge assumptions — especially those that feel obvious. **STOP** until questions are answered.
 
 **Example:**
 
-> Requirement: "Send a notification when a shift is unfilled"
+> "Send a notification when a shift is unfilled"
 >
-> Hidden premises to surface:
-> - What counts as "unfilled"? (no one assigned? assigned but unconfirmed? under minimum staffing?)
-> - When is this check run? (real-time? batch? on a schedule?)
-> - "Send" how? (email? push? in-app?)
-> - To whom? (manager? all eligible staff? both?)
-> - What if notifications fail? Retry? Escalate?
+> Hidden premises: What counts as "unfilled"? When is this checked? "Send" how? To whom? What if it fails?
 
 ### ✂️ SLICE — Break Into Tasks
 
-Create tasks that are:
+Tasks must be **vertical** (end-to-end functionality), **small** (one TDD cycle), **ordered** (dependency first, then value), and **testable** (clear acceptance criteria).
 
-- **Vertical** — each delivers working end-to-end functionality
-- **Small** — completable in one TDD cycle
-- **Ordered** — by dependency first, then by value
-- **Testable** — clear acceptance criteria
+```
+✅ Good: "Add a book to the library" — clear input, output, testable
+❌ Bad:  "Create the Book class" — implementation detail, no visible behaviour
+```
 
 ### 🧪 FALSIFY — Test Your Understanding
 
-Before committing to a plan, actively try to break it. This guards against the most common planning failure: stopping when things *feel* right rather than when they *are* right.
+Before committing to a plan, actively try to break it.
 
 1. **State what you believe** — "We understand the feature to mean X"
-2. **Seek disconfirmation** — "What scenario would prove this understanding wrong?"
-3. **Check for missing slices** — "Is there a case this plan doesn't handle?"
-4. **Check for wrong order** — "Does any task depend on something we haven't planned yet?"
+2. **Seek disconfirmation** — "What scenario would prove this wrong?"
+3. **Check for gaps** — "Is there a case this plan doesn't handle?"
+4. **Check ordering** — "Does any task depend on something unplanned?"
 
 If you can't think of anything that would prove your understanding wrong, that's a warning sign — not a green light.
 
@@ -77,42 +70,15 @@ If you can't think of anything that would prove your understanding wrong, that's
 
 1. Summarise understanding back to user
 2. Present ordered task list
-3. **STOP** — Explicitly agree on the first task to implement
-
-## What Makes a Good Task
-
-```
-✅ Good: "Add a book to the library"
-   - Has clear input (book details)
-   - Has clear output (book stored)
-   - Can be tested end-to-end
-
-❌ Bad: "Create the Book class"
-   - Implementation detail
-   - No user-visible behaviour
-   - Can't be validated independently
-```
-
-## Announcing Progress
-
-```
-💬 DISCUSS → Understanding [feature]
-❓ CLARIFY → Surfacing hidden premise: [what's unstated]
-✂️ SLICE → Breaking into tasks
-🧪 FALSIFY → Testing assumption: [what could be wrong]
-📋 CONFIRM → Proposed tasks: [list]
-```
+3. **STOP** — Explicitly agree on the first task
 
 ## Output Format
-
-After planning, present tasks as:
 
 ```
 ## Tasks for [Feature]
 
 1. [ ] [Task description] — [acceptance criteria]
 2. [ ] [Task description] — [acceptance criteria]
-3. [ ] [Task description] — [acceptance criteria]
 
 **Assumptions surfaced:** [key premises uncovered during clarify/falsify]
 **First task:** [Task 1 description]
@@ -121,9 +87,8 @@ After planning, present tasks as:
 ## Common Mistakes
 
 - Diving into implementation without understanding requirements
-- **Accepting requirements at face value** — not surfacing hidden premises
+- Accepting requirements at face value — not surfacing hidden premises
 - Creating horizontal slices (e.g., "build the database layer")
 - Tasks too large to complete in one session
-- Skipping confirmation step
 - Not ordering by dependency
-- **Stopping when the plan feels right** — not actively trying to break it
+- Stopping when the plan *feels* right rather than actively testing it

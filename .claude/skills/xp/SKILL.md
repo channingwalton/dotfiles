@@ -5,10 +5,6 @@ description: Extreme Programming workflow orchestrator. Use when implementing fe
 
 # Extreme Programming Workflow
 
-## Overview
-
-This skill orchestrates the full XP workflow for feature implementation. It uses reference documentation for interactive phases and delegates to agents for autonomous tasks.
-
 ## Getting Started
 
 1. **Detect project type** from files in working directory
@@ -26,159 +22,70 @@ This skill orchestrates the full XP workflow for feature implementation. It uses
 ## The XP Workflow
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  📋 PLAN     → Discuss and break down the feature          │
-│  🔴 DEVELOP  → TDD cycle (red-green)                       │
-│  🔵 REFACTOR → Improve design (tests stay green)           │
-│  🔍 REVIEW   → Autonomous code review (optional)           │
-│  💾 COMMIT   → Save working state                          │
-│  🔁 ITERATE  → Next task or feature complete               │
-└─────────────────────────────────────────────────────────────┘
+📋 PLAN     → Discuss and break down the feature
+🔴 DEVELOP  → TDD cycle (red-green)
+🔵 REFACTOR → Improve design (tests stay green)
+🔍 REVIEW   → Autonomous code review (optional)
+💾 COMMIT   → Save working state
+🔁 ITERATE  → Next task or feature complete
 ```
 
 ---
 
-## Phase 1: Planning (📋 PLAN)
+## Phase 1: Planning (📋 PLAN) — Interactive
 
-**Goal:** Understand and decompose the feature before writing any code.
+**Reference:** `references/planning.md`
 
-**Type:** Interactive (requires user discussion)
-
-**Reference:** See `references/planning.md`
-
-### Supporting Skills
-- `glossary` — Define unfamiliar domain terms encountered during discussion
-
-### Checkpoint
-- [ ] Requirements understood
-- [ ] Domain terms added to glossary
-- [ ] Tasks broken into vertical slices
-- [ ] First task agreed with user
+Understand and decompose the feature before writing any code. Use `glossary` skill for unfamiliar domain terms.
 
 ---
 
-## Phase 2: Development (🔴 DEVELOP)
+## Phase 2: Development (🔴 DEVELOP) — Interactive
 
-**Goal:** Implement the task using strict TDD.
+**Reference:** `references/development.md` + language skill
 
-**Type:** Interactive (user sees tests and implementation)
-
-**Reference:** See `references/development.md` + language skill
-
-### The TDD Cycle
-```
-🔴 RED    → Write ONE failing test
-🟢 GREEN  → Write MINIMUM code to pass
-✅ VERIFY → Run all tests, confirm green
-```
-
-### Checkpoint
-- [ ] Test written and failing
-- [ ] Minimum code makes test pass
-- [ ] All tests green
+Implement the task using strict TDD: red → green → verify.
 
 ---
 
-## Phase 3: Refactoring (🔵 REFACTOR)
+## Phase 3: Refactoring (🔵 REFACTOR) — Interactive
 
-**Goal:** Improve code design while keeping tests green.
+**Reference:** `references/refactor.md`
 
-**Type:** Interactive (user approves changes)
-
-**Reference:** See `references/refactor.md`
-
-### Checkpoint
-- [ ] All tests pass before refactoring
-- [ ] One transformation at a time
-- [ ] All tests pass after each change
-- [ ] **STOP** — Ask user if they want further changes
+Improve code design while keeping tests green. **STOP** after changes — ask user if they want further refactoring.
 
 ---
 
-## Phase 4: Review (🔍 REVIEW) — Optional
+## Phase 4: Review (🔍 REVIEW) — Optional, Autonomous
 
-**Goal:** Autonomous quality check before committing.
+**Agent:** `code-reviewer` (Opus, read-only tools, uses `bugmagnet`)
 
-**Type:** Autonomous (runs in isolation)
-
-**Invoke:** `code-reviewer` agent
-
-### When to Use
-- Before merging feature branches
-- After significant refactoring
-- When requested by user
-- For complex or security-sensitive changes
-
-### Agent: code-reviewer
-- **Model:** Opus (thorough analysis)
-- **Tools:** Read, Grep, Glob, Bash (read-only operations)
-- **Skills:** bugmagnet (for test coverage gaps)
-- **Output:** Structured findings report
-
-### Checkpoint
-- [ ] Review any 🔴 CRITICAL findings
-- [ ] Address 🟡 WARNING  findings
-- [ ] Note ℹ️ SUGGESTION findings for future
-- [ ] Run `bugmagnet` if test gaps identified
-- [ ] Look for code simplification with the code-simplifier agent
+Use before merging feature branches, after significant refactoring, for complex or security-sensitive changes, or when requested. Review findings, then look for simplification with the `code-simplifier` agent.
 
 ---
 
-## Phase 5: Commit (💾 COMMIT)
+## Phase 5: Commit (💾 COMMIT) — Autonomous
 
 **CONFIRM BEFORE PROCEEDING**
 
-**Goal:** Save working state with clear, conventional commit message.
+**Agent:** `commit-helper` (Haiku, bash only)
 
-**Type:** Autonomous (generates message for approval)
-
-**Invoke:** `commit-helper` agent
-
-### When to Commit
-- After each passing test (small commits)
-- After completing a task
-- After refactoring session
-- Before switching branches
-
-### Agent: commit-helper
-- **Model:** Haiku (fast, cheap)
-- **Tools:** Bash only (git commands)
-- **Output:** Conventional commit message
-
-### Checkpoint
-- [ ] Changes staged
-- [ ] Review suggested commit message
-- [ ] Confirm or adjust message
-- [ ] Commit created
+Commit after each passing test, completed task, refactoring session, or before switching branches.
 
 ---
 
-## Phase 6: Iterate (🔁 ITERATE)
-
-**Goal:** Continue until feature complete.
-
-**Type:** Interactive (planning next steps with user)
+## Phase 6: Iterate (🔁 ITERATE) — Interactive
 
 1. Mark task as done
-2. Review remaining tasks
-3. Adjust plan if needed (new learnings)
-4. Return to Phase 2 for next task
-5. When all tasks complete → feature done
-
-### Supporting Skills
-- `vault` — Log significant learnings or decisions to project notes
-
-### Checkpoint
-- [ ] Task marked complete
-- [ ] Learnings captured (if significant)
-- [ ] Remaining tasks reviewed
-- [ ] Next task selected or feature complete
+2. Review remaining tasks — adjust plan if needed
+3. Return to Phase 2 for next task, or finish
+4. Use `vault` skill to log significant learnings
 
 ---
 
-## Announcing Phase Transitions
+## Phase Transitions
 
-When switching phases, announce clearly:
+Announce clearly when switching:
 
 ```
 📋 PLAN → Starting feature discussion
@@ -190,21 +97,6 @@ When switching phases, announce clearly:
 🔁 ITERATE → Moving to next task
 ✅ COMPLETE → Feature done
 ```
-
----
-
-## Component Summary
-
-| Phase | Component | Type | User Interaction |
-|-------|-----------|------|------------------|
-| PLAN | `references/planning.md` | Reference | Discussion required |
-| PLAN | `glossary` skill | Skill | Define terms |
-| DEVELOP | `references/development.md` | Reference | Sees tests/code |
-| DEVELOP | Language skill (detected in Getting Started) | Skill | Build/test commands |
-| REFACTOR | `references/refactor.md` | Reference | Approves changes |
-| REVIEW | `code-reviewer` agent | Agent | Reviews report, invokes bugmagnet |
-| COMMIT | `commit-helper` agent | Agent | Confirms message |
-| ITERATE | `vault` skill | Skill | Capture learnings |
 
 ---
 
