@@ -56,3 +56,5 @@ log
 /.claude/plugins
 /.claude/mcp-needs-auth-cache.json
 /.claude/.credentials.json
+/.claude/telemetry
+/.claude/plugins/marketplaces/claude-plugins-official
