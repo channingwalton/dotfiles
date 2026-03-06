@@ -50,6 +50,9 @@
       "mcp__sequential-thinking",
       "mcp__unison"
     ],
+    "ask": [
+      "Bash(git push:*)"
+    ],
     "deny": []
   },
   "hooks": {},
