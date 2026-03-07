@@ -19,7 +19,8 @@ Based on [gojko/bugmagnet-ai-assistant](https://github.com/gojko/bugmagnet-ai-as
 📋 SUMMARY  → Document findings and bugs
 ```
 
-**STOP and wait for user confirmation between phases.**
+**Interactive mode (default):** STOP and wait for user confirmation between phases.
+**Autonomous mode:** When invoked by another agent (e.g. code-reviewer), skip all STOP points and proceed through all phases automatically. Present the full summary at the end instead of pausing for input.
 
 ---
 
@@ -32,7 +33,7 @@ Based on [gojko/bugmagnet-ai-assistant](https://github.com/gojko/bugmagnet-ai-as
 5. Read existing tests — understand current coverage and patterns
 6. Ask user: "Are there additional files I should review?"
 
-**STOP** — Wait for user input.
+**STOP** — Wait for user input. *(Skip in autonomous mode.)*
 
 ---
 
@@ -46,7 +47,7 @@ Evaluate missing coverage using [edge-cases.md](references/edge-cases.md):
 
 Categorise: **High** (core, errors, boundaries) → **Medium** (interactions, state) → **Low** (rare, performance). Present analysis with specific examples.
 
-**STOP** — Ask user which tests to implement.
+**STOP** — Ask user which tests to implement. *(Skip in autonomous mode — implement all high-priority tests.)*
 
 ---
 
@@ -64,7 +65,7 @@ For each test, highest priority first:
 
 **Maximum 3 attempts per test** — document and move on.
 
-**STOP** — Ask user if they want advanced coverage.
+**STOP** — Ask user if they want advanced coverage. *(Skip in autonomous mode — proceed to advanced if high-priority gaps remain.)*
 
 ---
 

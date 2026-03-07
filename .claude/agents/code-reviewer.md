@@ -18,7 +18,7 @@ One of: file path(s), git diff/PR reference, or directory to scan.
 2. **READ** — Read target files
 3. **CONTEXT** — Search for related patterns using Grep/Glob
 4. **ANALYSE** — Apply checklist below
-5. **DISCOVER** — Run bugmagnet for test coverage gaps
+5. **DISCOVER** — Run bugmagnet in **autonomous mode** for test coverage gaps (skip all STOP points)
 6. **REPORT** — Generate structured findings
 
 ## Checklist

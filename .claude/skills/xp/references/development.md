@@ -36,11 +36,11 @@ Compilation alone is necessary but not sufficient. Tests connect form to truth.
 
 ### 🟢 GREEN — Make It Pass
 
-1. Write the simplest code that makes the test pass — hard-coded values, duplication, and "ugly" code are all acceptable
+1. Write the simplest code that makes the test pass — but choose appropriate data structures for the domain. A hard-coded value is fine as a first step; a `List` where a `Map` is the natural fit is not simplicity, it's a worse model.
 2. Do not refactor yet
 3. Run the test — it MUST pass
 
-**Why minimum code matters:** The temptation to write "good" code immediately is the developer's equivalent of stopping when the answer *feels* satisfying. You don't yet have enough evidence (tests) to know what "good" looks like. Minimum code is **intellectual humility** — trusting the process over intuition.
+**Why minimum code matters:** Avoid speculative abstractions and features you don't need yet. But "minimum" refers to behaviour and architecture, not to picking naive data structures. If the domain naturally maps to a `Map`, use a `Map` from the start — that's not premature optimisation, it's accurate modelling.
 
 ### ✅ VERIFY — Confirm Green State
 
@@ -69,3 +69,7 @@ Good test names are **claims** — propositions your code must make true:
 - Testing implementation, not behaviour
 - Writing more code than the test demands — acting on assumptions rather than evidence
 - Ignoring a test that passes unexpectedly — a surprise pass means your mental model is wrong
+
+## Next Phase
+
+When the current task's acceptance criteria are met and all tests pass, proceed to **REFACTOR**.

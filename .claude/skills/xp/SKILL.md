@@ -7,13 +7,14 @@ description: Extreme Programming workflow orchestrator. Use when implementing fe
 
 ## Getting Started
 
-1. **Detect project type** from files in working directory
-2. **Read the language skill** for the detected type:
+1. **Detect project type** from files in working directory (first match wins):
    - `build.sbt` or `*.scala` → `scala-developer`
    - `build.gradle.kts` or `*.kt` → `kotlin-developer`
    - `Gemfile` or `*.rb` → `ruby-developer`
    - `tsconfig.json` or `package.json` with TypeScript deps → `typescript-developer`
    - `*.u` or `.unison/` → `unison-development`
+   - No match → proceed with language-agnostic TDD workflow using `devtool` commands
+2. **Read the language skill** for the detected type
 3. **Check for project CLAUDE.md** — may contain project-specific guidance that supplements or overrides language defaults
 4. **Begin with PLAN phase**
 
@@ -44,7 +45,7 @@ Understand and decompose the feature before writing any code. Use `glossary` ski
 
 **Reference:** `references/development.md` + language skill
 
-Implement the task using strict TDD: red → green → verify.
+Implement the task using strict TDD: red → green → verify. When the current task's acceptance criteria are met and all tests pass, proceed to REFACTOR.
 
 ---
 
@@ -66,11 +67,9 @@ Use before merging feature branches, after significant refactoring, for complex 
 
 ## Phase 5: Commit (💾 COMMIT) — Autonomous
 
-**CONFIRM BEFORE PROCEEDING**
-
 **Agent:** `commit-helper` (Haiku, bash only)
 
-Commit after each passing test, completed task, refactoring session, or before switching branches.
+Before delegating: summarise what will be committed and ask the user to confirm. Commit after each completed task, refactoring session, or before switching branches.
 
 ---
 
@@ -113,8 +112,8 @@ These aren't arbitrary rules — each addresses a specific way that reasoning ab
 - **Continuous feedback** — tests run constantly.
   *Why:* A conclusion is only as strong as its weakest premise. Every test is a premise in the argument that your system works. Running them constantly ensures you know immediately when a premise fails, before you build further conclusions on top of it.
 
-- **Simplicity** — implement only what's needed now.
-  *Why:* Anticipating future needs is **inductive reasoning about unknown cases.** It's the most error-prone form of reasoning. Code for what you know; refactor when you learn more.
+- **Simplicity** — don't add speculative features, but use the right tools for the job.
+  *Why:* Anticipating future needs is **inductive reasoning about unknown cases** — avoid that. But simplicity doesn't mean naive. Choosing the natural data structure for a problem (e.g. a Map for key-value lookup) isn't over-engineering — it's modelling the domain correctly. The test is: "am I adding complexity to handle cases that don't exist yet?" If no, use the appropriate structure.
 
 - **Courage** — refactor fearlessly (tests protect you).
   *Why:* Without tests, changing code requires trusting your mental model of the entire system. With tests, you have a **formal proof** that each expected behaviour still holds. Courage isn't recklessness — it's confidence grounded in evidence.

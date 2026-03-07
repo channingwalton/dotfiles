@@ -11,6 +11,7 @@ description: Senior Scala developer using functional programming and Typelevel e
 - Avoid `Any`, `null`, `throw`, and unsafe patterns
 - Prefer Typelevel ecosystem (cats, cats-effect, fs2)
 - Use ADTs for domain modelling
+- Encapsulate internal state — prefer `class` with `private val` over `case class` when a type has mutable-like internal structure (e.g. a `Map` tracking counts). Reserve `case class` for value types where all fields are part of the public API (e.g. `Book(title, author)`)
 - Errors as values (Either, EitherT, MonadError)
 
 ## Compilation Priority
@@ -83,5 +84,5 @@ def parse(input: String): Either[ParseError, Value] = ???
 def fetchAndParse(id: Id): EitherT[IO, AppError, Value] = ???
 
 // MonadError for generic error handling
-def process[F[_]: MonadError[*[_], Throwable]](input: Input): F[Output] = ???
+def process[F[_]](input: Input)(using MonadError[F, Throwable]): F[Output] = ???
 ```

@@ -34,12 +34,17 @@
       "Bash(tree:*)",
       "Bash(uv tool list:*)",
       "Bash(xargs:*)",
+      "Bash(devtool:*)",
+      "Bash(cp:*)",
+      "Bash(cd:*)",
       "Glob(/Users/channing/.claude/**)",
       "Glob(/Users/channing/dev/**)",
       "Glob(/Users/channing/Documents/Notes/**)",
       "Read(/Users/channing/.claude/**)",
       "Read(/Users/channing/dev/**)",
       "Read(/Users/channing/Documents/Notes/**)",
+      "Write(/Users/channing/dev/**)",
+      "Edit(/Users/channing/dev/**)",
       "Read(/tmp/**)",
       "Skill(code-reviewer)",
       "Skill(vault)",
@@ -50,10 +55,10 @@
       "mcp__sequential-thinking",
       "mcp__unison"
     ],
+    "deny": [],
     "ask": [
       "Bash(git push:*)"
-    ],
-    "deny": []
+    ]
   },
   "hooks": {},
   "statusLine": {
@@ -67,7 +72,8 @@
     "jdtls-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "teammateMode": "tmux",
