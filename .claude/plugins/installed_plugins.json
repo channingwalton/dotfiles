@@ -64,11 +64,21 @@
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/205b6e0b3036",
-        "version": "205b6e0b3036",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/b36fd4b75301",
+        "version": "b36fd4b75301",
         "installedAt": "2026-03-07T13:52:40.707Z",
-        "lastUpdated": "2026-03-07T13:52:40.707Z",
+        "lastUpdated": "2026-03-12T08:58:09.811Z",
         "gitCommitSha": "205b6e0b30366a969412d9aab7b99bea99d58db1"
+      }
+    ],
+    "slack@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/slack/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-13T15:32:46.727Z",
+        "lastUpdated": "2026-03-13T15:32:46.727Z",
+        "gitCommitSha": "5a4ffe5ef353c1893eb0f1762a9071bebeeb7fde"
       }
     ]
   }

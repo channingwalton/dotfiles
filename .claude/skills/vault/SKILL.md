@@ -194,6 +194,14 @@ obsidian files folder="Projects" | grep "Meetings/$(date +%Y-%m-%d)"
 fd -e md --changed-within 1d --exclude Tasks --exclude Meetings ~/Documents/Notes/Projects
 ```
 
+### Slack conversations
+
+Search Slack for important conversations **the user is involved in** today. Use `slack_search_public_and_private` with `from:<@USER_ID>` and date filters to find messages the user sent. Then read the threads of those messages to get full context. **Only include conversations the user participated in. Exclude DMs.**
+
+For each noteworthy conversation, capture:
+- A one-line summary
+- A link to the thread (from the message permalink)
+
 ### Format
 
 ```markdown
@@ -209,14 +217,18 @@ fd -e md --changed-within 1d --exclude Tasks --exclude Meetings ~/Documents/Note
 
 ## Notes created
 - [[Note name]] (type)
+
+## Slack conversations
+- One-line summary of discussion — [link](permalink)
 ```
 
 ### Workflow
 
 1. Find tasks, meetings, notes modified today
 2. Read each: `obsidian read file="<task>"`
-3. Build JIRA → filename lookup (see Task Reference Resolution)
-4. Create or append daily note, wiki-linking all references
+3. Search Slack for conversations the user participated in today (`from:<@USER_ID>`, no DMs), then read threads for context
+4. Build JIRA → filename lookup (see Task Reference Resolution)
+5. Create or append daily note, wiki-linking all references
 
 ## What NOT to include
 
