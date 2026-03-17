@@ -64,10 +64,10 @@
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/b36fd4b75301",
-        "version": "b36fd4b75301",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/78497c524da3",
+        "version": "78497c524da3",
         "installedAt": "2026-03-07T13:52:40.707Z",
-        "lastUpdated": "2026-03-12T08:58:09.811Z",
+        "lastUpdated": "2026-03-17T09:34:37.584Z",
         "gitCommitSha": "205b6e0b30366a969412d9aab7b99bea99d58db1"
       }
     ],
@@ -79,6 +79,26 @@
         "installedAt": "2026-03-13T15:32:46.727Z",
         "lastUpdated": "2026-03-13T15:32:46.727Z",
         "gitCommitSha": "5a4ffe5ef353c1893eb0f1762a9071bebeeb7fde"
+      }
+    ],
+    "kotlin-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/kotlin-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-17T15:18:50.428Z",
+        "lastUpdated": "2026-03-17T15:18:50.428Z",
+        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
+      }
+    ],
+    "ruby-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/ruby-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-17T15:18:50.433Z",
+        "lastUpdated": "2026-03-17T15:18:50.433Z",
+        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ]
   }

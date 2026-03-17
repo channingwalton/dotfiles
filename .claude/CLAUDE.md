@@ -28,6 +28,9 @@
   - `devtool compile` — compile only. Use when asked "does it compile", "check compilation", or "build the project".
   - `devtool test [pattern]` — run tests, optional filter. Use when asked to "run tests" or "run this test".
   - `devtool lint` — lint only.
+- Prefer LSP over Grep/Read for code navigation
+  - After writing or editing code, check LSP diagnostics and fix errors before proceeding.
+- Use Grep only when LSP isn't available or for text/pattern searches (comments, strings, config).
 
 ## Skill Discovery
 - **For software development use the `/xp` skill.**
