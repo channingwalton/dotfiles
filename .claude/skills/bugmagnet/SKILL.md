@@ -1,6 +1,6 @@
 ---
 name: bugmagnet
-description: Discover edge cases and test coverage gaps through systematic analysis. Use when analysing test coverage, finding bugs, hunting for edge cases, or when code-reviewer identifies test gaps.
+description: Discover edge cases and test coverage gaps through systematic analysis. Use when analysing test coverage, finding bugs, hunting for edge cases, reviewing code for robustness, or when code-reviewer identifies test gaps. Also use when the user says things like "what could go wrong", "is this well tested", "find holes in my tests", "what am I missing", or asks about edge cases for any function or module.
 ---
 
 # BugMagnet
