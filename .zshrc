@@ -81,6 +81,7 @@ export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
+export GITHUB_PERSONAL_ACCESS_TOKEN=$(security find-generic-password -w -s github-personal-access-token)
 export CLAUDE_CODE_DISABLE_AUTO_MEMORY=0  # Force on
 
 # Load tools etc

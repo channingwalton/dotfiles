@@ -25,6 +25,17 @@ model_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;147m'; fi; }  
 version_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;180m'; fi; }    # soft yellow
 cc_version_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;249m'; fi; } # light gray
 style_color() { if [ "$use_color" -eq 1 ]; then printf '\033[38;5;245m'; fi; }      # gray
+effort_color() {
+  local effort="$1"
+  if [ "$use_color" -eq 1 ]; then
+    case "$effort" in
+      low)    printf '\033[38;5;117m' ;;  # sky blue
+      medium) printf '\033[38;5;222m' ;;  # gold
+      high)   printf '\033[38;5;203m' ;;  # coral red
+      *)      printf '\033[38;5;249m' ;;  # light gray
+    esac
+  fi
+}
 rst() { if [ "$use_color" -eq 1 ]; then printf '\033[0m'; fi; }
 
 # ---- time helpers ----
@@ -102,6 +113,7 @@ if [ "$HAS_JQ" -eq 1 ]; then
   session_id=$(echo "$input" | jq -r '.session_id // ""' 2>/dev/null)
   cc_version=$(echo "$input" | jq -r '.version // ""' 2>/dev/null)
   output_style=$(echo "$input" | jq -r '.output_style.name // ""' 2>/dev/null)
+  reasoning_effort=$(echo "$input" | jq -r '.model.reasoning_effort // .reasoning_effort // ""' 2>/dev/null)
 else
   # Bash fallback for JSON extraction
   # Extract current_dir from workspace object - look for the pattern workspace":{"current_dir":"..."}
@@ -126,6 +138,7 @@ else
   cc_version=$(echo "$input" | grep -o '"version"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
   # Output style is nested
   output_style=$(echo "$input" | grep -o '"output_style"[[:space:]]*:[[:space:]]*{[^}]*"name"[[:space:]]*:[[:space:]]*"[^"]*"' | sed 's/.*"name"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
+  reasoning_effort=$(echo "$input" | grep -o '"reasoning_effort"[[:space:]]*:[[:space:]]*"[^"]*"' | head -1 | sed 's/.*"reasoning_effort"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
 fi
 
 # ---- git colors ----
@@ -323,6 +336,9 @@ if [ -n "$cc_version" ] && [ "$cc_version" != "null" ]; then
 fi
 if [ -n "$output_style" ] && [ "$output_style" != "null" ]; then
   printf '  🎨 %s%s%s' "$(style_color)" "$output_style" "$(rst)"
+fi
+if [ -n "$reasoning_effort" ] && [ "$reasoning_effort" != "null" ]; then
+  printf '  ⚡ %s%s%s' "$(effort_color "$reasoning_effort")" "$reasoning_effort" "$(rst)"
 fi
 
 # Line 2: Context and session time
