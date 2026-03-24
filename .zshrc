@@ -106,3 +106,11 @@ export GOBIN=~/dev/gobin
 export PATH="$GOBIN:$PATH"
 
 eval "$(rbenv init - zsh)"
+
+# pnpm
+export PNPM_HOME="/Users/channing/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

@@ -81,7 +81,8 @@
     "github@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
-    "elements-of-style@superpowers-marketplace": true
+    "elements-of-style@superpowers-marketplace": true,
+    "chrome-devtools-mcp@claude-plugins-official": false
   },
   "alwaysThinkingEnabled": true,
   "voiceEnabled": true,
