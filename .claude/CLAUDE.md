@@ -11,6 +11,7 @@
 - **ALWAYS** be concise
 - **ALWAYS** use British spelling
 - **ALWAYS** use bash `date` when creating timestamps
+- When asked about prior work, tickets, or "do you remember", **ALWAYS** check `MEMORY.md` and read linked memory files before responding
 - **NEVER** expand the scope of tasks
 - Before responding tell me what additional information would make your response better
 - **ALWAYS** put questions at the bottom of output so I can see them
