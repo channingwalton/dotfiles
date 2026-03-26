@@ -3,6 +3,10 @@
 .DS_Store
 .claude/__store.db
 .claude/cache
+.claude/downloads
+.claude/ide
+.claude/session-env
+.claude/sessions
 .claude/debug
 .claude/file-history
 .claude/history.jsonl
