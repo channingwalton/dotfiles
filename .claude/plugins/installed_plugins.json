@@ -64,21 +64,11 @@
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/79caa0d824ac",
-        "version": "79caa0d824ac",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/unknown",
+        "version": "unknown",
         "installedAt": "2026-03-07T13:52:40.707Z",
-        "lastUpdated": "2026-03-24T12:25:30.414Z",
+        "lastUpdated": "2026-03-25T09:10:56.202Z",
         "gitCommitSha": "205b6e0b30366a969412d9aab7b99bea99d58db1"
-      }
-    ],
-    "slack@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/slack/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-03-13T15:32:46.727Z",
-        "lastUpdated": "2026-03-19T15:10:38.016Z",
-        "gitCommitSha": "5a4ffe5ef353c1893eb0f1762a9071bebeeb7fde"
       }
     ],
     "kotlin-lsp@claude-plugins-official": [
@@ -104,30 +94,30 @@
     "frontend-design@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/frontend-design/79caa0d824ac",
-        "version": "79caa0d824ac",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/frontend-design/unknown",
+        "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.471Z",
-        "lastUpdated": "2026-03-24T12:25:30.413Z",
+        "lastUpdated": "2026-03-25T09:10:56.202Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
     "github@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/github/79caa0d824ac",
-        "version": "79caa0d824ac",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/github/unknown",
+        "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.478Z",
-        "lastUpdated": "2026-03-24T12:25:30.414Z",
+        "lastUpdated": "2026-03-25T09:10:56.203Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
     "commit-commands@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/79caa0d824ac",
-        "version": "79caa0d824ac",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
+        "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.487Z",
-        "lastUpdated": "2026-03-24T12:25:30.414Z",
+        "lastUpdated": "2026-03-25T09:10:56.202Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -159,6 +149,16 @@
         "installedAt": "2026-03-20T15:58:33.356Z",
         "lastUpdated": "2026-03-20T15:58:33.356Z",
         "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
+      }
+    ],
+    "slack@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/slack/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-03-25T14:32:59.454Z",
+        "lastUpdated": "2026-03-25T14:32:59.454Z",
+        "gitCommitSha": "7b9458950d38bb01ddb48b669f9fa89bcdfd98b8"
       }
     ]
   }

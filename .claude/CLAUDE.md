@@ -12,10 +12,15 @@
 - **ALWAYS** use British spelling
 - **ALWAYS** use bash `date` when creating timestamps
 - **NEVER** expand the scope of tasks
-- Use `git -C <path>` instead of `cd <path> && git` — avoids wrong-directory bugs when working across multiple repos
 - Before responding tell me what additional information would make your response better
 - **ALWAYS** put questions at the bottom of output so I can see them
   - Format: Bold **Question❓**
+
+## Paths
+
+Try to avoid using compound commands like `cd <path> && git ...`, and instead use directory options available
+in the command like `git -C <path>` so that the user is prompted all the time.
+
 
 ## Tools (use when appropriate)
 
