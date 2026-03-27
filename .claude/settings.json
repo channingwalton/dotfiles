@@ -81,7 +81,7 @@
     "commit-commands@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
     "elements-of-style@superpowers-marketplace": true,
-    "chrome-devtools-mcp@claude-plugins-official": false,
+    "chrome-devtools-mcp@claude-plugins-official": true,
     "slack@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
