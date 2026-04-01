@@ -20,6 +20,7 @@ PROJECT_TYPE=""
 SBT_HAS_COMMIT_CHECK=false
 USE_BLOOP=false
 GW="gradle"
+GW_TASKS=""
 PM="npm"
 RUBY_TEST="rake"
 
@@ -31,6 +32,7 @@ detect_project() {
   elif [[ -f "build.gradle.kts" || -f "build.gradle" ]]; then
     PROJECT_TYPE="kotlin"
     if [[ -f "./gradlew" ]]; then GW="./gradlew"; fi
+    GW_TASKS=$($GW tasks --all --quiet 2>/dev/null || true)
   elif [[ -f "package.json" ]]; then
     PROJECT_TYPE="node"
     if [[ -f "pnpm-lock.yaml" ]]; then PM="pnpm"; fi
@@ -39,6 +41,10 @@ detect_project() {
     PROJECT_TYPE="ruby"
     if [[ -d "spec" ]]; then RUBY_TEST="rspec"; fi
   fi
+}
+
+gradle_has_task() {
+  echo "$GW_TASKS" | grep -q "^$1 " 2>/dev/null
 }
 
 # --- Actions ---
@@ -53,7 +59,11 @@ do_compile() {
       fi
       ;;
     kotlin)
-      $GW compileKotlin
+      if gradle_has_task compileKotlin; then
+        $GW compileKotlin
+      else
+        $GW classes
+      fi
       ;;
     node)
       if [[ -f "tsconfig.json" ]]; then
@@ -78,7 +88,11 @@ do_lint() {
       # No standalone linter — handled by compiler
       ;;
     kotlin)
-      $GW ktlintCheck
+      if gradle_has_task ktlintCheck; then
+        $GW ktlintCheck
+      else
+        echo "devtool: ktlintCheck not available, skipping lint"
+      fi
       ;;
     node)
       $PM run lint 2>/dev/null || true
