@@ -34,12 +34,14 @@ in the command like `git -C <path>` so that the user is prompted all the time.
   - `devtool compile` — compile only. Use when asked "does it compile", "check compilation", or "build the project".
   - `devtool test [pattern]` — run tests, optional filter. Use when asked to "run tests" or "run this test".
   - `devtool lint` — lint only.
+  - `devtool cpd <language> [directory]` — find duplicate code using PMD CPD. Use during code review or when asked to find duplicates.
 - Prefer LSP over Grep/Read for code navigation
   - After writing or editing code, check LSP diagnostics and fix errors before proceeding.
 - Use Grep only when LSP isn't available or for text/pattern searches (comments, strings, config).
 
 ## Skill Discovery
 - **For software development use the `/xp` skill.**
+- **ALWAYS** use the **code-reviewer agent** for code reviews — never do ad-hoc reviews without it
 - Check for relevant skills before performing tasks
 - When user refers to `vault`, use the vault skill
 - When user says `daily note` or `end of day`, use the vault skill to generate today's daily note

@@ -19,7 +19,8 @@ One of: file path(s), git diff/PR reference, or directory to scan.
 3. **CONTEXT** — Search for related patterns using Grep/Glob
 4. **ANALYSE** — Apply checklist below
 5. **DISCOVER** — Run bugmagnet in **autonomous mode** for test coverage gaps (skip all STOP points)
-6. **REPORT** — Generate structured findings
+6. **DUPLICATES** — Run `devtool cpd <language> [directory]` to detect copy-paste code. Infer the language from the project (e.g. build.sbt → scala, build.gradle.kts → kotlin, tsconfig.json → typescript, package.json → ecmascript, Gemfile → ruby). Scope the directory to the review target where possible. Include any findings in the report.
+7. **REPORT** — Generate structured findings
 
 ## Checklist
 
@@ -94,6 +95,9 @@ Each category targets a way that reasoning about code becomes unreliable.
 
 ## Test Coverage Gaps
 [Output from bugmagnet analysis]
+
+## Duplicate Code
+[Output from devtool cpd — omit section if no duplicates found]
 
 ## Recommendations
 [Prioritised action items]

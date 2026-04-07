@@ -12,6 +12,7 @@ set -euo pipefail
 #   devtool compile          # compile only
 #   devtool lint             # lint only
 #   devtool test [pattern]   # test only, optional filter
+#   devtool cpd <lang> [dir] # find duplicate code (pmd cpd)
 # ============================================
 
 # --- Project detection ---
@@ -162,6 +163,25 @@ do_test() {
   esac
 }
 
+do_cpd() {
+  local lang="${1:-}"
+  local src_dir="${2:-.}"
+
+  if [[ -z "$lang" ]]; then
+    echo "Usage: devtool cpd <language> [directory]"
+    echo "  language:   kotlin, java, scala, ruby, ecmascript, typescript, etc."
+    echo "  directory:  source directory (default: .)"
+    return 1
+  fi
+
+  if ! command -v pmd &>/dev/null; then
+    echo "devtool: pmd not found — install with: brew install pmd"
+    return 1
+  fi
+
+  pmd cpd --minimum-tokens 100 --dir "$src_dir" --language "$lang"
+}
+
 do_check() {
   # Custom commitCheck.sh takes priority
   if [[ -f "commitCheck.sh" ]]; then
@@ -188,6 +208,7 @@ usage() {
   echo "  compile          compile only"
   echo "  lint             lint only"
   echo "  test [pattern]   test only, optional filter"
+  echo "  cpd <lang> [dir] find duplicate code (uses pmd cpd)"
 }
 
 main() {
@@ -210,6 +231,7 @@ main() {
     compile)  do_compile ;;
     lint)     do_lint ;;
     test)     do_test "$@" ;;
+    cpd)      do_cpd "$@" ;;
     *)        usage; return 1 ;;
   esac
 
