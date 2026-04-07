@@ -40,7 +40,7 @@ in the command like `git -C <path>` so that the user is prompted all the time.
 - Use Grep only when LSP isn't available or for text/pattern searches (comments, strings, config).
 
 ## Skill Discovery
-- **For software development use the `/xp` skill.**
+- **For software development use the `/software-development` skill.**
 - **ALWAYS** use the **code-reviewer agent** for code reviews — never do ad-hoc reviews without it
 - Check for relevant skills before performing tasks
 - When user refers to `vault`, use the vault skill

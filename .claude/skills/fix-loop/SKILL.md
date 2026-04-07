@@ -89,4 +89,4 @@ Announce: `Fix loop complete`
 
 Ask the user: **Commit these changes?**
 
-If yes, invoke the `commit-helper` agent.
+If yes, invoke `commit-commands:commit`.

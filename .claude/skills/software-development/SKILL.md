@@ -21,7 +21,7 @@ description: Software development based on Extreme Programming (XP). Use it when
 
 Understand and decompose the feature before writing any code. Use `glossary` skill for unfamiliar domain terms.
 
-Follow this sequence: **DISCUSS → CLARIFY → SLICE → FALSIFY → CONFIRM**.
+Follow this sequence: **DISCUSS → CLARIFY → SLICE → FALSIFY → CONFIRM**. See [planning reference](references/planning.md) for detailed steps and examples.
 
 ### CLARIFY — Surface Hidden Premises
 
@@ -55,11 +55,11 @@ Summarise, present ordered task list, **STOP** — explicitly agree on the first
 
 ## Phase 2: Development (🔴 DEVELOP) — Interactive
 
-Strict TDD: red → green → refactor. Use the appropriate language skill. When the current task's acceptance criteria are met and all tests pass, proceed to COMMIT or REVIEW.
+Strict TDD: red → green → refactor. Use the appropriate language skill. See [development reference](references/development.md) for the full TDD cycle. When the current task's acceptance criteria are met and all tests pass, proceed to COMMIT or REVIEW.
 
 One non-obvious point: "minimum code to pass" refers to behaviour and architecture, not to picking naive data structures. If the domain naturally maps to a `Map`, use a `Map` from the start — that's accurate modelling, not premature optimisation.
 
-During the refactor step, actively hunt for: duplication, long methods, feature envy, primitive obsession, large classes, and long parameter lists. Apply standard techniques (extract method/class, rename, inline, decompose conditional, replace inheritance with delegation). After each refactoring step, **STOP** and ask the user if they want further refactoring.
+During the refactor step, actively hunt for code smells and apply standard techniques. See [refactor reference](references/refactor.md) for the full cycle and smell catalogue. After each refactoring step, **STOP** and ask the user if they want further refactoring.
 
 ---
 
@@ -73,7 +73,7 @@ Use before merging feature branches, after significant refactoring, for complex 
 
 ## Phase 4: Commit (💾 COMMIT) — Autonomous
 
-**Agent:** `commit-helper` (Haiku, bash only)
+**Skill:** `commit-commands:commit`
 
 Before delegating: summarise what will be committed and ask the user to confirm. Commit after each completed task, refactoring session, or before switching branches.
 
@@ -98,7 +98,7 @@ Announce clearly when switching:
 🟢 DEVELOP → Making test pass
 🔵 REFACTOR → Improving [aspect]
 🔍 REVIEW → Delegating to code-reviewer agent
-💾 COMMIT → Delegating to commit-helper agent
+💾 COMMIT → Delegating to commit-commands:commit
 🔁 ITERATE → Moving to next task
 ✅ COMPLETE → Feature done
 ```
