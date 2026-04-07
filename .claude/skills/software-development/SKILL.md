@@ -1,11 +1,11 @@
 ---
 name: software-development
-description: Software development based on Extreme Programming. Use it when implementing software features of any kind. Coordinates planning, TDD, refactoring, and commits.
+description: Software development based on Extreme Programming (XP). Use it when implementing software features of any kind. Coordinates planning, TDD, refactoring, and commits.
 ---
 
 # Software Development: Extreme Programming Workflow
 
-## The XP Workflow
+## The Workflow
 
 ```
 📋 PLAN     → Discuss and break down the feature
