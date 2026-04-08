@@ -82,7 +82,6 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export GITHUB_PERSONAL_ACCESS_TOKEN=$(security find-generic-password -w -s github-personal-access-token)
-export GITHUB_TOKEN=$GITHUB_PERSONAL_ACCESS_TOKEN
 
 # Load tools etc
 zmodload -i zsh/complist

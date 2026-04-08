@@ -129,7 +129,11 @@ do_test() {
       ;;
     kotlin)
       if [[ -n "$pattern" ]]; then
-        $GW test --tests "*${pattern}*"
+        if echo "$GW_TASKS" | grep -q "^${pattern}:test "; then
+          $GW ":${pattern}:test"
+        else
+          $GW test --tests "*${pattern}*"
+        fi
       else
         $GW test
       fi
