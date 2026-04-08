@@ -82,7 +82,10 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export GITHUB_PERSONAL_ACCESS_TOKEN=$(security find-generic-password -w -s github-personal-access-token)
+export GITHUB_TOKEN=$GITHUB_PERSONAL_ACCESS_TOKEN
+
 export CLAUDE_CODE_DISABLE_AUTO_MEMORY=0  # Force on
+export CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING=1 # Workaround for performance degradation in Jan/Feb 2026
 
 # Load tools etc
 zmodload -i zsh/complist
