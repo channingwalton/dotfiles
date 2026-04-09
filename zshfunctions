@@ -17,7 +17,7 @@ function ff() {
 }
 
 function sf() {
-  rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+  rg --no-ignore-vcs --glob '!node_modules' --color=always --line-number --no-heading --smart-case "${*:-}" |
   fzf --ansi --delimiter : \
       --preview 'bat --style=numbers --color=always --highlight-line {2} {1}' \
       --preview-window '~3,+{2}+3/2' |
