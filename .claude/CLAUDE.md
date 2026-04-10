@@ -20,7 +20,7 @@
 
 Try to avoid using compound commands like `cd <path> && git ...`, and instead use directory options available
 in the command like `git -C <path>` so that the user is prompted all the time.
-
+Alternatively, run the commands sequentially.
 
 ## Tools (use when appropriate)
 
