@@ -10,7 +10,6 @@
     "allow": [
       "WebFetch(domain:*)",
       "WebSearch",
-
       "Bash(./gradlew:*)",
       "Bash(awk:*)",
       "Bash(bash:*)",
@@ -68,7 +67,6 @@
       "Bash(which:*)",
       "Bash(xargs:*)",
       "Bash(xxd:*)",
-
       "Glob(/Users/channing/.claude/**)",
       "Glob(/Users/channing/dev/**)",
       "Glob(/Users/channing/Documents/Notes/**)",
@@ -79,10 +77,8 @@
       "Read(/tmp/**)",
       "Write(/Users/channing/dev/**)",
       "Edit(/Users/channing/dev/**)",
-
       "Skill(code-reviewer)",
       "Skill(vault)",
-
       "mcp__context7__resolve-library-id",
       "mcp__fetch__fetch",
       "mcp__perplexity-mcp__perplexity_search_web",
@@ -120,6 +116,10 @@
   },
   "alwaysThinkingEnabled": true,
   "voiceEnabled": true,
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
   "autoDreamEnabled": true,
   "teammateMode": "tmux",
   "feedbackSurveyState": {
