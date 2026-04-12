@@ -64,7 +64,9 @@ run_quiet() {
   if (( rc != 0 )); then
     echo "devtool: command failed (exit $rc)"
     echo "  log: $logfile"
-    echo "  tail -100 \"$logfile\"   # or grep/less as needed"
+    echo "--- output ---"
+    cat "$logfile"
+    echo "--- end output ---"
   else
     rm -f "$logfile"
   fi
