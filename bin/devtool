@@ -7,6 +7,12 @@ set -euo pipefail
 # Detects project type and runs compile, lint,
 # test, or all three (check).
 #
+# Output is suppressed on success. On failure the
+# full log is written to a temp file, whose path
+# is printed and whose contents are cat'd between
+# --- output --- markers. Set DEVTOOL_VERBOSE=1
+# to stream output live instead.
+#
 # Usage:
 #   devtool check            # compile + lint + test
 #   devtool compile          # compile only

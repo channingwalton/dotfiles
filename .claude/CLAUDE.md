@@ -33,6 +33,7 @@ Alternatively, run the commands sequentially.
   - `devtool test [pattern]` — run tests, optional filter. Use when asked to "run tests" or "run this test".
   - `devtool lint` — lint only.
   - `devtool cpd <language> [directory]` — find duplicate code using PMD CPD. Use during code review or when asked to find duplicates.
+  - Output is suppressed on success; on failure the full log is cat'd between `--- output ---` markers and the log file path is printed (no need to re-run). Set `DEVTOOL_VERBOSE=1` to stream live.
 - Prefer LSP over Grep/Read for code navigation
   - After writing or editing code, check LSP diagnostics and fix errors before proceeding.
   - Use Grep or rg only when LSP isn't available or for text/pattern searches (comments, strings, config).
