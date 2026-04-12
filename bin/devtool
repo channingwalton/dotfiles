@@ -48,33 +48,56 @@ gradle_has_task() {
   echo "$GW_TASKS" | grep -q "^$1 " 2>/dev/null
 }
 
+# Run a command silently; on failure, point at a log file instead of
+# replaying output. Honours DEVTOOL_VERBOSE=1 to stream output live.
+run_quiet() {
+  if [[ "${DEVTOOL_VERBOSE:-0}" == "1" ]]; then
+    "$@"
+    return $?
+  fi
+  local logfile rc
+  logfile=$(mktemp -t devtool.XXXXXX)
+  set +e
+  "$@" >"$logfile" 2>&1
+  rc=$?
+  set -e
+  if (( rc != 0 )); then
+    echo "devtool: command failed (exit $rc)"
+    echo "  log: $logfile"
+    echo "  tail -100 \"$logfile\"   # or grep/less as needed"
+  else
+    rm -f "$logfile"
+  fi
+  return $rc
+}
+
 # --- Actions ---
 
 do_compile() {
   case "$PROJECT_TYPE" in
     scala)
       if $USE_BLOOP; then
-        bloop compile root
+        run_quiet bloop compile root
       else
-        sbt compile
+        run_quiet sbt --warn compile
       fi
       ;;
     kotlin)
       if gradle_has_task compileKotlin; then
-        $GW compileKotlin
+        run_quiet $GW --quiet compileKotlin
       else
-        $GW classes
+        run_quiet $GW --quiet classes
       fi
       ;;
     node)
       if [[ -f "tsconfig.json" ]]; then
-        npx tsc --noEmit
+        run_quiet npx tsc --noEmit
       else
-        $PM run build
+        run_quiet $PM run build
       fi
       ;;
     ruby)
-      bundle exec rubocop
+      run_quiet bundle exec rubocop
       ;;
     *)
       echo "devtool: no project detected"
@@ -90,16 +113,16 @@ do_lint() {
       ;;
     kotlin)
       if gradle_has_task ktlintCheck; then
-        $GW ktlintCheck
+        run_quiet $GW --quiet ktlintCheck
       else
         echo "devtool: ktlintCheck not available, skipping lint"
       fi
       ;;
     node)
-      $PM run lint 2>/dev/null || true
+      run_quiet $PM run lint || true
       ;;
     ruby)
-      bundle exec rubocop
+      run_quiet bundle exec rubocop
       ;;
     *)
       echo "devtool: no project detected"
@@ -115,48 +138,48 @@ do_test() {
     scala)
       if $USE_BLOOP; then
         if [[ -n "$pattern" ]]; then
-          bloop test root -o "*${pattern}*"
+          run_quiet bloop test root -o "*${pattern}*"
         else
-          bloop test root
+          run_quiet bloop test root
         fi
       else
         if [[ -n "$pattern" ]]; then
-          sbt "testOnly *${pattern}*"
+          run_quiet sbt --warn "testOnly *${pattern}*"
         else
-          sbt test
+          run_quiet sbt --warn test
         fi
       fi
       ;;
     kotlin)
       if [[ -n "$pattern" ]]; then
         if echo "$GW_TASKS" | grep -q "^${pattern}:test "; then
-          $GW ":${pattern}:test"
+          run_quiet $GW --quiet ":${pattern}:test"
         else
-          $GW test --tests "*${pattern}*"
+          run_quiet $GW --quiet test --tests "*${pattern}*"
         fi
       else
-        $GW test
+        run_quiet $GW --quiet test
       fi
       ;;
     node)
       if [[ -n "$pattern" ]]; then
-        $PM test -- --testPathPattern="$pattern"
+        run_quiet $PM test -- --testPathPattern="$pattern"
       else
-        $PM test
+        run_quiet $PM test
       fi
       ;;
     ruby)
       if [[ -n "$pattern" ]]; then
         if [[ "$RUBY_TEST" == "rspec" ]]; then
-          bundle exec rspec --pattern "**/*${pattern}*"
+          run_quiet bundle exec rspec --pattern "**/*${pattern}*"
         else
-          bundle exec rake test TEST="test/**/*${pattern}*"
+          run_quiet bundle exec rake test TEST="test/**/*${pattern}*"
         fi
       else
         if [[ "$RUBY_TEST" == "rspec" ]]; then
-          bundle exec rspec
+          run_quiet bundle exec rspec
         else
-          bundle exec rake test
+          run_quiet bundle exec rake test
         fi
       fi
       ;;
@@ -189,13 +212,13 @@ do_cpd() {
 do_check() {
   # Custom commitCheck.sh takes priority
   if [[ -f "commitCheck.sh" ]]; then
-    ./commitCheck.sh
+    run_quiet ./commitCheck.sh
     return $?
   fi
 
   # Scala with commitCheck sbt target
   if [[ "$PROJECT_TYPE" == "scala" ]] && $SBT_HAS_COMMIT_CHECK; then
-    sbt commitCheck
+    run_quiet sbt --warn commitCheck
     return $?
   fi
 
@@ -213,6 +236,9 @@ usage() {
   echo "  lint             lint only"
   echo "  test [pattern]   test only, optional filter"
   echo "  cpd <lang> [dir] find duplicate code (uses pmd cpd)"
+  echo ""
+  echo "Env:"
+  echo "  DEVTOOL_VERBOSE=1  stream output live (default: suppress on success)"
 }
 
 main() {
