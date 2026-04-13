@@ -66,3 +66,6 @@ log
 /.gemini/projects.json
 /.pi/agent/sessions
 /.pi/agent/auth.json
+/.pi/agent/mcp-cache.json
+/.pi/agent/mcp-npx-cache.json
+/trace.json.gz
