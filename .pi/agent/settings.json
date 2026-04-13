@@ -1,5 +1,8 @@
 {
   "lastChangelogVersion": "0.66.1",
-  "defaultProvider": "lmstudio",
-  "defaultModel": "qwen/qwen3.5-35b-a3b"
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-4-6",
+  "packages": [
+    "npm:pi-mcp-adapter"
+  ]
 }
