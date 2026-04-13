@@ -153,14 +153,6 @@
     ],
     "slack@claude-plugins-official": [
       {
-        "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/slack/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-03-25T14:32:59.454Z",
-        "lastUpdated": "2026-03-25T14:32:59.454Z",
-        "gitCommitSha": "7b9458950d38bb01ddb48b669f9fa89bcdfd98b8"
-      },
-      {
         "scope": "project",
         "projectPath": "/Users/channing/dev/patchwork/glue",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/slack/1.0.0",
@@ -173,12 +165,12 @@
     "atlassian@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dev/patchwork/glue",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/atlassian/385c1469c567",
         "version": "385c1469c567",
         "installedAt": "2026-04-07T10:21:36.605Z",
         "lastUpdated": "2026-04-07T10:21:36.605Z",
-        "gitCommitSha": "385c1469c567399970e1d3fc23687a0312aa63dc",
-        "projectPath": "/Users/channing/dev/patchwork/glue"
+        "gitCommitSha": "385c1469c567399970e1d3fc23687a0312aa63dc"
       }
     ]
   }

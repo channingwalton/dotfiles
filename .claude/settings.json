@@ -85,11 +85,17 @@
       "mcp__sequential-thinking",
       "mcp__unison"
     ],
-    "deny": [],
+    "deny": [
+      "mcp__claude_ai_Notion"
+    ],
     "ask": [
       "Bash(git push:*)"
     ]
   },
+  "model": "opus[1m]",
+  "disabledMcpjsonServers": [
+    "claude_ai_Notion"
+  ],
   "hooks": {},
   "statusLine": {
     "type": "command",
@@ -107,12 +113,11 @@
     "kotlin-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": true,
-    "github@claude-plugins-official": true,
+    "github@claude-plugins-official": false,
     "commit-commands@claude-plugins-official": true,
     "claude-md-management@claude-plugins-official": true,
     "elements-of-style@superpowers-marketplace": true,
-    "chrome-devtools-mcp@claude-plugins-official": true,
-    "slack@claude-plugins-official": true
+    "chrome-devtools-mcp@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
   "voiceEnabled": true,

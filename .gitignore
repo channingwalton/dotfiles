@@ -62,3 +62,7 @@ log
 /.claude/.credentials.json
 /.claude/telemetry
 /.claude/plugins/marketplaces/claude-plugins-official
+/.gemini/history/fabric-space
+/.gemini/projects.json
+/.pi/agent/sessions
+/.pi/agent/auth.json
