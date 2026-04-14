@@ -69,3 +69,4 @@ log
 /.pi/agent/mcp-cache.json
 /.pi/agent/mcp-npx-cache.json
 /trace.json.gz
+/.remember/tmp
