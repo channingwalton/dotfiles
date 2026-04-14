@@ -9,11 +9,12 @@ description: Software development based on Extreme Programming (XP). Use it when
 
 ```
 📋 PLAN     → Discuss and break down the feature
-🔴 DEVELOP  → TDD cycle (red-green-refactor)
-🔍 REVIEW   → Autonomous code review (optional)
+🔴 DEVELOP  → TDD cycle (red → green → refactor → review)
 💾 COMMIT   → Save working state
 🔁 ITERATE  → Next task or feature complete
 ```
+
+The DEVELOP cycle is a task's Definition of Done: **no task is complete until the review step passes**. Review is inside the cycle, not after it.
 
 ---
 
@@ -44,44 +45,55 @@ Summarise, present ordered task list, **STOP** — explicitly agree on the first
 ```
 ## Tasks for [Feature]
 
-1. [ ] [Task description] — [acceptance criteria]
-2. [ ] [Task description] — [acceptance criteria]
+1. [ ] [Task description] — [acceptance criteria] — DoD: tests green + fix-loop clean
+2. [ ] [Task description] — [acceptance criteria] — DoD: tests green + fix-loop clean
 
 **Assumptions surfaced:** [key premises uncovered during clarify/falsify]
 **First task:** [Task 1 description]
 ```
 
+The Definition of Done is identical for every task. A task cannot be ticked without it.
+
 ---
 
 ## Phase 2: Development (🔴 DEVELOP) — Interactive
 
-Strict TDD: red → green → refactor. Use the appropriate language skill. See [development reference](references/development.md) for the full TDD cycle. When the current task's acceptance criteria are met and all tests pass, proceed to COMMIT or REVIEW.
+Each task runs a four-step cycle. All four steps must complete before the task is done.
 
-One non-obvious point: "minimum code to pass" refers to behaviour and architecture, not to picking naive data structures. If the domain naturally maps to a `Map`, use a `Map` from the start — that's accurate modelling, not premature optimisation.
+### Step 1: 🔴 Red — Failing Test
 
-During the refactor step, actively hunt for code smells and apply standard techniques. See [refactor reference](references/refactor.md) for the full cycle and smell catalogue. After each refactoring step, **STOP** and ask the user if they want further refactoring.
+Write a failing test for the next behaviour. Use the appropriate language skill. See [development reference](references/development.md).
+
+### Step 2: 🟢 Green — Make It Pass
+
+Minimum code to pass. "Minimum" refers to behaviour and architecture, not naive data structures — if the domain naturally maps to a `Map`, use a `Map` from the start.
+
+### Step 3: 🔵 Refactor
+
+Clean up while the domain is fresh and tests are green. Anything goes — restructure, rename, dedupe, reshape abstractions. See [refactor reference](references/refactor.md). After each refactoring step, **STOP** and ask the user if they want further refactoring.
+
+### Step 4: 🔍 Review — Fix-Loop
+
+**Not optional.** Only skip for pure non-code edits (comments, docs-only changes) and state the skip explicitly.
+
+1. **Delegate to the `fix-loop` skill** — runs code-reviewer → fixer until critical findings resolve (or the iteration cap hits). The reviewer's remit includes simplification opportunities, so fresh-eyes cleanup happens here.
+2. **If unresolved critical findings or test regressions remain:** stop and surface to the user. The task is not done.
+
+Only after step 4 passes is the task complete. Proceed to COMMIT.
 
 ---
 
-## Phase 3: Review (🔍 REVIEW) — Optional, Autonomous
-
-**Agent:** `code-reviewer` (Opus, read-only tools, uses `bugmagnet`)
-
-Use before merging feature branches, after significant refactoring, for complex or security-sensitive changes, or when requested. Review findings, then look for simplification with the `code-simplifier` agent.
-
----
-
-## Phase 4: Commit (💾 COMMIT) — Autonomous
+## Phase 3: Commit (💾 COMMIT) — Autonomous
 
 **Skill:** `commit-commands:commit`
 
-Before delegating: summarise what will be committed and ask the user to confirm. Commit after each completed task, refactoring session, or before switching branches.
+Before delegating: summarise what will be committed and ask the user to confirm.
 
 ---
 
-## Phase 5: Iterate (🔁 ITERATE) — Interactive
+## Phase 4: Iterate (🔁 ITERATE) — Interactive
 
-1. Mark task as done
+1. Mark task as done (only if step 4 of DEVELOP passed)
 2. Review remaining tasks — adjust plan if needed
 3. Return to Phase 2 for next task, or finish
 4. Use `vault` skill to log significant learnings
@@ -97,7 +109,7 @@ Announce clearly when switching:
 🔴 DEVELOP → Writing failing test for [behaviour]
 🟢 DEVELOP → Making test pass
 🔵 REFACTOR → Improving [aspect]
-🔍 REVIEW → Delegating to code-reviewer agent
+🔍 REVIEW → Delegating to fix-loop
 💾 COMMIT → Delegating to commit-commands:commit
 🔁 ITERATE → Moving to next task
 ✅ COMPLETE → Feature done

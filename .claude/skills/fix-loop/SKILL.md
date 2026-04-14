@@ -85,8 +85,4 @@ Announce: `Fix loop complete`
 [Compare against baseline from Step 2. Report regressions vs pre-existing failures.]
 ```
 
-### Step 5: Commit
-
-Ask the user: **Commit these changes?**
-
-If yes, invoke `commit-commands:commit`.
+Do not commit. Callers decide when to commit (the XP skill runs `code-simplifier` first; standalone users can follow with `/commit`).

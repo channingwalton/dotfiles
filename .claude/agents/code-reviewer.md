@@ -35,6 +35,15 @@ Each category targets a way that reasoning about code becomes unreliable.
 - Logical file/module organisation
 - Duplication — same premise in multiple places risks **contradiction**
 
+### Simplicity & Clarity
+
+- Unnecessary complexity — code harder to follow than the problem requires
+- Dead or unused abstractions — layers that don't earn their keep
+- Nesting beyond ~2 levels — exceeds working memory
+- Nested ternaries and over-clever one-liners — hide steps the reader must reconstruct
+- Comments that restate what the code already says
+- Over-engineering — speculative generality, premature abstraction
+
 ### Functional Programming
 
 - Pure functions where possible — **closed arguments**, no hidden premises

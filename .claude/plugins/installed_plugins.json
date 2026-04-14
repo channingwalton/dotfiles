@@ -4,155 +4,162 @@
     "typescript-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-01-03T22:28:23.364Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14"
       }
     ],
     "pyright-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/pyright-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-01-03T22:28:23.364Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14"
       }
     ],
     "jdtls-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/jdtls-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-01-03T22:28:23.364Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14"
       }
     ],
     "lua-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/lua-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-01-03T22:28:23.364Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14"
       }
     ],
     "swift-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/swift-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-01-27T11:05:52.686Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "e30768372b4150ca1bc0839d93283e8edc30d60d",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "e30768372b4150ca1bc0839d93283e8edc30d60d"
       }
     ],
     "rust-analyzer-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/rust-analyzer-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-02-28T10:00:20.016Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
       }
     ],
     "kotlin-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/kotlin-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-03-17T15:18:50.428Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
     "ruby-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/ruby-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-03-17T15:18:50.433Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
+      },
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/ruby-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-04-14T16:17:50.735Z",
+        "lastUpdated": "2026-04-14T16:17:50.735Z"
       }
     ],
     "frontend-design@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/frontend-design/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.471Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
     "github@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/github/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.478Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
     "commit-commands@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.487Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
     "claude-md-management@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/claude-md-management/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-03-17T20:06:21.492Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
     "elements-of-style@superpowers-marketplace": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/superpowers-marketplace/elements-of-style/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-03-17T20:06:22.038Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "6099c505c2a8eb066f3777f83a97d9d828f7954c",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "6099c505c2a8eb066f3777f83a97d9d828f7954c"
       }
     ],
     "chrome-devtools-mcp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/latest",
         "version": "latest",
         "installedAt": "2026-03-20T15:58:33.356Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
       }
     ],
     "slack@claude-plugins-official": [
@@ -180,22 +187,22 @@
     "remember@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/remember/0.1.0",
         "version": "0.1.0",
         "installedAt": "2026-04-14T12:50:45.844Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "gitCommitSha": "779ab61d8d412230eeec1840b8ca104bebea4358",
-        "projectPath": "/Users/channing/dotfiles"
+        "gitCommitSha": "779ab61d8d412230eeec1840b8ca104bebea4358"
       }
     ],
     "skill-creator@claude-plugins-official": [
       {
         "scope": "local",
+        "projectPath": "/Users/channing/dotfiles",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/unknown",
         "version": "unknown",
         "installedAt": "2026-04-14T13:04:55.310Z",
-        "lastUpdated": "2026-04-14T13:04:55.310Z",
-        "projectPath": "/Users/channing/dotfiles"
+        "lastUpdated": "2026-04-14T13:04:55.310Z"
       }
     ]
   }
