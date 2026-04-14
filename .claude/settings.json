@@ -82,7 +82,6 @@
       "mcp__context7__resolve-library-id",
       "mcp__fetch__fetch",
       "mcp__perplexity-mcp__perplexity_search_web",
-      "mcp__sequential-thinking",
       "mcp__unison"
     ],
     "deny": [

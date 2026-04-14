@@ -2,7 +2,7 @@
   "version": 1,
   "servers": {
     "chrome-devtools": {
-      "configHash": "2762c61115a5f8c88ee9674cf1469ead036466c9f213eefebaa740757c5b7043",
+      "configHash": "66ed8138854449de3f2a1441b603bbade5af472675fa8ed75261f707916942c6",
       "tools": [
         {
           "name": "click",
@@ -815,7 +815,7 @@
         }
       ],
       "resources": [],
-      "cachedAt": 1776091219389
+      "cachedAt": 1776114751466
     }
   }
 }
