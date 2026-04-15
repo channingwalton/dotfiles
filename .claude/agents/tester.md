@@ -2,7 +2,7 @@
 name: tester
 description: Run targeted tests during development. Spawn when tests need running or debugging.
 tools: Read, Grep, Glob, Bash
-model: sonnet
+model: haiku
 ---
 
 Use `devtool test [pattern]` to run tests. It detects the project type and test framework automatically.

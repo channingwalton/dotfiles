@@ -94,9 +94,10 @@ Before delegating: summarise what will be committed and ask the user to confirm.
 ## Phase 4: Iterate (🔁 ITERATE) — Interactive
 
 1. Mark task as done (only if step 4 of DEVELOP passed)
-2. Review remaining tasks — adjust plan if needed
-3. Return to Phase 2 for next task, or finish
-4. Use `vault` skill to log significant learnings
+2. Run `/compact` — the task is committed, so per-task churn (test output, fixer diffs, file reads) is safe to drop. Keeps context lean across a multi-task feature.
+3. Review remaining tasks — adjust plan if needed
+4. Return to Phase 2 for next task, or finish
+5. Use `vault` skill to log significant learnings
 
 ---
 
@@ -111,6 +112,6 @@ Announce clearly when switching:
 🔵 REFACTOR → Improving [aspect]
 🔍 REVIEW → Delegating to fix-loop
 💾 COMMIT → Delegating to commit-commands:commit
-🔁 ITERATE → Moving to next task
+🔁 ITERATE → Compacting, then moving to next task
 ✅ COMPLETE → Feature done
 ```

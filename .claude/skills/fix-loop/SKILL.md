@@ -36,11 +36,11 @@ Run `devtool test` before making any changes. Record the result — this is need
 
 Set `iteration = 1` and `scope = <initial files>`.
 
-**LOOP** while `iteration <= 5`:
+**LOOP** while `iteration <= 3`:
 
-Five iterations is the cap because experience shows that if critical findings persist beyond 3-4 cycles, the remaining issues typically need human judgement rather than automated fixing. The cap prevents wasted cycles.
+Three iterations is the cap because experience shows that if critical findings persist beyond 3 cycles, the remaining issues typically need human judgement rather than automated fixing. The cap prevents wasted cycles.
 
-1. **REVIEW (iteration N)** — Announce: `Review iteration N/5`
+1. **REVIEW (iteration N)** — Announce: `Review iteration N/3`
    - Spawn the `code-reviewer` agent with scope as its input
    - Receive the findings report
 
@@ -49,7 +49,7 @@ Five iterations is the cap because experience shows that if critical findings pe
    - List the critical findings for visibility
    - Only critical findings are actioned because warnings and suggestions are judgement calls best left to the author. Automating fixes for subjective issues risks introducing changes the user disagrees with.
 
-3. **FIX (iteration N)** — Announce: `Fix iteration N/5 — addressing N critical issue(s)`
+3. **FIX (iteration N)** — Announce: `Fix iteration N/3 — addressing N critical issue(s)`
    - Spawn the `fixer` agent, passing it:
      - The list of critical findings (with file paths and line numbers)
      - The review context
@@ -70,7 +70,7 @@ Announce: `Fix loop complete`
 ```markdown
 # Fix Loop Report
 
-## Iterations: N/5
+## Iterations: N/3
 
 ## Resolved (Critical)
 - [file:line] [issue] — fixed in iteration N
