@@ -211,6 +211,16 @@
         "installedAt": "2026-04-14T13:04:55.310Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z"
       }
+    ],
+    "caveman@caveman": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/caveman/caveman/c2ed24b3e5d4",
+        "version": "c2ed24b3e5d4",
+        "installedAt": "2026-04-15T15:36:12.279Z",
+        "lastUpdated": "2026-04-15T15:36:12.279Z",
+        "gitCommitSha": "c2ed24b3e5d412cd0c25197b2bc9af587621fd99"
+      }
     ]
   }
 }

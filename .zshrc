@@ -115,3 +115,6 @@ export PATH="$PATH:/Users/channing/.lmstudio/bin"
 
 export PATH="$HOME/.asdf/shims:$PATH"
 
+
+# Added by Windsurf
+export PATH="/Users/channing/.codeium/windsurf/bin:$PATH"

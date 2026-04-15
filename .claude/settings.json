@@ -116,7 +116,16 @@
     "claude-md-management@claude-plugins-official": true,
     "elements-of-style@superpowers-marketplace": true,
     "chrome-devtools-mcp@claude-plugins-official": true,
-    "remember@claude-plugins-official": true
+    "remember@claude-plugins-official": true,
+    "caveman@caveman": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
   },
   "alwaysThinkingEnabled": true,
   "voice": {

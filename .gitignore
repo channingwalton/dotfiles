@@ -5,6 +5,7 @@
 !/.gitignore
 !/.gitmodules
 !/.markdownlint-cli2.yaml
+!/.tool-versions
 !/.tmux.conf
 !/.zshrc
 !/CLAUDE.md
