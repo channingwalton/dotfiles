@@ -218,12 +218,6 @@ do_cpd() {
 }
 
 do_check() {
-  # Custom commitCheck.sh takes priority
-  if [[ -f "commitCheck.sh" ]]; then
-    run_quiet ./commitCheck.sh
-    return $?
-  fi
-
   # Scala with commitCheck sbt target
   if [[ "$PROJECT_TYPE" == "scala" ]] && $SBT_HAS_COMMIT_CHECK; then
     run_quiet sbt --warn commitCheck
@@ -252,6 +246,15 @@ usage() {
 main() {
   local cmd="${1:-}"
   shift 2>/dev/null || true
+
+  if [[ -f "commitCheck.sh" ]]; then
+    echo "=== devtool $cmd [commitCheck.sh] ==="
+    if run_quiet ./commitCheck.sh; then
+      echo "=== devtool $cmd: OK ==="
+      return 0
+    fi
+    return $?
+  fi
 
   detect_project
 

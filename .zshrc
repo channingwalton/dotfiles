@@ -13,7 +13,7 @@ zstyle ':omz:update' frequency 7
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="yyyy-mm-dd"
 
-plugins=(aliases brew git github fzf-tab macos sbt scala wd z)
+plugins=(aliases asdf brew git github fzf-tab macos sbt scala wd z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -77,7 +77,6 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 
 export PATH="/opt/homebrew/bin:$PATH"
-export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 
 eval "$(cs java --jvm zulu:25 --env)"
 export PATH="$JAVA_HOME/bin:$PATH"
@@ -96,17 +95,11 @@ source ~/dotfiles/zshfunctions
 
 export UCM_MERGETOOL='"~/Applications/IntelliJ\ IDEA\ Community\ Edition.app/Contents/MacOS/idea" merge "$LOCAL" "$REMOTE" "$BASE" "$MERGED"'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
-
 export UNISON_PAGER=cat
 
 # Go
 export GOBIN=~/dev/gobin
 export PATH="$GOBIN:$PATH"
-
-eval "$(rbenv init - zsh)"
 
 # pnpm
 export PNPM_HOME="/Users/channing/Library/pnpm"
@@ -119,4 +112,6 @@ esac
 # Added by LM Studio CLI (lms)
 export PATH="$PATH:/Users/channing/.lmstudio/bin"
 # End of LM Studio CLI section
+
+export PATH="$HOME/.asdf/shims:$PATH"
 
