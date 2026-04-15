@@ -76,6 +76,13 @@
         "installedAt": "2026-03-17T15:18:50.428Z",
         "lastUpdated": "2026-04-14T13:04:55.310Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
+      },
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/kotlin-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-04-15T11:15:51.006Z",
+        "lastUpdated": "2026-04-15T11:15:51.006Z"
       }
     ],
     "ruby-lsp@claude-plugins-official": [

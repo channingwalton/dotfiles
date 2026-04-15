@@ -70,7 +70,6 @@ export MY_BIN="$HOME/dotfiles/bin"
 export PATH="${MY_BIN}:$PATH"
 
 export PATH="$HOME/Library/Application Support/Coursier/bin:$PATH"
-eval "$(cs java --jvm zulu:25 --env)"
 
 export PATH="/Applications/OrbStack.app/Contents/MacOS/xbin:$PATH"
 
@@ -79,6 +78,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export PATH="/opt/homebrew/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+
+eval "$(cs java --jvm zulu:25 --env)"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export GITHUB_PERSONAL_ACCESS_TOKEN=$(security find-generic-password -w -s github-personal-access-token)

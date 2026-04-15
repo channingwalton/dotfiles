@@ -119,12 +119,12 @@
     "remember@claude-plugins-official": true
   },
   "alwaysThinkingEnabled": true,
-  "voiceEnabled": true,
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
   "autoDreamEnabled": true,
+  "voiceEnabled": true,
   "teammateMode": "tmux",
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
