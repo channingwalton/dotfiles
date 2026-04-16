@@ -46,6 +46,9 @@ function updates {
   brew cleanup
   brew autoremove
 
+  echo "\nasdf\f"
+  asdf plugin update --all
+
   echo "\nCoursier\n"
   coursier update
 
