@@ -11,3 +11,5 @@ vim.opt.spelllang = { "en_gb" }
 vim.opt.scrolloff = 10
 vim.opt.linebreak = true
 vim.opt.timeoutlen = 300
+
+vim.lsp.set_log_level(vim.log.levels.ERROR)

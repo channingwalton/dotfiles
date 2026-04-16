@@ -1,8 +1,5 @@
 -- https://www.lazyvim.org/plugins/lsp#nvim-lspconfig
 
-vim.lsp.set_log_level(vim.log.levels.ERROR)
-vim.g.autoformat = true
-
 return {
   -- Main LSP configuration
   {
@@ -43,10 +40,13 @@ return {
           }
 
           Snacks.picker.pick({
+            source = "metals",
             title = "Metals",
             items = vim.tbl_map(function(cmd)
               return { text = cmd, cmd = cmd }
             end, commands),
+            format = "text",
+            preview = "none",
             confirm = function(picker, item)
               picker:close()
               if item then
