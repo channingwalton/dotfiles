@@ -61,6 +61,7 @@
 !/.config/lf/
 !/.config/lsd/
 !/.config/nvim/
+!/.config/opencode/
 !/.config/pgcli/
 !/.config/wezterm/
 !/.config/wtf/
@@ -69,6 +70,10 @@
 # Inside .config/configstore/: only the github copilot manifest
 /.config/configstore/*
 !/.config/configstore/update-notifier-@github/
+
+# Inside .config/opencode/: only opencode.json
+/.config/opencode/*
+!/.config/opencode/opencode.json
 
 # Noise inside otherwise-allowed config dirs
 /.config/pgcli/history
