@@ -20,6 +20,7 @@
 
 # ===== Dotted config trees: re-open, then curate inside =====
 !/.claude/
+!/.codex/
 !/.config/
 !/.gemini/
 !/.pi/
@@ -39,6 +40,26 @@
 /.claude/plugins/*
 !/.claude/plugins/config.json
 !/.claude/plugins/installed_plugins.json
+
+# --- .codex/: allow durable config and user-managed content only ---
+/.codex/*
+!/.codex/AGENTS.md
+!/.codex/config.toml
+!/.codex/rules/
+!/.codex/skills/
+
+# Inside .codex/rules/: allow rule files
+/.codex/rules/*
+!/.codex/rules/**/*.rules
+!/.codex/rules/**/*.md
+
+# Inside .codex/skills/: allow user-managed skills, not bundled/runtime skills
+/.codex/skills/*
+!/.codex/skills/**
+/.codex/skills/.system/
+/.codex/skills/.system/**
+/.codex/skills/codex-primary-runtime/
+/.codex/skills/codex-primary-runtime/**
 
 # --- .config/: allow specific tool dirs ---
 /.config/*
