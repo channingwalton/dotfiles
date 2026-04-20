@@ -68,6 +68,8 @@ Write a failing test for the next behaviour. Use the appropriate language skill.
 
 Minimum code to pass. "Minimum" refers to behaviour and architecture, not naive data structures — if the domain naturally maps to a `Map`, use a `Map` from the start.
 
+**Surgical:** touch only what the test requires. Match existing style. No drive-by edits to adjacent code, comments, or formatting. Every changed line should trace to the failing test. Broader cleanup belongs in Refactor.
+
 ### Step 3: 🔵 Refactor
 
 Clean up while the domain is fresh and tests are green. Anything goes — restructure, rename, dedupe, reshape abstractions. See [refactor reference](references/refactor.md). After each refactoring step, **STOP** and ask the user if they want further refactoring.

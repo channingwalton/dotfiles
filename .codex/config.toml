@@ -17,6 +17,12 @@ trust_level = "trusted"
 [projects."/Users/channing/dotfiles"]
 trust_level = "trusted"
 
+[projects."/Users/channing/dev/fabric/fabric-space"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/fabric/fabric-lite"]
+trust_level = "trusted"
+
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 

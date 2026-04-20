@@ -4,7 +4,9 @@
   "env": {
     "ENABLE_LSP_TOOL": "1",
     "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1",
-    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0"
+    "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "teammateMode": "in-process"
   },
   "permissions": {
     "allow": [
@@ -117,7 +119,8 @@
     "elements-of-style@superpowers-marketplace": true,
     "chrome-devtools-mcp@claude-plugins-official": true,
     "remember@claude-plugins-official": true,
-    "caveman@caveman": true
+    "caveman@caveman": true,
+    "superpowers@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {

@@ -1,2 +1,8 @@
 prefix_rule(pattern=["gh", "pr", "view"], decision="allow")
 prefix_rule(pattern=["devtool", "test"], decision="allow")
+prefix_rule(pattern=["npm", "install"], decision="allow")
+prefix_rule(pattern=["git", "branch"], decision="allow")
+prefix_rule(pattern=["git", "add"], decision="allow")
+prefix_rule(pattern=["git", "commit"], decision="allow")
+prefix_rule(pattern=["git", "remote"], decision="allow")
+prefix_rule(pattern=["git", "push"], decision="allow")
