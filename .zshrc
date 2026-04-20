@@ -119,5 +119,5 @@ export PATH="$HOME/.asdf/shims:$PATH"
 # Added by Windsurf
 export PATH="/Users/channing/.codeium/windsurf/bin:$PATH"
 
-# Prefer the bundled Codex CLI over npm packages named `codex` from asdf-managed Node installs.
-export PATH="/Applications/Codex.app/Contents/Resources:$PATH"
+# Prefer personal bin (contains codex symlink to Codex.app) over asdf shims
+export PATH="${MY_BIN}:$PATH"
