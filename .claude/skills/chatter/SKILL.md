@@ -5,7 +5,7 @@ description: Use when the user asks you to start, join, or continue a conversati
 
 # chatter
 
-Filesystem-based multi-agent chat. Messages are JSON files in a shared thread directory. No network.
+Filesystem-based multi-agent chat. Messages are markdown files (YAML frontmatter + body) in a shared thread directory. No network.
 
 Core behaviour: **loop** — read new messages → reply if useful → wait → repeat → exit when resolved or silent.
 

@@ -7,6 +7,7 @@ Subcommands:
   wait <slug> [--timeout SEC]
 
 Thread root: $CHATTER_ROOT or ~/dev/agent-chat
+Messages are markdown files with YAML-style frontmatter.
 """
 import argparse
 import json
@@ -28,23 +29,66 @@ def thread_dir(slug: str, must_exist: bool = True) -> Path:
     return d
 
 
+def render_msg(meta: dict, content: str) -> str:
+    reply = meta.get("reply_to") or ""
+    return (
+        "---\n"
+        f"id: {meta['id']}\n"
+        f"thread: {meta['thread']}\n"
+        f"from: {meta['from']}\n"
+        f"reply_to: {reply}\n"
+        f"created_at: {meta['created_at']}\n"
+        "---\n"
+        f"{content}"
+    )
+
+
+def parse_msg(text: str) -> dict:
+    if not text.startswith("---\n"):
+        raise ValueError("missing frontmatter start")
+    rest = text[4:]
+    end = rest.find("\n---\n")
+    if end == -1:
+        raise ValueError("missing frontmatter end")
+    fm_text = rest[:end]
+    body = rest[end + 5:]
+    meta: dict = {}
+    for line in fm_text.splitlines():
+        if not line.strip():
+            continue
+        k, sep, v = line.partition(":")
+        if not sep:
+            raise ValueError(f"malformed frontmatter line: {line!r}")
+        meta[k.strip()] = v.strip()
+    for key in ("id", "thread", "from", "created_at"):
+        if not meta.get(key):
+            raise ValueError(f"missing frontmatter field: {key}")
+    return {
+        "id": meta["id"],
+        "thread": meta["thread"],
+        "from": meta["from"],
+        "reply_to": meta.get("reply_to") or None,
+        "created_at": int(meta["created_at"]),
+        "content": body,
+    }
+
+
 def cmd_post(args) -> int:
     d = thread_dir(args.slug, must_exist=False)
     d.mkdir(parents=True, exist_ok=True)
     ms = int(time.time() * 1000)
-    fname = f"{ms:013d}-{args.agent}-{uuid.uuid4().hex[:6]}.json"
-    payload = {
-        "id": fname[:-5],
+    fname = f"{ms:013d}-{args.agent}-{uuid.uuid4().hex[:6]}.md"
+    meta = {
+        "id": fname[:-3],
         "thread": args.slug,
         "from": args.agent,
         "reply_to": args.reply_to,
         "created_at": ms,
-        "content": args.content,
     }
     tmp = d / f".{fname}.tmp"
     final = d / fname
-    tmp.write_text(json.dumps(payload))
-    json.loads(tmp.read_text())  # validate before publishing
+    tmp.write_text(render_msg(meta, args.content))
+    parse_msg(tmp.read_text())  # validate before publishing
     tmp.rename(final)
     print(fname)
     return 0
@@ -55,14 +99,14 @@ def cmd_read(args) -> int:
     out = []
     for entry in sorted(d.iterdir()):
         name = entry.name
-        if name.startswith(".") or not name.endswith(".json"):
+        if name.startswith(".") or not name.endswith(".md"):
             continue
         if args.since and name <= args.since:
             continue
         try:
-            out.append(json.loads(entry.read_text()))
-        except json.JSONDecodeError:
-            print(f"chatter: skipping malformed {name}", file=sys.stderr)
+            out.append(parse_msg(entry.read_text()))
+        except ValueError as e:
+            print(f"chatter: skipping malformed {name}: {e}", file=sys.stderr)
     json.dump(out, sys.stdout)
     sys.stdout.write("\n")
     return 0

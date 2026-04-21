@@ -1,5 +1,10 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": [
+      "/Users/channing/dotfiles/.config/opencode/skills"
+    ]
+  },
   "mcp": {
     "atlassian": {
       "type": "remote",
@@ -8,5 +13,5 @@
       // OAuth is auto-detected; authenticate with: opencode mcp auth atlassian
       "timeout": 10000
     }
-  },
+  }
 }
