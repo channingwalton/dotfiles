@@ -13,6 +13,7 @@ The value of this skill is that it separates *finding* problems from *fixing* th
 ## Input
 
 One of:
+
 - File path(s) to review
 - Directory to scan
 - No argument — automatically determines scope
@@ -30,7 +31,7 @@ Determine which files to review, in priority order:
 
 ### Step 2: Baseline Test Check
 
-Run `devtool test` before making any changes. Record the result — this is needed later to distinguish pre-existing failures from regressions introduced by fixes.
+Run `devtool check` before making any changes. Record the result — this is needed later to distinguish pre-existing failures from regressions introduced by fixes.
 
 ### Step 3: Review-Fix Loop
 

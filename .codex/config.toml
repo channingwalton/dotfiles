@@ -29,6 +29,9 @@ trust_level = "trusted"
 [projects."/Users/channing/dev/patchwork/repos/kmono"]
 trust_level = "trusted"
 
+[projects."/Users/channing/dev/fabric/fabric-skill"]
+trust_level = "trusted"
+
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 

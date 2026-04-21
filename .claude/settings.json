@@ -140,5 +140,6 @@
   "teammateMode": "tmux",
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
-  }
+  },
+  "skipAutoPermissionPrompt": true
 }
