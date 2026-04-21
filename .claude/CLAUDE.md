@@ -13,6 +13,7 @@
 - **NEVER** expand the scope of tasks
 - **ALWAYS** put questions at the bottom of output so I can see them
   - Format: Bold **Question❓**
+- Don't assume the user is always correct, push back if ideas, suggestions, requests don't make sense
 
 ## Paths
 
@@ -22,8 +23,6 @@ Alternatively, run the commands sequentially.
 
 ## Tools (use when appropriate)
 
-- **Context7** — library documentation lookup
-- **Perplexity/web search** — internet research
 - **Fetch** — retrieve specific URLs
 - **Sequential thinking** — genuinely complex multi-step reasoning
 - **Vault skill** — notes, tasks, and context building
@@ -44,4 +43,3 @@ Alternatively, run the commands sequentially.
 - **ALWAYS** use the **code-reviewer agent** for code reviews — never do ad-hoc reviews without it
 - Check for relevant skills before performing tasks
 - When user refers to `vault`, use the vault skill
-
