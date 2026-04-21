@@ -162,10 +162,10 @@
       {
         "scope": "project",
         "projectPath": "/Users/channing/dotfiles",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/latest",
-        "version": "latest",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/0.22.0",
+        "version": "0.22.0",
         "installedAt": "2026-03-20T15:58:33.356Z",
-        "lastUpdated": "2026-04-14T13:04:55.310Z",
+        "lastUpdated": "2026-04-21T22:58:28.657Z",
         "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
       }
     ],
@@ -195,10 +195,10 @@
       {
         "scope": "project",
         "projectPath": "/Users/channing/dotfiles",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/remember/0.1.0",
-        "version": "0.1.0",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/remember/0.5.0",
+        "version": "0.5.0",
         "installedAt": "2026-04-14T12:50:45.844Z",
-        "lastUpdated": "2026-04-14T13:04:55.310Z",
+        "lastUpdated": "2026-04-21T22:58:28.484Z",
         "gitCommitSha": "779ab61d8d412230eeec1840b8ca104bebea4358"
       }
     ],

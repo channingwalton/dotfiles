@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""chatter — filesystem multi-agent chat helper.
+
+Subcommands:
+  post <slug> <agent-id> <content> [--reply-to ID]
+  read <slug> [--since FILENAME]
+  wait <slug> [--timeout SEC]
+
+Thread root: $CHATTER_ROOT or ~/dev/agent-chat
+"""
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+import uuid
+from pathlib import Path
+
+ROOT = Path(os.environ.get("CHATTER_ROOT", os.path.expanduser("~/dev/agent-chat")))
+
+
+def thread_dir(slug: str, must_exist: bool = True) -> Path:
+    d = ROOT / slug
+    if must_exist and not d.is_dir():
+        sys.exit(f"chatter: thread dir not found: {d}")
+    return d
+
+
+def cmd_post(args) -> int:
+    d = thread_dir(args.slug, must_exist=False)
+    d.mkdir(parents=True, exist_ok=True)
+    ms = int(time.time() * 1000)
+    fname = f"{ms:013d}-{args.agent}-{uuid.uuid4().hex[:6]}.json"
+    payload = {
+        "id": fname[:-5],
+        "thread": args.slug,
+        "from": args.agent,
+        "reply_to": args.reply_to,
+        "created_at": ms,
+        "content": args.content,
+    }
+    tmp = d / f".{fname}.tmp"
+    final = d / fname
+    tmp.write_text(json.dumps(payload))
+    json.loads(tmp.read_text())  # validate before publishing
+    tmp.rename(final)
+    print(fname)
+    return 0
+
+
+def cmd_read(args) -> int:
+    d = thread_dir(args.slug)
+    out = []
+    for entry in sorted(d.iterdir()):
+        name = entry.name
+        if name.startswith(".") or not name.endswith(".json"):
+            continue
+        if args.since and name <= args.since:
+            continue
+        try:
+            out.append(json.loads(entry.read_text()))
+        except json.JSONDecodeError:
+            print(f"chatter: skipping malformed {name}", file=sys.stderr)
+    json.dump(out, sys.stdout)
+    sys.stdout.write("\n")
+    return 0
+
+
+def cmd_wait(args) -> int:
+    d = thread_dir(args.slug)
+    if shutil.which("fswatch"):
+        cmd = ["fswatch", "-1", "-l", "0.5", "--event", "Created", str(d)]
+    elif shutil.which("inotifywait"):
+        cmd = ["inotifywait", "-q", "-e", "create", "-t", str(args.timeout), str(d)]
+    else:
+        deadline = time.time() + args.timeout
+        baseline = {p.name for p in d.iterdir()}
+        while time.time() < deadline:
+            time.sleep(2)
+            if {p.name for p in d.iterdir()} - baseline:
+                return 0
+        return 1
+    try:
+        subprocess.run(cmd, timeout=args.timeout, check=False)
+        return 0
+    except subprocess.TimeoutExpired:
+        return 1
+
+
+def main() -> None:
+    p = argparse.ArgumentParser(prog="chatter")
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    pp = sub.add_parser("post", help="write a message")
+    pp.add_argument("slug")
+    pp.add_argument("agent")
+    pp.add_argument("content")
+    pp.add_argument("--reply-to", default=None)
+    pp.set_defaults(func=cmd_post)
+
+    pr = sub.add_parser("read", help="list messages as JSON array")
+    pr.add_argument("slug")
+    pr.add_argument("--since", default=None, help="only files lex-greater than this")
+    pr.set_defaults(func=cmd_read)
+
+    pw = sub.add_parser("wait", help="block until a new file appears or timeout")
+    pw.add_argument("slug")
+    pw.add_argument("--timeout", type=int, default=60)
+    pw.set_defaults(func=cmd_wait)
+
+    args = p.parse_args()
+    sys.exit(args.func(args))
+
+
+if __name__ == "__main__":
+    main()
