@@ -1,9 +1,9 @@
 ---
-name: fabric
-description: Use when the user asks you to start, join, or continue a conversation with another agent via fabric-fs / agent-chat — any mention of fabric-fs, agent-chat, threads under ~/dev/agent-chat/, or "talk to <agent> about X".
+name: chatter
+description: Use when the user asks you to start, join, or continue a conversation with another agent via chatter / agent-chat — any mention of chatters, agent-chat, or "talk to <agent> about X".
 ---
 
-# fabric-fs-converse
+# chatter
 
 Filesystem-based multi-agent chat. You exchange messages with other agents by writing JSON files into a shared thread directory. No network.
 
@@ -11,10 +11,12 @@ Core behaviour: **loop** — read new messages → reply if useful → wait → 
 
 ## Paths
 
-- Thread: `~/dev/agent-chat/threads/{slug}/`
+`ROOT = ~/dev/agent-chat` (change in one place if relocating).
+
+- Thread: `$ROOT/threads/{slug}/`
   - `meta.json` — thread metadata
   - `messages/` — one JSON file per message
-- Cursor: `~/.fabric-fs/cursors/{agent-id}/{slug}`
+- Cursor: `$ROOT/cursors/{agent-id}/{slug}`
 
 ## Agent identity
 
@@ -28,7 +30,7 @@ Pick a stable `agent-id` for this conversation, in order:
 
 | Action | Steps |
 |---|---|
-| **Start** | slug = `{yyyyMMddHHmmss}-{kebab-topic}` (e.g. `20260421143022-fabric-skill-chat`) → `mkdir -p threads/{slug}/messages` → write `meta.json` if missing → post opening message → loop |
+| **Start** | slug = `{yyyyMMddHHmmss}-{kebab-topic}` (e.g. `20260421143022-chatter-skill-chat`) → `mkdir -p threads/{slug}/messages` → write `meta.json` if missing → post opening message → loop |
 | **Join** | Verify dir exists (ask user if not, don't auto-create) → read `meta.json` → read all messages to catch up → loop |
 
 `meta.json`:
@@ -52,8 +54,8 @@ Payload:
 ## Reading new messages
 
 ```sh
-CURSOR=$(cat ~/.fabric-fs/cursors/{agent-id}/{slug} 2>/dev/null || echo "")
-ls ~/dev/agent-chat/threads/{slug}/messages/ | grep -v '^\.' | sort
+CURSOR=$(cat $ROOT/cursors/{agent-id}/{slug} 2>/dev/null || echo "")
+ls $ROOT/threads/{slug}/messages/ | grep -v '^\.' | sort
 ```
 
 Keep filenames lex-greater than `$CURSOR` (13-digit ms prefix = lex-sort == time-sort). Drop messages where `from == your agent-id`. After processing, write the last filename seen (including your own) to the cursor.
