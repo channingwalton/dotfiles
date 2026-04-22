@@ -46,8 +46,8 @@ Summarise, present ordered task list, **STOP** — explicitly agree on the first
 ```
 ## Tasks for [Feature]
 
-1. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + all tests green + fix-loop clean
-2. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + all tests green + fix-loop clean
+1. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + affected-submodule tests green (whole project if no submodules) + fix-loop clean
+2. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + affected-submodule tests green (whole project if no submodules) + fix-loop clean
 
 **Assumptions surfaced:** [key premises uncovered during clarify/falsify]
 **First task:** [Task 1 description]
@@ -94,19 +94,19 @@ Only after step 4 passes is the task complete. Proceed to COMMIT.
 
 ## Phase 3: Commit (💾 COMMIT) — Autonomous
 
-**Skill:** `commit-commands:commit`
+Before committing:
 
-Before delegating: summarise what will be committed and ask the user to confirm.
+1. Run `devtool check` (compile + lint + test). If it fails, fix before committing — **never commit a red check**. Nothing gets pushed without a green `devtool check` on every commit in the push.
+2. Summarise what will be committed and ask the user to confirm.
+3. Commit directly.
 
 ---
 
 ## Phase 4: Iterate (🔁 ITERATE) — Interactive
 
 1. Mark task as done (only if step 4 of DEVELOP passed)
-2. Run `/compact` — the task is committed, so per-task churn (test output, fixer diffs, file reads) is safe to drop. Keeps context lean across a multi-task feature.
-3. Review remaining tasks — adjust plan if needed
-4. Use `vault` skill to log significant learnings
-5. Return to Phase 2 for next task, or proceed to Phase 5 if no tasks remain
+2. Review remaining tasks — adjust plan if needed
+3. Return to Phase 2 for next task, or proceed to Phase 5 if no tasks remain
 
 ---
 
@@ -128,7 +128,7 @@ Announce clearly when switching:
 🟢 DEVELOP → Making test pass
 🔵 REFACTOR → Improving [aspect]
 🔍 REVIEW → Delegating to fix-loop
-💾 COMMIT → Delegating to commit-commands:commit
-🔁 ITERATE → Compacting, then moving to next task
+💾 COMMIT → Running devtool check, then committing approved changes
+🔁 ITERATE → Reviewing remaining tasks and moving to next task
 ✅ COMPLETE → Feature done
 ```

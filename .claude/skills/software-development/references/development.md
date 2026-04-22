@@ -5,7 +5,7 @@
 1. **NEVER write production code without a failing test first**
 2. One behaviour per test
 3. Write minimum code to make the test pass
-4. Run tests and verify green state before proceeding
+4. Run all tests in the affected submodule(s) — or all tests in the whole project if there are no submodules — and verify green state before proceeding
 5. **New behaviour requires a new test, even when similar existing code lacks one.** Precedent is not permission. Missing twin coverage is a gap to note, not a licence to skip.
 
 ## The TDD Cycle
@@ -13,7 +13,7 @@
 ```
 🔴 RED    → Write ONE failing test
 🟢 GREEN  → Write MINIMUM code to pass
-✅ VERIFY → Run all tests, confirm green
+✅ VERIFY → Run all tests in affected submodules (or whole project if none), confirm green
 ```
 
 ## Why This Works
@@ -45,7 +45,7 @@ Compilation alone is necessary but not sufficient. Tests connect form to truth.
 
 ### ✅ VERIFY — Confirm Green State
 
-Run ALL tests, not just the new one. A single failing test means your argument is unsound, even if the new feature looks correct in isolation.
+Run all tests in the affected submodule(s). If the project has no submodules, run the whole suite. A single failing test means your argument is unsound, even if the new feature looks correct in isolation.
 
 **Public signature changes require eyeballing every caller.** Compile-passing is weak evidence. Some languages coerce between function types — Kotlin accepts `() -> X` where `() -> Unit` is expected (return value dropped); TypeScript's structural typing accepts fewer parameters than the target signature declares — so stale callers stay stale and compile + tests both stay green. After any change to a public function's name, parameter list, or return type: `grep` the old shape, open each hit, confirm the new contract holds at every call site.
 
@@ -75,4 +75,4 @@ Good test names are **claims** — propositions your code must make true:
 
 ## Next Phase
 
-When the current task's acceptance criteria are met and all tests pass, proceed to **REFACTOR**.
+When the current task's acceptance criteria are met and the affected-submodule tests pass (whole project if no submodules), proceed to **REFACTOR**.
