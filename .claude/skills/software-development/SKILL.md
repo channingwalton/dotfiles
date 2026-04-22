@@ -45,8 +45,8 @@ Summarise, present ordered task list, **STOP** — explicitly agree on the first
 ```
 ## Tasks for [Feature]
 
-1. [ ] [Task description] — [acceptance criteria] — DoD: tests green + fix-loop clean
-2. [ ] [Task description] — [acceptance criteria] — DoD: tests green + fix-loop clean
+1. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + all tests green + fix-loop clean
+2. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + all tests green + fix-loop clean
 
 **Assumptions surfaced:** [key premises uncovered during clarify/falsify]
 **First task:** [Task 1 description]
@@ -70,9 +70,13 @@ Minimum code to pass. "Minimum" refers to behaviour and architecture, not naive 
 
 **Surgical:** touch only what the test requires. Match existing style. No drive-by edits to adjacent code, comments, or formatting. Every changed line should trace to the failing test. Broader cleanup belongs in Refactor.
 
+**Public signature changes:** if you change a public function signature, read every caller before calling green. Compile-passing is not enough — see [development reference](references/development.md) `✅ VERIFY`.
+
 ### Step 3: 🔵 Refactor
 
 Clean up while the domain is fresh and tests are green. Anything goes — restructure, rename, dedupe, reshape abstractions. See [refactor reference](references/refactor.md). After each refactoring step, **STOP** and ask the user if they want further refactoring.
+
+**Public signature changes:** same rule as Green — after a signature change, read every caller. Refactor is where this most often bites.
 
 ### Step 4: 🔍 Review — Fix-Loop
 
@@ -80,6 +84,8 @@ Clean up while the domain is fresh and tests are green. Anything goes — restru
 
 1. **Delegate to the `fix-loop` skill** — runs code-reviewer → fixer until critical findings resolve (or the iteration cap hits). The reviewer's remit includes simplification opportunities, so fresh-eyes cleanup happens here.
 2. **If unresolved critical findings or test regressions remain:** stop and surface to the user. The task is not done.
+
+**Scope touches new behaviour without new tests** is a critical finding, not a suggestion — even when sibling code lacks tests. Precedent is not permission.
 
 Only after step 4 passes is the task complete. Proceed to COMMIT.
 
@@ -100,6 +106,7 @@ Before delegating: summarise what will be committed and ask the user to confirm.
 3. Review remaining tasks — adjust plan if needed
 4. Return to Phase 2 for next task, or finish
 5. Use `vault` skill to log significant learnings
+6. When the feature is complete (no more tasks), suggest a retrospective — use the `retrospective` skill to surface gaps in this workflow and propose edits.
 
 ---
 

@@ -6,6 +6,7 @@
 2. One behaviour per test
 3. Write minimum code to make the test pass
 4. Run tests and verify green state before proceeding
+5. **New behaviour requires a new test, even when similar existing code lacks one.** Precedent is not permission. Missing twin coverage is a gap to note, not a licence to skip.
 
 ## The TDD Cycle
 
@@ -45,6 +46,8 @@ Compilation alone is necessary but not sufficient. Tests connect form to truth.
 ### ✅ VERIFY — Confirm Green State
 
 Run ALL tests, not just the new one. A single failing test means your argument is unsound, even if the new feature looks correct in isolation.
+
+**Public signature changes require eyeballing every caller.** Compile-passing is weak evidence. Some languages coerce between function types — Kotlin accepts `() -> X` where `() -> Unit` is expected (return value dropped); TypeScript's structural typing accepts fewer parameters than the target signature declares — so stale callers stay stale and compile + tests both stay green. After any change to a public function's name, parameter list, or return type: `grep` the old shape, open each hit, confirm the new contract holds at every call site.
 
 ## Test Naming
 
