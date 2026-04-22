@@ -23,7 +23,7 @@ Triggers:
 ## The Process
 
 ```
-1. AUDIT    — Two lists: worked / didn't. One sentence per item, concrete.
+1. AUDIT    — Scan full session transcript. Two lists: worked / didn't. Cite concrete turn/action per item.
 2. SORT     — Each "didn't" item: skill gap or work lesson?
 3. LOCATE   — For skill gaps: name the file and section.
 4. PROPOSE  — Write the exact edit (before/after).
