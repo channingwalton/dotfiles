@@ -85,6 +85,7 @@ Clean up while the domain is fresh and tests are green. Anything goes — restru
 
 1. **Delegate to the `fix-loop` skill** — runs code-reviewer → fixer until critical findings resolve (or the iteration cap hits). The reviewer's remit includes simplification opportunities, so fresh-eyes cleanup happens here.
 2. **If unresolved critical findings or test regressions remain:** stop and surface to the user. The task is not done.
+3. **Non-critical findings (Warning / Suggestion):** list them in one line each to the user before COMMIT and ask if any should be addressed now. Cheaper to fold in than to revisit in a follow-up commit.
 
 **Scope touches new behaviour without new tests** is a critical finding, not a suggestion — even when sibling code lacks tests. Precedent is not permission.
 
