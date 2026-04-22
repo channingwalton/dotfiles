@@ -59,7 +59,7 @@ The Definition of Done is identical for every task. A task cannot be ticked with
 
 ## Phase 2: Development (🔴 DEVELOP) — Interactive
 
-Each task runs a four-step cycle. All four steps must complete before the task is done.
+Each task runs a four-step cycle; all four must complete before the task is done.
 
 ### Step 1: 🔴 Red — Failing Test
 
@@ -67,7 +67,7 @@ Write a failing test for the next behaviour. Use the appropriate language skill.
 
 ### Step 2: 🟢 Green — Make It Pass
 
-Minimum code to pass. "Minimum" refers to behaviour and architecture, not naive data structures — if the domain naturally maps to a `Map`, use a `Map` from the start.
+Minimum code to pass — but choose domain-appropriate data structures (a `Map` when the domain maps to `Map`, not a `List`).
 
 **Surgical:** touch only what the test requires. Match existing style. No drive-by edits to adjacent code, comments, or formatting. Every changed line should trace to the failing test. Broader cleanup belongs in Refactor.
 
@@ -94,9 +94,7 @@ Only after step 4 passes is the task complete. Proceed to COMMIT.
 
 ## Phase 3: Commit (💾 COMMIT) — Autonomous
 
-Before committing:
-
-1. Run `devtool check` (compile + lint + test). If it fails, fix before committing — **never commit a red check**. Nothing gets pushed without a green `devtool check` on every commit in the push.
+1. Run `devtool check` (compile + lint + test) — must be green. No red commits; no pushes without a green check on every commit.
 2. Summarise what will be committed and ask the user to confirm.
 3. Commit directly.
 
@@ -104,9 +102,7 @@ Before committing:
 
 ## Phase 4: Iterate (🔁 ITERATE) — Interactive
 
-1. Mark task as done (only if step 4 of DEVELOP passed)
-2. Review remaining tasks — adjust plan if needed
-3. Return to Phase 2 for next task, or proceed to Phase 5 if no tasks remain
+Mark the task done (only if step 4 of DEVELOP passed). Adjust remaining tasks if needed. Return to Phase 2, or proceed to Phase 5 if none remain.
 
 ---
 
