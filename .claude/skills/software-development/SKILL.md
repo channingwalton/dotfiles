@@ -11,7 +11,8 @@ description: Software development based on Extreme Programming (XP). Use it when
 📋 PLAN     → Discuss and break down the feature
 🔴 DEVELOP  → TDD cycle (red → green → refactor → review)
 💾 COMMIT   → Save working state
-🔁 ITERATE  → Next task or feature complete
+🔁 ITERATE  → Next task or proceed to complete
+✅ COMPLETE → Suggest retrospective
 ```
 
 The DEVELOP cycle is a task's Definition of Done: **no task is complete until the review step passes**. Review is inside the cycle, not after it.
@@ -104,9 +105,16 @@ Before delegating: summarise what will be committed and ask the user to confirm.
 1. Mark task as done (only if step 4 of DEVELOP passed)
 2. Run `/compact` — the task is committed, so per-task churn (test output, fixer diffs, file reads) is safe to drop. Keeps context lean across a multi-task feature.
 3. Review remaining tasks — adjust plan if needed
-4. Return to Phase 2 for next task, or finish
-5. Use `vault` skill to log significant learnings
-6. When the feature is complete (no more tasks), suggest a retrospective — use the `retrospective` skill to surface gaps in this workflow and propose edits.
+4. Use `vault` skill to log significant learnings
+5. Return to Phase 2 for next task, or proceed to Phase 5 if no tasks remain
+
+---
+
+## Phase 5: Complete (✅ COMPLETE) — Interactive
+
+Feature done, all tasks committed. Before closing out:
+
+**Suggest a retrospective.** Ask the user if they'd like to run the `retrospective` skill to surface gaps in this workflow and propose edits. This is the final step — do not skip it.
 
 ---
 
