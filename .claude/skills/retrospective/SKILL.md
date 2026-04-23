@@ -36,7 +36,7 @@ Triggers:
 | Finding | Goes to |
 |---------|---------|
 | Rule that applies to any project | Skill file edit |
-| Discipline slipped (knew rule, skipped it) | Skill edit + red-flag counter |
+| Discipline slipped (knew rule, skipped it) | Skill edit **and** a one-line entry in the target skill's Red Flags list (create one if absent) naming the rationalisation that led to the slip |
 | Codebase-specific tripwire | Vault note |
 | How user likes to work | `feedback` memory |
 | Project/team fact | `project` memory |

@@ -29,6 +29,8 @@ Follow this sequence: **DISCUSS → CLARIFY → SLICE → FALSIFY → CONFIRM**.
 
 Requirements are arguments in disguise — stated conclusions resting on unstated premises. Restate the requirement as "Given [premises], then [conclusion]" and ask what premises are missing. Challenge assumptions — especially those that feel obvious. **STOP** until questions are answered.
 
+**For UI changes**, pin down the exact dialog/page by *role* (which user type) and *app* (which bundle) before picking a component. When a component's name matches the feature in two different apps, that's a trap, not an answer. Ask for a screenshot or a navigation path.
+
 ### SLICE — Break Into Tasks
 
 Tasks must be **vertical** (end-to-end functionality), **small** (one TDD cycle), **ordered** (dependency first, then value), and **testable** (clear acceptance criteria). Slice by behaviour, not by implementation layer.
@@ -46,8 +48,8 @@ Summarise, present ordered task list, **STOP** — explicitly agree on the first
 ```
 ## Tasks for [Feature]
 
-1. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + affected-submodule tests green (whole project if no submodules) + fix-loop clean
-2. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + affected-submodule tests green (whole project if no submodules) + fix-loop clean
+1. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + affected-submodule tests green (whole project if no submodules) + fix-loop clean + for UI tasks, feature exercised in a browser
+2. [ ] [Task description] — [acceptance criteria] — DoD: new tests for new behaviour + affected-submodule tests green (whole project if no submodules) + fix-loop clean + for UI tasks, feature exercised in a browser
 
 **Assumptions surfaced:** [key premises uncovered during clarify/falsify]
 **First task:** [Task 1 description]
@@ -63,7 +65,7 @@ Each task runs a four-step cycle; all four must complete before the task is done
 
 ### Step 1: 🔴 Red — Failing Test
 
-Write a failing test for the next behaviour. Use the appropriate language skill. See [development reference](references/development.md).
+Write a failing test for the next behaviour. If the change threads through multiple call sites (a shared helper, query, or validator that several callers use), write a failing test per call site before going green — a helper-level test alone can leave caller wiring silently wrong. Use the appropriate language skill. See [development reference](references/development.md).
 
 ### Step 2: 🟢 Green — Make It Pass
 
