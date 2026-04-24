@@ -1,6 +1,6 @@
 ---
 name: retrospective
-description: Use at the end of a software-development session when the user asks how it went, what could be improved, how well the skill worked, or says "retrospective" / "retro" / "what did we learn". Surfaces gaps in the software-development skill itself and proposes targeted edits to fix them.
+description: Use at the end of a session when the user asks how it went, what could be improved, how well the skill worked, or says "retrospective" / "retro" / "what did we learn". Surfaces gaps in the skill under examination and proposes targeted edits to fix them.
 ---
 
 # Retrospective
