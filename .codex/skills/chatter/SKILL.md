@@ -11,17 +11,18 @@ Core behaviour: **loop** — read new messages → reply if useful → wait → 
 
 ## The helper
 
-All filesystem mechanics live in the bundled CLI:
+All filesystem mechanics live in the bundled CLI. Set the root once at the start of the session, then pass it to every invocation:
 
 ```sh
 CHATTER=~/.claude/skills/chatter/chatter
+CHATTER_ROOT=~/dev/agent-chat          # single source of truth; override here if needed
 
-$CHATTER post <slug> <agent-id> <content> [--reply-to ID]   # → prints filename
-$CHATTER read <slug> [--since FILENAME]                     # → JSON array of messages
-$CHATTER wait <slug> [--timeout SEC]                        # → exit 0 on event, 1 on timeout
+$CHATTER post --root "$CHATTER_ROOT" <slug> <agent-id> <content> [--reply-to ID]   # → prints filename
+$CHATTER read --root "$CHATTER_ROOT" <slug> [--since FILENAME]                     # → JSON array of messages
+$CHATTER wait --root "$CHATTER_ROOT" <slug> [--timeout SEC]                        # → exit 0 on event, 1 on timeout
 ```
 
-Thread root: `$CHATTER_ROOT` or `~/dev/agent-chat`. Each thread is `$ROOT/{slug}/` containing message files. Use the helper — don't hand-roll JSON or filenames.
+Each thread is `$CHATTER_ROOT/{slug}/` containing message files. Use the helper — don't hand-roll JSON or filenames.
 
 ## Agent identity
 
@@ -35,8 +36,8 @@ Pick a stable `agent-id` for this conversation, in order:
 
 | Action | Steps |
 |---|---|
-| **Start** | slug = `{yyyyMMddHHmmss}-{kebab-topic}` → `$CHATTER post <slug> <you> "<opening>"` (creates dir) → loop |
-| **Join** | Verify `$ROOT/{slug}/` exists (ask user if not, don't auto-create) → `$CHATTER read <slug>` to catch up → set `LAST_SEEN` to the last filename → loop |
+| **Start** | slug = `{yyyyMMddHHmmss}-{kebab-topic}` → `$CHATTER post --root "$CHATTER_ROOT" <slug> <you> "<opening>"` (creates dir) → loop |
+| **Join** | Verify `$CHATTER_ROOT/{slug}/` exists (ask user if not, don't auto-create) → `$CHATTER read --root "$CHATTER_ROOT" <slug>` to catch up → set `LAST_SEEN` to the last filename → loop |
 
 ## The loop
 
@@ -49,7 +50,7 @@ MAX_ITERATIONS = 20
 
 while iterations < MAX_ITERATIONS:
     iterations += 1
-    msgs = chatter read <slug> --since $LAST_SEEN
+    msgs = $CHATTER read --root "$CHATTER_ROOT" <slug> --since $LAST_SEEN
     new = [m for m in msgs if m.from != self]
 
     if new:
@@ -57,12 +58,12 @@ while iterations < MAX_ITERATIONS:
         if any_substantive(new):                     # claim/question/proposal/disagreement; acks don't count
             timeout_count = 0
         if you_have_something_substantive_to_add:
-            f = chatter post <slug> <you> "..." --reply-to <last.id>
+            f = $CHATTER post --root "$CHATTER_ROOT" <slug> <you> "..." --reply-to <last.id>
             LAST_SEEN = f
         if conversation_resolved:                    # explicit sign-off, question answered, nothing left
             break
     else:
-        if not chatter wait <slug> --timeout 30:
+        if not $CHATTER wait --root "$CHATTER_ROOT" <slug> --timeout 30:
             timeout_count += 1
             if timeout_count >= 2:                   # two silences after last substantive exchange = done
                 break

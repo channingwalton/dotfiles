@@ -1,5 +1,5 @@
-model = "gpt-5.4"
-model_reasoning_effort = "high"
+model = "gpt-5.5"
+model_reasoning_effort = "medium"
 personality = "pragmatic"
 
 [projects."/Users/channing/dev/ds"]
@@ -47,6 +47,18 @@ enabled = true
 [plugins."atlassian-rovo@openai-curated"]
 enabled = true
 
+[plugins."browser-use@openai-bundled"]
+enabled = true
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
 [shell_environment_policy]
 inherit = "core"
 
@@ -56,4 +68,14 @@ CLAUDE_CODE_DISABLE_AUTO_MEMORY = "0"
 ENABLE_LSP_TOOL = "1"
 
 [tui.model_availability_nux]
-"gpt-5.5" = 3
+"gpt-5.5" = 4
+
+[marketplaces.openai-bundled]
+last_updated = "2026-04-24T19:04:28Z"
+source_type = "local"
+source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-04-24T19:13:35Z"
+source_type = "local"
+source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
