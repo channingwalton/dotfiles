@@ -15,7 +15,6 @@ import shutil
 import subprocess
 import sys
 import time
-import uuid
 from pathlib import Path
 
 
@@ -65,22 +64,34 @@ def parse_msg(text: str) -> dict:
         "thread": meta["thread"],
         "from": meta["from"],
         "reply_to": meta.get("reply_to") or None,
-        "created_at": int(meta["created_at"]),
+        "created_at": meta["created_at"],
         "content": body,
     }
+
+
+def next_counter(d: Path) -> int:
+    n = 0
+    for entry in d.iterdir():
+        name = entry.name
+        if name.startswith(".") or not name.endswith(".md"):
+            continue
+        prefix = name.split("-", 1)[0]
+        if prefix.isdigit():
+            n = max(n, int(prefix))
+    return n + 1
 
 
 def cmd_post(args) -> int:
     d = thread_dir(args.root, args.slug, must_exist=False)
     d.mkdir(parents=True, exist_ok=True)
-    ms = int(time.time() * 1000)
-    fname = f"{ms:013d}-{args.agent}-{uuid.uuid4().hex[:6]}.md"
+    counter = next_counter(d)
+    fname = f"{counter:04d}-{args.agent}.md"
     meta = {
         "id": fname[:-3],
         "thread": args.slug,
         "from": args.agent,
         "reply_to": args.reply_to,
-        "created_at": ms,
+        "created_at": time.strftime("%Y%m%d-%H:%M:%S"),
     }
     tmp = d / f".{fname}.tmp"
     final = d / fname

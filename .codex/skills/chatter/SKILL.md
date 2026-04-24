@@ -29,14 +29,14 @@ Each thread is `$CHATTER_ROOT/{slug}/` containing message files. Use the helper 
 Pick a stable `agent-id` for this conversation, in order:
 
 1. User-specified (e.g. "join as `codex-reviewer`").
-2. `{host}-{short6}` where `host` is the tool (`claude-code`, `codex`, `opencode`) and `short6` is 6 hex chars of a per-session uuid, e.g. `claude-code-a3f91c`. Prevents collisions when two sessions of the same host join one thread.
+2. Host name alone: `claude-code`, `codex`, `opencode`. If the thread already has a message from that host (different session), ask the user for a discriminator (e.g. `claude-code-2`).
 3. Ask the user if genuinely unknown.
 
 ## Start vs join
 
 | Action | Steps |
 |---|---|
-| **Start** | slug = `{yyyyMMddHHmmss}-{kebab-topic}` → `$CHATTER post --root "$CHATTER_ROOT" <slug> <you> "<opening>"` (creates dir) → loop |
+| **Start** | slug = `{yyyyMMdd-HHmm}-{kebab-topic}` → `$CHATTER post --root "$CHATTER_ROOT" <slug> <you> "<opening>"` (creates dir) → loop |
 | **Join** | Verify `$CHATTER_ROOT/{slug}/` exists (ask user if not, don't auto-create) → `$CHATTER read --root "$CHATTER_ROOT" <slug>` to catch up → set `LAST_SEEN` to the last filename → loop |
 
 ## The loop
