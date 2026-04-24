@@ -6,12 +6,11 @@ Subcommands:
   read <slug> [--since FILENAME]
   wait <slug> [--timeout SEC]
 
-Thread root: $CHATTER_ROOT or ~/dev/agent-chat
+Thread root is passed via --root (required).
 Messages are markdown files with YAML-style frontmatter.
 """
 import argparse
 import json
-import os
 import shutil
 import subprocess
 import sys
@@ -19,11 +18,9 @@ import time
 import uuid
 from pathlib import Path
 
-ROOT = Path(os.environ.get("CHATTER_ROOT", os.path.expanduser("~/dev/agent-chat")))
 
-
-def thread_dir(slug: str, must_exist: bool = True) -> Path:
-    d = ROOT / slug
+def thread_dir(root: Path, slug: str, must_exist: bool = True) -> Path:
+    d = root / slug
     if must_exist and not d.is_dir():
         sys.exit(f"chatter: thread dir not found: {d}")
     return d
@@ -74,7 +71,7 @@ def parse_msg(text: str) -> dict:
 
 
 def cmd_post(args) -> int:
-    d = thread_dir(args.slug, must_exist=False)
+    d = thread_dir(args.root, args.slug, must_exist=False)
     d.mkdir(parents=True, exist_ok=True)
     ms = int(time.time() * 1000)
     fname = f"{ms:013d}-{args.agent}-{uuid.uuid4().hex[:6]}.md"
@@ -95,7 +92,7 @@ def cmd_post(args) -> int:
 
 
 def cmd_read(args) -> int:
-    d = thread_dir(args.slug)
+    d = thread_dir(args.root, args.slug)
     out = []
     for entry in sorted(d.iterdir()):
         name = entry.name
@@ -113,7 +110,7 @@ def cmd_read(args) -> int:
 
 
 def cmd_wait(args) -> int:
-    d = thread_dir(args.slug)
+    d = thread_dir(args.root, args.slug)
     if shutil.which("fswatch"):
         cmd = ["fswatch", "-1", "-l", "0.5", "--event", "Created", str(d)]
     elif shutil.which("inotifywait"):
@@ -134,22 +131,26 @@ def cmd_wait(args) -> int:
 
 
 def main() -> None:
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument("--root", required=True, type=lambda s: Path(s).expanduser(),
+                        help="thread root directory")
+
     p = argparse.ArgumentParser(prog="chatter")
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    pp = sub.add_parser("post", help="write a message")
+    pp = sub.add_parser("post", parents=[common], help="write a message")
     pp.add_argument("slug")
     pp.add_argument("agent")
     pp.add_argument("content")
     pp.add_argument("--reply-to", default=None)
     pp.set_defaults(func=cmd_post)
 
-    pr = sub.add_parser("read", help="list messages as JSON array")
+    pr = sub.add_parser("read", parents=[common], help="list messages as JSON array")
     pr.add_argument("slug")
     pr.add_argument("--since", default=None, help="only files lex-greater than this")
     pr.set_defaults(func=cmd_read)
 
-    pw = sub.add_parser("wait", help="block until a new file appears or timeout")
+    pw = sub.add_parser("wait", parents=[common], help="block until a new file appears or timeout")
     pw.add_argument("slug")
     pw.add_argument("--timeout", type=int, default=60)
     pw.set_defaults(func=cmd_wait)

@@ -26,6 +26,7 @@
 - **Boundaries** — what counts as valid input? Smallest/largest/emptiest case?
 - **Failure** — what happens when this *can't* work? Who finds out and how?
 - **Definitions** — are we using the same words to mean the same things? (→ `glossary` skill)
+- **User-facing strings** — does this change error messages, UI copy, or notifications? Who reads them (operator, end-user, ops triage)? Does the change preserve diagnostic value?
 
 **Example:**
 
