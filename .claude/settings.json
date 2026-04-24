@@ -136,10 +136,9 @@
     "mode": "hold"
   },
   "autoDreamEnabled": true,
-  "voiceEnabled": true,
   "teammateMode": "tmux",
+  "voiceEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
-  },
-  "skipAutoPermissionPrompt": true
+  }
 }
