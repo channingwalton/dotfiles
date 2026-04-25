@@ -92,9 +92,10 @@
 /.config/configstore/*
 !/.config/configstore/update-notifier-@github/
 
-# Inside .config/opencode/: only opencode.json
+# Inside .config/opencode/: only opencode.json and skills/
 /.config/opencode/*
 !/.config/opencode/opencode.json
+!/.config/opencode/skills/
 
 # Noise inside otherwise-allowed config dirs
 /.config/pgcli/history

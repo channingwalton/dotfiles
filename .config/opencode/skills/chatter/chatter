@@ -1,0 +1,184 @@
+#!/usr/bin/env python3
+"""chatter — filesystem multi-agent chat helper.
+
+Subcommands:
+  post <slug> <agent-id> <content> [--reply-to ID]
+  read <slug> [--since FILENAME]
+  wait <slug> [--timeout SEC]
+
+Thread root is passed via --root (required).
+Messages are markdown files with YAML-style frontmatter.
+"""
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+
+def default_root() -> Path:
+    env = os.environ.get("CHATTER_ROOT")
+    if env:
+        return Path(env).expanduser()
+    return Path.cwd() / "agent-chatter"
+
+
+def thread_dir(root: Path, slug: str, must_exist: bool = True) -> Path:
+    d = root / slug
+    if must_exist and not d.is_dir():
+        sys.exit(f"chatter: thread dir not found: {d}")
+    return d
+
+
+def render_msg(meta: dict, content: str) -> str:
+    reply = meta.get("reply_to") or ""
+    return (
+        "---\n"
+        f"id: {meta['id']}\n"
+        f"thread: {meta['thread']}\n"
+        f"from: {meta['from']}\n"
+        f"reply_to: {reply}\n"
+        f"created_at: {meta['created_at']}\n"
+        "---\n"
+        f"{content}"
+    )
+
+
+def parse_msg(text: str) -> dict:
+    if not text.startswith("---\n"):
+        raise ValueError("missing frontmatter start")
+    rest = text[4:]
+    end = rest.find("\n---\n")
+    if end == -1:
+        raise ValueError("missing frontmatter end")
+    fm_text = rest[:end]
+    body = rest[end + 5:]
+    meta: dict = {}
+    for line in fm_text.splitlines():
+        if not line.strip():
+            continue
+        k, sep, v = line.partition(":")
+        if not sep:
+            raise ValueError(f"malformed frontmatter line: {line!r}")
+        meta[k.strip()] = v.strip()
+    for key in ("id", "thread", "from", "created_at"):
+        if not meta.get(key):
+            raise ValueError(f"missing frontmatter field: {key}")
+    return {
+        "id": meta["id"],
+        "thread": meta["thread"],
+        "from": meta["from"],
+        "reply_to": meta.get("reply_to") or None,
+        "created_at": meta["created_at"],
+        "content": body,
+    }
+
+
+def next_counter(d: Path) -> int:
+    n = 0
+    for entry in d.iterdir():
+        name = entry.name
+        if name.startswith(".") or not name.endswith(".md"):
+            continue
+        prefix = name.split("-", 1)[0]
+        if prefix.isdigit():
+            n = max(n, int(prefix))
+    return n + 1
+
+
+def cmd_post(args) -> int:
+    d = thread_dir(args.root, args.slug, must_exist=False)
+    d.mkdir(parents=True, exist_ok=True)
+    counter = next_counter(d)
+    fname = f"{counter:04d}-{args.agent}.md"
+    meta = {
+        "id": fname[:-3],
+        "thread": args.slug,
+        "from": args.agent,
+        "reply_to": args.reply_to,
+        "created_at": time.strftime("%Y%m%d-%H:%M:%S"),
+    }
+    tmp = d / f".{fname}.tmp"
+    final = d / fname
+    tmp.write_text(render_msg(meta, args.content))
+    parse_msg(tmp.read_text())  # validate before publishing
+    tmp.rename(final)
+    print(fname)
+    return 0
+
+
+def cmd_read(args) -> int:
+    d = thread_dir(args.root, args.slug)
+    out = []
+    for entry in sorted(d.iterdir()):
+        name = entry.name
+        if name.startswith(".") or not name.endswith(".md"):
+            continue
+        if args.since and name <= args.since:
+            continue
+        try:
+            out.append(parse_msg(entry.read_text()))
+        except ValueError as e:
+            print(f"chatter: skipping malformed {name}: {e}", file=sys.stderr)
+    json.dump(out, sys.stdout)
+    sys.stdout.write("\n")
+    return 0
+
+
+def cmd_wait(args) -> int:
+    d = thread_dir(args.root, args.slug)
+    if shutil.which("fswatch"):
+        cmd = ["fswatch", "-1", "-l", "0.5", "--event", "Created", str(d)]
+    elif shutil.which("inotifywait"):
+        cmd = ["inotifywait", "-q", "-e", "create", "-t", str(args.timeout), str(d)]
+    else:
+        deadline = time.time() + args.timeout
+        baseline = {p.name for p in d.iterdir()}
+        while time.time() < deadline:
+            time.sleep(2)
+            if {p.name for p in d.iterdir()} - baseline:
+                return 0
+        return 1
+    try:
+        subprocess.run(cmd, timeout=args.timeout, check=False)
+        return 0
+    except subprocess.TimeoutExpired:
+        return 1
+
+
+def main() -> None:
+    common = argparse.ArgumentParser(add_help=False)
+    common.add_argument("--root", default=None, type=lambda s: Path(s).expanduser(),
+                        help="thread root directory (default: $CHATTER_ROOT or ./agent-chatter)")
+
+    p = argparse.ArgumentParser(prog="chatter")
+    sub = p.add_subparsers(dest="cmd", required=True)
+
+    pp = sub.add_parser("post", parents=[common], help="write a message")
+    pp.add_argument("slug")
+    pp.add_argument("agent")
+    pp.add_argument("content")
+    pp.add_argument("--reply-to", default=None)
+    pp.set_defaults(func=cmd_post)
+
+    pr = sub.add_parser("read", parents=[common], help="list messages as JSON array")
+    pr.add_argument("slug")
+    pr.add_argument("--since", default=None, help="only files lex-greater than this")
+    pr.set_defaults(func=cmd_read)
+
+    pw = sub.add_parser("wait", parents=[common], help="block until a new file appears or timeout")
+    pw.add_argument("slug")
+    pw.add_argument("--timeout", type=int, default=60)
+    pw.set_defaults(func=cmd_wait)
+
+    args = p.parse_args()
+    if args.root is None:
+        args.root = default_root()
+    sys.exit(args.func(args))
+
+
+if __name__ == "__main__":
+    main()
