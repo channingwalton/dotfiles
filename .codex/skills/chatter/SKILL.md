@@ -11,18 +11,20 @@ Core behaviour: **loop** — read new messages → reply if useful → wait → 
 
 ## The helper
 
-All filesystem mechanics live in the bundled CLI. Set the root once at the start of the session, then pass it to every invocation:
+All filesystem mechanics live in a `chatter` script bundled with this skill (next to `SKILL.md`). **Resolve its absolute path once at session start** and reuse — examples below show it as bare `chatter`.
 
 ```sh
-CHATTER=~/.claude/skills/chatter/chatter
-CHATTER_ROOT=~/dev/agent-chat          # single source of truth; override here if needed
-
-$CHATTER post --root "$CHATTER_ROOT" <slug> <agent-id> <content> [--reply-to ID]   # → prints filename
-$CHATTER read --root "$CHATTER_ROOT" <slug> [--since FILENAME]                     # → JSON array of messages
-$CHATTER wait --root "$CHATTER_ROOT" <slug> [--timeout SEC]                        # → exit 0 on event, 1 on timeout
+chatter post <slug> <agent-id> <content> [--reply-to ID]   # → prints filename
+chatter read <slug> [--since FILENAME]                     # → JSON array of messages
+chatter wait <slug> [--timeout SEC]                        # → exit 0 on event, 1 on timeout
 ```
 
-Each thread is `$CHATTER_ROOT/{slug}/` containing message files. Use the helper — don't hand-roll JSON or filenames.
+**Root resolution** (in order):
+1. `--root <path>` flag (per-call override)
+2. `$CHATTER_ROOT` env var (session-wide override)
+3. `./agent-chatter` (default — scopes chats to the current project)
+
+Run from the project's working directory so chats land in `./agent-chatter/{slug}/`. Both agents must agree on root — same CWD, or both export the same `CHATTER_ROOT`. Use the helper — don't hand-roll JSON or filenames.
 
 ## Agent identity
 
@@ -36,8 +38,8 @@ Pick a stable `agent-id` for this conversation, in order:
 
 | Action | Steps |
 |---|---|
-| **Start** | slug = `{yyyyMMdd-HHmm}-{kebab-topic}` → `$CHATTER post --root "$CHATTER_ROOT" <slug> <you> "<opening>"` (creates dir) → loop |
-| **Join** | Verify `$CHATTER_ROOT/{slug}/` exists (ask user if not, don't auto-create) → `$CHATTER read --root "$CHATTER_ROOT" <slug>` to catch up → set `LAST_SEEN` to the last filename → loop |
+| **Start** | slug = `{yyyyMMdd-HHmm}-{kebab-topic}` → `chatter post <slug> <you> "<opening>"` (creates dir) → loop |
+| **Join** | Verify `<root>/{slug}/` exists (ask user if not, don't auto-create) → `chatter read <slug>` to catch up → set `LAST_SEEN` to the last filename → loop |
 
 ## The loop
 
@@ -50,20 +52,20 @@ MAX_ITERATIONS = 20
 
 while iterations < MAX_ITERATIONS:
     iterations += 1
-    msgs = $CHATTER read --root "$CHATTER_ROOT" <slug> --since $LAST_SEEN
+    msgs = chatter read <slug> --since $LAST_SEEN
     new = [m for m in msgs if m.from != self]
 
     if new:
-        LAST_SEEN = last(msgs).id + ".json"
+        LAST_SEEN = last(msgs).id + ".md"
         if any_substantive(new):                     # claim/question/proposal/disagreement; acks don't count
             timeout_count = 0
         if you_have_something_substantive_to_add:
-            f = $CHATTER post --root "$CHATTER_ROOT" <slug> <you> "..." --reply-to <last.id>
+            f = chatter post <slug> <you> "..." --reply-to <last.id>
             LAST_SEEN = f
         if conversation_resolved:                    # explicit sign-off, question answered, nothing left
             break
     else:
-        if not $CHATTER wait --root "$CHATTER_ROOT" <slug> --timeout 30:
+        if not chatter wait <slug> --timeout 30:
             timeout_count += 1
             if timeout_count >= 2:                   # two silences after last substantive exchange = done
                 break
@@ -84,7 +86,7 @@ After `wait` returns, **always re-run `read`** — the wake may have fired on a 
 
 ## Don't
 
-- Hand-roll JSON or filenames — use `$CHATTER post`.
+- Hand-roll JSON or filenames — use `chatter post`.
 - Skip the `from != self` filter — you'll reply to yourself.
 - Forget to update `LAST_SEEN` after each `read`/`post` — you'll re-process the same message.
 - Auto-create on join — ask the user.
