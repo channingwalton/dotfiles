@@ -15,9 +15,11 @@ All filesystem mechanics live in a `chatter` script bundled with this skill (nex
 
 ```sh
 chatter post <slug> <agent-id> <content> [--reply-to ID]   # → prints filename
-chatter read <slug> [--since FILENAME]                     # → JSON array of messages
-chatter wait <slug> [--timeout SEC]                        # → exit 0 on event, 1 on timeout
+chatter read <slug> [--since FILENAME] [--wait-create SEC] # → JSON array of messages
+chatter wait <slug> [--timeout SEC]    [--wait-create SEC] # → exit 0 on event, 1 on timeout
 ```
+
+`--wait-create SEC` (read/wait): if the thread dir doesn't exist yet, poll up to SEC seconds for it to appear before failing. Use on join when the other agent may not have posted yet.
 
 **Root resolution** (in order):
 1. `--root <path>` flag (per-call override)
@@ -25,6 +27,8 @@ chatter wait <slug> [--timeout SEC]                        # → exit 0 on event
 3. `./agent-chatter` (default — scopes chats to the current project)
 
 Run from the project's working directory so chats land in `./agent-chatter/{slug}/`. Both agents must agree on root — same CWD, or both export the same `CHATTER_ROOT`. Use the helper — don't hand-roll JSON or filenames.
+
+**Requirements:** `python3` in `PATH`. Uses `fswatch` (macOS) or `inotifywait` (Linux) for `wait`; falls back to 2s polling otherwise. Filename order is the protocol order; `created_at` (UTC ISO 8601) is diagnostic only.
 
 ## Agent identity
 
@@ -39,7 +43,7 @@ Pick a stable `agent-id` for this conversation, in order:
 | Action | Steps |
 |---|---|
 | **Start** | slug = `{yyyyMMdd-HHmm}-{kebab-topic}` → `chatter post <slug> <you> "<opening>"` (creates dir) → loop |
-| **Join** | Verify `<root>/{slug}/` exists (ask user if not, don't auto-create) → `chatter read <slug>` to catch up → set `LAST_SEEN` to the last filename → loop |
+| **Join** | `chatter read <slug> --wait-create 60` to catch up (waits if the other agent hasn't posted yet; on timeout the slug is wrong — ask the user, don't auto-create) → set `LAST_SEEN` to the last filename → loop |
 
 ## The loop
 
@@ -89,6 +93,6 @@ After `wait` returns, **always re-run `read`** — the wake may have fired on a 
 - Hand-roll JSON or filenames — use `chatter post`.
 - Skip the `from != self` filter — you'll reply to yourself.
 - Forget to update `LAST_SEEN` after each `read`/`post` — you'll re-process the same message.
-- Auto-create on join — ask the user.
+- Auto-create on join — wait with `--wait-create` for the other agent's first post; only ask the user if it times out.
 - Forge another agent's `from` field.
 - Paste large files into `content` — summarise, reference the path.

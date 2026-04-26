@@ -16,6 +16,8 @@ import shutil
 import subprocess
 import sys
 import time
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -26,8 +28,14 @@ def default_root() -> Path:
     return Path.cwd() / "agent-chatter"
 
 
-def thread_dir(root: Path, slug: str, must_exist: bool = True) -> Path:
+def thread_dir(root: Path, slug: str, must_exist: bool = True, wait_create: float = 0.0) -> Path:
     d = root / slug
+    if wait_create > 0 and not d.is_dir():
+        deadline = time.time() + wait_create
+        while time.time() < deadline:
+            if d.is_dir():
+                break
+            time.sleep(0.5)
     if must_exist and not d.is_dir():
         sys.exit(f"chatter: thread dir not found: {d}")
     return d
@@ -89,29 +97,65 @@ def next_counter(d: Path) -> int:
     return n + 1
 
 
+STALE_TMP_AGE_SECONDS = 3600
+
+
+def sweep_stale_tmps(d: Path) -> None:
+    cutoff = time.time() - STALE_TMP_AGE_SECONDS
+    for entry in d.iterdir():
+        name = entry.name
+        if not (name.startswith(".") and name.endswith(".tmp")):
+            continue
+        try:
+            if entry.stat().st_mtime < cutoff:
+                entry.unlink()
+        except FileNotFoundError:
+            pass
+
+
 def cmd_post(args) -> int:
     d = thread_dir(args.root, args.slug, must_exist=False)
     d.mkdir(parents=True, exist_ok=True)
-    counter = next_counter(d)
-    fname = f"{counter:04d}-{args.agent}.md"
-    meta = {
-        "id": fname[:-3],
-        "thread": args.slug,
-        "from": args.agent,
-        "reply_to": args.reply_to,
-        "created_at": time.strftime("%Y%m%d-%H:%M:%S"),
-    }
-    tmp = d / f".{fname}.tmp"
-    final = d / fname
-    tmp.write_text(render_msg(meta, args.content))
-    parse_msg(tmp.read_text())  # validate before publishing
-    tmp.rename(final)
+    sweep_stale_tmps(d)
+    while True:
+        counter = next_counter(d)
+        fname = f"{counter:04d}-{args.agent}.md"
+        final = d / fname
+        tmp = d / f".{fname}.{uuid.uuid4().hex}.tmp"
+        try:
+            fd = os.open(tmp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o644)
+        except FileExistsError:
+            continue
+        try:
+            meta = {
+                "id": fname[:-3],
+                "thread": args.slug,
+                "from": args.agent,
+                "reply_to": args.reply_to,
+                "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            }
+            with os.fdopen(fd, "w") as f:
+                f.write(render_msg(meta, args.content))
+            parse_msg(tmp.read_text())  # validate before publishing
+            try:
+                os.link(tmp, final)
+            except FileExistsError:
+                tmp.unlink()
+                continue
+            except OSError as e:
+                tmp.unlink()
+                sys.exit(f"chatter: atomic publish failed (filesystem may not support hard links): {e}")
+        except BaseException:
+            tmp.unlink(missing_ok=True)
+            raise
+        tmp.unlink()
+        break
     print(fname)
     return 0
 
 
 def cmd_read(args) -> int:
-    d = thread_dir(args.root, args.slug)
+    d = thread_dir(args.root, args.slug, wait_create=args.wait_create)
     out = []
     for entry in sorted(d.iterdir()):
         name = entry.name
@@ -129,7 +173,7 @@ def cmd_read(args) -> int:
 
 
 def cmd_wait(args) -> int:
-    d = thread_dir(args.root, args.slug)
+    d = thread_dir(args.root, args.slug, wait_create=args.wait_create)
     if shutil.which("fswatch"):
         cmd = ["fswatch", "-1", "-l", "0.5", "--event", "Created", str(d)]
     elif shutil.which("inotifywait"):
@@ -167,11 +211,15 @@ def main() -> None:
     pr = sub.add_parser("read", parents=[common], help="list messages as JSON array")
     pr.add_argument("slug")
     pr.add_argument("--since", default=None, help="only files lex-greater than this")
+    pr.add_argument("--wait-create", type=float, default=0.0,
+                    help="seconds to wait for thread dir to appear before failing")
     pr.set_defaults(func=cmd_read)
 
     pw = sub.add_parser("wait", parents=[common], help="block until a new file appears or timeout")
     pw.add_argument("slug")
     pw.add_argument("--timeout", type=int, default=60)
+    pw.add_argument("--wait-create", type=float, default=0.0,
+                    help="seconds to wait for thread dir to appear before failing")
     pw.set_defaults(func=cmd_wait)
 
     args = p.parse_args()
