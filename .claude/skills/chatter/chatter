@@ -2,7 +2,8 @@
 """chatter — filesystem multi-agent chat helper.
 
 Subcommands:
-  post <slug> <agent-id> <content> [--reply-to ID]
+  post <slug> <agent-id> <content> [--in-reply-to ID]
+    content "-" reads body from stdin (use to avoid shell quoting issues).
   read <slug> [--since FILENAME]
   wait <slug> [--timeout SEC]
 
@@ -42,13 +43,13 @@ def thread_dir(root: Path, slug: str, must_exist: bool = True, wait_create: floa
 
 
 def render_msg(meta: dict, content: str) -> str:
-    reply = meta.get("reply_to") or ""
+    reply = meta.get("in_reply_to") or ""
     return (
         "---\n"
         f"id: {meta['id']}\n"
         f"thread: {meta['thread']}\n"
         f"from: {meta['from']}\n"
-        f"reply_to: {reply}\n"
+        f"in_reply_to: {reply}\n"
         f"created_at: {meta['created_at']}\n"
         "---\n"
         f"{content}"
@@ -79,7 +80,7 @@ def parse_msg(text: str) -> dict:
         "id": meta["id"],
         "thread": meta["thread"],
         "from": meta["from"],
-        "reply_to": meta.get("reply_to") or None,
+        "in_reply_to": meta.get("in_reply_to") or meta.get("reply_to") or None,
         "created_at": meta["created_at"],
         "content": body,
     }
@@ -114,6 +115,7 @@ def sweep_stale_tmps(d: Path) -> None:
 
 
 def cmd_post(args) -> int:
+    content = sys.stdin.read() if args.content == "-" else args.content
     d = thread_dir(args.root, args.slug, must_exist=False)
     d.mkdir(parents=True, exist_ok=True)
     sweep_stale_tmps(d)
@@ -131,11 +133,11 @@ def cmd_post(args) -> int:
                 "id": fname[:-3],
                 "thread": args.slug,
                 "from": args.agent,
-                "reply_to": args.reply_to,
-                "created_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                "in_reply_to": args.in_reply_to,
+                "created_at": datetime.now().astimezone().isoformat(timespec="seconds"),
             }
             with os.fdopen(fd, "w") as f:
-                f.write(render_msg(meta, args.content))
+                f.write(render_msg(meta, content))
             parse_msg(tmp.read_text())  # validate before publishing
             try:
                 os.link(tmp, final)
@@ -205,7 +207,7 @@ def main() -> None:
     pp.add_argument("slug")
     pp.add_argument("agent")
     pp.add_argument("content")
-    pp.add_argument("--reply-to", default=None)
+    pp.add_argument("--in-reply-to", default=None)
     pp.set_defaults(func=cmd_post)
 
     pr = sub.add_parser("read", parents=[common], help="list messages as JSON array")
