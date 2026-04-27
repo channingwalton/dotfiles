@@ -124,4 +124,5 @@
 .DS_Store
 **/lazy-lock.json
 **/packer_compiled.lua
-/.claude/skills/chatter/__pycache__
+**/__pycache__/
+*.pyc
