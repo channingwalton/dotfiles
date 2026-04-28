@@ -120,6 +120,12 @@ swap_files() {
   mv "$1" "$tmpfile" && mv -f "$2" "$1" && mv -f "$tmpfile" "$2"
 }
 
+function gits() {
+  for d in */.git; do
+    (cd "${d%/.git}" && echo "=== $PWD ===" && git status -sb)
+  done
+}
+
 function wtf() {
   export WTF_GITHUB_TOKEN=$(security find-generic-password -s "wtfutil-github" -w)
   wtfutil
