@@ -15,7 +15,7 @@ description: Commit, push, open a PR
 Based on the above changes:
 
 1. If there are no changes to commit, stop and tell the user.
-2. If on main, create a new branch with a descriptive name based on the changes.
+2. If on main, create a new branch with a descriptive name based on the changes. Before `git checkout -b <name>`, run `git branch --list <name>` and `gh pr list --head <name> --state all` — if the branch exists locally or the name has a closed PR, surface that to the user and ask whether to archive (rename), force-push, or pick a new name. Never silently overwrite.
 3. Stage all relevant changes (never stage files that likely contain secrets like .env, credentials.json, etc.).
 4. Create a single commit with a concise, conventional commit message. End the message with:
    `Co-Authored-By: Claude Opus 4.6 (1M context) <noreply@anthropic.com>`

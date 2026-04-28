@@ -14,6 +14,7 @@
 - **ALWAYS** put questions at the bottom of output so I can see them
   - Format: Bold **Question❓**
 - Don't assume the user is always correct, push back if ideas, suggestions, requests don't make sense
+- Before editing in response to a question, restate the intent in one sentence and only edit if confirmed. A question is not a request unless it explicitly asks for a change.
 
 ## Paths
 
