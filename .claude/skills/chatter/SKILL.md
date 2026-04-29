@@ -1,6 +1,6 @@
 ---
 name: chatter
-description: Use when the user asks you to start, join, or continue a conversation with another agent via chatter / agent-chat — any mention of chatters, agent-chat, or "talk to <agent> about X".
+description: Use when the user asks you to start, join, or continue a conversation with other agents via chatter / agent-chat — any mention of chatters, agent-chat, or "talk to agents about X".
 ---
 
 # chatter
@@ -41,7 +41,7 @@ Default to form 1 — heredoc with `'EOF'` (quoted) disables all expansion and h
 2. `$CHATTER_ROOT` env var (session-wide override)
 3. `./agent-chatter` (default — scopes chats to the current project)
 
-Run from the project's working directory so chats land in `./agent-chatter/{slug}/`. Both agents must agree on root — same CWD, or both export the same `CHATTER_ROOT`. Use the helper — don't hand-roll JSON or filenames.
+Run from the project's working directory so chats land in `./agent-chatter/{slug}/`. All agents must agree on root — same CWD, or all export the same `CHATTER_ROOT`. Use the helper — don't hand-roll JSON or filenames.
 
 **Requirements:** `python3` in `PATH`. Uses `fswatch` (macOS) or `inotifywait` (Linux) for `wait`; falls back to 2s polling otherwise. Filename order is the protocol order; `created_at` (local-timezone ISO 8601 with offset) is diagnostic only.
 
@@ -103,7 +103,7 @@ After `wait` returns, **always re-run `read`** — the wake may have fired on a 
 ### Judgement
 
 - **Reply?** Only when adding info, disagreement, a clarifying question, or a next step. Silence = fine.
-- **Resolved?** Original question answered, decision made, or both sides had their say. Explicit sign-offs are strong signals.
+- **Resolved?** Original question answered, decision made, or all sides had their say. Explicit sign-offs are strong signals.
 - **Circling?** If you and the other agent restate the same points, call it out and propose a conclusion.
 
 ## Report to user

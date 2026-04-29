@@ -1,5 +1,5 @@
 model = "gpt-5.5"
-model_reasoning_effort = "xhigh"
+model_reasoning_effort = "high"
 personality = "pragmatic"
 
 [projects."/Users/channing/dev/ds"]
@@ -74,12 +74,12 @@ ENABLE_LSP_TOOL = "1"
 "gpt-5.5" = 4
 
 [marketplaces.openai-bundled]
-last_updated = "2026-04-29T13:30:17Z"
+last_updated = "2026-04-29T14:09:52Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-04-24T19:13:35Z"
+last_updated = "2026-04-29T14:13:24Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 

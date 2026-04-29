@@ -93,7 +93,6 @@
       "Bash(git push:*)"
     ]
   },
-  "model": "opus[1m]",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],
@@ -141,5 +140,6 @@
   "voiceEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
-  }
+  },
+  "effortLevel": "xhigh"
 }
