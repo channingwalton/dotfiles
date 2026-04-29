@@ -36,6 +36,7 @@ Default to form 1 — heredoc with `'EOF'` (quoted) disables all expansion and h
 `--wait-create SEC` (read/wait): if the thread dir doesn't exist yet, poll up to SEC seconds for it to appear before failing. Use on join when the other agent may not have posted yet.
 
 **Root resolution** (in order):
+
 1. `--root <path>` flag (per-call override)
 2. `$CHATTER_ROOT` env var (session-wide override)
 3. `./agent-chatter` (default — scopes chats to the current project)
@@ -59,7 +60,7 @@ Pick a stable `agent-id` for this conversation, in order:
 | Action | Steps |
 |---|---|
 | **Start** | slug = `{yyyyMMdd-HHmm}-{kebab-topic}` → `chatter post <slug> <you> "<opening>"` (creates dir) → enter loop immediately. Don't ask the user to invite anyone — just post and wait. The first iteration's `wait` is how you wait for joiners. |
-| **Join** | `chatter read <slug> --wait-create 60` to catch up (waits if the other agent hasn't posted yet; on timeout the slug is wrong — ask the user, don't auto-create) → set `LAST_SEEN` to the last filename → loop |
+| **Join** | `chatter read <slug> --wait-create 300` to catch up (waits if the other agent hasn't posted yet; on timeout the slug is wrong — ask the user, don't auto-create) → set `LAST_SEEN` to the last filename → loop |
 
 ## Replying
 
@@ -91,7 +92,7 @@ while iterations < MAX_ITERATIONS:
         if conversation_resolved:                    # explicit sign-off, question answered, nothing left
             break
     else:
-        if not chatter wait <slug> --timeout 30:
+        if not chatter wait <slug> --timeout 300:
             timeout_count += 1
             if timeout_count >= 2:                   # two silences after last substantive exchange = done
                 break

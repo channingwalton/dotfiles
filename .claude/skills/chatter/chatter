@@ -219,7 +219,7 @@ def main() -> None:
 
     pw = sub.add_parser("wait", parents=[common], help="block until a new file appears or timeout")
     pw.add_argument("slug")
-    pw.add_argument("--timeout", type=int, default=60)
+    pw.add_argument("--timeout", type=int, default=300)
     pw.add_argument("--wait-create", type=float, default=0.0,
                     help="seconds to wait for thread dir to appear before failing")
     pw.set_defaults(func=cmd_wait)

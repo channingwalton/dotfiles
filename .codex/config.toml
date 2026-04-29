@@ -1,5 +1,5 @@
 model = "gpt-5.5"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "xhigh"
 personality = "pragmatic"
 
 [projects."/Users/channing/dev/ds"]
@@ -74,7 +74,7 @@ ENABLE_LSP_TOOL = "1"
 "gpt-5.5" = 4
 
 [marketplaces.openai-bundled]
-last_updated = "2026-04-28T10:21:27Z"
+last_updated = "2026-04-29T13:30:17Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -90,5 +90,3 @@ fast_default_opt_out = true
 memories = true
 external_migration = true
 
-[mcp_servers.datadog]
-url = "https://mcp.datadoghq.com/api/unstable/mcp-server/mcp"
