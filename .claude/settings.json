@@ -130,6 +130,7 @@
     }
   },
   "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
   "voice": {
     "enabled": true,
     "mode": "hold"
@@ -140,6 +141,5 @@
   "voiceEnabled": true,
   "feedbackSurveyState": {
     "lastShownTime": 1754089297581
-  },
-  "effortLevel": "xhigh"
+  }
 }
