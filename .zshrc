@@ -121,3 +121,5 @@ export PATH="/Users/channing/.codeium/windsurf/bin:$PATH"
 
 # Prefer personal bin (contains codex symlink to Codex.app) over asdf shims
 export PATH="${MY_BIN}:$PATH"
+
+alias login-aws='open "https://d-9c67095769.awsapps.com/start/#/?tab=accounts"'

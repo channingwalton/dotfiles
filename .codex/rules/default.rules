@@ -20,3 +20,5 @@ prefix_rule(pattern=["/Users/channing/.claude/skills/chatter/chatter", "post"], 
 prefix_rule(pattern=["npm", "test", "--workspace", "external-agent"], decision="allow")
 prefix_rule(pattern=["./commitCheck.sh"], decision="allow")
 prefix_rule(pattern=["devtool", "cpd"], decision="allow")
+prefix_rule(pattern=["git", "fetch"], decision="allow")
+prefix_rule(pattern=["git", "rebase"], decision="allow")

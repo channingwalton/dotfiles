@@ -74,7 +74,7 @@ ENABLE_LSP_TOOL = "1"
 "gpt-5.5" = 4
 
 [marketplaces.openai-bundled]
-last_updated = "2026-04-29T14:09:52Z"
+last_updated = "2026-04-30T12:23:51Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
