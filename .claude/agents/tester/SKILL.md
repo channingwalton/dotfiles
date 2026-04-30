@@ -1,15 +1,15 @@
 ---
 name: tester
-description: Run targeted tests during development. Use when tests need running or debugging.
+description: Run targeted tests during development. Spawn when tests need running or debugging.
+tools: Read, Grep, Glob, Bash
+model: haiku
 ---
-
-# Tester
 
 Use `devtool test [pattern]` to run tests. It detects the project type and test framework automatically.
 
 ```bash
-devtool test
-devtool test MySpec
+devtool test              # full test suite
+devtool test MySpec       # run tests matching pattern
 ```
 
 Prefer running with a pattern to minimise wait time. Before running tests, infer which specific tests are relevant from modified files. Avoid running the entire test suite unless explicitly requested.
@@ -55,8 +55,9 @@ On failure, include:
 
 ## Exit Criteria
 
-Return when:
+Return to parent when:
 
 - All targeted tests pass
 - A fix is verified
-- Code changes are needed
+- You need code changes (hand back to dev agent)
+

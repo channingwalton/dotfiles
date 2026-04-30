@@ -7,18 +7,28 @@ description: Search the codebase and Obsidian vault for relevant implementation 
 
 Search codebase and vault documents for relevant information.
 
-## Workflow
+## Usage
 
-1. Invoke the `vault` skill when project notes are likely to add useful context
-2. For Unison projects use the Unison MCP server to search the codebase; otherwise search files using `rg` and direct file reads for code matches
+```
+/code-query <search-term>
+```
+
+Where `$ARGUMENTS` is the search term or question to investigate.
+
+## Actions
+
+1. Invoke the `vault` skill
+2. For unison projects use the unison MCP server to search the codebase, otherwise search files using Grep/Glob for code matches
 3. Search vault notes for related context and documentation
 4. Return consolidated results with:
-   - Relevant code locations (`file:line`)
+   - Relevant code locations (file:line)
    - Related vault notes
    - Summary of findings
 
-## Example Requests
+## Examples
 
-- "code-query authentication flow"
-- "code-query how errors are handled"
-- "code-query database connection"
+```
+/code-query authentication flow
+/code-query how errors are handled
+/code-query database connection
+```

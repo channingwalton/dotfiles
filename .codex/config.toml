@@ -2,50 +2,43 @@ model = "gpt-5.5"
 model_reasoning_effort = "high"
 personality = "pragmatic"
 
-[projects."/Users/channing/dev/ds"]
-trust_level = "trusted"
+[features]
+external_migration = true
+memories = true
 
-[projects."/Users/channing/dev"]
-trust_level = "trusted"
+[marketplaces.openai-bundled]
+last_updated = "2026-04-30T12:48:05Z"
+source_type = "local"
+source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
-[projects."/Users/channing/dev/patchwork"]
-trust_level = "trusted"
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-04-29T14:13:24Z"
+source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+source_type = "local"
 
-[projects."/Users/channing/dev/patchwork/repos/PatchworkOnRails"]
-trust_level = "trusted"
+[marketplaces.caveman-repo]
+last_updated = "2026-04-30T12:48:06Z"
+last_revision = "84cc3c14fa1e10182adaced856e003406ccd250d"
+source_type = "git"
+source = "https://github.com/JuliusBrussee/caveman.git"
 
-[projects."/Users/channing/dotfiles"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/fabric/fabric-space"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/fabric/fabric-lite"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/patchwork/repos"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/patchwork/repos/kmono"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/fabric/fabric-skill"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/chatter-example"]
-trust_level = "trusted"
+[marketplaces.claude-plugins-official]
+last_updated = "2026-04-30T12:48:08Z"
+last_revision = "0742692199b49af5c6c33cd68ee674fb2e679d50"
+source_type = "git"
+source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 
-[plugins."github@openai-curated"]
-enabled = true
+[notice]
+fast_default_opt_out = true
 
-[plugins."slack@openai-curated"]
-enabled = true
+[notice.external_config_migration_prompts]
+home_last_prompted_at = 1777553192
 
-[plugins."notion@openai-curated"]
-enabled = true
+[notice.external_config_migration_prompts.project_last_prompted_at]
+"/Users/channing/dev/patchwork/repos/PatchworkApps" = 1777553192
 
 [plugins."atlassian-rovo@openai-curated"]
 enabled = true
@@ -56,37 +49,83 @@ enabled = true
 [plugins."documents@openai-primary-runtime"]
 enabled = true
 
-[plugins."spreadsheets@openai-primary-runtime"]
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."notion@openai-curated"]
 enabled = true
 
 [plugins."presentations@openai-primary-runtime"]
 enabled = true
 
+[plugins."slack@openai-curated"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."caveman@caveman-repo"]
+enabled = true
+
+[plugins."claude-md-management@claude-plugins-official"]
+enabled = true
+
+[plugins."commit-commands@claude-plugins-official"]
+enabled = true
+
+[plugins."frontend-design@claude-plugins-official"]
+enabled = true
+
+[plugins."remember@claude-plugins-official"]
+enabled = true
+
+[plugins."superpowers@claude-plugins-official"]
+enabled = true
+
+[projects."/Users/channing/dev"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/chatter-example"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/ds"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/fabric/fabric-lite"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/fabric/fabric-skill"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/fabric/fabric-space"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork/repos"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork/repos/PatchworkApps"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork/repos/PatchworkOnRails"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork/repos/kmono"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dotfiles"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 inherit = "core"
 
 [shell_environment_policy.set]
-CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING = "1"
-CLAUDE_CODE_DISABLE_AUTO_MEMORY = "0"
 ENABLE_LSP_TOOL = "1"
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 
-[marketplaces.openai-bundled]
-last_updated = "2026-04-30T12:23:51Z"
-source_type = "local"
-source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
-
-[marketplaces.openai-primary-runtime]
-last_updated = "2026-04-29T14:13:24Z"
-source_type = "local"
-source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
-
-[notice]
-fast_default_opt_out = true
-
-[features]
-memories = true
-external_migration = true
-
+[apps.connector_76869538009648d5b282a4bb21c3d157.tools.github_create_pull_request]
+approval_mode = "approve"
