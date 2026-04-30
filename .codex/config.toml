@@ -12,9 +12,15 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
+last_updated = "2026-04-30T21:03:21Z"
 last_revision = "0742692199b49af5c6c33cd68ee674fb2e679d50"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
+
+[marketplaces.openai-bundled]
+last_updated = "2026-04-30T21:03:18Z"
+source_type = "local"
+source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
@@ -27,11 +33,9 @@ home_last_prompted_at = 1777553192
 
 [notice.external_config_migration_prompts.project_last_prompted_at]
 "/Users/channing/dev/patchwork/repos/PatchworkApps" = 1777553192
+"/Users/channing/dev/patchwork/repos/InfraTools" = 1777567164
 
 [plugins."atlassian-rovo@openai-curated"]
-enabled = true
-
-[plugins."browser-use@openai-bundled"]
 enabled = true
 
 [plugins."documents@openai-primary-runtime"]
@@ -40,14 +44,8 @@ enabled = true
 [plugins."github@openai-curated"]
 enabled = true
 
-[plugins."notion@openai-curated"]
-enabled = true
-
 [plugins."presentations@openai-primary-runtime"]
-enabled = true
-
-[plugins."slack@openai-curated"]
-enabled = true
+enabled = false
 
 [plugins."spreadsheets@openai-primary-runtime"]
 enabled = true
@@ -55,19 +53,10 @@ enabled = true
 [plugins."caveman@caveman-repo"]
 enabled = true
 
-[plugins."claude-md-management@claude-plugins-official"]
+[plugins."slack@openai-curated"]
 enabled = true
 
-[plugins."commit-commands@claude-plugins-official"]
-enabled = true
-
-[plugins."frontend-design@claude-plugins-official"]
-enabled = true
-
-[plugins."remember@claude-plugins-official"]
-enabled = true
-
-[plugins."superpowers@claude-plugins-official"]
+[plugins."browser-use@openai-bundled"]
 enabled = true
 
 [projects."/Users/channing/dev"]
@@ -104,6 +93,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Notes"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork/repos/InfraTools"]
 trust_level = "trusted"
 
 [shell_environment_policy]

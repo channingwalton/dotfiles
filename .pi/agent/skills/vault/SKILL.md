@@ -10,7 +10,7 @@ Location: `~/Documents/Notes/` (vault name: `Notes`)
 ## Principles
 
 1. **Obsidian vault for documents** — detailed notes, task logs, project context
-2. **Obsidian CLI for vault operations** — use `obsidian` CLI for all vault operations
+2. **Plain Unix commands for vault operations** — treat the vault as Markdown files under `~/Documents/Notes`; do not use the `obsidian` CLI
 3. **WikiLinks for connections** — build traversable knowledge graph
 4. **ALWAYS**: New tasks should be in an `open` state
 
@@ -23,80 +23,89 @@ Templates are in the skill directory, not the notes directory:
 - `.claude/skills/vault/templates/recipe.md`
 - `.claude/skills/vault/templates/weekly-summary.md`
 
-## Obsidian CLI Commands
+## Unix Commands
 
-**Spaces in paths**: Single-quote the entire `key=value` pair:
-`obsidian read 'path=Projects/2025-10 Patchwork/Note.md'`
+Set a vault variable when commands get long:
+
+```bash
+VAULT="$HOME/Documents/Notes"
+```
+
+**Spaces in paths**: quote the whole path:
+
+```bash
+sed -n '1,220p' "$HOME/Documents/Notes/Projects/2025-10 Patchwork/Note.md"
+```
 
 ### Creating and writing
 
 ```bash
-obsidian create 'path=<folder/file.md>' content="<text>" silent
-obsidian create 'path=<folder/file.md>' template="<template-name>" silent
-obsidian append file="<n>" content="<text>"
-obsidian prepend file="<n>" content="<text>"
+mkdir -p "$VAULT/<folder>"
+printf '%s\n' "<text>" > "$VAULT/<folder/file.md>"
+cp "$HOME/.claude/skills/vault/templates/<template>.md" "$VAULT/<folder/file.md>"
+printf '%s\n' "<text>" >> "$VAULT/<folder/file.md>"
+tmp="$(mktemp)" && { printf '%s\n' "<text>"; cat "$VAULT/<folder/file.md>"; } > "$tmp" && mv "$tmp" "$VAULT/<folder/file.md>"
 ```
 
 ### Reading
 
 ```bash
-obsidian read file="<n>"
-obsidian read path="<folder/file>"
-obsidian file file="<n>"           # file info (path, size, dates)
-obsidian outline file="<n>"        # heading structure
+sed -n '1,220p' "$VAULT/<folder/file.md>"
+cat "$VAULT/<folder/file.md>"
+stat "$VAULT/<folder/file.md>"
+rg -n '^#{1,6} ' "$VAULT/<folder/file.md>"
 ```
 
 ### Searching and finding
 
 ```bash
-obsidian search query="<text>" path="<folder>" limit=<n> matches
-obsidian files folder="<folder>"
-obsidian tag name="<tag>"
-obsidian tags counts sort=count
+rg -n "<text>" "$VAULT/<folder>"
+find "$VAULT/<folder>" -type f -name '*.md' | sort
+rg -n "(^|[[:space:]])#<tag>\\b" "$VAULT"
+rg -oh "(^|[[:space:]])#[A-Za-z0-9/_-]+" "$VAULT" | sed 's/^[[:space:]]*//' | sort | uniq -c | sort -nr
 ```
 
 ### Properties (frontmatter)
 
 ```bash
-obsidian property:read name="<prop>" file="<n>"
-obsidian property:set name="status" value="done" file="<n>"
-obsidian property:remove name="<prop>" file="<n>"
-obsidian properties file="<n>"
+awk '/^---$/ {block++; next} block == 1 && /^<prop>:/ {print}' "$VAULT/<folder/file.md>"
+perl -0pi -e 's/(^---\n(?:.*\n)*?)^status:.*$/${1}status: done/m' "$VAULT/<folder/file.md>"
+perl -0pi -e 's/^<prop>:.*\n//m' "$VAULT/<folder/file.md>"
+awk '/^---$/ {block++; next} block == 1 {print} block == 2 {exit}' "$VAULT/<folder/file.md>"
 ```
 
 ### Graph queries (linking)
 
 ```bash
-obsidian backlinks file="<n>" counts
-obsidian links file="<n>"
-obsidian orphans
-obsidian deadends
-obsidian unresolved
+note="$(basename "$VAULT/<folder/file.md>" .md)"; rg -n "\\[\\[$note(\\||\\])" "$VAULT"
+rg -o "\\[\\[[^]|#]+(#[^]|]+)?(\\|[^]]+)?\\]\\]" "$VAULT/<folder/file.md>" | sort -u
+for f in $(find "$VAULT" -type f -name '*.md'); do name="$(basename "$f" .md)"; rg -q "\\[\\[$name(\\||\\])" "$VAULT" || printf '%s\n' "$f"; done
+rg -L "\\[\\[[^]]+\\]\\]" "$VAULT" -g '*.md'
+rg -o "\\[\\[[^]|#]+(#[^]|]+)?(\\|[^]]+)?\\]\\]" "$VAULT" | sed -E 's/.*\\[\\[([^]|#]+).*/\\1/' | sort -u
 ```
 
 ### Tasks
 
 ```bash
-obsidian tasks todo
-obsidian tasks done
-obsidian tasks file="<n>"
-obsidian task ref="<path:line>" toggle
+rg -n '^\\s*- \\[ \\] ' "$VAULT"
+rg -n '^\\s*- \\[x\\] ' "$VAULT"
+rg -n '^\\s*- \\[[ x]\\] ' "$VAULT/<folder/file.md>"
+perl -0pi -e 's/^(\s*- )\[ \]/$1[x]/m' "$VAULT/<folder/file.md>"
 ```
 
 ### File management
 
 ```bash
-obsidian move file="<n>" to="<new-path>"
-obsidian delete file="<n>"
+mkdir -p "$(dirname "$VAULT/<new-path>")"
+mv "$VAULT/<old-path>" "$VAULT/<new-path>"
+rm "$VAULT/<folder/file.md>"
 ```
 
-### Fallback: time-based file queries
-
-The CLI doesn't support date-range filtering. Use `fd`:
+### Time-based file queries
 
 ```bash
-fd -e md --changed-within 7d ~/Documents/Notes
-fd -e md --changed-within 7d ~/Documents/Notes/Projects/*<project>*/Tasks
+find "$VAULT" -type f -name '*.md' -mtime -7 | sort
+find "$VAULT/Projects" -path '*/Tasks/*.md' -type f -mtime -7 | sort
 ```
 
 ## Timestamps
@@ -117,9 +126,9 @@ date -Iseconds               # frontmatter (ISO-8601)
 
 > Link if it improves the note, not just because it matches a term.
 
-1. **Semantic discovery** — `obsidian search query="<concept>" matches`
-2. **Backlinks** — `obsidian backlinks file="<n>"`
-3. **Tags overlap** — `obsidian tag name="<tag>"`
+1. **Semantic discovery** — `rg -n "<concept>" "$VAULT"`
+2. **Backlinks** — `note="$(basename "$file" .md)"; rg -n "\\[\\[$note(\\||\\])" "$VAULT"`
+3. **Tags overlap** — `rg -n "(^|[[:space:]])#<tag>\\b" "$VAULT"`
 4. Add as WikiLinks using breadcrumb pattern: `[[Parent]] | [[Related]]`
 
 ## Capture Heuristics
@@ -155,8 +164,8 @@ date -Iseconds               # frontmatter (ISO-8601)
 
 **Every mention of a JIRA issue number must be a wiki-link to its task note.** Never leave bare issue numbers.
 
-1. Build lookup from `fd` results: issue number → full filename
-2. If not found: `obsidian search query="RH-6949" path="Projects" matches`
+1. Build lookup from `find` results: issue number → full filename
+2. If not found: `rg -n "RH-6949" "$VAULT/Projects"`
 3. Use aliased wiki-links: `[[2026-02-13 141534 RH-6949 Performance issue|RH-6949]]`
 
 Applies to **all sections** — summaries, blockers, carryover, etc.
@@ -168,19 +177,19 @@ Path: `~/Documents/Notes/Journal/Weekly Notes/<YYYY>-W<WW>.md`
 ### Data gathering
 
 ```bash
-fd -e md --changed-within 7d -p '/Tasks/' ~/Documents/Notes/Projects
-obsidian search query="status: in-progress" path="Projects" matches
-fd -e md --changed-within 7d --exclude Tasks ~/Documents/Notes/Projects
-fd -e md --changed-within 7d ~/Documents/Notes/Projects/*/Recipes
+find "$VAULT/Projects" -path '*/Tasks/*.md' -type f -mtime -7 | sort
+rg -l '^status: in-progress$|^status: "in-progress"$' "$VAULT/Projects"
+find "$VAULT/Projects" -type f -name '*.md' -mtime -7 ! -path '*/Tasks/*' | sort
+find "$VAULT/Projects" -path '*/Recipes/*.md' -type f -mtime -7 | sort
 ```
 
 ### Workflow
 
 1. Gather modified tasks, new notes, outstanding tasks from previous week
-2. Read each: `obsidian read file="<task>"`
+2. Read each: `sed -n '1,220p' "$task"`
 3. Build JIRA → filename lookup (see Task Reference Resolution)
 4. Populate weekly summary template, wiki-linking all references
-5. Create: `obsidian create name="<YYYY>-W<WW>" path="Journal/Weekly Notes" content="<text>"`
+5. Create: `printf '%s\n' "<text>" > "$VAULT/Journal/Weekly Notes/<YYYY>-W<WW>.md"`
 
 ## Generating Daily Notes
 
@@ -189,9 +198,9 @@ Path: `~/Documents/Notes/Journal/Daily Notes/<YYYY>/<YYYY-MM>/<YYYY-MM-DD>.md`
 ### Data gathering
 
 ```bash
-fd -e md --changed-within 1d -p '/Tasks/' ~/Documents/Notes/Projects
-obsidian files folder="Projects" | grep "Meetings/$(date +%Y-%m-%d)"
-fd -e md --changed-within 1d --exclude Tasks --exclude Meetings ~/Documents/Notes/Projects
+find "$VAULT/Projects" -path '*/Tasks/*.md' -type f -mtime -1 | sort
+find "$VAULT/Projects" -path "*/Meetings/$(date +%Y-%m-%d)*.md" -type f | sort
+find "$VAULT/Projects" -type f -name '*.md' -mtime -1 ! -path '*/Tasks/*' ! -path '*/Meetings/*' | sort
 ```
 
 ### Slack conversations
@@ -225,7 +234,7 @@ For each noteworthy conversation, capture:
 ### Workflow
 
 1. Find tasks, meetings, notes modified today
-2. Read each: `obsidian read file="<task>"`
+2. Read each: `sed -n '1,220p' "$task"`
 3. Search Slack for conversations the user participated in today (`from:<@USER_ID>`, no DMs), then read threads for context
 4. Build JIRA → filename lookup (see Task Reference Resolution)
 5. Create or append daily note, wiki-linking all references
