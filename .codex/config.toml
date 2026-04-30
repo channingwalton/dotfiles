@@ -6,24 +6,12 @@ personality = "pragmatic"
 external_migration = true
 memories = true
 
-[marketplaces.openai-bundled]
-last_updated = "2026-04-30T12:48:05Z"
-source_type = "local"
-source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
-
-[marketplaces.openai-primary-runtime]
-last_updated = "2026-04-29T14:13:24Z"
-source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
-source_type = "local"
-
 [marketplaces.caveman-repo]
-last_updated = "2026-04-30T12:48:06Z"
 last_revision = "84cc3c14fa1e10182adaced856e003406ccd250d"
 source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-04-30T12:48:08Z"
 last_revision = "0742692199b49af5c6c33cd68ee674fb2e679d50"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
