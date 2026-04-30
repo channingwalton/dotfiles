@@ -22,6 +22,11 @@ last_updated = "2026-04-30T21:03:18Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-04-30T21:13:31Z"
+source_type = "local"
+source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 
@@ -45,7 +50,7 @@ enabled = true
 enabled = true
 
 [plugins."presentations@openai-primary-runtime"]
-enabled = false
+enabled = true
 
 [plugins."spreadsheets@openai-primary-runtime"]
 enabled = true
