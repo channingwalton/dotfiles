@@ -1,5 +1,4 @@
 model = "gpt-5.5"
-model_reasoning_effort = "high"
 personality = "pragmatic"
 
 [features]
@@ -13,13 +12,13 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-01T12:58:58Z"
-last_revision = "0742692199b49af5c6c33cd68ee674fb2e679d50"
+last_updated = "2026-05-01T20:00:56Z"
+last_revision = "f0b80b185df9a40fa15f33661f9a1855ff77ff34"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-01T09:31:55Z"
+last_updated = "2026-05-01T20:00:52Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -107,11 +106,20 @@ trust_level = "trusted"
 [projects."/Users/channing/dev/patchwork/repos/InfraTools"]
 trust_level = "trusted"
 
+[projects."/Users/channing/dev/patchwork/Data/RH-7429/Full Entitlements export"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/New project"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 inherit = "core"
 
 [shell_environment_policy.set]
 ENABLE_LSP_TOOL = "1"
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir", "context-remaining", "five-hour-limit", "weekly-limit", "git-branch"]
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
