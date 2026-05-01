@@ -7,18 +7,19 @@ external_migration = true
 memories = true
 
 [marketplaces.caveman-repo]
-last_revision = "84cc3c14fa1e10182adaced856e003406ccd250d"
+last_updated = "2026-05-01T07:29:00Z"
+last_revision = "ef6050c5e1848b6880ff47c32ade1a608a64f85e"
 source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-04-30T21:03:21Z"
+last_updated = "2026-05-01T12:58:58Z"
 last_revision = "0742692199b49af5c6c33cd68ee674fb2e679d50"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-04-30T21:03:18Z"
+last_updated = "2026-05-01T09:31:55Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
