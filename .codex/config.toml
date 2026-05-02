@@ -12,13 +12,13 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-01T20:00:56Z"
-last_revision = "f0b80b185df9a40fa15f33661f9a1855ff77ff34"
+last_updated = "2026-05-02T21:17:16Z"
+last_revision = "b392f51899343f35a203260a4b344803de236d13"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-01T20:00:52Z"
+last_updated = "2026-05-02T11:34:40Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
