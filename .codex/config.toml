@@ -12,13 +12,13 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-02T21:17:16Z"
+last_updated = "2026-05-03T10:01:19Z"
 last_revision = "b392f51899343f35a203260a4b344803de236d13"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-02T11:34:40Z"
+last_updated = "2026-05-03T10:01:19Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -29,6 +29,10 @@ source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/op
 
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
+
+[mcp_servers.unison]
+command = "/opt/homebrew/bin/ucm"
+args = ["mcp"]
 
 [notice]
 fast_default_opt_out = true
