@@ -13,19 +13,11 @@
 - **NEVER** expand the scope of tasks
 - **ALWAYS** put questions at the bottom of output so I can see them
   - Format: Bold **Question❓**
-- Don't assume the user is always correct, push back if ideas, suggestions, requests don't make sense
-- Before editing in response to a question, restate the intent in one sentence and only edit if confirmed. A question is not a request unless it explicitly asks for a change.
-
-## Paths
-
-Avoid using compound commands like `cd <path> && git ...`, and instead use directory options available
-in the command like `git -C <path>` so that the user is prompted all the time.
-Alternatively, run the commands sequentially.
+- **NEVER** assume that the user is always correct, push back if anything doesn't make sense
+- **NEVER** assume that a question is a request to make changes unless it explicitly asks for a change
 
 ## Tools (use when appropriate)
 
-- **Fetch** — retrieve specific URLs
-- **Sequential thinking** — genuinely complex multi-step reasoning
 - **Vault skill** — notes, tasks, and context building
 - **`devtool`** — unified build tool. Detects project type automatically. Run via Bash:
   - `devtool check` — compile + lint + test. Use when asked to "commit check" or before committing.
@@ -56,7 +48,7 @@ The note is the canonical working memory for the task. JIRA or GitHub holds the 
 ### When I reference a task note
 
 1. Read the task note in full.
-2. Read the JIRA or GitHub issue linked near the top (use the Atlassian or Github MCP if available; otherwise WebFetch the URL). Don't ask me to summarise the ticket — read it yourself.
+2. Read the linked JIRA or GitHub issue.
 3. Treat **Current State**, **Decision Log**, and **Open Questions** as the working context. If those sections don't exist in a task note, offer to add them.
 
 #### While working — keep the task note current
@@ -69,7 +61,7 @@ Watch for these signals and **propose** an update — never write silently. Draf
 - **YYYY-MM-DD** — <what changed>. **Why:** <reason>. **Rejected:** <alternative considered, with one-line why-not>.
 ```
 
-Always run `date +%Y-%m-%d` via bash for the date — never hardcode. Insert newest-first at the top of the Decision Log list.
+Insert newest-first at the top of the Decision Log list.
 
 **Active approach changes** → propose a Current State rewrite. Current State is **overwrite-only** (never appended). Three to five sentences covering: where we are now, the active approach, what's blocking. Update the `*Updated: YYYY-MM-DD*` line.
 
