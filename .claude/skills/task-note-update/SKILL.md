@@ -5,13 +5,13 @@ description: Append a Decision Log entry, rewrite Current State, or resolve an O
 
 # Task Note Update
 
-Maintains the running record on a Patchwork task note. Conventions live in the global `CLAUDE.md` "Task Notes" section — this skill implements the propose-then-write loop.
+Maintains the running record on a task note. Conventions live in the active project instructions under "Task Notes" - this skill implements the propose-then-write loop.
 
 ## When to use
 
 The user is working on a task tracked in their Obsidian vault and wants something captured durably: a decision just made, a change in approach, or the resolution of an open question.
 
-If the active task note path isn't already known from the session, **ask** before drafting anything. Don't guess.
+If the active task note path isn't already known from the session, first try one narrow lookup from repo/project context. If exactly one matching open task note is found, use it and name the path; otherwise ask. Don't guess.
 
 ## Procedure
 
@@ -36,9 +36,9 @@ If the active task note path isn't already known from the session, **ask** befor
 
 4. **Show the proposed change** as a diff or as the full new section, and ask for confirmation. Do not write without explicit go-ahead.
 
-5. **Apply** with the `Edit` tool for surgical changes (preferred). Use `Write` only if rewriting the whole file is unavoidable.
+5. **Apply** with `apply_patch` for surgical changes once confirmed. Avoid rewriting the whole file unless unavoidable.
 
-## Format rules (mirror of CLAUDE.md)
+## Format rules
 
 - One decision per Decision Log entry; if two decisions were made together, write two entries.
 - Decision Log is append-only and dated. Do not edit or delete prior entries.

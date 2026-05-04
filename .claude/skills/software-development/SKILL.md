@@ -83,7 +83,7 @@ Clean up while the domain is fresh and tests are green. Anything goes — restru
 
 ### Step 4: 🔍 Review — Fix-Loop
 
-**Not optional.** Only skip for pure non-code edits (comments, docs-only changes) and state the skip explicitly.
+**Not optional.** Only skip for pure non-code edits (comments, docs-only changes) and state the skip explicitly. For one-line build/config wiring with no production logic, targeted verification may replace fix-loop if the final response states the skip and names the command run.
 
 1. **Delegate to the `fix-loop` skill** — runs code-reviewer → fixer until critical findings resolve (or the iteration cap hits). The reviewer's remit includes simplification opportunities, so fresh-eyes cleanup happens here.
 2. **If unresolved critical findings or test regressions remain:** stop and surface to the user. The task is not done.
