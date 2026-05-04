@@ -11,7 +11,7 @@ Maintains the running record on a task note. Conventions live in the active proj
 
 The user is working on a task tracked in their Obsidian vault and wants something captured durably: a decision just made, a change in approach, or the resolution of an open question.
 
-If the active task note path isn't already known from the session, **ask** before drafting anything. Don't guess.
+If the active task note path isn't already known from the session, first try one narrow lookup from repo/project context. If exactly one matching open task note is found, use it and name the path; otherwise ask. Don't guess.
 
 ## Procedure
 

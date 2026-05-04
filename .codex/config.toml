@@ -12,13 +12,13 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-03T10:35:28Z"
-last_revision = "b392f51899343f35a203260a4b344803de236d13"
+last_updated = "2026-05-04T19:32:45Z"
+last_revision = "ac45fdae4b7af187b5624599ab054090dedadd94"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-03T10:35:26Z"
+last_updated = "2026-05-03T10:42:28Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -43,6 +43,10 @@ home_last_prompted_at = 1777553192
 [notice.external_config_migration_prompts.project_last_prompted_at]
 "/Users/channing/dev/patchwork/repos/PatchworkApps" = 1777553192
 "/Users/channing/dev/patchwork/repos/InfraTools" = 1777567164
+"/Users/channing/dev/treelog-direct" = 1777832181
+
+[notice.external_config_migration_prompts.projects]
+"/Users/channing/dev/treelog-direct" = true
 
 [plugins."atlassian-rovo@openai-curated"]
 enabled = true
@@ -114,6 +118,30 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/New project"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-03/files-mentioned-by-the-user-img"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-03/how-do-i-use-gpt-models"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-03/can-you-do-web-searches-as"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/treelog"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/treelog-direct"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-03/what-do-you-think-of-this"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Companies/Omnear/company"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/Music"]
 trust_level = "trusted"
 
 [shell_environment_policy]

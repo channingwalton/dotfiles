@@ -191,17 +191,6 @@
         "gitCommitSha": "385c1469c567399970e1d3fc23687a0312aa63dc"
       }
     ],
-    "remember@claude-plugins-official": [
-      {
-        "scope": "project",
-        "projectPath": "/Users/channing/dotfiles",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/remember/0.5.0",
-        "version": "0.5.0",
-        "installedAt": "2026-04-14T12:50:45.844Z",
-        "lastUpdated": "2026-04-21T22:58:28.484Z",
-        "gitCommitSha": "779ab61d8d412230eeec1840b8ca104bebea4358"
-      }
-    ],
     "skill-creator@claude-plugins-official": [
       {
         "scope": "local",
