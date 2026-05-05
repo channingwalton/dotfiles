@@ -1,9 +1,11 @@
 model = "gpt-5.5"
 personality = "pragmatic"
+model_reasoning_effort = "xhigh"
 
 [features]
 external_migration = true
 memories = true
+goals = true
 
 [marketplaces.caveman-repo]
 last_updated = "2026-05-01T07:29:00Z"
@@ -12,18 +14,18 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-04T19:32:45Z"
+last_updated = "2026-05-05T20:25:00Z"
 last_revision = "ac45fdae4b7af187b5624599ab054090dedadd94"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-03T10:42:28Z"
+last_updated = "2026-05-05T20:24:58Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-04-30T21:13:31Z"
+last_updated = "2026-05-05T20:13:22Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -142,6 +144,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/dev/Music"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-04/what-does-codex-goal-do"]
 trust_level = "trusted"
 
 [shell_environment_policy]

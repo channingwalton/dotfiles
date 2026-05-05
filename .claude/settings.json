@@ -118,7 +118,8 @@
     "elements-of-style@superpowers-marketplace": true,
     "chrome-devtools-mcp@claude-plugins-official": true,
     "caveman@caveman": true,
-    "superpowers@claude-plugins-official": true
+    "superpowers@claude-plugins-official": true,
+    "codex@openai-codex": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -126,10 +127,16 @@
         "source": "github",
         "repo": "JuliusBrussee/caveman"
       }
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
     }
   },
   "alwaysThinkingEnabled": true,
-  "effortLevel": "high",
+  "effortLevel": "xhigh",
   "voice": {
     "enabled": true,
     "mode": "hold"
