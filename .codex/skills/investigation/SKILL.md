@@ -36,6 +36,10 @@ case-studies/
 
 Do not create this inside the vault unless the user asks. Prefer the local evidence folder, with links back to vault/Jira/Slack.
 
+## Existing Dossier First
+
+Before editing an existing dossier, read the current `README.md`, `manifest.csv`, `run-log.md`, `decisions.md`, `data-lineage.md`, `task-note-evidence.md`, and `open-questions.md` if present. Update the existing records instead of recreating structure.
+
 ## Manifest
 
 Use `manifest.csv` as the artefact index.
@@ -50,8 +54,9 @@ Status values:
 
 - `active` - current source of truth or still relevant.
 - `superseded` - retained evidence, no longer the current source.
-- `external` - linked source outside the folder, such as a vault task note.
 - `unknown` - provenance not yet established.
+
+Use `type` for artefact shape or origin, such as `raw-csv`, `result-csv`, `analysis-csv`, `raw-folder`, or `external-vault-note`.
 
 Use parser-safe commands for counts/checksums:
 
@@ -182,6 +187,7 @@ Before finishing:
 - Validate `manifest.csv` parses.
 - Check referenced local files exist, unless intentionally external.
 - Check new Markdown is concise and not raw log dumping.
+- Run `git status --short` when the dossier lives in a Git repository.
 - State any provenance gaps.
 
 Validation command:
