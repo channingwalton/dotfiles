@@ -26,22 +26,34 @@ Create or maintain these files at the investigation root:
 README.md
 manifest.csv
 timeline.md
-decisions.md
+reasoning-log.md
 data-lineage.md
 run-log.md
 task-note-evidence.md
 open-questions.md
-case-studies/
+case-studies.md
 Data/
 ```
 
 Use `Data/` for raw exports, generated inputs, run outputs, logs, and bulky evidence. Prefer `Data/Runs/` for dry-run, prod-run, and rerun inputs/results. Keep the Markdown dossier files at the investigation root.
 
-Do not create this inside the vault unless the user asks. Prefer the local evidence folder, with links back to vault/Jira/Slack.
+Default to a local evidence folder with links back to vault/Jira/Slack. If routed from a vault task with `task_type: investigation`, use its `investigation_root` or same-basename sibling folder beside the task note.
 
 ## Existing Dossier First
 
-Before editing an existing dossier, read the current `README.md`, `manifest.csv`, `run-log.md`, `decisions.md`, `data-lineage.md`, `task-note-evidence.md`, and `open-questions.md` if present. Update the existing records instead of recreating structure.
+Before editing an existing dossier, read the current `README.md`, `manifest.csv`, `run-log.md`, `reasoning-log.md`, `data-lineage.md`, `task-note-evidence.md`, and `open-questions.md` if present. Update the existing records instead of recreating structure.
+
+## Linking
+
+When the dossier lives beside a vault task note:
+
+- Add a Markdown link from the task note to `./<task-basename>/README.md`.
+- Add a Markdown link from `README.md` back to `../<task-basename>.md`.
+- Link from `README.md` to every top-level dossier Markdown file.
+- Add task-note and README backlinks at the top of each top-level dossier Markdown file.
+- Keep raw or bulky artefacts linked from `manifest.csv`; link from Markdown only when the artefact is directly discussed.
+- Treat the task note `## Decision Log` as canonical for approved task decisions.
+- Use `reasoning-log.md` for evidence-backed investigation reasoning and provenance; do not duplicate the task Decision Log.
 
 ## Manifest
 
@@ -90,16 +102,16 @@ Each entry should include:
 
 When parsing result counts, prefer a structured CSV parser over text splitting if fields may contain commas.
 
-## Decisions
+## Reasoning Log
 
-Use `decisions.md` for reasoning changes, not every event.
+Use `reasoning-log.md` for reasoning changes, not every event. The task note `## Decision Log` remains canonical for approved user-visible decisions.
 
 Format:
 
 ```markdown
 ## YYYY-MM-DD - <decision>
 
-**Decision:** <what changed>
+**Reasoning:** <what changed>
 
 **Why:** <evidence-backed reason>
 
@@ -160,7 +172,7 @@ Use Jira/GitHub for formal ticket/PR state. Use the dossier for the reasoning tr
 
 ## Case Studies
 
-Use `case-studies/` for worker/customer/example-level analysis.
+Use `case-studies.md` for worker/customer/example-level analysis while the examples fit in one file. Create `case-studies/` only when separate per-worker files are needed.
 
 Each case should capture:
 

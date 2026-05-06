@@ -1,0 +1,4 @@
+interface:
+  display_name: "Task"
+  short_description: "Route vault task work by task type"
+  default_prompt: "Use the task skill to resolve the referenced vault task note, inspect its frontmatter, and load the right specialist context before acting."
