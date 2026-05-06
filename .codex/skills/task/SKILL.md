@@ -52,7 +52,7 @@ Tasks/
   <task-basename>.md
   <task-basename>/
     README.md
-    manifest.csv
+    manifest.md
     timeline.md
     reasoning-log.md
     data-lineage.md
@@ -63,7 +63,7 @@ Tasks/
     Data/
 ```
 
-Keep bulky raw artefacts outside the vault only when needed; index them from `manifest.csv` with stable paths, counts, checksums, and provenance.
+Keep bulky raw artefacts outside the vault only when needed; index them from `manifest.md` with stable paths, counts, checksums, and provenance.
 
 ## Links
 
@@ -75,7 +75,7 @@ For investigation tasks, keep both filesystem routing and Obsidian navigation:
 - Each top-level dossier Markdown file links back to the task note and dossier README.
 - Task `## Decision Log` is canonical for approved task decisions.
 - Dossier `reasoning-log.md` records evidence-backed investigation reasoning and links to evidence; do not make it a second Decision Log.
-- `manifest.csv` indexes evidence paths; Markdown files explain why the evidence matters.
+- `manifest.md` indexes evidence paths; Markdown files explain why the evidence matters.
 
 Prefer Markdown links for sibling files with spaces:
 

@@ -24,7 +24,7 @@ Create or maintain these files at the investigation root:
 
 ```text
 README.md
-manifest.csv
+manifest.md
 timeline.md
 reasoning-log.md
 data-lineage.md
@@ -41,7 +41,7 @@ Default to a local evidence folder with links back to vault/Jira/Slack. If route
 
 ## Existing Dossier First
 
-Before editing an existing dossier, read the current `README.md`, `manifest.csv`, `run-log.md`, `reasoning-log.md`, `data-lineage.md`, `task-note-evidence.md`, and `open-questions.md` if present. Update the existing records instead of recreating structure.
+Before editing an existing dossier, read the current `README.md`, `manifest.md`, `run-log.md`, `reasoning-log.md`, `data-lineage.md`, `task-note-evidence.md`, and `open-questions.md` if present. Update the existing records instead of recreating structure.
 
 ## Linking
 
@@ -51,19 +51,17 @@ When the dossier lives beside a vault task note:
 - Add a Markdown link from `README.md` back to `../<task-basename>.md`.
 - Link from `README.md` to every top-level dossier Markdown file.
 - Add task-note and README backlinks at the top of each top-level dossier Markdown file.
-- Keep raw or bulky artefacts linked from `manifest.csv`; link from Markdown only when the artefact is directly discussed.
+- Keep raw or bulky artefacts linked from `manifest.md`; link from Markdown only when the artefact is directly discussed.
 - Treat the task note `## Decision Log` as canonical for approved task decisions.
 - Use `reasoning-log.md` for evidence-backed investigation reasoning and provenance; do not duplicate the task Decision Log.
 
 ## Manifest
 
-Use `manifest.csv` as the artefact index. Paths should be relative to the investigation root, so files under the data folder look like `Data/Runs/2026-05-06-run.csv`.
+Use `manifest.md` as the artefact index. Paths should be relative to the investigation root, so files under the data folder look like `Data/Runs/2026-05-06-run.csv`.
 
-Required columns:
+Required Markdown table columns:
 
-```csv
-path,type,role,source_or_command,rows_or_files,sha256,status,notes
-```
+`Path | Type | Role | Source / Command | Rows / Files | SHA-256 | Status | Notes`
 
 Status values:
 
@@ -142,7 +140,7 @@ If a vault task note contains commands, counts, Slack links, or conclusions, ind
 Workflow:
 
 1. Read the task note in full.
-2. Capture its path and SHA-256 in `manifest.csv`.
+2. Capture its path and SHA-256 in `manifest.md`.
 3. Use `nl -ba` to cite line numbers.
 4. Group evidence by run/date, not by raw note order.
 5. Warn that line numbers drift if the task note changes.
@@ -187,7 +185,7 @@ Each case should capture:
 After every new run or important data transform:
 
 1. Put the input/output under `Data/`, usually `Data/Runs/`, with a date prefix.
-2. Add/update `manifest.csv`.
+2. Add/update `manifest.md`.
 3. Append `run-log.md`.
 4. Mark superseded artefacts.
 5. Add a decision only if the reasoning changed.
@@ -199,7 +197,7 @@ After every new run or important data transform:
 
 Before finishing:
 
-- Validate `manifest.csv` parses.
+- Validate `manifest.md` has the required table columns.
 - Check referenced local files exist, unless intentionally external.
 - Check new Markdown is concise and not raw log dumping.
 - Run `git status --short` when the dossier lives in a Git repository.
@@ -208,5 +206,5 @@ Before finishing:
 Validation command:
 
 ```bash
-ruby -rcsv -e 'CSV.read(ARGV[0], headers: true); puts "ok"' manifest.csv
+ruby -e 'header = File.readlines("manifest.md").find { |l| l.start_with?("| Path |") }; abort "missing manifest header" unless header&.include?("SHA-256"); puts "ok"'
 ```
