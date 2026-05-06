@@ -20,7 +20,7 @@ The dossier answers:
 
 ## Folder Shape
 
-Create or maintain these files in the investigation data folder:
+Create or maintain these files at the investigation root:
 
 ```text
 README.md
@@ -32,7 +32,10 @@ run-log.md
 task-note-evidence.md
 open-questions.md
 case-studies/
+Data/
 ```
+
+Use `Data/` for raw exports, generated inputs, run outputs, logs, and bulky evidence. Prefer `Data/Runs/` for dry-run, prod-run, and rerun inputs/results. Keep the Markdown dossier files at the investigation root.
 
 Do not create this inside the vault unless the user asks. Prefer the local evidence folder, with links back to vault/Jira/Slack.
 
@@ -42,7 +45,7 @@ Before editing an existing dossier, read the current `README.md`, `manifest.csv`
 
 ## Manifest
 
-Use `manifest.csv` as the artefact index.
+Use `manifest.csv` as the artefact index. Paths should be relative to the investigation root, so files under the data folder look like `Data/Runs/2026-05-06-run.csv`.
 
 Required columns:
 
@@ -171,7 +174,7 @@ Each case should capture:
 
 After every new run or important data transform:
 
-1. Put the input/output in the evidence folder with a date prefix.
+1. Put the input/output under `Data/`, usually `Data/Runs/`, with a date prefix.
 2. Add/update `manifest.csv`.
 3. Append `run-log.md`.
 4. Mark superseded artefacts.
