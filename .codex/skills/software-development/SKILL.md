@@ -99,7 +99,7 @@ Only after step 4 passes is the task complete. Proceed to COMMIT.
 
 1. Run `devtool check` (compile + lint + test) — must be green. No red commits; no pushes without a green check on every commit.
 2. Summarise what will be committed and ask the user to confirm.
-3. Commit directly.
+3. Commit directly. Include `Co-authored-by: OpenAI Codex <noreply@openai.com>` in the commit trailer unless the user says otherwise.
 
 ---
 
