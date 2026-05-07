@@ -6,6 +6,8 @@ Subcommands:
     content "-" reads body from stdin (use to avoid shell quoting issues).
   read <slug> [--since FILENAME]
   wait <slug> [--timeout SEC]
+  loop <slug> <agent-id>
+    stateful read/wait loop; prints the next non-self message batch as JSON.
 
 Thread root is passed via --root (required).
 Messages are markdown files with YAML-style frontmatter.
@@ -158,20 +160,50 @@ def cmd_post(args) -> int:
 
 def cmd_read(args) -> int:
     d = thread_dir(args.root, args.slug, wait_create=args.wait_create)
+    out = read_messages(d, args.since)
+    json.dump(out, sys.stdout)
+    sys.stdout.write("\n")
+    return 0
+
+
+def agent_state_path(d: Path, agent: str) -> Path:
+    safe = "".join(c if c.isalnum() or c in "._-" else "_" for c in agent)
+    return d / ".chatter-state" / f"{safe}.json"
+
+
+def load_last_seen(d: Path, agent: str):
+    path = agent_state_path(d, agent)
+    try:
+        data = json.loads(path.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        return None
+    last_seen = data.get("last_seen")
+    return last_seen if isinstance(last_seen, str) else None
+
+
+def save_last_seen(d: Path, agent: str, last_seen) -> None:
+    if not last_seen:
+        return
+    path = agent_state_path(d, agent)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
+    tmp.write_text(json.dumps({"last_seen": last_seen}, sort_keys=True) + "\n")
+    tmp.replace(path)
+
+
+def read_messages(d: Path, since=None):
     out = []
     for entry in sorted(d.iterdir()):
         name = entry.name
         if name.startswith(".") or not name.endswith(".md"):
             continue
-        if args.since and name <= args.since:
+        if since and name <= since:
             continue
         try:
             out.append(parse_msg(entry.read_text()))
         except ValueError as e:
             print(f"chatter: skipping malformed {name}: {e}", file=sys.stderr)
-    json.dump(out, sys.stdout)
-    sys.stdout.write("\n")
-    return 0
+    return out
 
 
 def cmd_wait(args) -> int:
@@ -189,10 +221,59 @@ def cmd_wait(args) -> int:
                 return 0
         return 1
     try:
-        subprocess.run(cmd, timeout=args.timeout, check=False)
-        return 0
+        completed = subprocess.run(cmd, timeout=args.timeout, check=False)
+        return 0 if completed.returncode == 0 else 1
     except subprocess.TimeoutExpired:
         return 1
+
+
+def cmd_loop(args) -> int:
+    d = thread_dir(args.root, args.slug, wait_create=args.wait_create)
+    last_seen = args.since if args.since is not None else load_last_seen(d, args.agent)
+    timeout_count = 0
+    iterations = 0
+
+    while iterations < args.max_iterations:
+        iterations += 1
+        msgs = read_messages(d, last_seen)
+        if msgs:
+            last_seen = msgs[-1]["id"] + ".md"
+            save_last_seen(d, args.agent, last_seen)
+            new = [m for m in msgs if m["from"] != args.agent]
+            if new:
+                json.dump({
+                    "status": "messages",
+                    "thread": args.slug,
+                    "agent": args.agent,
+                    "last_seen": last_seen,
+                    "messages": new,
+                }, sys.stdout)
+                sys.stdout.write("\n")
+                return 0
+
+        wait_args = argparse.Namespace(root=args.root, slug=args.slug, timeout=args.timeout, wait_create=0.0)
+        if cmd_wait(wait_args) != 0:
+            timeout_count += 1
+            if timeout_count >= args.silences:
+                json.dump({
+                    "status": "silent",
+                    "thread": args.slug,
+                    "agent": args.agent,
+                    "last_seen": last_seen,
+                    "silences": timeout_count,
+                }, sys.stdout)
+                sys.stdout.write("\n")
+                return 1
+
+    json.dump({
+        "status": "iteration_cap",
+        "thread": args.slug,
+        "agent": args.agent,
+        "last_seen": last_seen,
+        "iterations": iterations,
+    }, sys.stdout)
+    sys.stdout.write("\n")
+    return 2
 
 
 def main() -> None:
@@ -223,6 +304,17 @@ def main() -> None:
     pw.add_argument("--wait-create", type=float, default=0.0,
                     help="seconds to wait for thread dir to appear before failing")
     pw.set_defaults(func=cmd_wait)
+
+    pl = sub.add_parser("loop", parents=[common], help="stateful read/wait loop for the next non-self messages")
+    pl.add_argument("slug")
+    pl.add_argument("agent")
+    pl.add_argument("--since", default=None, help="start after this filename instead of saved state")
+    pl.add_argument("--timeout", type=int, default=300, help="seconds to wait for each silence")
+    pl.add_argument("--silences", type=int, default=2, help="silent waits before exiting")
+    pl.add_argument("--max-iterations", type=int, default=20)
+    pl.add_argument("--wait-create", type=float, default=0.0,
+                    help="seconds to wait for thread dir to appear before failing")
+    pl.set_defaults(func=cmd_loop)
 
     args = p.parse_args()
     if args.root is None:

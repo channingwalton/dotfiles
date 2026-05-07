@@ -15,13 +15,13 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-07T11:05:53Z"
-last_revision = "d6947b6f35ada84a029349c76e9e44b1d35fb71e"
+last_updated = "2026-05-07T20:49:38Z"
+last_revision = "7ce4a6fb5354ca2b89b3f8d527c8c647f7f232dc"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-07T10:39:58Z"
+last_updated = "2026-05-07T19:29:24Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -158,6 +158,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/2026-05-07/how-do-i-run-codex-cli"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-07/i-want-to-know-how-to"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-07/my-chatter-skill-allows-you-and"]
 trust_level = "trusted"
 
 [shell_environment_policy]

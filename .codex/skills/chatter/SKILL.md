@@ -16,7 +16,9 @@ All filesystem mechanics live in a `chatter` script bundled with this skill (nex
 ```sh
 chatter post <slug> <agent-id> <content> [--in-reply-to ID]   # → prints filename
 chatter read <slug> [--since FILENAME] [--wait-create SEC] # → JSON array of messages
-chatter wait <slug> [--timeout SEC]    [--wait-create SEC] # → exit 0 on event, 1 on timeout
+chatter wait <slug> [--timeout SEC]    [--wait-create SEC] # → exit 0 on event, non-zero on timeout or watcher error
+chatter loop <slug> <agent-id> [--timeout SEC] [--silences N] [--since FILENAME]
+# → stateful read/wait loop; prints next non-self message batch as JSON
 ```
 
 **Content with shell metacharacters** (backticks, `$`, `!`, `\`, etc): never pass as a double-quoted argv string — the shell will substitute or strip them, and your code examples will silently corrupt. Two safe forms:
@@ -33,7 +35,9 @@ chatter post <slug> <you> 'Use `flat()` not $foo.' --in-reply-to <id>
 
 Default to form 1 — heredoc with `'EOF'` (quoted) disables all expansion and handles any content.
 
-`--wait-create SEC` (read/wait): if the thread dir doesn't exist yet, poll up to SEC seconds for it to appear before failing. Use on join when the other agent may not have posted yet.
+`--wait-create SEC` (read/wait/loop): if the thread dir doesn't exist yet, poll up to SEC seconds for it to appear before failing. Use on join when the other agent may not have posted yet.
+
+`loop` persists the cursor in `.chatter-state/<agent>.json` inside the thread directory, filters out self-authored messages, keeps the normal long wait policy (`--timeout 300`, `--silences 2`), and exits when it has the next non-self message batch. Use it for the routine join/rejoin wait instead of manually carrying `LAST_SEEN` between shell calls. After posting a reply, call `loop` again.
 
 **Root resolution** (in order):
 
@@ -60,7 +64,7 @@ Pick a stable `agent-id` for this conversation, in order:
 | Action | Steps |
 |---|---|
 | **Start** | slug = `{yyyyMMdd-HHmm}-{kebab-topic}` → `chatter post <slug> <you> "<opening>"` (creates dir) → enter loop immediately. Don't ask the user to invite anyone — just post and wait. The first iteration's `wait` is how you wait for joiners. |
-| **Join** | `chatter read <slug> --wait-create 300` to catch up (waits if the other agent hasn't posted yet; on timeout the slug is wrong — ask the user, don't auto-create) → set `LAST_SEEN` to the last filename → loop |
+| **Join** | `chatter loop <slug> <you> --wait-create 300` to catch up and wait for the next non-self message batch (on timeout the slug is wrong or no one replied — ask the user only if the thread never appears) → reply if useful → call `loop` again |
 
 ## Replying
 
@@ -68,7 +72,29 @@ Pick a stable `agent-id` for this conversation, in order:
 
 ## The loop
 
-Track `LAST_SEEN` as a shell variable.
+Use `chatter loop` — it handles cursor persistence, self-message filtering, and the wait/silence policy. Each call returns when the next non-self message batch arrives (or after `--silences` consecutive timeouts). Pattern:
+
+```
+chatter loop <slug> <you> [--wait-create 300]   # join: catch up + wait
+# → exit 0 with status:messages → reply if useful
+chatter post <slug> <you> "..." --in-reply-to <target.id>
+chatter loop <slug> <you>                        # rejoin: wait for next batch
+# → exit 1 with status:silent → conversation done
+```
+
+Exit codes: `0` = new messages, `1` = silent (timed out `--silences` times), `2` = iteration cap. On `messages`, decide whether to reply; if yes, post and call `loop` again. On `silent` or after an explicit sign-off, exit.
+
+### Judging substance and resolution
+
+`loop` returns any non-self batch. You still decide:
+
+- **Reply?** Only when adding info, disagreement, a clarifying question, or a next step. Acks don't need a reply.
+- **Resolved?** Question answered, decision made, all sides had their say, or someone signed off explicitly.
+- **Circling?** If you and the other agent are restating the same points, call it out and propose a conclusion.
+
+### Manual fallback
+
+If you need to debug protocol issues or do unusual work, the primitives are still available. After `wait` returns, **always re-run `read`** — the wake may have fired on a `.tmp` or your own write.
 
 ```
 timeout_count = 0
@@ -82,29 +108,19 @@ while iterations < MAX_ITERATIONS:
 
     if new:
         LAST_SEEN = last(msgs).id + ".md"
-        if any_substantive(new):                     # claim/question/proposal/disagreement; acks don't count
+        if any_substantive(new):
             timeout_count = 0
         if you_have_something_substantive_to_add:
-            # --in-reply-to is REQUIRED — pick the message you're addressing
-            # (usually last.id, but choose the actual target if replying upthread)
             f = chatter post <slug> <you> "..." --in-reply-to <target.id>
             LAST_SEEN = f
-        if conversation_resolved:                    # explicit sign-off, question answered, nothing left
+        if conversation_resolved:
             break
     else:
         if not chatter wait <slug> --timeout 300:
             timeout_count += 1
-            if timeout_count >= 2:                   # two silences after last substantive exchange = done
+            if timeout_count >= 2:
                 break
 ```
-
-After `wait` returns, **always re-run `read`** — the wake may have fired on a `.tmp` or your own write.
-
-### Judgement
-
-- **Reply?** Only when adding info, disagreement, a clarifying question, or a next step. Silence = fine.
-- **Resolved?** Original question answered, decision made, or all sides had their say. Explicit sign-offs are strong signals.
-- **Circling?** If you and the other agent restate the same points, call it out and propose a conclusion.
 
 ## Report to user
 
