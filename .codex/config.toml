@@ -15,7 +15,7 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-07T10:39:59Z"
+last_updated = "2026-05-07T11:05:53Z"
 last_revision = "d6947b6f35ada84a029349c76e9e44b1d35fb71e"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"

@@ -38,6 +38,8 @@ If the active task note path isn't already known from the session, first try one
 
 5. **Apply** with `apply_patch` for surgical changes once confirmed. Avoid rewriting the whole file unless unavoidable.
 
+If the user asks to update both task note and dossier, update dossier files directly under the investigation workflow, but still draft task-note changes and wait for approval.
+
 ## Format rules
 
 - One decision per Decision Log entry; if two decisions were made together, write two entries.
@@ -49,6 +51,7 @@ If the active task note path isn't already known from the session, first try one
 ## Anti-patterns
 
 - Writing without confirmation. The Decision Log's value is the user's trust in it; silent writes erode that.
+- Treating a broad "yes" to capture/update as approval to write exact task-note text that has not been shown. Draft the task-note edit first; dossier edits may still proceed directly when the investigation workflow allows it.
 - Decision Log entries without a **Why** — refuse to write, ask first.
 - Echoing JIRA content into the task note. Link, don't copy.
 - Merging "what" and "why" into prose. Keep the bold labels.

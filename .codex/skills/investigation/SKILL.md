@@ -1,6 +1,6 @@
 ---
 name: investigation
-description: "Create and maintain local evidence dossiers for messy production investigations, datafixes, incident follow-ups, or reconciliation work where evidence spans local CSV/XLSX/log artefacts, a vault task note, Jira/GitHub tickets, Slack threads, code branches, and repeated dry/prod runs. Use when the user asks to organise an investigation folder, keep run evidence up to date, trace where numbers came from, build a manifest/run log/data lineage, or prevent a large task note from becoming the only source of reasoning."
+description: "Create and maintain local evidence dossiers for messy investigations, data corrections, incident follow-ups, or reconciliation work where evidence spans local CSV/XLSX/log artefacts, a vault task note, Jira/GitHub tickets, Slack threads, code branches, and repeated simulation/live runs. Use when the user asks to organise an investigation folder, keep run evidence up to date, trace where numbers came from, build a manifest/run log/data lineage, or prevent a large task note from becoming the only source of reasoning."
 ---
 
 # Investigation
@@ -16,28 +16,29 @@ The dossier answers:
 - Which command produced each result?
 - Which decisions changed the approach?
 - Which artefacts are current vs superseded?
-- Which Slack/Jira/vault statements support the public numbers?
+- Which Slack/Jira/vault statements support the reported claims?
 
-## Folder Shape
+## Dossier Shape
 
-Create or maintain these files at the investigation root:
+Core files at the investigation root:
 
 ```text
 README.md
 manifest.md
-timeline.md
-reasoning-log.md
-data-lineage.md
 run-log.md
-task-note-evidence.md
 open-questions.md
-case-studies.md
 Data/
 ```
 
-Use `Data/` for raw exports, generated inputs, run outputs, logs, and bulky evidence. Prefer `Data/Runs/` for dry-run, prod-run, and rerun inputs/results. Keep the Markdown dossier files at the investigation root.
+Create optional files only when the evidence needs them:
 
-Default to a local evidence folder with links back to vault/Jira/Slack. If routed from a vault task with `task_type: investigation`, use its `investigation_root` or same-basename sibling folder beside the task note.
+- `timeline.md` for event chronology.
+- `reasoning-log.md` for evidence-backed reasoning changes.
+- `data-lineage.md` for multi-step data transforms.
+- `task-note-evidence.md` when a vault task note contains evidence.
+- `case-studies.md` for entity-level examples.
+
+Use `Data/` for raw exports, generated inputs, run outputs, logs, and bulky evidence. Prefer `Data/Runs/` for simulation runs, live runs, and rerun inputs/results. Keep the Markdown dossier files at the investigation root.
 
 ## Existing Dossier First
 
@@ -45,15 +46,9 @@ Before editing an existing dossier, read the current `README.md`, `manifest.md`,
 
 ## Linking
 
-When the dossier lives beside a vault task note:
+If routed from a vault task, let `task` resolve the dossier root and maintain task/dossier navigation links. `investigation` owns dossier contents only.
 
-- Add a Markdown link from the task note to `./<task-basename>/README.md`.
-- Add a Markdown link from `README.md` back to `../<task-basename>.md`.
-- Link from `README.md` to every top-level dossier Markdown file.
-- Add task-note and README backlinks at the top of each top-level dossier Markdown file.
-- Keep raw or bulky artefacts linked from `manifest.md`; link from Markdown only when the artefact is directly discussed.
-- Treat the task note `## Decision Log` as canonical for approved task decisions.
-- Use `reasoning-log.md` for evidence-backed investigation reasoning and provenance; do not duplicate the task Decision Log.
+Keep raw or bulky artefacts linked from `manifest.md`; link from Markdown only when the artefact is directly discussed. Treat the task note `## Decision Log` as canonical for approved task decisions. Use `reasoning-log.md` for evidence-backed investigation reasoning and provenance; do not duplicate the task Decision Log.
 
 ## Manifest
 
@@ -84,7 +79,7 @@ Use `rows_or_files` as data rows for CSVs when possible; say `file lines` if the
 
 ## Run Log
 
-Append one entry per dry run, prod run, rerun, data migration, or verification pass.
+Append one entry per simulation run, live run, rerun, data migration, or verification pass.
 
 Each entry should include:
 
@@ -98,7 +93,11 @@ Each entry should include:
 - Slack/Jira link where the result was reported
 - whether this run supersedes another run
 
-When parsing result counts, prefer a structured CSV parser over text splitting if fields may contain commas.
+When parsing result counts, prefer a structured parser over text splitting if fields may contain delimiters.
+
+Before interpreting simulation output, identify categories that could be simulation artefacts, especially rows depending on records that would be created earlier in the same run. If a large skip class may be a simulation artefact, mark the run as blocked or superseded rather than sign-off evidence.
+
+For local validation of environment-derived data, first verify the validation environment contains the referenced records or natural keys. If not, do not use the local run as behavioural evidence; use targeted tests or a real environment simulation.
 
 ## Reasoning Log
 
@@ -125,7 +124,7 @@ One decision per entry. Do not hide multiple decisions in one paragraph.
 Use `data-lineage.md` to map:
 
 - raw exports
-- lookup/account files
+- lookup/reference files
 - scripts or manual transforms
 - correction inputs
 - result files
@@ -170,13 +169,13 @@ Use Jira/GitHub for formal ticket/PR state. Use the dossier for the reasoning tr
 
 ## Case Studies
 
-Use `case-studies.md` for worker/customer/example-level analysis while the examples fit in one file. Create `case-studies/` only when separate per-worker files are needed.
+Use `case-studies.md` for entity/person/account/customer-level analysis while the examples fit in one file. Create `case-studies/` only when separate per-entity files are needed.
 
 Each case should capture:
 
 - source message or ticket link
 - export row or file reference
-- Patchwork row/query result reference
+- application record/query result reference
 - current interpretation
 - whether the issue is logic, missing source data, manual data, or expected limitation
 
@@ -192,6 +191,8 @@ After every new run or important data transform:
 6. Update `data-lineage.md` if the transform chain changed.
 7. Update `task-note-evidence.md` if the task note contains run evidence.
 8. Then write the Slack/Jira summary from the dossier.
+
+When investigation work produces code, a job, script, migration, one-off command, PR, or commit, record branch, commit SHA, PR URL, live entrypoint, inputs, outputs, and verification in `run-log.md`; update `data-lineage.md` if the code consumes investigation artefacts; add `reasoning-log.md` only if the implementation changes the approach.
 
 ## Verification
 

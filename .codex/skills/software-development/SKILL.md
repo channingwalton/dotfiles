@@ -98,6 +98,7 @@ Only after step 4 passes is the task complete. Proceed to COMMIT.
 ## Phase 3: Commit (💾 COMMIT) — Autonomous
 
 1. Run `devtool check` (compile + lint + test) — must be green. No red commits; no pushes without a green check on every commit.
+   Before running broad commit checks, inspect `git status --short --branch` and the branch diff. If the check will include substantial pre-existing branch changes outside the current task, say so and prefer targeted verification unless the user explicitly asks for the full check. If the user interrupts a broad check and asks to commit/push anyway, proceed only after targeted verification and record the interrupted check in the PR/final summary.
 2. Summarise what will be committed and ask the user to confirm.
 3. Commit directly. Include `Co-authored-by: OpenAI Codex <noreply@openai.com>` in the commit trailer unless the user says otherwise.
 
