@@ -1,6 +1,7 @@
 model = "gpt-5.5"
 personality = "pragmatic"
 model_reasoning_effort = "high"
+approval_policy = "on-request"
 
 [features]
 external_migration = true
@@ -14,18 +15,18 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-06T13:51:01Z"
-last_revision = "06f52cd3ac3e47ecb45228a86183ea2a86e9d6ff"
+last_updated = "2026-05-07T10:39:59Z"
+last_revision = "d6947b6f35ada84a029349c76e9e44b1d35fb71e"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-06T13:32:06Z"
+last_updated = "2026-05-07T10:39:58Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-05T20:13:22Z"
+last_updated = "2026-05-07T08:13:35Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -40,7 +41,8 @@ args = ["mcp"]
 fast_default_opt_out = true
 
 [notice.external_config_migration_prompts]
-home_last_prompted_at = 1777553192
+home_last_prompted_at = 1778103668
+home = true
 
 [notice.external_config_migration_prompts.project_last_prompted_at]
 "/Users/channing/dev/patchwork/repos/PatchworkApps" = 1777553192
@@ -147,6 +149,15 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/2026-05-04/what-does-codex-goal-do"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-06/do-you-keep-transcripts-of-all"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/ai-memory"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-07/how-do-i-run-codex-cli"]
 trust_level = "trusted"
 
 [shell_environment_policy]
