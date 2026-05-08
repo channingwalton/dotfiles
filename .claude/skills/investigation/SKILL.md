@@ -37,7 +37,7 @@ Create optional files only when the evidence needs them:
 - `task-note-evidence.md` when a vault task note contains evidence.
 - `case-studies.md` for entity-level examples.
 
-Keep artefacts in a clear folder scheme that fits the investigation. Date folders are usually best for repeated exports, dry-runs, live runs, and reruns. Document folder roles in `README.md`. Keep the Markdown dossier files at the investigation root.
+Keep artefacts in a clear folder scheme that fits the investigation. Prefer iteration folders named `0001`, `0002`, and so on when artefacts represent successive solution attempts. Use date folders only when the export or run date is the primary identity. Document folder roles in `README.md`. Keep the Markdown dossier files at the investigation root.
 
 ## Existing Dossier First
 
@@ -51,7 +51,7 @@ Keep raw or bulky artefacts linked from `manifest.md`; link from Markdown only w
 
 ## Manifest
 
-Use `manifest.md` as the artefact index. Paths should be relative to the investigation root or the external artefact root documented in `README.md`, for example `2026-05-08/run.csv`.
+Use `manifest.md` as the artefact index. Paths should be relative to the investigation root or the external artefact root documented in `README.md`, for example `0001/run.csv`.
 
 Required Markdown table columns:
 
@@ -184,7 +184,7 @@ Each case should capture:
 
 After every new run or important data transform:
 
-1. Put the input/output in the documented artefact folder scheme, usually a dated folder for repeated exports/runs.
+1. Put the input/output in the documented artefact folder scheme, usually the next iteration folder, for example `0002`, unless the dossier documents a different scheme.
 2. Add/update `manifest.md`.
 3. Append `run-log.md`.
 4. Mark superseded artefacts.

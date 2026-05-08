@@ -2,6 +2,7 @@ model = "gpt-5.5"
 personality = "pragmatic"
 model_reasoning_effort = "high"
 approval_policy = "on-request"
+approvals_reviewer = "guardian_subagent"
 
 [features]
 external_migration = true
@@ -15,13 +16,13 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-08T12:26:21Z"
+last_updated = "2026-05-08T20:58:10Z"
 last_revision = "76b35e91d1c99c090b1a08dade53bcc5e352c1b2"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-08T10:43:13Z"
+last_updated = "2026-05-08T20:58:05Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -164,6 +165,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/2026-05-07/my-chatter-skill-allows-you-and"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-08/whats-new-with-you"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-08/show-me-your-full-context"]
 trust_level = "trusted"
 
 [shell_environment_policy]
