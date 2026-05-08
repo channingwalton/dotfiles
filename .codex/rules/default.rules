@@ -21,3 +21,5 @@ prefix_rule(pattern=["/bin/zsh", "-lc", "RDS_HOSTNAME=127.0.0.1 bundle exec rail
 prefix_rule(pattern=["ruby", "-rroo", "-rcsv"], decision="allow")
 prefix_rule(pattern=["/bin/zsh", "-lc", "RDS_HOSTNAME=127.0.0.1 bundle exec rspec spec/services/datafix/repair_mwl_leave_from_status_reports_spec.rb"], decision="allow")
 prefix_rule(pattern=["ruby", "tmp/rh7429_rebuild_expanded_inputs.rb"], decision="allow")
+prefix_rule(pattern=["cp"], decision="allow")
+prefix_rule(pattern=["ruby", "tmp/rh7429_compare_prod_after_full_run.rb"], decision="allow")

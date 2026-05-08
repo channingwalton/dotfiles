@@ -20,14 +20,13 @@ The dossier answers:
 
 ## Dossier Shape
 
-Core files at the investigation root:
+Core Markdown files at the investigation root:
 
 ```text
 README.md
 manifest.md
 run-log.md
 open-questions.md
-Data/
 ```
 
 Create optional files only when the evidence needs them:
@@ -38,7 +37,7 @@ Create optional files only when the evidence needs them:
 - `task-note-evidence.md` when a vault task note contains evidence.
 - `case-studies.md` for entity-level examples.
 
-Use `Data/` for raw exports, generated inputs, run outputs, logs, and bulky evidence. Prefer `Data/Runs/` for simulation runs, live runs, and rerun inputs/results. Keep the Markdown dossier files at the investigation root.
+Keep artefacts in a clear folder scheme that fits the investigation. Date folders are usually best for repeated exports, dry-runs, live runs, and reruns. Document folder roles in `README.md`. Keep the Markdown dossier files at the investigation root.
 
 ## Existing Dossier First
 
@@ -52,7 +51,7 @@ Keep raw or bulky artefacts linked from `manifest.md`; link from Markdown only w
 
 ## Manifest
 
-Use `manifest.md` as the artefact index. Paths should be relative to the investigation root, so files under the data folder look like `Data/Runs/2026-05-06-run.csv`.
+Use `manifest.md` as the artefact index. Paths should be relative to the investigation root or the external artefact root documented in `README.md`, for example `2026-05-08/run.csv`.
 
 Required Markdown table columns:
 
@@ -98,6 +97,8 @@ When parsing result counts, prefer a structured parser over text splitting if fi
 Before interpreting simulation output, identify categories that could be simulation artefacts, especially rows depending on records that would be created earlier in the same run. If a large skip class may be a simulation artefact, mark the run as blocked or superseded rather than sign-off evidence.
 
 For local validation of environment-derived data, first verify the validation environment contains the referenced records or natural keys. If not, do not use the local run as behavioural evidence; use targeted tests or a real environment simulation.
+
+Before reporting exception counts from derived comparison outputs, sanity-check whether the categories may include false positives or false negatives. Record the matching assumptions and any known limits of the comparison.
 
 ## Reasoning Log
 
@@ -183,14 +184,15 @@ Each case should capture:
 
 After every new run or important data transform:
 
-1. Put the input/output under `Data/`, usually `Data/Runs/`, with a date prefix.
+1. Put the input/output in the documented artefact folder scheme, usually a dated folder for repeated exports/runs.
 2. Add/update `manifest.md`.
 3. Append `run-log.md`.
 4. Mark superseded artefacts.
 5. Add a decision only if the reasoning changed.
-6. Update `data-lineage.md` if the transform chain changed.
-7. Update `task-note-evidence.md` if the task note contains run evidence.
-8. Then write the Slack/Jira summary from the dossier.
+6. Update `data-lineage.md` if the transform chain changed, including artefact moves or renames.
+7. After moving or renaming artefacts, update Markdown references and run a link/path check for dossier-local files.
+8. Update `task-note-evidence.md` if the task note contains run evidence.
+9. Then write the Slack/Jira summary from the dossier.
 
 When investigation work produces code, a job, script, migration, one-off command, PR, or commit, record branch, commit SHA, PR URL, live entrypoint, inputs, outputs, and verification in `run-log.md`; update `data-lineage.md` if the code consumes investigation artefacts; add `reasoning-log.md` only if the implementation changes the approach.
 
