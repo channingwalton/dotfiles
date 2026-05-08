@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.74.0",
-  "defaultProvider": "openai",
-  "defaultModel": "gpt-5.5",
+  "defaultProvider": "llama-server",
+  "defaultModel": "ggml-org/Qwen3.6-35B-A3B-GGUF:Q8_0",
   "llamaServerUrl": "http://127.0.0.1:8080",
   "packages": [
     "npm:pi-llama-cpp"
