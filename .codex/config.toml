@@ -4,6 +4,14 @@ model_reasoning_effort = "high"
 approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
+[sandbox_workspace_write]
+writable_roots = [
+  "/Users/channing/Documents/Notes",
+  "/Users/channing/.codex/automations",
+  "/Users/channing/dev"
+  "/private/tmp",
+]
+
 [features]
 external_migration = true
 memories = true
