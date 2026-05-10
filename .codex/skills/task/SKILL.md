@@ -52,35 +52,34 @@ Tasks/
   <task-basename>.md
   <task-basename>/
     README.md
+    event-log.md
     manifest.md
-    timeline.md
-    reasoning-log.md
-    data-lineage.md
-    run-log.md
-    task-note-evidence.md
-    open-questions.md
+    sql-queries.md
     case-studies.md
-    Data/
 ```
 
-Keep bulky raw artefacts outside the vault only when needed; index them from `manifest.md` with stable paths, counts, checksums, and provenance.
+Keep bulky raw artefacts outside the vault only when needed; index them from `manifest.md` with stable paths, counts, optional checksums, and provenance.
 
 ## Links
 
 For investigation tasks, keep both filesystem routing and Obsidian navigation:
 
 - Task frontmatter uses `investigation_root` for machine routing.
-- Task body links to the dossier README, usually under `## Context` or `## Related`.
+- Task body links to the dossier README and key dossier files, usually near the top link block or under `## Context` / `## Related`.
 - Dossier README links back to the task note and links to every top-level dossier file.
 - Each top-level dossier Markdown file links back to the task note and dossier README.
 - Task `## Decision Log` is canonical for approved task decisions.
-- Dossier `reasoning-log.md` records evidence-backed investigation reasoning and links to evidence; do not make it a second Decision Log.
+- Task `## Open Questions` is canonical for active unresolved questions.
+- Dossier `event-log.md` records the chronological investigation story, including decisions, runs, transforms, Slack/Jira updates, and conclusions.
 - `manifest.md` indexes evidence paths; Markdown files explain why the evidence matters.
 
 Prefer Markdown links for sibling files with spaces:
 
 ```markdown
 - [Investigation dossier](./<task-basename>/README.md)
+- [Event log](./<task-basename>/event-log.md)
+- [Manifest](./<task-basename>/manifest.md)
+- [SQL queries](./<task-basename>/sql-queries.md)
 - [Task note](../<task-basename>.md)
 ```
 

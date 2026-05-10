@@ -10,19 +10,19 @@ memories = true
 goals = true
 
 [marketplaces.caveman-repo]
-last_updated = "2026-05-01T07:29:00Z"
-last_revision = "ef6050c5e1848b6880ff47c32ade1a608a64f85e"
+last_updated = "2026-05-10T19:06:50Z"
+last_revision = "754795ada42dea54adf061d42a61e560caa4f9ce"
 source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-08T22:38:45Z"
-last_revision = "76b35e91d1c99c090b1a08dade53bcc5e352c1b2"
+last_updated = "2026-05-10T19:06:51Z"
+last_revision = "00679aef889efe36bb0389f81d70b6229a2013ee"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-08T20:58:05Z"
+last_updated = "2026-05-10T19:06:50Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -171,6 +171,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/2026-05-08/show-me-your-full-context"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-09/if-i-ran-you-in-a"]
 trust_level = "trusted"
 
 [shell_environment_policy]
