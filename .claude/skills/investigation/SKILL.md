@@ -7,20 +7,17 @@ description: "Create and maintain local evidence dossiers for messy investigatio
 
 ## Principle
 
-Keep reasoning and provenance searchable; keep raw artefacts in place. Do not move, rewrite, or normalise evidence files unless the user explicitly asks.
+Keep the task note readable and the evidence traceable.
 
-The dossier answers:
+- Task note: `Current State`, `Decision Log`, and `Open Questions`.
+- Dossier: evidence story, artefact index, and optional worker/entity examples.
+- Artefacts: raw inputs and generated outputs, kept in stable folders.
 
-- What happened?
-- Which files prove it?
-- Which command produced each result?
-- Which decisions changed the approach?
-- Which artefacts are current vs superseded?
-- Which Slack/Jira/vault statements support the reported claims?
+Do not move, rewrite, or normalise evidence files unless the user explicitly asks.
 
-## Dossier Shape
+## Shape
 
-Core Markdown files at the investigation root:
+Core dossier files:
 
 ```text
 README.md
@@ -28,56 +25,29 @@ event-log.md
 manifest.md
 ```
 
-Create optional files only when the evidence needs them:
+Optional:
 
-- `case-studies.md` for entity-level examples.
+- `case-studies.md` for worker/entity/account examples.
 
-Keep artefacts in a clear folder scheme that fits the investigation. Prefer iteration folders named `0001`, `0002`, and so on when artefacts represent successive solution attempts. Use date folders only when the export or run date is the primary identity. Document folder roles in `README.md`. Keep the Markdown dossier files at the investigation root.
+Prefer numbered artefact folders such as `0001`, `0002`, `0003` when files represent successive attempts, runs, transforms, or comparisons. Use date folders only when the date is the real identity of the evidence.
 
-## Existing Dossier First
+## Existing Dossier
 
-Before editing an existing dossier, read the current `README.md`, `event-log.md`, `manifest.md`, and `case-studies.md` if present. Read the task note `## Open Questions` for active unresolved questions. Update the existing records instead of recreating structure.
+Before editing, read:
 
-## Linking
+- task note `Current State`, `Decision Log`, and `Open Questions`
+- dossier `README.md`
+- dossier `event-log.md`
+- dossier `manifest.md`
+- `case-studies.md`, if present
 
-If routed from a vault task, let `task` resolve the dossier root and maintain task/dossier navigation links. `investigation` owns dossier contents only.
-
-Keep raw or bulky artefacts linked from `manifest.md`; link from Markdown only when the artefact is directly discussed. Treat the task note `## Decision Log` as canonical for approved task decisions. Use `event-log.md` for the chronological investigation story, including decisions, runs, transforms, Slack/Jira updates, and conclusions. Do not duplicate the task Decision Log; summarise approved decisions with evidence links.
-
-## Manifest
-
-Use `manifest.md` as the artefact index. Paths should be relative to the investigation root or the external artefact root documented in `README.md`, for example `0001/run.csv`.
-
-Default Markdown table columns:
-
-`Path | Type | Role | Source / Command | Rows / Files | SHA-256 | Status | Notes`
-
-`SHA-256` is optional. Leave it blank for ordinary generated CSVs; use it when exact byte identity matters, such as copied source evidence, shared files, or regenerated files with stable names.
-
-Status values:
-
-- `active` - current source of truth or still relevant.
-- `superseded` - retained evidence, no longer the current source.
-- `unknown` - provenance not yet established.
-
-Use `type` for artefact shape or origin, such as `raw-csv`, `result-csv`, `analysis-csv`, `raw-folder`, or `external-vault-note`.
-
-Use parser-safe commands for counts and optional checksums:
-
-```bash
-date +%F
-wc -l "path/to/file.csv"
-shasum -a 256 "path/to/file.csv"
-ruby -rcsv -e 'puts CSV.read(ARGV[0], headers: true).length' "path/to/file.csv"
-```
-
-Use `rows_or_files` as data rows for CSVs when possible; say `file lines` if the file is malformed or line-wrapped.
+Update existing records; do not recreate structure.
 
 ## Event Log
 
-Use `event-log.md` as the primary chronological investigation log. Append one entry for every meaningful decision, simulation run, live run, rerun, data transform, comparison, Slack/Jira update, or conclusion.
+Use `event-log.md` as the chronological investigation story. Add one entry for every meaningful decision, run, transform, comparison, Slack/Jira update, or conclusion.
 
-Preferred format:
+Format:
 
 ```markdown
 ## YYYY-MM-DD [HH:MM] - <type> - <short title>
@@ -88,108 +58,67 @@ Preferred format:
 
 **Outcome:** <counts or observed result when useful>
 
-**Conclusion:** <what this means, whether it supersedes prior evidence>
+**Conclusion:** <what this means>
 
-**Links:** <Slack/Jira/PR links when relevant>
+**Links:** <Slack/Jira/PR links when useful>
 ```
 
-Keep entries concise. Put file inventory, row counts, status, and optional checksums in `manifest.md`; only include counts in `event-log.md` when they drive the investigation.
+Keep it concise. Put file inventory, row counts, status, and optional checksums in `manifest.md`. Only include counts in `event-log.md` when they affect interpretation.
 
-When parsing result counts, prefer a structured parser over text splitting if fields may contain delimiters.
+For decisions, use `type = decision` and include `Why`, `Rejected`, or `Evidence` when useful. The task note `Decision Log` remains canonical for approved task decisions.
 
-Before interpreting simulation output, identify categories that could be simulation artefacts, especially rows depending on records that would be created earlier in the same run. If a large skip class may be a simulation artefact, mark the run as blocked or superseded rather than sign-off evidence.
+## Manifest
 
-For local validation of environment-derived data, first verify the validation environment contains the referenced records or natural keys. If not, do not use the local run as behavioural evidence; use targeted tests or a real environment simulation.
+Use `manifest.md` as the artefact index.
 
-Before reporting exception counts from derived comparison outputs, sanity-check whether the categories may include false positives or false negatives. Record the matching assumptions and any known limits of the comparison.
+Default columns:
 
-## Decisions
+`Path | Type | Role | Source / Command | Rows / Files | SHA-256 | Status | Notes`
 
-Record investigation decisions as event-log entries with `type` set to `decision`. Include `Why`, `Rejected`, and `Evidence` when a choice changes the approach.
+Rules:
 
-The task note `## Decision Log` remains canonical for approved user-visible task decisions. The dossier event log records the evidence trail and may summarise task decisions with links back to the task note or Slack/Jira.
+- Paths are relative to the external artefact root or dossier root documented in `README.md`.
+- Status is usually `active`, `superseded`, or `unknown`.
+- `SHA-256` is optional; leave it blank unless exact byte identity matters.
+- Use parser-safe row counts for CSVs.
+- If a number cannot be reproduced from a file or command, mark it unproven.
 
-## Data Lineage
-
-Use `event-log.md` plus `manifest.md` for data lineage:
-
-- event-log entry: why the transform happened and what it produced.
-- manifest rows: exact paths, source command, row/file counts, status, notes, and optional checksum.
-
-Record provenance gaps explicitly. If a number cannot be reproduced from a file or command, mark it unproven rather than repeating it as fact.
-
-## Task Note Evidence
-
-If a vault task note contains commands, counts, Slack links, or conclusions, index the task note in `manifest.md` and summarise the relevant evidence in `event-log.md`.
-
-Workflow:
-
-1. Read the task note in full.
-2. Capture its path in `manifest.md`; include SHA-256 only if exact byte identity matters.
-3. Use `nl -ba` to cite line numbers.
-4. Group evidence by run/date, not by raw note order.
-5. Warn that line numbers drift if the task note changes.
-
-Command:
+Useful commands:
 
 ```bash
-nl -ba "$TASK_NOTE" | sed -n '1,220p'
-shasum -a 256 "$TASK_NOTE"
+date +%F
+wc -l "path/to/file.csv"
+ruby -rcsv -e 'puts CSV.read(ARGV[0], headers: true).length' "path/to/file.csv"
+shasum -a 256 "path/to/file.csv"
 ```
 
-Respect vault-task rules: if updating the task note itself, draft the change and wait for confirmation unless the user explicitly asked you to write it.
+## Linking
 
-## Slack, Jira, GitHub
+Keep navigation simple:
 
-Link external discussions; do not paste whole threads.
-
-Capture:
-
-- permalink
-- date
-- participants if relevant
-- exact decision, claim, or approval
-- related local artefact or run
-
-Use Jira/GitHub for formal ticket/PR state. Use the dossier for the reasoning trail and evidence archive.
-
-## Case Studies
-
-Use `case-studies.md` for entity/person/account/customer-level analysis while the examples fit in one file. Create `case-studies/` only when separate per-entity files are needed.
-
-Each case should capture:
-
-- source message or ticket link
-- export row or file reference
-- application record/query result reference
-- current interpretation
-- whether the issue is logic, missing source data, manual data, or expected limitation
+- Task note links to dossier `README.md`, `event-log.md`, `manifest.md`, and any other key dossier files.
+- Dossier `README.md` links back to the task note and each top-level dossier file.
+- Link Slack/Jira/GitHub by permalink; do not paste whole threads.
+- Link raw or bulky artefacts from `manifest.md`; link them from Markdown only when directly discussed.
 
 ## Update Ritual
 
-After every new run or important data transform:
+After every new run, transform, comparison, or evidence reorganisation:
 
-1. Put the input/output in the documented artefact folder scheme, usually the next numbered folder, for example `0002`, unless the dossier documents a different scheme.
-2. Add/update `manifest.md`.
-3. Append `event-log.md` with the run, transform, decision, Slack/Jira update, or conclusion.
+1. Put new files in the documented artefact folder scheme.
+2. Add or update `manifest.md`.
+3. Append `event-log.md`.
 4. Mark superseded artefacts in `manifest.md`.
-5. After moving or renaming artefacts, update Markdown references and run a link/path check for dossier-local files.
-6. Then write the Slack/Jira summary from the dossier.
+5. Update Markdown links if files moved or names changed.
 
-When investigation work produces code, a job, script, migration, one-off command, PR, or commit, record branch, commit SHA, PR URL, live entrypoint, inputs, outputs, and verification in `event-log.md`; update `manifest.md` for consumed or produced artefacts.
+When investigation work produces code, a job, script, migration, one-off command, PR, or commit, record branch, commit SHA, PR URL, entrypoint, inputs, outputs, and verification in `event-log.md`; index consumed or produced artefacts in `manifest.md`.
 
 ## Verification
 
 Before finishing:
 
-- Validate `manifest.md` has the standard table columns, or an explicitly documented equivalent.
 - Check referenced local files exist, unless intentionally external.
-- Check `event-log.md` is chronological, concise, and not raw log dumping.
+- Check `event-log.md` is chronological and not a raw log dump.
+- Check `manifest.md` has path, role/source, row/file count where useful, status, and notes.
 - Run `git status --short` when the dossier lives in a Git repository.
-- State any provenance gaps.
-
-Validation command:
-
-```bash
-ruby -e 'header = File.readlines("manifest.md").find { |l| l.start_with?("| Path |") }; abort "missing manifest header" unless header&.include?("Path") && header&.include?("Status"); puts "ok"'
-```
+- State remaining provenance gaps.
