@@ -15,63 +15,51 @@ Router for vault-backed task work. The task note is the canonical entry point; s
 4. Read linked Jira or GitHub issue if present.
 5. Read frontmatter and route by `task_type`. If missing, treat as `note`.
 
-Do not write to the task note unless the user explicitly asks for a change. For Current State, Decision Log, or Open Questions edits, use `task-note-update` and show the draft before writing.
+## Task Note Rules
+
+Do not write to the task note unless the user explicitly asks for a change.
+
+For `Current State`, `Decision Log`, or `Open Questions` edits, use `task-note-update` and show the draft before writing unless the user explicitly asked you to make the edit.
+
+The task note owns:
+
+- `Current State` - current working view.
+- `Decision Log` - approved task decisions.
+- `Open Questions` - active unresolved questions.
 
 ## Frontmatter
 
-Preferred fields:
+Preferred default:
 
 ```yaml
 task_type: note
 ```
 
-For investigations:
+Investigation tasks:
 
 ```yaml
 task_type: investigation
 investigation_root: ./<same-basename>/README.md
 ```
 
-If `investigation_root` is missing for an investigation task, look for a sibling folder with the same basename as the task note. Ask before creating or moving evidence.
+If `investigation_root` is missing, look for a sibling folder with the same basename as the task note. Ask before creating or moving evidence.
 
 ## Routes
 
-- `task_type: investigation` — load the task note, linked ticket, and sibling dossier; then use `investigation`.
-- `task_type: implementation` — load the task note and linked ticket; then use `software-development`.
-- `task_type: review` — load the task note and linked PR/ticket; then use `code-reviewer`.
-- `task_type: note` or missing — use `vault` and `task-note-update` as needed.
+- `task_type: investigation` - load the task note, linked ticket, and `investigation_root`; then use `investigation`.
+- `task_type: implementation` - load the task note and linked ticket; then use `software-development`.
+- `task_type: review` - load the task note and linked PR/ticket; then use `code-reviewer`.
+- `task_type: note` or missing - use `vault` and `task-note-update` as needed.
 
 If a task type is unknown, read the note and ask how to route it.
 
-## Investigation Dossiers
+## Investigation Links
 
-The dossier should live next to the task note:
+For investigation tasks:
 
-```text
-Tasks/
-  <task-basename>.md
-  <task-basename>/
-    README.md
-    event-log.md
-    manifest.md
-    sql-queries.md
-    case-studies.md
-```
-
-Keep bulky raw artefacts outside the vault only when needed; index them from `manifest.md` with stable paths, counts, optional checksums, and provenance.
-
-## Links
-
-For investigation tasks, keep both filesystem routing and Obsidian navigation:
-
-- Task frontmatter uses `investigation_root` for machine routing.
-- Task body links to the dossier README and key dossier files, usually near the top link block or under `## Context` / `## Related`.
-- Dossier README links back to the task note and links to every top-level dossier file.
-- Each top-level dossier Markdown file links back to the task note and dossier README.
-- Task `## Decision Log` is canonical for approved task decisions.
-- Task `## Open Questions` is canonical for active unresolved questions.
-- Dossier `event-log.md` records the chronological investigation story, including decisions, runs, transforms, Slack/Jira updates, and conclusions.
-- `manifest.md` indexes evidence paths; Markdown files explain why the evidence matters.
+- Frontmatter uses `investigation_root` for machine routing.
+- Body links to the dossier README and key dossier files near the top link block or under `## Context` / `## Related`.
+- Dossier details belong to the `investigation` skill.
 
 Prefer Markdown links for sibling files with spaces:
 
@@ -79,7 +67,6 @@ Prefer Markdown links for sibling files with spaces:
 - [Investigation dossier](./<task-basename>/README.md)
 - [Event log](./<task-basename>/event-log.md)
 - [Manifest](./<task-basename>/manifest.md)
-- [SQL queries](./<task-basename>/sql-queries.md)
 - [Task note](../<task-basename>.md)
 ```
 
