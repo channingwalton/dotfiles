@@ -36,7 +36,7 @@ If the active task note path isn't already known from the session, first try one
 
 4. **Show the proposed change** as a diff or as the full new section, and ask for confirmation. Do not write without explicit go-ahead.
 
-5. **Apply** with `apply_patch` for surgical changes once confirmed. Avoid rewriting the whole file unless unavoidable.
+5. **Apply** the change surgically once confirmed. Avoid rewriting the whole file unless unavoidable.
 
 If the user asks to update both task note and dossier, update dossier files directly under the investigation workflow, but still draft task-note changes and wait for approval.
 

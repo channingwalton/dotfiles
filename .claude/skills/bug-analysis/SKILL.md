@@ -1,7 +1,6 @@
 ---
 name: bug-analysis
 description: Analyse user-reported bugs before writing code. Use when the user describes an incident, customer report, support ticket, or production issue — symptoms like "users see X", "customers report Y", "something's wrong with Z". Separates symptom triage from code-level debugging.
-user_invocable: true
 ---
 
 # Bug Analysis
@@ -50,7 +49,7 @@ Ask for or search:
 **Concrete first moves:**
 
 - "Do you have a Slack thread for this? What's the channel + timestamp?"
-- `mcp__claude_ai_Slack__slack_search_public` with symptom keywords.
+- Search Slack with symptom keywords.
 - `getJiraIssue` for the ticket referenced in the branch/session name.
 - `git log` since yesterday for adjacent tickets — a partial fix may already have shipped.
 
@@ -100,11 +99,16 @@ Catch yourself thinking:
 |---------|---------|
 | "I'll just start grepping the code" | You don't know which code yet. Get the context. |
 | "Slack probably won't help" | Slack held the answer in the last MWL investigation. 19 turns wasted before checking. |
+| "The Slack thread is long, I'll skim" | Read the last 5 messages before the user's ask. That's where the state lives. |
 | "I'll form the hypothesis quickly then verify" | You'll verify against the wrong tool. |
 | "It must be [importer X]" | Why X? Prove X ran. |
+| "I know this codebase, I'll skip the pipeline check" | Codebases grow. The tool you remember may not be the one that ran. |
 | "I don't need the ticket, I have the symptom" | The ticket describes the symptom the user cares about, not the one you'd guess. |
+| "User already tried X, no point asking again" | Ask for the link, not the summary. Their summary omits what matters. |
+| "The user is busy, don't ask for ids" | 30 seconds of their time saves an hour of yours. |
+| "The report is vague but I get the gist" | The gist is the user's inference. Extract the observation. |
+| "Recent-changes check is low-value" | One recent-fix hit pays for a year of the habit. |
 | "This is taking too long, let me propose fixes" | Premature fixes propagate wrong assumptions. Cheaper to pause. |
-| "The Slack thread is long, I'll skim" | Read the last 5 messages before the user's ask. That's where the state lives. |
 | "Another agent and I both agree it's X" | Two agents reading the same code converge on the same bias. Agreement ≠ verification. |
 
 ## Multi-Agent Consultation
@@ -112,16 +116,6 @@ Catch yourself thinking:
 If using `chatter` or spawning a sub-agent for second opinion: confirm the other agent has **orthogonal context** (different tool access, different codebase, different knowledge domain). Two agents reading the same repo don't cross-verify — they co-hallucinate.
 
 Orthogonal = adds signal. Redundant = amplifies error with false confidence.
-
-## Common Rationalisations
-
-| Excuse | Reality |
-|--------|---------|
-| "User already tried X, no point asking again" | Ask for the link, not the summary. Their summary omits what matters. |
-| "I know this codebase, I'll skip the pipeline check" | Codebases grow. The tool you remember may not be the one that ran. |
-| "Recent-changes check is low-value" | One recent-fix hit pays for a year of the habit. |
-| "The user is busy, don't ask for ids" | 30 seconds of their time saves an hour of yours. |
-| "The report is vague but I get the gist" | The gist is the user's inference. Extract the observation. |
 
 ## Quick Reference
 
@@ -140,4 +134,3 @@ Investigations that skip Phase 1 routinely burn 10–20 turns hypothesising agai
 
 - **`systematic-debugging`** — the code-level root cause work that follows this skill.
 - **`chatter`** — multi-agent consultation; only useful with orthogonal context.
-- **`teach-me`** — fast Patchwork domain briefing; complements Phase 1.

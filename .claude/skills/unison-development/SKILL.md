@@ -32,19 +32,7 @@ Use descriptive branch names like `extract-domain-service` or `fix-login-bug`.
 
 ## Handling Typecheck Errors During Update
 
-When `update-definitions` returns affected definitions that no longer typecheck:
-
-```
--- The definitions below no longer typecheck with the changes above.
--- Please fix the errors and try `update` again.
-```
-
-**CRITICAL:**
-
-- The MCP server creates a temporary branch with affected code in `sourceCodeUpdates`
-- Fix ALL affected definitions and include them in the next `update-definitions` call
-- **DO NOT** omit functions — they will be removed from codebase
-- Include all fixes in a single `update-definitions` call
+When `update-definitions` returns `sourceCodeUpdates` for broken dependents, follow the [`unison-update`](../../commands/unison-update/SKILL.md) command.
 
 ## Modifying Abilities
 

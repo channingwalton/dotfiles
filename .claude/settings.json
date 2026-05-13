@@ -28,7 +28,6 @@
       "Bash(devtool:*)",
       "Bash(diff:*)",
       "Bash(docker:*)",
-      "Bash(echo:*)",
       "Bash(env:*)",
       "Bash(fd:*)",
       "Bash(find:*)",
@@ -50,7 +49,6 @@
       "Bash(pgrep:*)",
       "Bash(pnpm:*)",
       "Bash(printenv:*)",
-      "Bash(printf:*)",
       "Bash(python:*)",
       "Bash(python3:*)",
       "Bash(readlink:*)",
@@ -79,7 +77,6 @@
       "Read(/tmp/**)",
       "Write(/Users/channing/dev/**)",
       "Edit(/Users/channing/dev/**)",
-      "Skill(code-reviewer)",
       "Skill(vault)",
       "mcp__context7__resolve-library-id",
       "mcp__fetch__fetch",
@@ -144,8 +141,5 @@
   "autoDreamEnabled": true,
   "teammateMode": "tmux",
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754089297581
-  }
+  "voiceEnabled": true
 }

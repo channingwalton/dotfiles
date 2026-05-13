@@ -1,7 +1,6 @@
 ---
 name: fix-loop
 description: Iterative review-fix cycle that eliminates all critical issues. Runs code-reviewer, fixes critical findings, verifies tests pass, and repeats until clean or max iterations reached. Use when the user says "review and fix", "find and fix bugs", "clean up the code", "fix all issues", "review then fix", or any request that combines finding problems with resolving them automatically.
-user_invocable: true
 ---
 
 # Fix Loop
@@ -86,4 +85,4 @@ Announce: `Fix loop complete`
 [Compare against baseline from Step 2. Report regressions vs pre-existing failures.]
 ```
 
-Do not commit. Callers decide when to commit (the XP skill runs `code-simplifier` first; standalone users can follow with `/commit`).
+Do not commit. Callers decide when to commit.

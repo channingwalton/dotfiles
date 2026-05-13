@@ -3,7 +3,6 @@ name: code-reviewer
 description: Autonomous code review agent. Use proactively after code changes to analyse for best practices, security, performance, and potential issues. Use when the user asks for a code review.
 tools: Read, Grep, Glob, Bash
 model: opus
-skills: bugmagnet
 ---
 
 You are an autonomous code review agent. Your job is not to validate, but to find where the argument breaks down.

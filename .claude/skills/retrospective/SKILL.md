@@ -78,23 +78,18 @@ One rule per paragraph, one example max. Skills bloat when every retro adds thre
 Apply these?
 ```
 
-## Red Flags — restart
+## Red Flags — stop and restart
 
-- Praising what the user just praised (affirmation ≠ retrospection)
-- "Overall it went well" / "a few small things" (empty phrases)
-- Proposing an edit without a file path + section heading
-- Paragraphs of analysis with no concrete change attached
-- Applying edits before the user says yes
-- Bundling a domain fact and a skill rule into one finding
-
-If any of these fire, stop. Restart the retro with the sections above.
-
-## Common Mistakes
-
-- **Sycophancy.** "CLARIFY worked well" is empty. What premise did it *miss*?
+- **Sycophancy.** Praising what the user just praised. "CLARIFY worked well" is empty — what premise did it *miss*?
+- **Empty phrases.** "Overall it went well" / "a few small things". Be concrete or drop it.
 - **Generic advice.** "Test more" / "plan better" — not an edit. Name a file and section or drop it.
-- **Mixing layers.** A Postmark limit does not belong in the software-development skill. Project facts go to memory, skill rules go to skill files.
-- **Sprawl.** If a finding needs 30 lines to express, it's a rewrite, not a retro.
+- **No anchor.** Proposing an edit without a file path + section heading.
+- **Pure analysis.** Paragraphs of reflection with no concrete change attached.
+- **Premature application.** Applying edits before the user says yes.
+- **Layer mixing.** A project fact bundled into a skill-rule finding. Project facts → memory; skill rules → skill files.
+- **Sprawl.** A finding that needs 30 lines is a rewrite, not a retro.
+
+If any fire, stop. Restart with the sections above.
 
 ## Meta
 

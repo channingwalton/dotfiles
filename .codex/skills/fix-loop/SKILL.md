@@ -52,7 +52,6 @@ Three iterations is the cap because experience shows that if critical findings p
 
 3. **FIX (iteration N)** — Announce: `Fix iteration N/3 — addressing N critical issue(s)`
    - Fix only the critical findings.
-   - Use `apply_patch` for manual edits.
    - Preserve user changes and avoid unrelated refactors.
    - Record fixed, unfixable, files modified, and test status.
 

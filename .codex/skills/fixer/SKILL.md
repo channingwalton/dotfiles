@@ -15,7 +15,7 @@ You will receive:
 
 1. **READ** — Read each file containing a critical finding
 2. **CONTEXT** — Use `rg` or repository-native navigation to understand surrounding usage and patterns
-3. **FIX** — Apply the minimum change to resolve each critical finding using `apply_patch` for manual edits
+3. **FIX** — Apply the minimum change to resolve each critical finding
 4. **TEST** — Run the project test suite to verify fixes
 
 ## Fixing Principles
