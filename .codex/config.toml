@@ -1,6 +1,6 @@
 model = "gpt-5.5"
 personality = "pragmatic"
-model_reasoning_effort = "high"
+model_reasoning_effort = "xhigh"
 approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
@@ -8,7 +8,7 @@ approvals_reviewer = "guardian_subagent"
 writable_roots = [
   "/Users/channing/Documents/Notes",
   "/Users/channing/.codex/automations",
-  "/Users/channing/dev"
+  "/Users/channing/dev",
   "/private/tmp",
 ]
 
@@ -18,19 +18,19 @@ memories = true
 goals = true
 
 [marketplaces.caveman-repo]
-last_updated = "2026-05-10T19:06:50Z"
-last_revision = "754795ada42dea54adf061d42a61e560caa4f9ce"
+last_updated = "2026-05-12T20:32:52Z"
+last_revision = "63a91ecadbf4c4719a4602a5abb00883f9966034"
 source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-10T19:06:51Z"
-last_revision = "00679aef889efe36bb0389f81d70b6229a2013ee"
+last_updated = "2026-05-14T09:57:01Z"
+last_revision = "1a2f18b05cf5652fd25403e8d229fc884fb84103"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-10T19:06:50Z"
+last_updated = "2026-05-13T12:29:51Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -182,6 +182,15 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/2026-05-09/if-i-ran-you-in-a"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/fly/fly-core"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/omnear-model"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-11/files-mentioned-by-the-user-img"]
 trust_level = "trusted"
 
 [shell_environment_policy]

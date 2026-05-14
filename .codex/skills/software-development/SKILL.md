@@ -31,6 +31,8 @@ Requirements are arguments in disguise — stated conclusions resting on unstate
 
 **For UI changes**, pin down the exact dialog/page by *role* (which user type) and *app* (which bundle) before picking a component. When a component's name matches the feature in two different apps, that's a trap, not an answer. Ask for a screenshot or a navigation path.
 
+**For changes to code without an existing test seam**, surface the test-infrastructure choice to the user during CLARIFY — adding a test dep (mockk, testcontainers) or introducing an injection seam (client interface, function parameter) is a scope decision the user owns, not one to silently defer. Name the options explicitly.
+
 ### SLICE — Break Into Tasks
 
 Tasks must be **vertical** (end-to-end functionality), **small** (one TDD cycle), **ordered** (dependency first, then value), and **testable** (clear acceptance criteria). Slice by behaviour, not by implementation layer.
@@ -97,6 +99,7 @@ Only after step 4 passes is the task complete. Proceed to COMMIT.
 
 ## Phase 3: Commit (💾 COMMIT) — Autonomous
 
+0. If on the repo's main/trunk branch and no feature branch exists for this work, create one before committing (`git checkout -b <descriptive-name>`, prefix with the ticket ID if available). Committing to main forces peeling commits later and breaks tools that diff against main.
 1. Run `devtool check` (compile + lint + test) — must be green. No red commits; no pushes without a green check on every commit.
    Before running broad commit checks, inspect `git status --short --branch` and the branch diff. If the check will include substantial pre-existing branch changes outside the current task, say so and prefer targeted verification unless the user explicitly asks for the full check. If the user interrupts a broad check and asks to commit/push anyway, proceed only after targeted verification and record the interrupted check in the PR/final summary.
 2. Summarise what will be committed and ask the user to confirm.
