@@ -8,6 +8,7 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
   },
   "permissions": {
+    "defaultMode": "auto",
     "allow": [
       "WebFetch(domain:*)",
       "WebSearch",
@@ -42,6 +43,7 @@
       "Bash(mdls:*)",
       "Bash(mdfind:*)",
       "Bash(mkdir:*)",
+      "Bash(*/mysql@8.0/bin/mysql -h 127.0.0.1 -P 5433*)",
       "Bash(mv:*)",
       "Bash(node:*)",
       "Bash(nslookup:*)",

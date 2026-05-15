@@ -24,18 +24,18 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-14T09:57:01Z"
+last_updated = "2026-05-15T09:05:41Z"
 last_revision = "1a2f18b05cf5652fd25403e8d229fc884fb84103"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-13T12:29:51Z"
+last_updated = "2026-05-15T08:51:20Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-07T08:13:35Z"
+last_updated = "2026-05-15T09:13:23Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -82,7 +82,7 @@ enabled = true
 [plugins."slack@openai-curated"]
 enabled = true
 
-[plugins."browser-use@openai-bundled"]
+[plugins."browser@openai-bundled"]
 enabled = true
 
 [projects."/Users/channing/dev"]
