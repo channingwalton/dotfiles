@@ -30,7 +30,7 @@ Fixing is **controlled experimentation.** Each fix is a hypothesis: "this change
 
 ## Test Verification
 
-Run `devtool test` after fixing all findings. It detects the project type automatically.
+Run the project's canonical test command after fixing all findings. Find it from README/CONTRIBUTING, build scripts, package manager scripts, Makefile, or workspace instructions.
 
 If tests fail after fixes:
 1. Identify which fix caused the failure

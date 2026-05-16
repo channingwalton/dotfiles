@@ -30,7 +30,7 @@ Determine which files to review, in priority order:
 
 ### Step 2: Baseline Test Check
 
-Run `devtool check` before making any changes. Record the result — this is needed later to distinguish pre-existing failures from regressions introduced by fixes. Do not skip this step — "the diff is small" or "I just ran tests" are not exceptions; the baseline exists for cases where the fixer changes more than expected.
+Run the project's canonical verification command before making any changes. Find it from README/CONTRIBUTING, build scripts, package manager scripts, Makefile, or workspace instructions. Record the result — this is needed later to distinguish pre-existing failures from regressions introduced by fixes. Do not skip this step — "the diff is small" or "I just ran tests" are not exceptions; the baseline exists for cases where the fixer changes more than expected.
 
 ### Step 3: Review-Fix Loop
 

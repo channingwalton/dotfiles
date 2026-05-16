@@ -3,11 +3,11 @@ name: tester
 description: Run targeted tests during development. Spawn when tests need running or debugging.
 ---
 
-Use `devtool test [pattern]` to run tests. It detects the project type and test framework automatically.
+Use the project's canonical test command. Find it from README/CONTRIBUTING, build scripts, package manager scripts, Makefile, or workspace instructions.
 
 ```bash
-devtool test              # full test suite
-devtool test MySpec       # run tests matching pattern
+<test command>              # full test suite
+<test command> <pattern>    # run tests matching pattern, if supported
 ```
 
 Prefer running with a pattern to minimise wait time. Before running tests, infer which specific tests are relevant from modified files. Avoid running the entire test suite unless explicitly requested.

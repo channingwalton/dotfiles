@@ -17,7 +17,7 @@ One of: file path(s), git diff/PR reference, or directory to scan.
 4. **ANALYSE** — Apply checklist below
 5. **VERIFY** — For every finding you plan to mark **Critical**, construct a concrete reproduction: a failing test, a REPL snippet, or a step-by-step trace through the code with specific input values. If you cannot produce one, downgrade the finding or drop it. Surface-plausible bugs that don't survive a trace are the most expensive kind to publish.
 6. **DISCOVER** — Apply `bugmagnet` in autonomous mode for test coverage gaps.
-7. **DUPLICATES** — Run `devtool cpd <language> [directory]` when the project is detectable and the command is available. Infer the language from project files. Scope the directory to the review target where possible. Treat environment/tool failure separately from code findings.
+7. **DUPLICATES** — Run the project's configured duplicate-code check when one exists. Infer the language from project files. Scope the directory to the review target where possible. Treat missing tooling or environment/tool failure separately from code findings.
 8. **REPORT** — Generate structured findings
 
 ## Checklist
@@ -109,7 +109,7 @@ Each category targets a way that reasoning about code becomes unreliable.
 [Output from bugmagnet analysis]
 
 ## Duplicate Code
-[Output from devtool cpd — omit section if no duplicates found]
+[Output from duplicate-code check — omit section if no duplicates found]
 
 ## Recommendations
 [Prioritised action items]

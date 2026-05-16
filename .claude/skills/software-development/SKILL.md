@@ -100,7 +100,7 @@ Only after step 4 passes is the task complete. Proceed to COMMIT.
 ## Phase 3: Commit (💾 COMMIT) — Autonomous
 
 0. If on the repo's main/trunk branch and no feature branch exists for this work, create one before committing (`git checkout -b <descriptive-name>`, prefix with the ticket ID if available). Committing to main forces peeling commits later and breaks tools that diff against main.
-1. Run `devtool check` (compile + lint + test) — must be green. No red commits; no pushes without a green check on every commit.
+1. Run the project's canonical commit verification command (compile + lint + test) — must be green. Find it from README/CONTRIBUTING, build scripts, package manager scripts, Makefile, or workspace instructions. No red commits; no pushes without a green check on every commit.
    Before running broad commit checks, inspect `git status --short --branch` and the branch diff. If the check will include substantial pre-existing branch changes outside the current task, say so and prefer targeted verification unless the user explicitly asks for the full check. If the user interrupts a broad check and asks to commit/push anyway, proceed only after targeted verification and record the interrupted check in the PR/final summary.
 2. Summarise what will be committed and ask the user to confirm.
 3. Commit directly. Include `Co-authored-by: OpenAI Codex <noreply@openai.com>` in the commit trailer unless the user says otherwise.
@@ -131,7 +131,7 @@ Announce clearly when switching:
 🟢 DEVELOP → Making test pass
 🔵 REFACTOR → Improving [aspect]
 🔍 REVIEW → Delegating to fix-loop
-💾 COMMIT → Running devtool check, then committing approved changes
+💾 COMMIT → Running commit verification, then committing approved changes
 🔁 ITERATE → Reviewing remaining tasks and moving to next task
 ✅ COMPLETE → Feature done
 ```
