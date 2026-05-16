@@ -52,6 +52,9 @@ function updates {
   echo "\nCoursier\n"
   coursier update
 
+  echo "\nSkills\n"
+  npx skills update -g
+
   echo "\nRepos\n"
   $HOME/dotfiles/bin/backupRepos.sh
 
