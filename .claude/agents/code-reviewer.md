@@ -1,1 +1,0 @@
-code-reviewer/SKILL.md

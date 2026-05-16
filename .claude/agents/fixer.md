@@ -1,1 +1,0 @@
-fixer/SKILL.md

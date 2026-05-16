@@ -18,13 +18,13 @@ memories = true
 goals = true
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-16T21:54:43Z"
+last_updated = "2026-05-16T22:15:41Z"
 last_revision = "b5a156b6ecd2f69c418184b7c093930ddabaf9c0"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-15T20:18:45Z"
+last_updated = "2026-05-16T22:15:00Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -87,6 +87,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-16/does-codex-load-from-agents"]
 trust_level = "trusted"
 
 [shell_environment_policy]
