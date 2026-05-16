@@ -14,14 +14,15 @@
 🔴 RED    → Write ONE failing test
 🟢 GREEN  → Write MINIMUM code to pass
 ✅ VERIFY → Run affected-submodule tests (or whole project if none), confirm green
+🔄 ITERATE → Proceed to the next test 
 ```
 
 ## Detailed Steps
 
-### 🔴 RED — Write a Failing Test
+### 🔴 RED — Write ONE Failing Test
 
 1. Identify the next behaviour to implement
-2. Write a test that specifies that behaviour
+2. Write a single test that specifies that behaviour
 3. Run the test — it MUST fail
 4. If it passes: **your model of the code is wrong.** Investigate before continuing.
 5. **When mirroring a precedent (a sibling type, a "just like X" variant), the failing test must exercise the property that makes this *not* X.** Copying the precedent's tests proves the shape matches, not the contract. Ask "what is the one case where this differs from what I'm copying?" — write that. Example: `ZonedDateTime` exists to preserve zone, yet `Instant.compareTo` is instant-total while `ZonedDateTime.compareTo` tiebreaks on zone-ID — a test reusing one zone can't see the difference.
