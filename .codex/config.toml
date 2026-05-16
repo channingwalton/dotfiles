@@ -18,7 +18,7 @@ memories = true
 goals = true
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-16T21:52:20Z"
+last_updated = "2026-05-16T21:54:43Z"
 last_revision = "b5a156b6ecd2f69c418184b7c093930ddabaf9c0"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
@@ -80,118 +80,13 @@ enabled = true
 [projects."/Users/channing/dev"]
 trust_level = "trusted"
 
-[projects."/Users/channing/dev/chatter-example"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/ds"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/fabric/fabric-lite"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/fabric/fabric-skill"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/fabric/fabric-space"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/patchwork"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/patchwork/repos"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/patchwork/repos/PatchworkApps"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/patchwork/repos/PatchworkOnRails"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/patchwork/repos/kmono"]
-trust_level = "trusted"
-
 [projects."/Users/channing/dotfiles"]
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Notes"]
 trust_level = "trusted"
 
-[projects."/Users/channing/dev/patchwork/repos/InfraTools"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/patchwork/Data/RH-7429/Full Entitlements export"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/New project"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-03/files-mentioned-by-the-user-img"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-03/how-do-i-use-gpt-models"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-03/can-you-do-web-searches-as"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/treelog"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/treelog-direct"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-03/what-do-you-think-of-this"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Companies/Omnear/company"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/Music"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-04/what-does-codex-goal-do"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-06/do-you-keep-transcripts-of-all"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/ai-memory"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-07/how-do-i-run-codex-cli"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-07/i-want-to-know-how-to"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-07/my-chatter-skill-allows-you-and"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-08/whats-new-with-you"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-08/show-me-your-full-context"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-09/if-i-ran-you-in-a"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/fly/fly-core"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/omnear-model"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-05-11/files-mentioned-by-the-user-img"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Sidecar"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/skills"]
-trust_level = "trusted"
-
-[projects."/Users/channing"]
+[projects."/Users/channing/Documents/Codex/"]
 trust_level = "trusted"
 
 [shell_environment_policy]
