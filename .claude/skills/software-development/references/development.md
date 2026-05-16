@@ -24,6 +24,7 @@
 2. Write a test that specifies that behaviour
 3. Run the test — it MUST fail
 4. If it passes: **your model of the code is wrong.** Investigate before continuing.
+5. **When mirroring a precedent (a sibling type, a "just like X" variant), the failing test must exercise the property that makes this *not* X.** Copying the precedent's tests proves the shape matches, not the contract. Ask "what is the one case where this differs from what I'm copying?" — write that. Example: `ZonedDateTime` exists to preserve zone, yet `Instant.compareTo` is instant-total while `ZonedDateTime.compareTo` tiebreaks on zone-ID — a test reusing one zone can't see the difference.
 
 ### 🟢 GREEN — Make It Pass
 
@@ -40,3 +41,7 @@ Any failing test blocks — do not proceed.
 **Check the test script before running tests in a non-interactive or background context.** JS monorepos frequently alias `test` → watch mode (`jest --watch`, `vitest`). A test runner with no stdout after 30s is almost always watch mode, not a slow build. Prefer `test:run` / `test:ci`; if pnpm's `--` arg forwarding drops flags, invoke the runner binary directly (e.g. `../../node_modules/.bin/jest <args>` from a package dir).
 
 **Probe local services before invoking tools that depend on them.** Codegen hitting a GraphQL endpoint, migrations hitting a DB, auth flows hitting Keycloak — a one-line port check (`lsof -iTCP:<port> -sTCP:LISTEN`) beats an `ECONNREFUSED` round-trip. Cached schema / fixture files often make the live service optional; prefer those if they exist.
+
+## Red Flags
+
+- "I'll mirror the existing X exactly" — mirroring copies shape, not contract. Find the case where this isn't X, and test that.

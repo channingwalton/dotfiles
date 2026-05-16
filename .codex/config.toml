@@ -24,13 +24,13 @@ source_type = "git"
 source = "https://github.com/JuliusBrussee/caveman.git"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-15T09:05:41Z"
-last_revision = "1a2f18b05cf5652fd25403e8d229fc884fb84103"
+last_updated = "2026-05-16T10:00:55Z"
+last_revision = "5dbfa0fade3058791bf8134b2bd441cb9d5f9a10"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-15T08:51:20Z"
+last_updated = "2026-05-15T20:18:45Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -191,6 +191,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/2026-05-11/files-mentioned-by-the-user-img"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Sidecar"]
 trust_level = "trusted"
 
 [shell_environment_policy]
