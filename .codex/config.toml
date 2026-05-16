@@ -17,14 +17,8 @@ external_migration = true
 memories = true
 goals = true
 
-[marketplaces.caveman-repo]
-last_updated = "2026-05-12T20:32:52Z"
-last_revision = "63a91ecadbf4c4719a4602a5abb00883f9966034"
-source_type = "git"
-source = "https://github.com/JuliusBrussee/caveman.git"
-
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-16T21:49:28Z"
+last_updated = "2026-05-16T21:52:20Z"
 last_revision = "b5a156b6ecd2f69c418184b7c093930ddabaf9c0"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
