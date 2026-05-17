@@ -78,7 +78,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export PATH="/opt/homebrew/bin:$PATH"
 
-eval "$(cs java --jvm zulu:25 --env)"
+eval "$(cs java --jvm zulu:26 --env)"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)

@@ -18,7 +18,7 @@ memories = true
 goals = true
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-16T22:15:41Z"
+last_updated = "2026-05-17T09:43:34Z"
 last_revision = "b5a156b6ecd2f69c418184b7c093930ddabaf9c0"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
@@ -52,6 +52,7 @@ home = true
 "/Users/channing/dev/patchwork/repos/InfraTools" = 1777567164
 "/Users/channing/dev/treelog-direct" = 1777832181
 "/Users/channing" = 1778968167
+"/Users/channing/dev/omnear-model" = 1778971587
 
 [notice.external_config_migration_prompts.projects]
 "/Users/channing/dev/treelog-direct" = true
@@ -90,6 +91,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/2026-05-16/does-codex-load-from-agents"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/omnear-model"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/skills"]
 trust_level = "trusted"
 
 [shell_environment_policy]
