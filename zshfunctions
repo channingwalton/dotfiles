@@ -125,7 +125,7 @@ swap_files() {
 
 function gits() {
   for d in */.git; do
-    (cd "${d%/.git}" && echo "=== $PWD ===" && git status -sb)
+    (cd "${d%/.git}" && echo "=== $PWD ===" && git status -sb && echo "")
   done
 }
 

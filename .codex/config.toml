@@ -18,18 +18,18 @@ memories = true
 goals = true
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-17T09:43:34Z"
-last_revision = "b5a156b6ecd2f69c418184b7c093930ddabaf9c0"
+last_updated = "2026-05-18T10:33:09Z"
+last_revision = "f475d3ce5806c7edf9fc204ee276e7f45e24c798"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-16T22:15:00Z"
+last_updated = "2026-05-18T08:15:25Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-15T09:13:23Z"
+last_updated = "2026-05-18T09:13:24Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -53,6 +53,8 @@ home = true
 "/Users/channing/dev/treelog-direct" = 1777832181
 "/Users/channing" = 1778968167
 "/Users/channing/dev/omnear-model" = 1778971587
+"/Users/channing/dev/ds" = 1779051484
+"/Users/channing/dev/patchwork/repos" = 1779095208
 
 [notice.external_config_migration_prompts.projects]
 "/Users/channing/dev/treelog-direct" = true
@@ -97,6 +99,15 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/dev/skills"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/ds"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork/repos"]
 trust_level = "trusted"
 
 [shell_environment_policy]
