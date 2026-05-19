@@ -87,3 +87,10 @@ Insert newest-first at the top of the Decision Log list.
 - Don't bundle a decision and its rationale into a prose paragraph. Keep the **Why:** / **Rejected:** labels — they make the log scannable months later.
 - Don't lose still-relevant Current State when rewriting it. Fold what's still true into the new version; archive only what's now stale.
 - Don't write entries autonomously. The Decision Log only has value if I trust it; that trust requires me to have seen every entry before it landed.
+
+## Context discipline
+
+- Prefer LSP/native navigation first; otherwise explore in two passes: locate first (Grep `files_with_matches`/`count`, `head_limit`, narrow glob), then read only the slice needed (Read with offset/limit around the match). Widen only if required.
+- Never dump whole large/generated files or repo-wide content; search for the specific symbol/section.
+- Diffs: `git diff --stat` / `--name-only` first, then `git diff -- <file>`.
+- Logs: report the result on success, full error on failure (devtool already does this).

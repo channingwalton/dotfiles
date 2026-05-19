@@ -134,10 +134,10 @@
     "chrome-devtools-mcp@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/0.22.0",
-        "version": "0.22.0",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/1.0.1",
+        "version": "1.0.1",
         "installedAt": "2026-03-20T15:58:33.356Z",
-        "lastUpdated": "2026-05-05T11:49:57.592Z",
+        "lastUpdated": "2026-05-19T08:49:54.805Z",
         "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
       }
     ],
