@@ -13,6 +13,7 @@ Location: `~/Documents/Notes/` (vault name: `Notes`)
 2. **Plain Unix commands for vault operations** — treat the vault as Markdown files under `~/Documents/Notes`; do not use the `obsidian` CLI
 3. **WikiLinks for connections** — build traversable knowledge graph
 4. **ALWAYS**: New tasks should be in an `open` state
+5. **ALWAYS**: Dates in headings and prose should be obsidian links: [[yyyy-MM-ddd]]
 
 ## Templates
 
@@ -208,6 +209,7 @@ find "$VAULT/Projects" -type f -name '*.md' -mtime -1 ! -path '*/Tasks/*' ! -pat
 Search Slack for important conversations **the user is involved in** today. Use `slack_search_public_and_private` with `from:<@USER_ID>` and date filters to find messages the user sent. Then read the threads of those messages to get full context. **Only include conversations the user participated in. Exclude DMs.**
 
 For each noteworthy conversation, capture:
+
 - A one-line summary
 - A link to the thread (from the message permalink)
 
