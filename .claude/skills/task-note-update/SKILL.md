@@ -5,7 +5,7 @@ description: Append a Decision Log entry, rewrite Current State, or resolve an O
 
 # Task Note Update
 
-Maintains the running record on a task note. Conventions live in the active project instructions under "Task Notes" - this skill implements the propose-then-write loop.
+Maintains the running record on a task note via a propose-then-write loop. This skill owns the section formats; the active project instructions hold note location and the people-linking convention.
 
 ## When to use
 

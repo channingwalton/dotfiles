@@ -44,49 +44,15 @@ Tasks I work on are tracked as notes in my Obsidian vault at:
 
 `~/Documents/Notes/Projects/<project>/Tasks/<YYYY-MM-DD HHMMSS> <ID> <title>.md`
 
-The note is the canonical working memory for the task. JIRA or GitHub holds the formal ticket; the task note holds the *current state of my thinking* — what we tried, what we rejected, where we got to.
+The note is the canonical working memory for the task — *the current state of my thinking* (what we tried, what we rejected, where we got to). JIRA or GitHub holds the formal ticket.
 
-### When I reference a task note
+When I reference a task note, use the `task` skill to resolve and route it, and `task-note-update` to capture decisions, Current State, or Open Question changes. Those skills own the section formats and the propose-then-write loop.
 
-1. Read the task note in full.
-2. Read the linked JIRA or GitHub issue.
-3. Treat **Current State**, **Decision Log**, and **Open Questions** as the working context. If those sections don't exist in a task note, offer to add them.
+Conventions those skills don't hold:
 
-#### While working — keep the task note current
-
-Watch for these signals and **propose** an update — never write silently. Draft the change, show it to me, write on confirmation.
-
-**Direction change, approach rejected, or trade-off made** → propose a Decision Log entry. Format:
-
-```
-- **[[YYYY-MM-DD]]** — <what changed>. **Why:** <reason>. **Rejected:** <alternative considered, with one-line why-not>.
-```
-
-Always run `date +%Y-%m-%d` via bash for the date — never hardcode. Wrap it as an Obsidian wikilink `[[YYYY-MM-DD]]` so it backlinks to the daily note. Insert newest-first at the top of the Decision Log list.
-
-**Active approach changes** → propose a Current State rewrite. Current State is **overwrite-only** (never appended). Three to five sentences covering: where we are now, the active approach, what's blocking. Update the `*Updated: [[YYYY-MM-DD]]*` line.
-
-**Open Question gets answered** → propose where the answer lands first, then remove the question:
-
-- Decision Log if it shaped a choice.
-- Current State if it's just information.
-- New task / JIRA ticket if it's out of scope (leave a one-line pointer in Open Questions if it's load-bearing).
-
-### Format rules
-
-- One decision per Decision Log entry. If two decisions were made together, write two entries.
-- The **Why** is mandatory. If you can't articulate it, ask me.
-- Decision Log is append-only and dated. Don't edit or delete prior entries.
-- Current State has no history — folded into the new version or dropped.
-- Open Questions are ephemeral; they should empty over time.
-- If you refer to people by full name use [[@Firstname Surname]]
-
-### Anti-patterns
-
-- Don't echo JIRA content into the task note. The note is for *the journey*; the ticket is for the formal record.
-- Don't bundle a decision and its rationale into a prose paragraph. Keep the **Why:** / **Rejected:** labels — they make the log scannable months later.
-- Don't lose still-relevant Current State when rewriting it. Fold what's still true into the new version; archive only what's now stale.
-- Don't write entries autonomously. The Decision Log only has value if I trust it; that trust requires me to have seen every entry before it landed.
+- Read the linked ticket yourself — don't ask me to summarise it.
+- If **Current State**, **Decision Log**, or **Open Questions** are missing from a note, offer to add them.
+- Refer to people by full name as `[[@Firstname Surname]]`.
 
 ## Context discipline
 
