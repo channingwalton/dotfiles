@@ -26,11 +26,11 @@ If the active task note path isn't already known from the session, first try one
 
    **Decision Log entry** — insert newest-first at the top of the list:
    ```
-   - **YYYY-MM-DD** — <what changed>. **Why:** <reason>. **Rejected:** <alternative considered, one-line why-not>.
+   - **[[YYYY-MM-DD]]** — <what changed>. **Why:** <reason>. **Rejected:** <alternative considered, one-line why-not>.
    ```
    The **Why** is mandatory. If the user hasn't articulated it, ask before drafting.
 
-   **Current State** — overwrite the existing block. Three to five sentences covering: where we are now, the active approach, what's blocking. Update the `*Updated: YYYY-MM-DD*` line. Fold any still-relevant content from the previous version into the new one; do not append.
+   **Current State** — overwrite the existing block. Three to five sentences covering: where we are now, the active approach, what's blocking. Update the `*Updated: [[YYYY-MM-DD]]*` line. Fold any still-relevant content from the previous version into the new one; do not append.
 
    **Open Question resolution** — write the destination first (a Decision Log entry, a Current State edit, or a pointer to a spun-out task). Then remove the question from the Open Questions list. The *destination* is what removes the question — not just having an answer.
 
@@ -47,6 +47,7 @@ If the user asks to update both task note and dossier, update dossier files dire
 - Current State is overwrite-only and has no internal history.
 - Open Questions are ephemeral and should empty over time.
 - Use British spelling.
+- Dates are Obsidian wikilinks `[[YYYY-MM-DD]]` — never bare `YYYY-MM-DD` — so they backlink to daily notes.
 
 ## Anti-patterns
 

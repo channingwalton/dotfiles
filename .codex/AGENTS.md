@@ -59,12 +59,12 @@ Watch for these signals and **propose** an update — never write silently. Draf
 **Direction change, approach rejected, or trade-off made** → propose a Decision Log entry. Format:
 
 ```
-- **YYYY-MM-DD** — <what changed>. **Why:** <reason>. **Rejected:** <alternative considered, with one-line why-not>.
+- **[[YYYY-MM-DD]]** — <what changed>. **Why:** <reason>. **Rejected:** <alternative considered, with one-line why-not>.
 ```
 
-Insert newest-first at the top of the Decision Log list.
+Always run `date +%Y-%m-%d` via bash for the date — never hardcode. Wrap it as an Obsidian wikilink `[[YYYY-MM-DD]]` so it backlinks to the daily note. Insert newest-first at the top of the Decision Log list.
 
-**Active approach changes** → propose a Current State rewrite. Current State is **overwrite-only** (never appended). Three to five sentences covering: where we are now, the active approach, what's blocking. Update the `*Updated: YYYY-MM-DD*` line.
+**Active approach changes** → propose a Current State rewrite. Current State is **overwrite-only** (never appended). Three to five sentences covering: where we are now, the active approach, what's blocking. Update the `*Updated: [[YYYY-MM-DD]]*` line.
 
 **Open Question gets answered** → propose where the answer lands first, then remove the question:
 

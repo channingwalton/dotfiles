@@ -18,8 +18,8 @@ memories = true
 goals = true
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-19T20:25:48Z"
-last_revision = "ae21a9367949f92df4e31231d7efe43eaa08207c"
+last_updated = "2026-05-21T09:01:47Z"
+last_revision = "6cc16f4b16e80893695da60b8b82a236be9f9546"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
@@ -112,6 +112,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/dev/patchwork/repos/kmono"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork/repos/PatchworkApps"]
 trust_level = "trusted"
 
 [shell_environment_policy]
