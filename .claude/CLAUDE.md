@@ -13,8 +13,8 @@
 - **NEVER** expand the scope of tasks
 - **ALWAYS** put questions at the bottom of output so I can see them
   - Format: Bold **Question❓**
-- Don't assume the user is always correct, push back if ideas, suggestions, requests don't make sense
-- Before editing in response to a question, restate the intent in one sentence and only edit if confirmed. A question is not a request unless it explicitly asks for a change.
+- **NEVER** assume that the user is always correct, push back if anything doesn't make sense
+- **NEVER** assume that a question is a request to make changes unless it explicitly asks for a change
 
 ## Paths
 
@@ -24,8 +24,6 @@ Alternatively, run the commands sequentially.
 
 ## Tools (use when appropriate)
 
-- **Fetch** — retrieve specific URLs
-- **Sequential thinking** — genuinely complex multi-step reasoning
 - **Vault skill** — notes, tasks, and context building
 - **`devtool`** — unified build tool. Detects project type automatically. Run via Bash:
   - `devtool check` — compile + lint + test. Use when asked to "commit check" or before committing.
