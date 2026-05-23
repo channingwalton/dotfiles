@@ -4,6 +4,8 @@ model_reasoning_effort = "xhigh"
 approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
+notify = ["/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+
 [sandbox_workspace_write]
 writable_roots = [
   "/Users/channing/Documents/Notes",
@@ -16,20 +18,21 @@ writable_roots = [
 external_migration = true
 memories = true
 goals = true
+js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-21T10:16:56Z"
-last_revision = "6cc16f4b16e80893695da60b8b82a236be9f9546"
+last_updated = "2026-05-22T14:58:14Z"
+last_revision = "cb8424c0997bd26effb85fc182ae8737ace3b06f"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-19T15:32:23Z"
+last_updated = "2026-05-22T09:34:04Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-19T16:13:26Z"
+last_updated = "2026-05-22T09:13:30Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -39,6 +42,23 @@ url = "https://developers.openai.com/mcp"
 [mcp_servers.unison]
 command = "/opt/homebrew/bin/ucm"
 args = ["mcp"]
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/Codex.app/Contents/Resources/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+BROWSER_USE_AVAILABLE_BACKENDS = "iab"
+BROWSER_USE_MARKETPLACE_NAME = "openai-bundled"
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+CODEX_HOME = "/Users/channing/.codex"
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = ""
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/node"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "167fdf579477181fba1773c1efb067b00c5a64fe85dafb50a2001bde198dc739"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
+NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "BROWSER_USE_MARKETPLACE_NAME"
 
 [notice]
 fast_default_opt_out = true
@@ -135,3 +155,49 @@ status_line = ["model-with-reasoning", "current-dir", "context-remaining", "five
 
 [apps.connector_76869538009648d5b282a4bb21c3d157.tools.github_create_pull_request]
 approval_mode = "approve"
+
+[desktop]
+appearanceTheme = "dark"
+appearanceLightCodeThemeId = "codex"
+appearanceDarkCodeThemeId = "linear"
+usePointerCursors = false
+dictationDictionary = ["Patchwork", "Channing", "Omnear"]
+git-show-sidebar-pr-icons = true
+
+[desktop.appearanceLightChromeTheme]
+accent = "#0169cc"
+contrast = 40
+ink = "#0d0d0d"
+opaqueWindows = true
+surface = "#f9f9f7"
+
+[desktop.appearanceLightChromeTheme.fonts]
+code = '"Geist Mono", ui-monospace, "SFMono-Regular"'
+ui = "Geist, Inter"
+
+[desktop.appearanceLightChromeTheme.semanticColors]
+diffAdded = "#00a240"
+diffRemoved = "#e02e2a"
+skill = "#751ed9"
+
+[desktop.appearanceDarkChromeTheme]
+accent = "#606acc"
+contrast = 50
+ink = "#e3e4e6"
+opaqueWindows = true
+surface = "#0f0f11"
+
+[desktop.appearanceDarkChromeTheme.fonts]
+code = '"Geist Mono", ui-monospace, "SFMono-Regular"'
+ui = "Inter"
+
+[desktop.appearanceDarkChromeTheme.semanticColors]
+diffAdded = "#69c967"
+diffRemoved = "#ff7e78"
+skill = "#c2a1ff"
+
+[desktop.open-in-target-preferences]
+global = "zed"
+
+[desktop.open-in-target-preferences.perPath]
+"/Users/channing/dotfiles" = "zed"

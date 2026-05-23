@@ -63,6 +63,8 @@ alias ddc=deleteDockerContainers
 alias cc='devtool check'
 alias compile='devtool compile'
 
+alias login-aws='open "https://d-9c67095769.awsapps.com/start/#/?tab=accounts"'
+
 export DIRENV_ALLOW=$HOME
 
 # paths
@@ -122,4 +124,5 @@ export PATH="/Users/channing/.codeium/windsurf/bin:$PATH"
 # Prefer personal bin (contains codex symlink to Codex.app) over asdf shims
 export PATH="${MY_BIN}:$PATH"
 
-alias login-aws='open "https://d-9c67095769.awsapps.com/start/#/?tab=accounts"'
+export RETROSPECTIVE_DIR=~/dev/retrospectives
+
