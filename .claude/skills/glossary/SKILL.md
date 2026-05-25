@@ -7,14 +7,15 @@ description: Add domain terms to project glossary in the Obsidian vault. Use whe
 
 Add domain terms to project glossaries in the Obsidian vault.
 
-## Vault Location
+## Location
 
-`~/Documents/Notes/Projects/<YYYY[-MM] Project>/Glossary.md`
+Use the project's glossary note or folder under `~/Documents/Notes/Projects/<project>/Glossary/`. Search first; do not create duplicates.
 
 ## Workflow
 
-1. Search for existing term: `rg -i "<term>" ~/Documents/Notes/Projects/*<project>*/Glossary.md`
-2. If not found, add using the format below
+1. Search existing glossary/project notes for the term and aliases.
+2. Add or update one glossary entry.
+3. Link related vault notes with WikiLinks.
 
 ## Entry Format
 
@@ -34,22 +35,7 @@ Add domain terms to project glossaries in the Obsidian vault.
 
 For simple terms, **Definition** alone is sufficient.
 
-## Example
-
-```markdown
-## Roster
-
-**Definition:** A scheduled assignment of workers to shifts over a defined period.
-
-**Context:** Core concept in workforce management. Contains shift assignments for multiple workers across days/weeks.
-
-**Also known as:** Schedule, rota, shift pattern
-
-**Related:** [[Shift]], [[Worker]], [[Duty]]
-```
-
 ## Guidelines
 
 - Plain language — avoid defining jargon with more jargon
-- Link generously to related terms
 - Update definitions as understanding evolves
