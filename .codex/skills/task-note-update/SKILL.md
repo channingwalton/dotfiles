@@ -5,55 +5,51 @@ description: Append a Decision Log entry, rewrite Current State, or resolve an O
 
 # Task Note Update
 
-Maintains the running record on a task note via a propose-then-write loop. This skill owns the section formats; the active project instructions hold note location and the people-linking convention.
+Maintains `Current State`, `Decision Log`, and `Open Questions` via a propose-then-write loop.
 
 ## When to use
 
-The user is working on a task tracked in their Obsidian vault and wants something captured durably: a decision just made, a change in approach, or the resolution of an open question.
-
-If the active task note path isn't already known from the session, first try one narrow lookup from repo/project context. If exactly one matching open task note is found, use it and name the path; otherwise ask. Don't guess.
+Use when the user wants a task-note decision, state change, or open-question resolution captured durably.
 
 ## Procedure
 
-1. **Confirm what's being captured.** If unclear, ask which section the update belongs in:
-   - Decision Log — direction change, rejected approach, tradeoff made.
-   - Current State — "where we are now" has changed.
-   - Open Questions — new question to track, or resolving an existing one.
+1. Resolve the active task note. If one exact match is not clear, ask; do not guess.
 
-2. **Get today's date** via `date +%Y-%m-%d` in bash. Never hardcode.
+2. If unclear, ask which section changes: `Decision Log`, `Current State`, or `Open Questions`.
 
-3. **Draft the change.**
+3. Get today's date via `date +%Y-%m-%d` in bash. Never hardcode.
+
+4. Draft the change.
 
    **Decision Log entry** — insert newest-first at the top of the list:
    ```
    - **[[YYYY-MM-DD]]** — <what changed>. **Why:** <reason>. **Rejected:** <alternative considered, one-line why-not>.
    ```
-   The **Why** is mandatory. If the user hasn't articulated it, ask before drafting.
+   `Why` is mandatory. Ask if missing.
 
-   **Current State** — overwrite the existing block. Three to five sentences covering: where we are now, the active approach, what's blocking. Update the `*Updated: [[YYYY-MM-DD]]*` line. Fold any still-relevant content from the previous version into the new one; do not append.
+   **Current State** — overwrite the block. Three to five sentences covering current position, active approach, and blockers. Update `*Updated: [[YYYY-MM-DD]]*`.
 
-   **Open Question resolution** — write the destination first (a Decision Log entry, a Current State edit, or a pointer to a spun-out task). Then remove the question from the Open Questions list. The *destination* is what removes the question — not just having an answer.
+   **Open Question resolution** — write the destination first (`Decision Log`, `Current State`, or spun-out task), then remove the question.
 
-4. **Show the proposed change** as a diff or as the full new section, and ask for confirmation. Do not write without explicit go-ahead.
+5. Show the proposed diff or full new section and ask for confirmation. Do not write without explicit go-ahead.
 
-5. **Apply** the change surgically once confirmed. Avoid rewriting the whole file unless unavoidable.
+6. Apply surgically once confirmed.
 
 If the user asks to update both task note and dossier, update dossier files directly under the investigation workflow, but still draft task-note changes and wait for approval.
 
 ## Format rules
 
-- One decision per Decision Log entry; if two decisions were made together, write two entries.
+- One decision per Decision Log entry.
 - Decision Log is append-only and dated. Do not edit or delete prior entries.
-- Current State is overwrite-only and has no internal history.
+- Current State is overwrite-only.
 - Open Questions are ephemeral and should empty over time.
 - Use British spelling.
 - Dates are Obsidian wikilinks `[[YYYY-MM-DD]]` — never bare `YYYY-MM-DD` — so they backlink to daily notes.
 
 ## Anti-patterns
 
-- Writing without confirmation. The Decision Log's value is the user's trust in it; silent writes erode that.
-- Treating a broad "yes" to capture/update as approval to write exact task-note text that has not been shown. Draft the task-note edit first; dossier edits may still proceed directly when the investigation workflow allows it.
-- Decision Log entries without a **Why** — refuse to write, ask first.
+- Writing without confirmation.
+- Treating a broad "yes" as approval to write exact text that has not been shown.
+- Decision Log entries without a **Why**.
 - Echoing JIRA content into the task note. Link, don't copy.
-- Merging "what" and "why" into prose. Keep the bold labels.
 - Hardcoding dates instead of running `date`.
