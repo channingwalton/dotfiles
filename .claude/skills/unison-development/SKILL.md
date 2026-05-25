@@ -1,12 +1,12 @@
 ---
 name: unison-development
-description: Write, test, and update Unison code using the Unison MCP tool. Use when working with Unison language files (.u extension), UCM operations, or Unison projects. An extension to the XP skill.
+description: Write, test, update, and repair Unison code using Unison MCP tools when available. Use when working with Unison language files (.u extension), UCM operations, Unison projects, or when `update-definitions` returns `sourceCodeUpdates` for affected definitions that no longer typecheck. An extension to the software-development skill.
 ---
 
 # Unison Development
 
 - Uses `software-development` skill.
-- Use the Unison MCP server commands for all operations.
+- Use Unison MCP tools for all operations when they are available in the current session. If they are unavailable, stop and say the Unison tool is missing rather than falling back to ad hoc UCM commands.
 
 ## Core Principles
 
@@ -30,9 +30,21 @@ Use descriptive branch names like `extract-domain-service` or `fix-login-bug`.
 3. **Update**: Use `mcp__unison__update-definitions` to apply changes directly to the codebase
 4. **Test**: Use `mcp__unison__run-tests` to verify changes
 
-## Handling Typecheck Errors During Update
+## Handling `sourceCodeUpdates`
 
-When `update-definitions` returns `sourceCodeUpdates` for broken dependents, follow the [`unison-update`](../../commands/unison-update/SKILL.md) command.
+When `update-definitions` returns affected definitions that no longer typecheck:
+
+```
+-- The definitions below no longer typecheck with the changes above.
+-- Please fix the errors and try `update` again.
+```
+
+**CRITICAL:**
+
+- The MCP server creates a temporary branch with affected code in `sourceCodeUpdates`
+- Fix ALL affected definitions and include them in the next `update-definitions` call
+- **DO NOT** omit functions — they will be removed from codebase
+- Include all fixes in a single `update-definitions` call
 
 ## Modifying Abilities
 
@@ -47,4 +59,3 @@ When modifying abilities, include all affected dependents in the same update:
 - All code typechecks successfully via MCP tools
 - Tests pass via `mcp__unison__run-tests`
 - Fully qualified names used throughout
-

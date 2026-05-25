@@ -1,6 +1,6 @@
 ---
 name: unison-development
-description: Write, test, and update Unison code using Unison MCP tools when available. Use when working with Unison language files (.u extension), UCM operations, or Unison projects. An extension to the software-development skill.
+description: Write, test, update, and repair Unison code using Unison MCP tools when available. Use when working with Unison language files (.u extension), UCM operations, Unison projects, or when `update-definitions` returns `sourceCodeUpdates` for affected definitions that no longer typecheck. An extension to the software-development skill.
 ---
 
 # Unison Development
@@ -30,7 +30,7 @@ Use descriptive branch names like `extract-domain-service` or `fix-login-bug`.
 3. **Update**: Use `mcp__unison__update-definitions` to apply changes directly to the codebase
 4. **Test**: Use `mcp__unison__run-tests` to verify changes
 
-## Handling Typecheck Errors During Update
+## Handling `sourceCodeUpdates`
 
 When `update-definitions` returns affected definitions that no longer typecheck:
 
