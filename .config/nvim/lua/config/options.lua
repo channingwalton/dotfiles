@@ -12,4 +12,4 @@ vim.opt.scrolloff = 10
 vim.opt.linebreak = true
 vim.opt.timeoutlen = 300
 
-vim.lsp.set_log_level(vim.log.levels.ERROR)
+vim.lsp.log.set_level(vim.log.levels.ERROR)

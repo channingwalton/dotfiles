@@ -123,6 +123,7 @@
 *.log
 .DS_Store
 **/lazy-lock.json
+!/.config/nvim/lazy-lock.json
 **/packer_compiled.lua
 **/__pycache__/
 *.pyc
