@@ -21,13 +21,13 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-25T11:19:40Z"
+last_updated = "2026-05-26T13:49:51Z"
 last_revision = "1b527e2ee74e6dbd198e22cd41701c3b6f47dfec"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-25T11:13:17Z"
+last_updated = "2026-05-26T13:48:08Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -77,11 +77,13 @@ home = true
 "/Users/channing/dev/patchwork/repos" = 1779095208
 "/Users/channing/dev/patchwork/repos/kmono" = 1779178311
 "/Users/channing/dev/patchwork/L2P" = 1779537973
+"/Users/channing/dev/patchwork/repos/PatchworkOnRails" = 1779782675
 
 [notice.external_config_migration_prompts.projects]
 "/Users/channing/dev/treelog-direct" = true
 "/Users/channing/dev/patchwork/repos/InfraTools" = true
 "/Users/channing/dev/patchwork/L2P" = true
+"/Users/channing/dev/patchwork/repos/PatchworkOnRails" = true
 
 [plugins."atlassian-rovo@openai-curated"]
 enabled = true
@@ -144,6 +146,12 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/dev/patchwork/L2P"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/patchwork/repos/PatchworkOnRails"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-05-26/i-want-you-to-perform-a"]
 trust_level = "trusted"
 
 [shell_environment_policy]

@@ -202,6 +202,16 @@
         "lastUpdated": "2026-05-05T08:45:45.887Z",
         "gitCommitSha": "807e03ac9d5aa23bc395fdec8c3767500a86b3cf"
       }
+    ],
+    "understand-anything@understand-anything": [
+      {
+        "scope": "user",
+        "installPath": "/Users/channing/.claude/plugins/cache/understand-anything/understand-anything/2.7.5",
+        "version": "2.7.5",
+        "installedAt": "2026-05-26T14:09:32.674Z",
+        "lastUpdated": "2026-05-26T14:09:32.674Z",
+        "gitCommitSha": "26edf61856fa476e466bda1814819a266a293c47"
+      }
     ]
   }
 }
