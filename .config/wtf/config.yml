@@ -18,53 +18,23 @@ wtf:
       position:
         top: 0
         left: 0
-        height: 1
+        height: 2
         width: 1
       refreshInterval: 30s
       title: "Local Repos"
       type: cmdrunner
 
-    # GitHub PRs - my PRs and review requests from last week
-    prs:
+    # Service versions across environments
+    serviceVersions:
       args: []
-      cmd: "/Users/channing/dotfiles/bin/wtf-prs"
-      enabled: true
-      pty: true
-      position:
-        top: 1
-        left: 0
-        height: 1
-        width: 1
-      refreshInterval: 5m
-      title: "GitHub PRs"
-      type: cmdrunner
-
-    # Daily note - latest with content from Obsidian vault
-    daily:
-      args: []
-      cmd: "/Users/channing/dotfiles/bin/wtf-daily"
+      cmd: "/Users/channing/dev/patchwork/repos/kmono/tools/service-versions.sh"
       enabled: true
       pty: true
       position:
         top: 0
         left: 1
-        height: 1
+        height: 2
         width: 1
-      refreshInterval: 5m
-      title: "Daily Note"
-      type: cmdrunner
-
-    # Weekly note - latest from Obsidian vault
-    weekly:
-      args: []
-      cmd: "/Users/channing/dotfiles/bin/wtf-weekly"
-      enabled: true
-      pty: true
-      position:
-        top: 1
-        left: 1
-        height: 1
-        width: 1
-      refreshInterval: 5m
-      title: "Weekly Note"
+      refreshInterval: 10s
+      title: "Service Versions"
       type: cmdrunner
