@@ -5,57 +5,38 @@ description: Write, test, update, and repair Unison code using Unison MCP tools 
 
 # Unison Development
 
-- Uses `software-development` skill.
-- Use Unison MCP tools for all operations when they are available in the current session. If they are unavailable, stop and say the Unison tool is missing rather than falling back to ad hoc UCM commands.
+Extends `software-development`. Use the Unison MCP tools for every operation when they are available in the session. If they are missing, stop and say so rather than falling back to ad hoc UCM commands — the command line bypasses the safeguards below.
 
-## Core Principles
+## Why Unison is different
 
-1. **ALWAYS** work in branches - create one with an appropriate name
-2. **NEVER run UCM commands on the command line** — use MCP tools only (exception: branch creation)
-3. **NEVER use scratch.u files** — use MCP tools directly
-4. **Code is stored by the UCM, NOT Git** — NEVER suggest git commits for code changes
-5. **NEVER use commit-commands** — Unison code is managed by UCM
-6. **Always** use fully qualified names when writing code
-7. Use the MCP tools to explore the codebase before writing code
+Unison stores code in the UCM codebase, not in files or Git. Two consequences drive everything else:
 
-## Branch Creation (MANDATORY FIRST STEP)
+- The CLI and `scratch.u` files are not the source of truth, so editing or running code outside the MCP tools desyncs your work from the codebase. Drive everything through the MCP tools directly — the one exception is branch creation.
+- Git never holds Unison code. A git commit won't capture your changes and `commit-commands` don't apply, so don't reach for them.
 
-**Before making any code changes**, create a branch with the MCP server tool.
-Use descriptive branch names like `extract-domain-service` or `fix-login-bug`.
+Work in a branch, and use fully qualified names when writing code so references resolve unambiguously.
+
+## Branch first
+
+Before any code change, create a branch with the MCP server tool — working outside a branch mutates shared state. Use a descriptive name like `extract-domain-service` or `fix-login-bug`.
 
 ## Workflow
 
-1. **Explore**: Use `view-definitions`, `search-definitions-by-name`, `list-project-definitions` to understand existing code
-2. **Typecheck**: Use `mcp__unison__typecheck-code` to validate code before updating
-3. **Update**: Use `mcp__unison__update-definitions` to apply changes directly to the codebase
-4. **Test**: Use `mcp__unison__run-tests` to verify changes
+1. **Explore**: `view-definitions`, `search-definitions-by-name`, `list-project-definitions` to understand existing code before writing.
+2. **Typecheck**: `mcp__unison__typecheck-code` to validate before updating.
+3. **Update**: `mcp__unison__update-definitions` to apply changes to the codebase.
+4. **Test**: `mcp__unison__run-tests` to verify.
 
-## Handling `sourceCodeUpdates`
+## When `update-definitions` reports broken dependents
 
-When `update-definitions` returns affected definitions that no longer typecheck:
+If the call returns `sourceCodeUpdates` (affected definitions that no longer typecheck), use the `unison-update` skill — it owns the repair loop. The risk it guards: any affected definition omitted from the next update is removed from the codebase.
 
-```
--- The definitions below no longer typecheck with the changes above.
--- Please fix the errors and try `update` again.
-```
+## Modifying abilities
 
-**CRITICAL:**
+Changing an ability breaks its dependents, so repair them in the same update. View the ability and its `default` handler, use `list-definition-dependents` to find every caller, and include the ability and all dependents in one `update-definitions` call.
 
-- The MCP server creates a temporary branch with affected code in `sourceCodeUpdates`
-- Fix ALL affected definitions and include them in the next `update-definitions` call
-- **DO NOT** omit functions — they will be removed from codebase
-- Include all fixes in a single `update-definitions` call
+## Done when
 
-## Modifying Abilities
-
-When modifying abilities, include all affected dependents in the same update:
-
-1. View the ability and its `default` handler
-2. Use `list-definition-dependents` to find all callers
-3. Update the ability AND all dependents together in one `update-definitions` call
-
-## Success Criteria
-
-- All code typechecks successfully via MCP tools
-- Tests pass via `mcp__unison__run-tests`
-- Fully qualified names used throughout
+- Code typechecks via the MCP tools.
+- Tests pass via `mcp__unison__run-tests`.
+- Fully qualified names are used throughout.
