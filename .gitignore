@@ -86,6 +86,7 @@
 !/.config/pgcli/
 !/.config/wezterm/
 !/.config/wtf/
+!/.config/yazi/
 !/.config/zed/
 
 # Inside .config/configstore/: only the github copilot manifest
