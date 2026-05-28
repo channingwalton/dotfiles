@@ -57,7 +57,7 @@ Conventions those skills don't hold:
 
 ## Context discipline
 
-- Prefer LSP/native navigation first; otherwise explore in two passes: locate first (Grep `files_with_matches`/`count`, `head_limit`, narrow glob), then read only the slice needed (Read with offset/limit around the match). Widen only if required.
+- Prefer the narrowest reliable navigation tool: CodeGraph for structural code discovery, LSP/native tools for editor diagnostics/definitions, and `rg` for literal text. When using raw search, locate first (`rg -l`, counts, narrow globs), then read only the slice needed. Widen only if required.
 - Never dump whole large/generated files or repo-wide content; search for the specific symbol/section.
 - Diffs: `git diff --stat` / `--name-only` first, then `git diff -- <file>`.
 - Logs: report the result on success, full error on failure (devtool already does this).
@@ -65,25 +65,26 @@ Conventions those skills don't hold:
 <!-- CODEGRAPH_START -->
 ## CodeGraph
 
-Use CodeGraph as the default for **code searches and structural questions** — code discovery, implementation location, ownership, call flow, impact, what calls what, what would break, where X is defined, and X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
+Use CodeGraph for **code structure**, not for every search. It is default for implementation location, ownership, call flow, impact, callers/callees, what would break, symbol signatures, and "where is X defined?". Use `rg` for exact text, comments, log strings, config, docs, generated files, fixtures, and non-indexed files.
 
-If no `.codegraph` dir exists in the project root, suggest running `codegraph init -i`. If one does exist, ensure its up-to-date with `codegraph sync`
+If no `.codegraph/` dir exists in the project root, ask before running `codegraph init -i`.
 
-### When to prefer codegraph over native search
+If `.codegraph/` exists, use MCP CodeGraph tools directly. Do **not** run `codegraph sync` by habit: the MCP server does connect-time catch-up and file-watcher auto-sync. Run `codegraph sync` or `codegraph status` only after branch checkout/pull, large generated-file changes, suspected stale/missing results, CLI-only use, or a staleness/pending-sync banner.
 
-Use CodeGraph first for any request involving code discovery, implementation location, ownership, call flow, impact, or "where is X".
+### Default route
 
-Treat "search the code", "search for code related to X", "find X", "look for X", "where is X implemented", and vague domain searches like "ESR" as CodeGraph tasks by default.
+1. For task/feature context: `codegraph_context`, then one `codegraph_explore` for relevant source.
+2. For a named symbol: `codegraph_search`.
+3. For flow: `codegraph_trace` first, then `codegraph_explore` only if bodies are needed.
+4. For usage or blast radius: `codegraph_callers`, `codegraph_callees`, or `codegraph_impact`.
+5. For directory/file inventory: `codegraph_files`.
+6. For exact tokens or text surfaces: `rg` first.
 
-Default route:
+### Hybrid search rule
 
-1. If `.codegraph/` exists, run `codegraph sync`.
-2. Use `codegraph_context` for broad discovery.
-3. Use `codegraph_explore` for the relevant files/symbols returned.
-4. Use `codegraph_trace`, `codegraph_callers`, `codegraph_callees`, or `codegraph_impact` when the question becomes structural.
-5. Use `rg` only after CodeGraph for exact strings, comments, log messages, config, docs, generated files, fixtures, or when CodeGraph is not initialised.
+For broad code-ish searches like "find X", "look for X", "search code related to X", start with CodeGraph. Then run a targeted `rg` pass when exhaustive references matter, the term is also likely to appear as text, or CodeGraph results are sparse/noisy. This catches strings, comments, docs, config, generated files, fixtures, and symbol names CodeGraph may not model.
 
-Do not treat a bare search request as literal grep unless `rg`, grep, exact string matches, or text-only matches are explicitly requested.
+Do not re-grep CodeGraph results merely to distrust them. Use `rg` to cover surfaces CodeGraph intentionally does not cover well, or when the user asks for exact textual refs.
 
 | Question | Tool |
 |---|---|
@@ -101,7 +102,7 @@ Do not treat a bare search request as literal grep unless `rg`, grep, exact stri
 ### Rules of thumb
 
 - **Answer directly — don't delegate exploration.** For "how does X work" / architecture questions, answer with 2-3 codegraph calls: `codegraph_context` first, then ONE `codegraph_explore` for the source of the symbols it surfaces. For a specific **flow** ("how does X reach Y") start with `codegraph_trace` from→to — one call returns the whole path with dynamic hops bridged — then ONE `codegraph_explore` for the bodies; don't rebuild the path with `codegraph_search` + `codegraph_callers`. Codegraph IS the pre-built index, so spawning a separate file-reading sub-task/agent — or running a grep + read loop — repeats work codegraph already did and costs more for the same answer.
-- **Trust codegraph results.** They come from a full AST parse. Do NOT re-verify them with grep — that's slower, less accurate, and wastes context.
+- **Trust codegraph results for indexed code structure.** Do not re-verify them with grep unless exact textual coverage matters.
 - **Don't grep first** when looking up a symbol by name. `codegraph_search` is faster and returns kind + location + signature in one call.
 - **Don't chain `codegraph_search` + `codegraph_node`** when you just want context — `codegraph_context` is one call.
 - **Don't loop `codegraph_node` over many symbols** — one `codegraph_explore` call returns several symbols' source grouped in a single capped call, while each separate node/Read call re-reads the whole context and costs far more.
@@ -109,5 +110,5 @@ Do not treat a bare search request as literal grep unless `rg`, grep, exact stri
 
 ### If `.codegraph/` doesn't exist
 
-The MCP server returns "not initialized." Ask the user: *"I notice this project doesn't have CodeGraph initialized. Want me to run `codegraph init -i` to build the index?"*
+The MCP server may return "not initialized." Ask the user: *"I notice this project doesn't have CodeGraph initialised. Want me to run `codegraph init -i` to build the index?"* If they decline, use the locate-then-read `rg` workflow.
 <!-- CODEGRAPH_END -->
