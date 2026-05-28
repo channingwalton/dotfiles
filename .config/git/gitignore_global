@@ -54,6 +54,7 @@ out/
 
 # Codegraph
 .codegraph
+.cursor/rules/codegraph.mdc
 
 # Other
 *.class
