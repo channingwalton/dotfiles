@@ -52,6 +52,9 @@ out/
 # VI
 *.swp
 
+# Codegraph
+.codegraph
+
 # Other
 *.class
 *.log
