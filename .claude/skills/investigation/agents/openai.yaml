@@ -1,4 +1,0 @@
-interface:
-  display_name: "Investigation"
-  short_description: "Maintain evidence dossiers for datafixes and incidents."
-  default_prompt: "Create or update an investigation dossier for this task."

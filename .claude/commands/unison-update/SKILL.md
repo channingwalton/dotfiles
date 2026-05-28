@@ -5,27 +5,22 @@ description: Repair Unison definitions after `update-definitions` reports affect
 
 # Unison Update
 
-Triggered when `mcp__unison__update-definitions` returns affected definitions that no longer typecheck.
+The repair loop for when `mcp__unison__update-definitions` returns affected definitions that no longer typecheck.
 
-## Context
+## Trigger
 
-When the MCP server returns `sourceCodeUpdates` containing:
+The MCP server returns `sourceCodeUpdates` containing:
 
 ```
 -- The definitions below no longer typecheck with the changes above.
 -- Please fix the errors and try `update` again.
 ```
 
+It has placed the affected code in a temporary branch for you to fix.
+
 ## Workflow
 
-1. Review all affected definitions in the `sourceCodeUpdates` response
-2. Fix all type errors and update signatures as needed
-3. Include ALL fixed definitions in a single `mcp__unison__update-definitions` call
-4. Repeat until update succeeds
-
-## Critical Rules
-
-- **DO NOT omit functions** — they will be removed from the codebase
-- Fix ALL affected definitions together in one update call
-- Repair by fixing type mismatches or updating signatures
-- Preserve all existing functionality
+1. Review every affected definition in the `sourceCodeUpdates` response.
+2. Fix the type errors, updating signatures where needed, and preserve existing behaviour.
+3. Include **every** fixed definition in a single `mcp__unison__update-definitions` call — any definition left out is removed from the codebase, so completeness here is not optional.
+4. Repeat until the update succeeds.

@@ -9,7 +9,7 @@ Add domain terms to project glossaries in the Obsidian vault.
 
 ## Location
 
-Use the project's glossary note or folder under `~/Documents/Notes/Projects/<project>/Glossary/`. Search first; do not create duplicates.
+Use the project's glossary note or folder (see the `vault` skill's Core Paths for the exact location). Search first; do not create duplicates.
 
 ## Workflow
 
