@@ -10,9 +10,9 @@ Router for vault-backed task work. The task note is the canonical entry point.
 ## Resolve
 
 1. Locate the task note under `~/Documents/Notes/Projects/<project>/Tasks/`; if the user names a Jira/GitHub issue, find the matching task note first.
-3. Read the task note in full.
-4. Read linked Jira or GitHub issue if present.
-5. Read frontmatter and route by `task_type`. If missing, treat as `note`.
+2. Read the task note in full.
+3. Read linked Jira or GitHub issue if present.
+4. Read frontmatter and route by `task_type`. If missing, treat as `note`.
 
 ## Task Note Rules
 
