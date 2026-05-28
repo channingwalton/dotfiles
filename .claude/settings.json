@@ -82,7 +82,14 @@
       "mcp__context7__resolve-library-id",
       "mcp__fetch__fetch",
       "mcp__perplexity-mcp__perplexity_search_web",
-      "mcp__unison"
+      "mcp__unison",
+      "mcp__codegraph__codegraph_search",
+      "mcp__codegraph__codegraph_context",
+      "mcp__codegraph__codegraph_callers",
+      "mcp__codegraph__codegraph_callees",
+      "mcp__codegraph__codegraph_impact",
+      "mcp__codegraph__codegraph_node",
+      "mcp__codegraph__codegraph_status"
     ],
     "deny": [
       "mcp__claude_ai_Notion"

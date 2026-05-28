@@ -21,13 +21,13 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-27T09:35:50Z"
-last_revision = "a8f5f1b3c940d98694ac74032d7de55439c8394b"
+last_updated = "2026-05-27T21:46:07Z"
+last_revision = "1109c43a9d088619227511bc7397245eb26b7977"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-27T09:35:50Z"
+last_updated = "2026-05-27T21:45:53Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -217,3 +217,7 @@ global = "zed"
 
 [desktop.open-in-target-preferences.perPath]
 "/Users/channing/dotfiles" = "zed"
+
+[mcp_servers.codegraph]
+command = "codegraph"
+args = ["serve", "--mcp"]
