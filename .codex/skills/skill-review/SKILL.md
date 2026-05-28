@@ -1,6 +1,13 @@
 ---
 name: skill-review
-description: Audit Channing's authored skills for whether they earn their place — usefulness, overlap with other skills or Claude's built-in abilities, redundancy, gaps, and triggering quality. Use when asked to review, audit, critique, or prune skills; when wondering whether a skill is still worth keeping; or after writing or editing a skill. Reviews authored skills only: real dirs in ~/.claude/skills and ~/.claude/commands (symlinks skipped) plus the dev repo in ~/dev/skills/skills.
+description: >-
+  Audit Channing's authored skills for whether they earn their place — usefulness,
+  overlap with other skills or Claude's built-in abilities, redundancy, gaps, and
+  triggering quality. Use when asked to review, audit, critique, or prune skills;
+  when wondering whether a skill is still worth keeping; or after writing or
+  editing a skill. Reviews authored skills only: real dirs in ~/.claude/skills
+  and ~/.claude/commands (symlinks skipped) plus the dev repo in
+  ~/dev/skills/skills.
 ---
 
 # Skill Review
