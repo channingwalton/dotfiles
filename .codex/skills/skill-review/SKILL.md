@@ -1,6 +1,6 @@
 ---
 name: skill-review
-description: Audit Channing's authored skills for whether they earn their place — usefulness, overlap with other skills or Claude's built-in abilities, redundancy, gaps, and triggering quality. Use when asked to review, audit, critique, or prune skills; when wondering whether a skill is still worth keeping; or after writing or editing a skill. Reviews real skills in ~/.claude/skills (symlinks skipped) and the dev repo in ~/dev/skills/skills.
+description: Audit Channing's authored skills for whether they earn their place — usefulness, overlap with other skills or Claude's built-in abilities, redundancy, gaps, and triggering quality. Use when asked to review, audit, critique, or prune skills; when wondering whether a skill is still worth keeping; or after writing or editing a skill. Reviews authored skills only: real dirs in ~/.claude/skills and ~/.claude/commands (symlinks skipped) plus the dev repo in ~/dev/skills/skills.
 ---
 
 # Skill Review
@@ -13,7 +13,7 @@ This is a critical review, not a rubber stamp. Be willing to recommend dropping 
 
 ## Scope
 
-Default: review **every** skill. Discover them with the bundled script — it returns real skill dirs in `~/.claude/skills` (symlinks skipped, since those are install targets for published skills whose source lives in the dev repo) plus everything in `~/dev/skills/skills`:
+Default: review **every** authored skill. Discover them with the bundled script — it returns real dirs in `~/.claude/skills` and `~/.claude/commands` (skills exposed as slash commands, e.g. `unison-update`) plus everything in `~/dev/skills/skills`. Symlinks are skipped on purpose: they point at install targets for third-party or already-published skills, which are out of authored scope (published ones are reviewed via their dev-repo source instead):
 
 ```sh
 ~/.claude/skills/skill-review/scripts/discover.sh

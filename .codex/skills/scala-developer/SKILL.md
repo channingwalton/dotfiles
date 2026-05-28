@@ -7,27 +7,21 @@ description: Senior Scala developer using functional programming and Typelevel e
 
 ## Build Tool Selection
 
-Projects may use bloop (faster incremental compilation) or sbt. Check which is available before compiling — using the wrong one wastes time and confuses error output.
+Prefer `devtool` when it is available — it auto-detects the project and wraps compile/lint/test, so you don't pick the runner by hand or risk using the wrong one:
 
-1. **Check for `.bloop` directory first** — if it exists, the project is configured for bloop:
+- `devtool check` — compile + lint + test (run before committing)
+- `devtool compile` — compile only
+- `devtool test [pattern]` — run tests, optional filter
+
+Drop to the underlying tool only when `devtool` is absent. Use bloop (faster incremental) if a `.bloop` directory exists, otherwise sbt; module name is `root` for non-modular projects:
 
 ```bash
 bloop compile <module-name>
-bloop test <module-name>
 bloop test <module-name> -o "*<filename>*"
-```
 
-Module name is `root` for non-modular projects.
-
-2. **Fall back to sbt** if no `.bloop` directory:
-
-```bash
 sbt compile
-sbt test
 sbt "testOnly *SpecName*"
 ```
-
-3. **After completing code changes**, run the project's canonical verification command — the compile + lint + test command documented by README/CONTRIBUTING, build scripts, package manager scripts, Makefile, or workspace instructions.
 
 ## Design Opinions
 
