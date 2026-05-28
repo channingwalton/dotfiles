@@ -74,9 +74,19 @@ My larger projects have a CodeGraph MCP server (`codegraph_*` tools) configured.
 
 ### When to prefer codegraph over native search
 
-Use codegraph for **structural** questions — what calls what, what would break, where is X defined, what is X's signature. Use native grep/read only for **literal text** queries (string contents, comments, log messages) or after you already have a specific file open.
+Use CodeGraph first for any request involving code discovery, implementation location, ownership, call flow, impact, or "where is X".
 
-If no `.codegraph` dir exists in the project root, suggest running `codegraph init -i`. If one does exist, ensure its up-to-date with `codegraph sync`
+Treat "search the code", "search for code related to X", "find X", "look for X", "where is X implemented", and vague domain searches like "ESR" as CodeGraph tasks by default.
+
+Default route:
+
+1. If `.codegraph/` exists, run `codegraph sync`.
+2. Use `codegraph_context` for broad discovery.
+3. Use `codegraph_explore` for the relevant files/symbols returned.
+4. Use `codegraph_trace`, `codegraph_callers`, `codegraph_callees`, or `codegraph_impact` when the question becomes structural.
+5. Use `rg` only after CodeGraph for exact strings, comments, log messages, config, docs, generated files, fixtures, or when CodeGraph is not initialised.
+
+Do not treat a bare search request as literal grep unless `rg`, grep, exact string matches, or text-only matches are explicitly requested.
 
 | Question | Tool |
 |---|---|

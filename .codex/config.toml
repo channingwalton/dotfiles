@@ -21,8 +21,8 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-27T21:46:07Z"
-last_revision = "1109c43a9d088619227511bc7397245eb26b7977"
+last_updated = "2026-05-28T16:40:41Z"
+last_revision = "e9b54375b8e6b83a718cebb2033caca8c01976a8"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
