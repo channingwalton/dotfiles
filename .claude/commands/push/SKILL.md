@@ -7,7 +7,8 @@ description: Commit, push, open a PR
 ## Context
 
 - Current git status: !`git status`
-- Current git diff (staged and unstaged changes): !`git diff HEAD`
+- Changed files (stat): !`git diff HEAD --stat`
+- Diff (capped to 6k): !`git diff HEAD | head -c 6000`
 - Current branch: !`git branch --show-current`
 - Recent commit messages (for style matching): !`git log --oneline -10`
 

@@ -21,16 +21,6 @@
         "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14"
       }
     ],
-    "jdtls-lsp@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/jdtls-lsp/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-01-03T22:28:23.364Z",
-        "lastUpdated": "2026-05-05T11:49:57.592Z",
-        "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14"
-      }
-    ],
     "lua-lsp@claude-plugins-official": [
       {
         "scope": "user",
@@ -39,26 +29,6 @@
         "installedAt": "2026-01-03T22:28:23.364Z",
         "lastUpdated": "2026-05-05T11:49:57.592Z",
         "gitCommitSha": "6d3752c000e2b3d0e6137bd7adb04895d6f40f14"
-      }
-    ],
-    "swift-lsp@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/swift-lsp/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-01-27T11:05:52.686Z",
-        "lastUpdated": "2026-05-05T11:49:57.592Z",
-        "gitCommitSha": "e30768372b4150ca1bc0839d93283e8edc30d60d"
-      }
-    ],
-    "rust-analyzer-lsp@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/rust-analyzer-lsp/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-02-28T10:00:20.016Z",
-        "lastUpdated": "2026-05-05T11:49:57.592Z",
-        "gitCommitSha": "55b58ec6e5649104f926ba7558b567dc8d33c5ff"
       }
     ],
     "kotlin-lsp@claude-plugins-official": [
@@ -121,23 +91,13 @@
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
-    "elements-of-style@superpowers-marketplace": [
-      {
-        "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/superpowers-marketplace/elements-of-style/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-03-17T20:06:22.038Z",
-        "lastUpdated": "2026-05-05T11:49:57.592Z",
-        "gitCommitSha": "6099c505c2a8eb066f3777f83a97d9d828f7954c"
-      }
-    ],
     "chrome-devtools-mcp@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/1.1.0",
-        "version": "1.1.0",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/1.1.1",
+        "version": "1.1.1",
         "installedAt": "2026-03-20T15:58:33.356Z",
-        "lastUpdated": "2026-05-28T16:30:21.500Z",
+        "lastUpdated": "2026-05-30T09:16:09.342Z",
         "gitCommitSha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
       }
     ],
@@ -181,16 +141,6 @@
         "installedAt": "2026-04-15T15:36:12.279Z",
         "lastUpdated": "2026-04-15T15:36:12.279Z",
         "gitCommitSha": "c2ed24b3e5d412cd0c25197b2bc9af587621fd99"
-      }
-    ],
-    "superpowers@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/superpowers/5.1.0",
-        "version": "5.1.0",
-        "installedAt": "2026-04-18T21:16:02.577Z",
-        "lastUpdated": "2026-05-05T08:43:32.156Z",
-        "gitCommitSha": "b55764852ac78870e65c6565fb585b6cd8b3c5c9"
       }
     ],
     "codex@openai-codex": [

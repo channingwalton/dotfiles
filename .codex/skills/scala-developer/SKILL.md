@@ -30,3 +30,8 @@ These reflect Channing's preferred style and may differ from what you'd produce 
 - **Encapsulation over transparency**: prefer `class` with `private val` (or opaque types) over `case class` when a type has internal structure that shouldn't be part of its public API (e.g. a `Map` tracking counts, a buffer, an index). Reserve `case class` for value types where every field is meaningful to callers (e.g. `Book(title, author)`, `Config(host, port)`). The instinct to reach for `case class` by default leads to types that leak implementation details.
 
 - **Typelevel ecosystem**: prefer cats, cats-effect, and fs2 over alternatives (e.g. ZIO, Akka). This is a codebase consistency choice, not a judgement call — mixing effect systems creates friction.
+
+## Red Flags
+
+- **Referencing a domain type's fields without confirming the shape** — even with the source in context. Assuming `Answer.Money.value.amount` when it was `Money(MonetaryAmount)` (`.amount`) cost a compile-fail cycle. Confirm the constructor/field shape from source before writing assertions or pattern matches.
+- **A deliberate semantic divergence with no discriminating test.** When behaviour intentionally differs from the mirrored precedent or the happy path (scale-insensitive `BigDecimal` equality, instant-based `ZonedDateTime`, extension-stack resolution in a repeating row), write the test that *fails* if the divergence regresses. The reviewer caught these every time; the implementer did not write them first.

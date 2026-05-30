@@ -21,13 +21,13 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-28T20:08:00Z"
-last_revision = "e9b54375b8e6b83a718cebb2033caca8c01976a8"
+last_updated = "2026-05-30T22:13:04Z"
+last_revision = "c7a3e2ffa047de2da799c2237475f024c83f4c4b"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-28T18:46:52Z"
+last_updated = "2026-05-29T19:08:56Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -54,10 +54,10 @@ NODE_REPL_NODE_MODULE_DIRS = ""
 NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
 CODEX_HOME = "/Users/channing/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "496c7b3cb95b4bc20cff49b513150606e0da0000c92bf752206bee5a6c248423"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "0b0d41e7a14a4903d2f95b0b3f427ed796b12c8edca2fa392a03df43997075ae"
 BROWSER_USE_AVAILABLE_BACKENDS = "iab"
-BROWSER_USE_MARKETPLACE_NAME = "openai-bundled"
-NODE_REPL_UNTRUSTED_ENV_ALLOWLIST = "BROWSER_USE_MARKETPLACE_NAME"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
 [notice]
