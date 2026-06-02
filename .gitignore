@@ -23,6 +23,7 @@
 !/.codex/
 !/.config/
 !/.gemini/
+!/.hermes/
 !/.pi/
 
 # --- .claude/: allow only known entries ---
@@ -112,6 +113,10 @@
 !/.gemini/GEMINI.md
 !/.gemini/settings.json.orig
 !/.gemini/trustedFolders.json
+
+# --- .hermes/: only curated config ---
+/.hermes/*
+!/.hermes/config.yaml
 
 # --- .pi/: only the agent tree ---
 /.pi/*
