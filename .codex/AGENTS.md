@@ -59,6 +59,7 @@ Conventions those skills don't hold:
 
 - Prefer the narrowest reliable navigation tool: CodeGraph for structural code discovery, LSP/native tools for editor diagnostics/definitions, and `rg` for literal text. When using raw search, locate first (`rg -l`, counts, narrow globs), then read only the slice needed. Widen only if required.
 - Never dump whole large/generated files or repo-wide content; search for the specific symbol/section.
+- External/MCP data (Jira/JQL, Confluence, Slack, API responses): if you know the scope, narrow at the source (specific IDs, status/date filters, field lists). If you don't, fetch the full payload **once to a file**, then read slices from that file with `jq`/`rg` — re-read the file freely (lossless, no round-trip); never blind-truncate an unsaved response. Only slices you read enter context.
 - Diffs: `git diff --stat` / `--name-only` first, then `git diff -- <file>`.
 - Logs: report the result on success, full error on failure (devtool already does this).
 

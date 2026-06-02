@@ -14,6 +14,10 @@ Router for vault-backed task work. The task note is the canonical entry point.
 3. Read linked Jira or GitHub issue if present.
 4. Read frontmatter and route by `task_type`. If missing, treat as `note`.
 
+## External Data
+
+For investigation tasks, stage long ticket/PR descriptions, comment threads, or diffs into the dossier and reference by path rather than the task note.
+
 ## Task Note Rules
 
 Do not write unless the user explicitly asks. For `Current State`, `Decision Log`, or `Open Questions`, use `task-note-update`.
