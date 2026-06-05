@@ -124,5 +124,4 @@ export PATH="/Users/channing/.codeium/windsurf/bin:$PATH"
 # Prefer personal bin (contains codex symlink to Codex.app) over asdf shims
 export PATH="${MY_BIN}:$PATH"
 
-export RETROSPECTIVE_DIR=~/dev/retrospectives
-
+export RETROSPECTIVE_LEDGER=~/dev/retro-ledger.md

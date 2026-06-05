@@ -5,6 +5,9 @@
 
 set -euo pipefail
 
+# Ensure Homebrew binaries (gh) are on PATH for non-login shells (e.g. scheduled runs)
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+
 DATE="${1:-$(date +%Y-%m-%d)}"
 SINCE="${DATE}T00:00:00Z"
 # macOS date for tomorrow

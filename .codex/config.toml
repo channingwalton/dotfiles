@@ -5,6 +5,7 @@ approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
 notify = ["/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+service_tier = "default"
 
 [sandbox_workspace_write]
 writable_roots = [
@@ -21,18 +22,18 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-06-02T14:02:03Z"
-last_revision = "697a046997064bf6ae4a1ec95d0281813c2aa33f"
+last_updated = "2026-06-05T13:27:36Z"
+last_revision = "bd7cf41fc8a468b136a9266633303ff4a011c7b4"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-06-02T14:02:05Z"
+last_updated = "2026-06-05T13:30:06Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-22T09:13:30Z"
+last_updated = "2026-06-03T14:13:41Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -42,23 +43,6 @@ url = "https://developers.openai.com/mcp"
 [mcp_servers.unison]
 command = "/opt/homebrew/bin/ucm"
 args = ["mcp"]
-
-[mcp_servers.node_repl]
-args = []
-command = "/Applications/Codex.app/Contents/Resources/node_repl"
-startup_timeout_sec = 120
-
-[mcp_servers.node_repl.env]
-NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
-NODE_REPL_NODE_MODULE_DIRS = ""
-NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
-CODEX_HOME = "/Users/channing/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "0b0d41e7a14a4903d2f95b0b3f427ed796b12c8edca2fa392a03df43997075ae"
-BROWSER_USE_AVAILABLE_BACKENDS = "iab"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
-BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
 [notice]
 fast_default_opt_out = true
@@ -157,6 +141,9 @@ trust_level = "trusted"
 [projects."/Users/channing/Documents/Codex/2026-05-26/is-using-chatgpt-via-api-more"]
 trust_level = "trusted"
 
+[projects."/Users/channing/dev/metrics"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 inherit = "core"
 
@@ -175,10 +162,12 @@ approval_mode = "approve"
 [desktop]
 appearanceTheme = "dark"
 appearanceLightCodeThemeId = "codex"
-appearanceDarkCodeThemeId = "linear"
+appearanceDarkCodeThemeId = "catppuccin"
 usePointerCursors = false
 dictationDictionary = ["Patchwork", "Channing", "Omnear"]
 git-show-sidebar-pr-icons = true
+show-context-window-usage = true
+appearanceDiffMarkerStyle = "color"
 
 [desktop.appearanceLightChromeTheme]
 accent = "#0169cc"
@@ -197,20 +186,20 @@ diffRemoved = "#e02e2a"
 skill = "#751ed9"
 
 [desktop.appearanceDarkChromeTheme]
-accent = "#606acc"
+accent = "#cba6f7"
 contrast = 50
-ink = "#e3e4e6"
+ink = "#cdd6f4"
 opaqueWindows = true
-surface = "#0f0f11"
+surface = "#000000"
 
 [desktop.appearanceDarkChromeTheme.fonts]
 code = '"Geist Mono", ui-monospace, "SFMono-Regular"'
 ui = "Inter"
 
 [desktop.appearanceDarkChromeTheme.semanticColors]
-diffAdded = "#69c967"
-diffRemoved = "#ff7e78"
-skill = "#c2a1ff"
+diffAdded = "#a6e3a1"
+diffRemoved = "#f38ba8"
+skill = "#cba6f7"
 
 [desktop.open-in-target-preferences]
 global = "zed"
@@ -221,3 +210,21 @@ global = "zed"
 [mcp_servers.codegraph]
 command = "codegraph"
 args = ["serve", "--mcp"]
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/Codex.app/Contents/Resources/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = ""
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
+CODEX_HOME = "/Users/channing/.codex"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "a0dc4b6aaefe6a6a82d9a34fb524e77df6e0bf71387f0d4760157a46f52e6a93"
+BROWSER_USE_AVAILABLE_BACKENDS = "iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.602.30954"
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
