@@ -117,6 +117,8 @@
 # --- .hermes/: only curated config ---
 /.hermes/*
 !/.hermes/config.yaml
+!/.hermes/AGENTS.md
+!/.hermes/SOUL.md
 
 # --- .pi/: only the agent tree ---
 /.pi/*
