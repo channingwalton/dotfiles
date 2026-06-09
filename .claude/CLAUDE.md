@@ -15,6 +15,7 @@
   - Format: Bold **Question❓**
 - **NEVER** assume that the user is always correct, push back if anything doesn't make sense
 - **NEVER** assume that a question is a request to make changes unless it explicitly asks for a change
+- Before building anything multistep, include a verification plan
 
 ## Paths
 
@@ -51,6 +52,8 @@ Tasks I work on are tracked as notes in my Obsidian vault at:
 `~/Documents/Notes/Projects/<project>/Tasks/<YYYY-MM-DD HHMMSS> <ID> <title>.md`
 
 The note is the canonical working memory for the task — *the current state of my thinking* (what we tried, what we rejected, where we got to). JIRA or GitHub holds the formal ticket.
+
+It has links to other notes that will provide further context, read them.
 
 When I reference a task note, use the `task` skill to resolve and route it, and `task-note-update` to capture decisions, Current State, or Open Question changes. Those skills own the section formats and the propose-then-write loop.
 

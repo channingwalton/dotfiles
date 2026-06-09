@@ -623,3 +623,6 @@ mcp_servers:
 # fallback_model:
 #   provider: openrouter
 #   model: anthropic/claude-sonnet-4
+plugins:
+  enabled:
+    - herdr-agent-state
