@@ -45,6 +45,8 @@ If the user asks to update both task note and dossier, update dossier files dire
 - Open Questions are ephemeral and should empty over time.
 - Use British spelling.
 - Dates are Obsidian wikilinks `[[YYYY-MM-DD]]` — never bare `YYYY-MM-DD` — so they backlink to daily notes.
+- Frontmatter `status` values are hyphenated: `in-progress` / `done` (never `in progress`).
+- Set `status: done` + `completedDate` only after the branch is **merged** — a PR being open or approved is still `in-progress`.
 
 ## Anti-patterns
 

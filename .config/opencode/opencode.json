@@ -12,15 +12,6 @@
       "enabled": true,
       // OAuth is auto-detected; authenticate with: opencode mcp auth atlassian
       "timeout": 10000
-    },
-    "codegraph": {
-      "type": "local",
-      "command": [
-        "codegraph",
-        "serve",
-        "--mcp"
-      ],
-      "enabled": true
     }
   }
 }

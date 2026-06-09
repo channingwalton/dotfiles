@@ -216,10 +216,6 @@ global = "zed"
 [hooks.state."/Users/channing/.codex/hooks.json:session_start:0:0"]
 trusted_hash = "sha256:2704f97ca392dd24670e9e06d2310460039a200d292963f1927e44110275367a"
 
-[mcp_servers.codegraph]
-command = "codegraph"
-args = ["serve", "--mcp"]
-
 [mcp_servers.node_repl]
 args = []
 command = "/Applications/Codex.app/Contents/Resources/node_repl"
