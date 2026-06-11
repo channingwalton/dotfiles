@@ -5,7 +5,7 @@ approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
 notify = ["/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
-service_tier = "default"
+service_tier = "fast"
 
 [sandbox_workspace_write]
 writable_roots = [
@@ -23,13 +23,13 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-06-09T17:04:23Z"
-last_revision = "746c982737e3ce684dc45844f703d5b40389ed78"
+last_updated = "2026-06-11T15:16:19Z"
+last_revision = "66bca6b6f62e5023673feff699d9d99451ae9919"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-06-09T17:26:40Z"
+last_updated = "2026-06-11T15:16:18Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -44,6 +44,24 @@ url = "https://developers.openai.com/mcp"
 [mcp_servers.unison]
 command = "/opt/homebrew/bin/ucm"
 args = ["mcp"]
+
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
+CODEX_HOME = "/Users/channing/.codex"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "72614174f4dad67a58d46a3ac759cffb45c92fa48a293af4c4ea35102ba391ba"
+BROWSER_USE_AVAILABLE_BACKENDS = "iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.608.12217"
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
 [notice]
 fast_default_opt_out = true
@@ -148,6 +166,9 @@ trust_level = "trusted"
 [projects."/Users/channing/Documents/Codex/2026-06-09/could-you-set-up-safari-on"]
 trust_level = "trusted"
 
+[projects."/Users/channing/dev/autoskill"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 inherit = "core"
 
@@ -215,21 +236,3 @@ global = "zed"
 
 [hooks.state."/Users/channing/.codex/hooks.json:session_start:0:0"]
 trusted_hash = "sha256:2704f97ca392dd24670e9e06d2310460039a200d292963f1927e44110275367a"
-
-[mcp_servers.node_repl]
-args = []
-command = "/Applications/Codex.app/Contents/Resources/node_repl"
-startup_timeout_sec = 120
-
-[mcp_servers.node_repl.env]
-NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
-NODE_REPL_NODE_MODULE_DIRS = ""
-NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
-CODEX_HOME = "/Users/channing/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "2de792ebdf729e85542c94275f6654821dddce546d9c7374c915f2297529e313"
-BROWSER_USE_AVAILABLE_BACKENDS = "iab"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
-BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.602.40724"
-CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
