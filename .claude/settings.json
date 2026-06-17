@@ -120,11 +120,6 @@
       }
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "~/.claude/statusline.sh",
-    "padding": 0
-  },
   "enabledPlugins": {
     "caveman@caveman": true,
     "chrome-devtools-mcp@claude-plugins-official": false,
@@ -171,5 +166,9 @@
   "teammateMode": "tmux",
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "statusLine": {
+    "type": "command",
+    "command": "bash '/Users/channing/.claude/statusline-command.sh'"
+  }
 }
