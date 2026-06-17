@@ -86,6 +86,8 @@ export PATH="$JAVA_HOME/bin:$PATH"
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export GITHUB_PERSONAL_ACCESS_TOKEN=$(security find-generic-password -w -s github-personal-access-token)
 
+export HF_TOKEN=$(security find-generic-password -w -s HF_TOKEN)
+
 # Load tools etc
 zmodload -i zsh/complist
 

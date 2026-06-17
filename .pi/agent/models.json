@@ -1,0 +1,25 @@
+{
+  "providers": {
+    "mlx-local": {
+      "baseUrl": "http://127.0.0.1:8080/v1",
+      "api": "openai-completions",
+      "apiKey": "not-needed",
+      "models": [
+        {
+          "id": "mlx-community/Qwen3.6-35B-A3B-4bit",
+          "name": "Qwen3.6 35B (MLX local)",
+          "reasoning": true,
+          "contextWindow": 32768,
+          "maxTokens": 8192,
+          "compat": {
+            "supportsDeveloperRole": false,
+            "supportsStore": false,
+            "supportsReasoningEffort": false,
+            "maxTokensField": "max_tokens",
+            "supportsLongCacheRetention": false
+          }
+        }
+      ]
+    }
+  }
+}
