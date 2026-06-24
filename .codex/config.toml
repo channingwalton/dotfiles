@@ -5,7 +5,7 @@ approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
 notify = ["/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
-service_tier = "default"
+service_tier = "fast"
 sandbox_mode = "workspace-write"
 
 [sandbox_workspace_write]
@@ -25,18 +25,18 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-06-16T09:08:50Z"
-last_revision = "578b490d4bba80630e65880fc938fe6a78894244"
+last_updated = "2026-06-24T09:05:00Z"
+last_revision = "bb335391eb831a044ce74d5bd4e30e46fc695096"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-06-16T14:54:18Z"
+last_updated = "2026-06-24T12:47:05Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-06-16T13:13:52Z"
+last_updated = "2026-06-22T16:14:15Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -46,6 +46,7 @@ url = "https://developers.openai.com/mcp"
 [mcp_servers.unison]
 command = "/opt/homebrew/bin/ucm"
 args = ["mcp"]
+enabled = false
 
 [mcp_servers.node_repl]
 args = []
@@ -58,12 +59,12 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_nod
 NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
 CODEX_HOME = "/Users/channing/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "89809670b247cbaffbc4f87d9fa9742a9038c0f4a06fb822d7f85ff19bf24215"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "5504c0782b5c86b7dd08314045b9843e973a230e1be8f7e2e0ba3716fc63c55e"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.609.71450"
+BROWSER_USE_CODEX_APP_VERSION = "26.616.81150"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
 [notice]
@@ -110,7 +111,7 @@ enabled = true
 enabled = true
 
 [plugins."slack@claude-plugins-official"]
-enabled = true
+enabled = false
 
 [plugins."pdf@openai-primary-runtime"]
 enabled = true
@@ -191,6 +192,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/dev/omnear-rust-model"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/workforce"]
 trust_level = "trusted"
 
 [shell_environment_policy]

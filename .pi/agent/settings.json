@@ -1,6 +1,11 @@
 {
-  "lastChangelogVersion": "0.79.6",
+  "lastChangelogVersion": "0.80.2",
   "defaultProvider": "mlx-local",
   "defaultModel": "mlx-community/Qwen3.6-35B-A3B-4bit",
-  "theme": "dark"
+  "theme": "dark",
+  "packages": [
+    "npm:@hypabolic/pi-hypa",
+    "npm:pi-web-access",
+    "npm:pi-subagents"
+  ]
 }

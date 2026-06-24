@@ -120,6 +120,10 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "bash '/Users/channing/.claude/statusline-command.sh'"
+  },
   "enabledPlugins": {
     "caveman@caveman": true,
     "chrome-devtools-mcp@claude-plugins-official": false,
@@ -134,7 +138,8 @@
     "ruby-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
     "understand-anything@understand-anything": false,
-    "swift-lsp@claude-plugins-official": true
+    "swift-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -158,17 +163,15 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "fastMode": true,
+  "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
   "autoDreamEnabled": true,
   "teammateMode": "tmux",
-  "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
   "agentPushNotifEnabled": true,
-  "statusLine": {
-    "type": "command",
-    "command": "bash '/Users/channing/.claude/statusline-command.sh'"
-  }
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true
 }
