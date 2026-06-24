@@ -19,6 +19,9 @@ set -euo pipefail
 #   devtool lint             # lint only
 #   devtool test [pattern]   # test only, optional filter
 #   devtool cpd <lang> [dir] # find duplicate code (pmd cpd)
+#
+# check prefers a justfile commit-check recipe (just commit-check)
+# when present, falling back to project detection.
 # ============================================
 
 # --- Project detection ---
@@ -218,6 +221,13 @@ do_cpd() {
 }
 
 do_check() {
+  # justfile with a commit-check recipe takes precedence
+  if [[ -f "justfile" || -f "Justfile" ]] && command -v just &>/dev/null \
+    && just --show commit-check &>/dev/null; then
+    run_quiet just commit-check
+    return $?
+  fi
+
   # Scala with commitCheck sbt target
   if [[ "$PROJECT_TYPE" == "scala" ]] && $SBT_HAS_COMMIT_CHECK; then
     run_quiet sbt --warn commitCheck
@@ -233,7 +243,7 @@ usage() {
   echo "Usage: devtool <command> [args]"
   echo ""
   echo "Commands:"
-  echo "  check            compile + lint + test"
+  echo "  check            compile + lint + test (prefers justfile commit-check)"
   echo "  compile          compile only"
   echo "  lint             lint only"
   echo "  test [pattern]   test only, optional filter"
