@@ -36,7 +36,7 @@ source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-06-22T16:14:15Z"
+last_updated = "2026-06-27T21:13:50Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -117,6 +117,9 @@ enabled = false
 enabled = true
 
 [plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
 enabled = true
 
 [projects."/Users/channing/dev"]

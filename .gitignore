@@ -80,6 +80,7 @@
 !/.config/kitty/
 !/.config/lazydocker/
 !/.config/lazygit/
+!/.config/leaf/
 !/.config/lf/
 !/.config/lsd/
 !/.config/nvim/
