@@ -25,13 +25,13 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-06-24T09:05:00Z"
-last_revision = "bb335391eb831a044ce74d5bd4e30e46fc695096"
+last_updated = "2026-06-27T19:28:22Z"
+last_revision = "30a213f9b39e3c40b0073bb5b41081da9f2b6634"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-06-24T12:47:05Z"
+last_updated = "2026-06-27T20:23:33Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -59,12 +59,12 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_nod
 NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
 CODEX_HOME = "/Users/channing/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "5504c0782b5c86b7dd08314045b9843e973a230e1be8f7e2e0ba3716fc63c55e"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "59e7bb81812ddd5f102e1d580335166e552c91686b5726218a985b59b4f89ca1"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.616.81150"
+BROWSER_USE_CODEX_APP_VERSION = "26.623.42026"
 CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
 
 [notice]
@@ -197,6 +197,12 @@ trust_level = "trusted"
 [projects."/Users/channing/dev/workforce"]
 trust_level = "trusted"
 
+[projects."/Users/channing/dev/TXPLabs/Orchestrator"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-06-27/when"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 inherit = "core"
 
@@ -221,6 +227,7 @@ dictationDictionary = ["Patchwork", "Channing", "Omnear"]
 git-show-sidebar-pr-icons = true
 show-context-window-usage = true
 appearanceDiffMarkerStyle = "color"
+followUpQueueMode = "queue"
 
 [desktop.appearanceLightChromeTheme]
 accent = "#0169cc"

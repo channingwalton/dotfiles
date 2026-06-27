@@ -125,7 +125,7 @@
     "command": "bash '/Users/channing/.claude/statusline-command.sh'"
   },
   "enabledPlugins": {
-    "caveman@caveman": true,
+    "caveman@caveman": false,
     "chrome-devtools-mcp@claude-plugins-official": false,
     "claude-md-management@claude-plugins-official": true,
     "codex@openai-codex": true,
