@@ -34,7 +34,7 @@ vim.keymap.set("n", "<leader>gx", function()
     confirm = function(picker, item)
       picker:close()
       if item then
-        vim.cmd("edit " .. item.file)
+        vim.cmd("edit " .. vim.fn.fnameescape(item.file))
       end
     end,
   })

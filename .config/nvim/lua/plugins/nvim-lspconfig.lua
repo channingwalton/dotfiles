@@ -19,47 +19,6 @@ return {
         end,
         desc = "Toggle Inlay Hints",
       },
-
-      -- Metals command picker
-      {
-        "<leader>mm",
-        function()
-          local commands = {
-            "MetalsCompileCancel",
-            "MetalsCompileCascade",
-            "MetalsCompileClean",
-            "MetalsImportBuild",
-            "MetalsInfo",
-            "MetalsToggleLogs",
-            "MetalsRestartBuildServer",
-            "MetalsRestartMetals",
-            "MetalsRunDoctor",
-            "MetalsRunWorksheet",
-            "MetalsSwitchBsp",
-            "MetalsUpdate",
-          }
-
-          Snacks.picker.pick({
-            source = "metals",
-            title = "Metals",
-            items = vim.tbl_map(function(cmd)
-              return { text = cmd, cmd = cmd }
-            end, commands),
-            format = "text",
-            preview = "none",
-            confirm = function(picker, item)
-              picker:close()
-              if item then
-                vim.cmd(item.cmd)
-              end
-            end,
-          })
-        end,
-        desc = "Metals commands",
-      },
-      { "<leader>mT", "<cmd>lua require('metals.tvp').toggle_tree_view()<CR>", desc = "Toggle Tree View" },
-      { "<leader>mV", "<cmd>lua require('metals.tvp').reveal_in_tree()<CR>", desc = "Reveal in Tree View" },
-      { "gh", "<cmd>MetalsSuperMethodHierarchy<cr>", desc = "Supermethod Hierarchy" },
     },
   },
 
@@ -119,32 +78,6 @@ return {
       { "<leader>mI", "<cmd>Lspsaga incoming_calls<CR>", desc = "Incoming calls" },
       { "<leader>mO", "<cmd>Lspsaga outgoing_calls<CR>", desc = "Outgoing calls" },
       { "<leader>mn", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Diagnostic Next" },
-
-      -- Metals Build Commands
-      { "<leader>mb", "<cmd>lua require('metals').connect_build()<cr>", desc = "Connect Build" },
-      { "<leader>mB", "<cmd>lua require('metals').disconnect_build()<cr>", desc = "Disconnect Build" },
-      { "<leader>mx", "<cmd>lua require('metals').restart_build_server()<cr>", desc = "Restart Build Server" },
-
-      -- Metals Compile Commands
-      { "<leader>mc", "<cmd>lua require('metals').compile_cascade()<cr>", desc = "Compile Cascade" },
-      { "<leader>mC", "<cmd>lua require('metals').compile_clean()<cr>", desc = "Compile Clean" },
-
-      -- Metals Workspace Commands
-      { "<leader>mw", "<cmd>lua require('metals').reset_workspace()<cr>", desc = "Reset Workspace" },
-      { "<leader>mz", "<cmd>lua require('metals').restart_metals()<cr>", desc = "Restart Metals" },
-      { "<leader>mD", "<cmd>lua require('metals').run_doctor()<cr>", desc = "Run Doctor" },
-      { "<leader>mL", "<cmd>lua require('metals').toggle_logs()<cr>", desc = "Toggle Logs" },
-
-      -- Metals Code Commands
-      { "<leader>mF", "<cmd>lua require('metals').run_scalafix()<cr>", desc = "Run Scalafix" },
-      { "<leader>mG", "<cmd>lua require('metals').organize_imports()<cr>", desc = "Organize Imports" },
-      { "<leader>mS", "<cmd>lua require('metals').goto_super_method()<cr>", desc = "Goto Super Method" },
-      { "<leader>mH", "<cmd>lua require('metals').super_method_hierarchy()<cr>", desc = "Super Method Hierarchy" },
-      { "<leader>mN", "<cmd>lua require('metals').new_scala_file()<cr>", desc = "New Scala File" },
-      { "<leader>mW", "<cmd>lua require('metals').quick_worksheet()<cr>", desc = "Quick Worksheet" },
-
-      -- Scala-specific overrides
-      { "K", "<cmd>lua require('metals').hover_worksheet()<cr>", desc = "Hover Worksheet", ft = "scala" },
     },
   },
 
