@@ -127,3 +127,4 @@ export PATH="/Users/channing/.codeium/windsurf/bin:$PATH"
 export PATH="${MY_BIN}:$PATH"
 
 export RETROSPECTIVE_LEDGER=~/dev/retro-ledger.md
+source /Users/channing/.local/share/leaf/completions/_leaf
