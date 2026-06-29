@@ -136,3 +136,4 @@
 **/packer_compiled.lua
 **/__pycache__/
 *.pyc
+.todos/

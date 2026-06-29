@@ -25,13 +25,13 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-06-27T19:28:22Z"
-last_revision = "30a213f9b39e3c40b0073bb5b41081da9f2b6634"
+last_updated = "2026-06-29T08:21:28Z"
+last_revision = "3dc50d51835dc85f7a3f77d593dd9a565a87276b"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-06-27T20:23:33Z"
+last_updated = "2026-06-28T13:34:23Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
