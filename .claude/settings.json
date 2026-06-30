@@ -169,8 +169,10 @@
     "mode": "hold"
   },
   "autoDreamEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
   "teammateMode": "tmux",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "model": "opus"
 }

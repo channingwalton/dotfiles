@@ -52,6 +52,9 @@ function updates {
   echo "\nCoursier\n"
   coursier update
 
+  echo "\nleaf\n"
+  leaf --update
+
   echo "\nSkills\n"
   npx skills update -g
 
@@ -60,9 +63,6 @@ function updates {
 
   echo "\nUnison\n"
   $HOME/dotfiles/bin/backupUnison.sh
-
-  echo "\nleaf\n"
-  leaf --update
 }
 
 function jdk() {
