@@ -48,5 +48,3 @@
 [mergetool]
   prompt = false
 
-[includeIf "gitdir:/Users/channing/dev/TXPLabs/"]
-	path = /Users/channing/.config/git/txplabs
