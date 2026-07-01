@@ -1,4 +1,4 @@
-# Claude Configuration
+# Agent Configuration
 
 ## Core Behaviours
 
