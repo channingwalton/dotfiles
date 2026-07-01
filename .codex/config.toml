@@ -5,7 +5,7 @@ approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
 notify = ["/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
-service_tier = "fast"
+service_tier = "default"
 sandbox_mode = "workspace-write"
 
 [sandbox_workspace_write]
@@ -204,6 +204,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/2026-06-27/when"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/TXPLabs"]
 trust_level = "trusted"
 
 [shell_environment_policy]
