@@ -25,8 +25,8 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-01T09:12:41Z"
-last_revision = "317b8988055b151b694d4e06e5039b3f38dbe425"
+last_updated = "2026-07-03T07:45:08Z"
+last_revision = "358ee646f45b39424320d47abbb15554d4eb31e3"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
@@ -209,6 +209,9 @@ trust_level = "trusted"
 [projects."/Users/channing/dev/TXPLabs"]
 trust_level = "trusted"
 
+[projects."/Users/channing/dev/TXPLabs/annie-expt"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 inherit = "core"
 
@@ -277,3 +280,13 @@ global = "zed"
 
 [hooks.state."/Users/channing/.codex/hooks.json:session_start:0:0"]
 trusted_hash = "sha256:2704f97ca392dd24670e9e06d2310460039a200d292963f1927e44110275367a"
+
+[hooks.state."/Users/channing/.codex/hooks.json:session_start:1:0"]
+trusted_hash = "sha256:68bae0c904f5fb8a50302647c5d96057363dd062dd734a95469f2fdeafe60a75"
+enabled = true
+
+[hooks.state."/Users/channing/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:c99ea859c36627ab0c79b3ad1c55e0efe5d96134d68721e43697145ab8ed6d58"
+
+[hooks.state."/Users/channing/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:ff7debca235a3c1f664078daa00880e7306c7fd9cf82309a97741e4f1e62e21b"
