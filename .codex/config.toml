@@ -5,7 +5,7 @@ approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
 notify = ["/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
-service_tier = "default"
+service_tier = "fast"
 sandbox_mode = "workspace-write"
 
 [sandbox_workspace_write]
@@ -25,8 +25,8 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-03T07:45:08Z"
-last_revision = "358ee646f45b39424320d47abbb15554d4eb31e3"
+last_updated = "2026-07-03T21:30:08Z"
+last_revision = "f3f92ab0303fbcc6f38a6e82d02c006311f9c557"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
@@ -210,6 +210,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/dev/TXPLabs/annie-expt"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/TXPLabs/pumpkin"]
 trust_level = "trusted"
 
 [shell_environment_policy]
