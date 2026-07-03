@@ -132,8 +132,61 @@ function gits() {
   done
 }
 
+function repo() {
+  if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "repo: not in a git repository"
+    return 1
+  fi
+
+  local remote_name remote url remote_path host repo_path
+  if git remote get-url origin > /dev/null 2>&1; then
+    remote_name="origin"
+  else
+    remote_name=$(git remote | sed -n '1p')
+  fi
+
+  if [[ -z "$remote_name" ]]; then
+    echo "repo: no git remote found"
+    return 1
+  fi
+
+  remote=$(git remote get-url "$remote_name")
+  if [[ -z "$remote" ]]; then
+    echo "repo: no git remote found"
+    return 1
+  fi
+
+  case "$remote" in
+    https://*|http://*)
+      url="$remote"
+      ;;
+    git://*)
+      url="https://${remote#git://}"
+      ;;
+    ssh://*)
+      remote_path="${remote#ssh://}"
+      url="https://${remote_path#*@}"
+      ;;
+    *@*:*)
+      remote_path="${remote#*@}"
+      host="${remote_path%%:*}"
+      repo_path="${remote_path#*:}"
+      if [[ -z "$host" || -z "$repo_path" || "$host" == "$repo_path" ]]; then
+        echo "repo: no web remote found"
+        return 1
+      fi
+      url="https://${host}/${repo_path}"
+      ;;
+    *)
+      echo "repo: no web remote found"
+      return 1
+      ;;
+  esac
+
+  open "${url%.git}"
+}
+
 function wtf() {
   export WTF_GITHUB_TOKEN=$(security find-generic-password -s "wtfutil-github" -w)
   wtfutil
 }
-
