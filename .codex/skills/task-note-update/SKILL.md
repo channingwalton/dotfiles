@@ -45,6 +45,8 @@ If the user asks to update both task note and dossier, update dossier files dire
 - Open Questions are ephemeral and should empty over time.
 - Use British spelling.
 - Dates are Obsidian wikilinks `[[YYYY-MM-DD]]` — never bare `YYYY-MM-DD` — so they backlink to daily notes.
+- Frontmatter `status` values are hyphenated: `in-progress` / `done` (never `in progress`).
+- Set `status: done` + `completedDate` only after the branch is **merged** — a PR being open or approved is still `in-progress`. For tasks with no branch (investigations), `done` additionally requires every strand in Current State / Open Questions to be resolved; "no work needed on strand X" is not task-complete. When the user says "close it out", propose `in-progress` with the open strand named — do not offer `done` as a default to rubber-stamp.
 
 ## Anti-patterns
 

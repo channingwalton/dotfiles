@@ -39,6 +39,8 @@ A helper script lives at `scripts/topic_tools.py` (run it with `python3 <skill-d
 
 Work one project at a time. Confirm the project folder and that `Topics/` and `Tasks/` exist before starting.
 
+**Read the maintenance log first.** Each project's `Topics/_topic-maintenance-log.md` (if present) records the last pass: date, coverage counts, topics touched, and the agreed skip-list of notes deliberately left uncovered. Read it before auditing so you don't re-litigate settled ground or re-inspect the skip-list every run. Update it at the end (step 7).
+
 ### 1. Inventory
 List existing topics (and their aliases) and the Task/Event notes:
 ```
@@ -76,7 +78,7 @@ Use word-boundary regexes; `\bimport...` excludes "important". If a broad regex 
 ### 5. Interlink audit & orphans
 Re-run `audit`. Aim for:
 - **Tasks -> Topics: every note links at least one topic.** For stragglers, either the note needs an existing topic's backlink (a regex that missed it) or it signals a *new* topic - feed those back into step 2.
-- **Topics -> Topics: no orphans.** Give any topic with no outgoing link a `## See also`; give any with no incoming link a mention from a related hub. Peripheral dev/admin/reference notes may legitimately have no incoming topic link - note them but don't force it.
+- **Topics -> Topics: links must be evidence-gated.** Add a `## See also` link between two topics **only when they co-occur in real task/event text** (the same notes mention both). Never invent a topic->topic link to clear the orphan-connectivity number — a false link is worse than an orphan. Give a topic with no *outgoing* link a `## See also` only if such evidence exists; otherwise leave it. Intentional peripheral orphans (dev/admin/reference, or a standalone definition) are acceptable — record them in the skip-list, don't force a link.
 
 ### 6. Hygiene
 - **Duplicate names / alias collisions**: if a concept exists twice (or a definition + a hub), merge into one note, fold the alias on so links resolve, and delete the duplicate. After removing duplicates, collapse any `[[Projects/.../full/path]]` links Obsidian created for disambiguation back to bare `[[Name]]`.
@@ -87,6 +89,8 @@ Re-run `audit`. Aim for:
 python3 scripts/topic_tools.py linkcheck --project "<PROJECT_DIR>"
 ```
 Confirms no links were broken. Daily-notes (`2026-05-22`), `@people` and attachments live elsewhere in the vault and will always appear here - ignore those; look only for newly-unresolved Topic/Task names. `\|` table-escape artifacts are already filtered out.
+
+Then **update `Topics/_topic-maintenance-log.md`**: append a dated entry (shell `date`) with the final coverage counts, the topics/backlinks touched this pass, and any notes added to the skip-list. This is the state the next run reads first — keep it short and append-only.
 
 ## Notes
 - Deleting files in a connected vault may need delete permission - if `rm` reports "Operation not permitted", request it rather than reporting it impossible.
