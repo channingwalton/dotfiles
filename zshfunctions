@@ -46,8 +46,8 @@ function updates {
   brew cleanup
   brew autoremove
 
-  echo "\nasdf\f"
-  asdf plugin update --all
+  echo "\nmise\n"
+  mise upgrade
 
   echo "\nCoursier\n"
   coursier update
@@ -68,10 +68,10 @@ function updates {
 function jdk() {
   if [[ -z "$1" ]]; then
     echo "Usage: jdk <version>"
-    echo "Examples: jdk 21, jdk graalvm-java21, jdk temurin:21"
+    echo "Examples: jdk 21, jdk temurin-21, jdk zulu-21, jdk oracle-graalvm-21"
     return 1
   fi
-  eval "$(cs java --jvm "$1" --env)"
+  mise install "java@$1" && mise shell "java@$1"
 }
 
 function killDockerServices {

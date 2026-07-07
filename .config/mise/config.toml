@@ -1,0 +1,9 @@
+[tools]
+node   = "25.9.0"
+ruby   = "3.4.8"
+java   = "zulu-25"
+python = "3.13"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node", "ruby", "python"]
+disable_tools = ["bundler"]
