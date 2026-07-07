@@ -5,7 +5,7 @@ description: Append a Decision Log entry, rewrite Current State, or resolve an O
 
 # Task Note Update
 
-Maintains `Current State`, `Decision Log`, and `Open Questions` via a propose-then-write loop.
+Maintains `Current State`, `Decision Log`, and `Open Questions`. Writes directly when the content is already established in the session; asks first only when something material is missing or ambiguous.
 
 ## When to use
 
@@ -31,11 +31,11 @@ Use when the user wants a task-note decision, state change, or open-question res
 
    **Open Question resolution** — write the destination first (`Decision Log`, `Current State`, or spun-out task), then remove the question.
 
-5. Show the proposed diff or full new section and ask for confirmation. Do not write without explicit go-ahead.
+5. Write directly when the content derives from work done or decisions made in this session — things the user has already seen or agreed. Apply surgically, then show the written entry (not a proposal) so it can be corrected if wrong.
 
-6. Apply surgically once confirmed.
+6. Ask **before** writing only when something material is missing or ambiguous: which note, which section, a Decision Log **Why**, or content the user has never seen (e.g. reconstructing history from outside the session).
 
-If the user asks to update both task note and dossier, update dossier files directly under the investigation workflow, but still draft task-note changes and wait for approval.
+If the user asks to update both task note and dossier, update dossier files directly under the investigation workflow; the same direct-write rule applies to the task note.
 
 ## Format rules
 
@@ -50,8 +50,9 @@ If the user asks to update both task note and dossier, update dossier files dire
 
 ## Anti-patterns
 
-- Writing without confirmation.
-- Treating a broad "yes" as approval to write exact text that has not been shown.
+- Asking for confirmation on content already established in the session — write it and show what was written.
+- Writing invented or reconstructed content the user has never seen without asking first.
+- Silent writes — every write must be followed by showing the entry as written.
 - Decision Log entries without a **Why**.
 - Echoing JIRA content into the task note. Link, don't copy.
 - Hardcoding dates instead of running `date`.

@@ -55,7 +55,7 @@ The note is the canonical working memory for the task — *the current state of 
 
 It has links to other notes that will provide further context, read them.
 
-When I reference a task note, use the `task` skill to resolve and route it, and `task-note-update` to capture decisions, Current State, or Open Question changes. Those skills own the section formats and the propose-then-write loop.
+When I reference a task note, use the `task` skill to resolve and route it, and `task-note-update` to capture decisions, Current State, or Open Question changes. Those skills own the section formats and the write-then-show loop.
 
 Conventions those skills don't hold:
 
