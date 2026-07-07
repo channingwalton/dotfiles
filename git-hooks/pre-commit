@@ -6,4 +6,6 @@ if ! command -v gitleaks &>/dev/null; then
   exit 0
 fi
 
-gitleaks protect --staged --verbose
+gitleaks protect --staged --verbose || exit 1
+
+bin/dotfiles-audit

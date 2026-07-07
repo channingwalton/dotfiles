@@ -1,0 +1,19 @@
+# Exceptions for bin/dotfiles-audit — extended regexes, one per line,
+# matched against repo-relative paths (and stale-allowlist entries).
+
+# Deliberate future-proofing: no .md rules exist yet
+^!/\.codex/rules/\*\*/\*\.md$
+
+# Backup snapshots
+^\.codex\.prelink/
+^\.pi\.backup-
+
+# Tool-managed trees, not user-authored config
+^\.hermes/(skills|plugins|node)/
+^\.config/\.semgrep/
+^\.config/jgit/
+^\.config/swiftpm/
+
+# Contents behind skill symlinks live in ~/.agents, managed outside git
+^\.claude/skills/[^/]+/
+^\.config/(goose|devin)/skills/[^/]+/

@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# Audit the allowlist-style .gitignore for silent omissions.
+#
+# Checks:
+#   1. Stale allowlist entries — `!/...` patterns in .gitignore matching nothing on disk (fail)
+#   2. Tracked-but-ignored files — snuck in via `git add -f` without an allowlist entry (fail)
+#   3. Config-shaped ignored files — candidates for tracking (warn; silence via .audit-ignore)
+#   4. Untracked files referenced by tracked config (fail; silence via .audit-ignore)
+#
+# .audit-ignore holds extended regexes matched against repo-relative paths (checks 3 and 4).
+
+set -uo pipefail
+repo="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$repo"
+
+fail=0
+section() { printf '\n\033[1m%s\033[0m\n' "$1"; }
+
+audit_filter() {
+  if [[ -s .audit-ignore ]]; then
+    grep -Ev -f <(grep -Ev '^\s*(#|$)' .audit-ignore) || true
+  else
+    cat
+  fi
+}
+
+# --- 1. Stale allowlist entries ---
+shopt -s globstar nullglob dotglob
+stale=()
+while IFS= read -r pat; do
+  p="${pat#!}"; p="${p#/}"; p="${p%/}"
+  if [[ $p == *[\*\?\[]* ]]; then
+    matches=( $p )
+    (( ${#matches[@]} == 0 )) && stale+=("$pat")
+  else
+    [[ -e $p ]] || stale+=("$pat")
+  fi
+done < <(grep -E '^!' .gitignore)
+stale_filtered="$( (( ${#stale[@]} > 0 )) && printf '%s\n' "${stale[@]}" | audit_filter)"
+if [[ -n $stale_filtered ]]; then
+  section "FAIL: stale .gitignore allowlist entries (match nothing on disk)"
+  printf '  %s\n' $stale_filtered
+  fail=1
+fi
+
+# --- 2. Tracked-but-ignored files ---
+bypassed="$(git ls-files -i -c --exclude-standard)"
+if [[ -n $bypassed ]]; then
+  section "FAIL: tracked files with no allowlist entry (added with -f?)"
+  printf '  %s\n' $bypassed
+  fail=1
+fi
+
+# --- 3. Config-shaped ignored files not tracked ---
+noise='(^|/)(caches?|sessions?|session-env|node_modules|logs?|backups?|history|file-history|shell.snapshots|state-snapshots|projects|todos|telemetry|statsig|usage-data|paste-cache|plans|jobs|tasks|teams|debug|daemon|chrome|marketplaces|data|memories|attachments|archived_sessions|vendor_imports|generated_images|computer-use|process_manager|sqlite|packages|tls|sockets|bootstrap-cache|cron|automations|\.system|\.tmp[^/]*|\.omx)(/|$)'
+candidates="$(git ls-files -o -i --exclude-standard \
+  | grep -Ev "$noise" \
+  | grep -Ei '(^|/)(config[^/]*|settings[^/]*\.json)$|\.(toml|ya?ml|conf)$|(^|/)[a-z]+rc$' \
+  | grep -Eiv '(auth|credential|token|secret|hosts|\.local\.|\.bak|\.orig|\.log$)' \
+  | audit_filter)"
+if [[ -n $candidates ]]; then
+  section "WARN: ignored files that look like config — track or add to .audit-ignore"
+  printf '  %s\n' $candidates
+fi
+
+# --- 4. Untracked files referenced by tracked config ---
+# tr strips JSON-escaped slashes (\/Users\/...) so escaped paths still match
+refs="$(git ls-files -z -- '*.json' '*.toml' '*.yaml' '*.yml' '*.sh' | xargs -0 cat 2>/dev/null | tr -d '\\' \
+  | grep -oE '(/Users/[a-z]+|~|\$HOME)/\.[A-Za-z0-9_-]+/[A-Za-z0-9_./-]+' \
+  | sed -E "s|^(/Users/[a-z]+\|~\|\\\$HOME)/||" | sort -u)"
+missing=()
+while IFS= read -r ref; do
+  [[ -z $ref ]] && continue
+  top="${ref%%/*}"
+  [[ -d $top ]] || continue                      # only dotdirs that live in this repo
+  [[ -f $ref ]] || continue                      # dead refs are the tool's problem, not git's
+  git ls-files --error-unmatch "$ref" &>/dev/null || missing+=("$ref")
+done < <(printf '%s\n' "$refs" | audit_filter)
+if (( ${#missing[@]} > 0 )); then
+  section "FAIL: files referenced by tracked config but not tracked"
+  printf '  %s\n' "${missing[@]}"
+  fail=1
+fi
+
+(( fail == 0 )) && echo "dotfiles-audit: clean"
+exit $fail

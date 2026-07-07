@@ -2,6 +2,7 @@
 /*
 
 # ===== Top-level allowlist =====
+!/.audit-ignore
 !/.gitignore
 !/.gitmodules
 !/.markdownlint-cli2.yaml
@@ -17,14 +18,12 @@
 !/git-hooks/
 !/keychron/
 !/misc/
-!/trace.json.gz
 !/zshfunctions
 
 # ===== Dotted config trees: re-open, then curate inside =====
 !/.claude/
 !/.codex/
 !/.config/
-!/.gemini/
 !/.hermes/
 !/.pi/
 
@@ -49,6 +48,7 @@
 /.codex/*
 !/.codex/AGENTS.md
 !/.codex/config.toml
+!/.codex/herdr-agent-state.sh
 !/.codex/hooks.json
 !/.codex/rules/
 !/.codex/skills/
@@ -79,6 +79,7 @@
 !/.config/gh/
 
 !/.config/gh-copilot/
+!/.config/gh-txplabs/
 !/.config/ghostty/
 !/.config/git/
 !/.config/goose/
@@ -86,7 +87,6 @@
 !/.config/herdr/
 !/.config/ideavim/
 !/.config/jj/
-!/.config/kitty/
 !/.config/lazydocker/
 !/.config/lazygit/
 !/.config/lazysql/
@@ -135,16 +135,9 @@
 /.config/zed/prompts
 /.config/zed/stable
 
-# --- .gemini/: only curated files ---
-/.gemini/*
-!/.gemini/GEMINI.md
-!/.gemini/settings.json.orig
-!/.gemini/trustedFolders.json
-
 # --- .hermes/: only curated config ---
 /.hermes/*
 !/.hermes/config.yaml
-!/.hermes/AGENTS.md
 !/.hermes/SOUL.md
 
 # --- .pi/: only the agent tree ---
