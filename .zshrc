@@ -13,7 +13,7 @@ zstyle ':omz:update' frequency 7
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="yyyy-mm-dd"
 
-plugins=(aliases asdf brew git github fzf-tab macos sbt scala wd z)
+plugins=(aliases brew git github fzf-tab macos sbt scala wd z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -80,8 +80,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export PATH="/opt/homebrew/bin:$PATH"
 
-eval "$(cs java --jvm zulu:26 --env)"
-export PATH="$JAVA_HOME/bin:$PATH"
+# JAVA_HOME is managed by mise (see `mise activate` below)
 
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export GITHUB_PERSONAL_ACCESS_TOKEN=$(security find-generic-password -w -s github-personal-access-token)
@@ -117,13 +116,13 @@ esac
 export PATH="$PATH:/Users/channing/.lmstudio/bin"
 # End of LM Studio CLI section
 
-export PATH="$HOME/.asdf/shims:$PATH"
+eval "$(mise activate zsh)"
 
 
 # Added by Windsurf
 export PATH="/Users/channing/.codeium/windsurf/bin:$PATH"
 
-# Prefer personal bin (contains codex symlink to Codex.app) over asdf shims
+# Prefer personal bin (contains codex symlink to Codex.app) over mise shims
 export PATH="${MY_BIN}:$PATH"
 
 export RETROSPECTIVE_LEDGER=~/dev/retro-ledger.md
