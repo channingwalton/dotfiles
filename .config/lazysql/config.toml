@@ -1,0 +1,25 @@
+ConfigFile = '/Users/channing/.config/lazysql/config.toml'
+LocalConfigFile = ''
+
+[application]
+DefaultPageSize = 300
+DisableSidebar = false
+SidebarOverlay = false
+MaxQueryHistoryPerConnection = 100
+TreeWidth = 30
+JSONViewerWordWrap = false
+EnterOpensJSONViewer = false
+
+[[database]]
+Name = 'rotamap'
+URL = 'postgres://localhost:5432/rotamap_integration?sslmode=disable'
+Provider = 'postgres'
+Username = ''
+Password = ''
+Hostname = ''
+Port = ''
+DBName = 'rotamap_integration'
+URLParams = ''
+ReadOnly = false
+Schemas = []
+Commands = []

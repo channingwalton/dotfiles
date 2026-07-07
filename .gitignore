@@ -9,6 +9,7 @@
 !/.tool-versions
 !/.tmux.conf
 !/.zshrc
+!/AGENTS.md
 !/CLAUDE.md
 !/LICENSE
 !/README.md
@@ -33,10 +34,11 @@
 !/.claude/README.md
 !/.claude/agents/
 !/.claude/commands/
+!/.claude/hooks/
 !/.claude/plugins/
 !/.claude/settings.json
 !/.claude/skills/
-!/.claude/statusline.sh
+!/.claude/statusline-command.sh
 
 # Inside .claude/plugins/: only the two manifest files
 /.claude/plugins/*
@@ -47,6 +49,7 @@
 /.codex/*
 !/.codex/AGENTS.md
 !/.codex/config.toml
+!/.codex/hooks.json
 !/.codex/rules/
 !/.codex/skills/
 
@@ -69,21 +72,28 @@
 !/.config/bat/
 !/.config/btop/
 !/.config/caveman/
+!/.config/cmux/
+!/.config/codeburn/
 !/.config/configstore/
+!/.config/devin/
 !/.config/gh/
 
 !/.config/gh-copilot/
 !/.config/ghostty/
 !/.config/git/
+!/.config/goose/
 !/.config/helix/
+!/.config/herdr/
 !/.config/ideavim/
 !/.config/jj/
 !/.config/kitty/
 !/.config/lazydocker/
 !/.config/lazygit/
+!/.config/lazysql/
 !/.config/leaf/
 !/.config/lf/
 !/.config/lsd/
+!/.config/mise/
 !/.config/nvim/
 !/.config/opencode/
 !/.config/pgcli/
@@ -96,9 +106,24 @@
 /.config/configstore/*
 !/.config/configstore/update-notifier-@github/
 
-# Inside .config/opencode/: only opencode.json and skills/
+# Inside .config/devin/: only config and skills, not the cli install
+/.config/devin/*
+!/.config/devin/config.json
+!/.config/devin/skills/
+
+# Inside .config/goose/: only config and skills, not tls material
+/.config/goose/*
+!/.config/goose/config.yaml
+!/.config/goose/skills/
+
+# Inside .config/herdr/: only config, not sockets/logs
+/.config/herdr/*
+!/.config/herdr/config.toml
+
+# Inside .config/opencode/: only opencode.json, plugins/, and skills/
 /.config/opencode/*
 !/.config/opencode/opencode.json
+!/.config/opencode/plugins/
 !/.config/opencode/skills/
 
 # Noise inside otherwise-allowed config dirs
