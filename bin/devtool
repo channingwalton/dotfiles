@@ -221,6 +221,12 @@ do_cpd() {
 }
 
 do_check() {
+  # Legacy project-specific commit check, only for explicit check requests.
+  if [[ -f "commitCheck.sh" ]]; then
+    run_quiet ./commitCheck.sh
+    return $?
+  fi
+
   # justfile with a commit-check recipe takes precedence
   if [[ -f "justfile" || -f "Justfile" ]] && command -v just &>/dev/null \
     && just --show commit-check &>/dev/null; then
@@ -257,13 +263,11 @@ main() {
   local cmd="${1:-}"
   shift 2>/dev/null || true
 
-  if [[ -f "commitCheck.sh" ]]; then
-    echo "=== devtool $cmd [commitCheck.sh] ==="
-    if run_quiet ./commitCheck.sh; then
-      echo "=== devtool $cmd: OK ==="
-      return 0
-    fi
-    return $?
+  if [[ "$cmd" == "cpd" ]]; then
+    echo "=== devtool $cmd ==="
+    do_cpd "$@"
+    echo "=== devtool $cmd: OK ==="
+    return 0
   fi
 
   detect_project
@@ -273,7 +277,9 @@ main() {
     return 1
   fi
 
-  if [[ -n "$PROJECT_TYPE" ]]; then
+  if [[ "$cmd" == "check" && -f "commitCheck.sh" ]]; then
+    echo "=== devtool $cmd [commitCheck.sh] ==="
+  elif [[ -n "$PROJECT_TYPE" ]]; then
     echo "=== devtool $cmd [$PROJECT_TYPE] ==="
   fi
 
