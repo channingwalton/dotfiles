@@ -13,6 +13,7 @@ Router for vault-backed task work. The task note is the canonical entry point.
 2. Read the task note in full.
 3. Read linked Jira or GitHub issue if present.
 4. Read frontmatter and route by `task_type`. If missing, treat as `note`.
+5. When resuming work and the note has a `## Next Session` block, take it as the starting instruction. If its date is older than Current State's `*Updated:*`, it is stale — ignore it and say so.
 
 ## External Data
 

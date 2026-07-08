@@ -1,6 +1,6 @@
 ---
 name: task-note-update
-description: Append a Decision Log entry, rewrite Current State, or resolve an Open Question on the active task note in Channing's vault. Use when the user says "log this decision", "update the task note", "add to the decision log", "current state has changed", "answer to the open question is X", or otherwise asks to capture, record, or log something about the task being worked on.
+description: Append a Decision Log entry, rewrite Current State, or resolve an Open Question on the active task note in Channing's vault. Use when the user says "log this decision", "update the task note", "add to the decision log", "current state has changed", "answer to the open question is X", asks for a prompt to continue the task in a new session, or otherwise asks to capture, record, or log something about the task being worked on.
 ---
 
 # Task Note Update
@@ -27,7 +27,14 @@ Use when the user wants a task-note decision, state change, or open-question res
    ```
    `Why` is mandatory. Ask if missing.
 
-   **Current State** — overwrite the block. Three to five sentences covering current position, active approach, and blockers. Update `*Updated: [[YYYY-MM-DD]]*`.
+   **Current State** — overwrite the block. Three to five sentences covering current position, active approach, and blockers. Update `*Updated: [[YYYY-MM-DD]]*`. Every Current State rewrite also rewrites `## Next Session` (below).
+
+   **Next Session** — a ready-to-paste prompt to resume the task in a fresh session. Rewritten only alongside Current State, never independently. Operational content only: the exact next action, branch, file paths, commands, and constraints agreed in-session. Do not restate Current State or Open Questions — the resuming session reads those anyway.
+   ```
+   ## Next Session
+   *Updated: [[YYYY-MM-DD]]*
+   <prompt>
+   ```
 
    **Open Question resolution** — write the destination first (`Decision Log`, `Current State`, or spun-out task), then remove the question.
 
@@ -42,6 +49,7 @@ If the user asks to update both task note and dossier, update dossier files dire
 - One decision per Decision Log entry.
 - Decision Log is append-only and dated. Do not edit or delete prior entries.
 - Current State is overwrite-only.
+- Next Session is overwrite-only and changes only alongside Current State; its date must match Current State's.
 - Open Questions are ephemeral and should empty over time.
 - Use British spelling.
 - Dates are Obsidian wikilinks `[[YYYY-MM-DD]]` — never bare `YYYY-MM-DD` — so they backlink to daily notes.
@@ -56,3 +64,5 @@ If the user asks to update both task note and dossier, update dossier files dire
 - Decision Log entries without a **Why**.
 - Echoing JIRA content into the task note. Link, don't copy.
 - Hardcoding dates instead of running `date`.
+- A Next Session prompt that restates state instead of giving the next concrete action.
+- Rewriting Next Session on a Decision Log or Open Question update — it moves only with Current State.
