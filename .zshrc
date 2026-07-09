@@ -80,8 +80,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export PATH="/opt/homebrew/bin:$PATH"
 
-# JAVA_HOME is managed by mise (see `mise activate` below)
-
 export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export GITHUB_PERSONAL_ACCESS_TOKEN=$(security find-generic-password -w -s github-personal-access-token)
 
