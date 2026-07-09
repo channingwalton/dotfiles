@@ -9,7 +9,9 @@
 !/.profile
 !/.tool-versions
 !/.tmux.conf
+!/.bash_profile
 !/.bashrc
+!/.zprofile
 !/.zshrc
 !/AGENTS.md
 !/CLAUDE.md
