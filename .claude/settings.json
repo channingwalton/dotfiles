@@ -140,7 +140,8 @@
     "understand-anything@understand-anything": false,
     "swift-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true
+    "code-review@claude-plugins-official": true,
+    "pw-engineering@patchskills": true
   },
   "extraKnownMarketplaces": {
     "caveman": {
@@ -159,6 +160,12 @@
       "source": {
         "source": "github",
         "repo": "Lum1104/Understand-Anything"
+      }
+    },
+    "patchskills": {
+      "source": {
+        "source": "github",
+        "repo": "patchworkhealth/patchskills"
       }
     }
   },
