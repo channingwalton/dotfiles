@@ -1,6 +1,3 @@
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/channing/.lmstudio/bin"
-# End of LM Studio CLI section
-
-eval "$(mise activate bash)"
+# Interactive bash only; `bash -lc` reads .bash_profile instead.
+command -v mise >/dev/null && eval "$(mise activate bash)"

@@ -110,11 +110,8 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/channing/.lmstudio/bin"
-# End of LM Studio CLI section
-
-eval "$(mise activate zsh)"
+# Interactive zsh only; `zsh -lc` reads .zprofile instead.
+command -v mise >/dev/null && eval "$(mise activate zsh)"
 
 
 # Added by Windsurf
