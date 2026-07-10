@@ -36,6 +36,7 @@ alias cp='cp -i'
 alias kj='killall java'
 alias kruby='pkill -f rb-fsevent'
 alias ls=lsd
+alias m='mise run'
 alias mv='mv -i'
 alias rm='rm -i'
 alias up='cd ..'
