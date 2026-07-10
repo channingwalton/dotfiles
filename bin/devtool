@@ -20,13 +20,17 @@ set -euo pipefail
 #   devtool test [pattern]   # test only, optional filter
 #   devtool cpd <lang> [dir] # find duplicate code (pmd cpd)
 #
-# check prefers a justfile commit-check recipe (just commit-check)
-# when present, falling back to project detection.
+# A local mise config (mise.toml etc.) overrides detection:
+# every command routes to `mise run <task>` (compile, lint,
+# test, and commit-check for check). Otherwise check prefers a
+# commitCheck.sh or justfile commit-check recipe, falling back
+# to project detection.
 # ============================================
 
 # --- Project detection ---
 
 PROJECT_TYPE=""
+HAS_MISE=false
 SBT_HAS_COMMIT_CHECK=false
 USE_BLOOP=false
 GW="gradle"
@@ -34,7 +38,26 @@ GW_TASKS=""
 PM="npm"
 RUBY_TEST="rake"
 
+# A local mise config short-circuits every command to `mise run <task>`,
+# overriding project detection. Only local files count (not the global
+# or parent-merged config), so this fires solely in mise-managed repos.
+MISE_CONFIGS=(
+  mise.toml mise.local.toml
+  .mise.toml .mise.local.toml
+  .config/mise.toml .config/mise/config.toml
+  mise/config.toml .mise/config.toml
+)
+
+detect_mise() {
+  command -v mise &>/dev/null || return
+  local f
+  for f in "${MISE_CONFIGS[@]}"; do
+    if [[ -f "$f" ]]; then HAS_MISE=true; return; fi
+  done
+}
+
 detect_project() {
+  detect_mise
   if [[ -f "build.sbt" ]]; then
     PROJECT_TYPE="scala"
     if [[ -d ".bloop" ]]; then USE_BLOOP=true; fi
@@ -85,6 +108,7 @@ run_quiet() {
 # --- Actions ---
 
 do_compile() {
+  if $HAS_MISE; then run_quiet mise run compile; return $?; fi
   case "$PROJECT_TYPE" in
     scala)
       if $USE_BLOOP; then
@@ -118,6 +142,7 @@ do_compile() {
 }
 
 do_lint() {
+  if $HAS_MISE; then run_quiet mise run lint; return $?; fi
   case "$PROJECT_TYPE" in
     scala)
       # No standalone linter — handled by compiler
@@ -143,6 +168,8 @@ do_lint() {
 }
 
 do_test() {
+  if $HAS_MISE; then run_quiet mise run test "$@"; return $?; fi
+
   local pattern="${1:-}"
 
   case "$PROJECT_TYPE" in
@@ -221,6 +248,12 @@ do_cpd() {
 }
 
 do_check() {
+  # A local mise config wins outright.
+  if $HAS_MISE; then
+    run_quiet mise run commit-check
+    return $?
+  fi
+
   # Legacy project-specific commit check, only for explicit check requests.
   if [[ -f "commitCheck.sh" ]]; then
     run_quiet ./commitCheck.sh
@@ -249,7 +282,7 @@ usage() {
   echo "Usage: devtool <command> [args]"
   echo ""
   echo "Commands:"
-  echo "  check            compile + lint + test (prefers justfile commit-check)"
+  echo "  check            compile + lint + test (prefers just/mise commit-check)"
   echo "  compile          compile only"
   echo "  lint             lint only"
   echo "  test [pattern]   test only, optional filter"
@@ -272,12 +305,14 @@ main() {
 
   detect_project
 
-  if [[ -z "$PROJECT_TYPE" && "$cmd" != "check" ]]; then
+  if [[ -z "$PROJECT_TYPE" && "$HAS_MISE" == false && "$cmd" != "check" ]]; then
     echo "devtool: no project detected"
     return 1
   fi
 
-  if [[ "$cmd" == "check" && -f "commitCheck.sh" ]]; then
+  if $HAS_MISE; then
+    echo "=== devtool $cmd [mise] ==="
+  elif [[ "$cmd" == "check" && -f "commitCheck.sh" ]]; then
     echo "=== devtool $cmd [commitCheck.sh] ==="
   elif [[ -n "$PROJECT_TYPE" ]]; then
     echo "=== devtool $cmd [$PROJECT_TYPE] ==="
