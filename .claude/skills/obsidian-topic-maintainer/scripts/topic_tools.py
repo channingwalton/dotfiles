@@ -12,6 +12,7 @@ Usage:
   python3 topic_tools.py backlink  --project DIR --map "Topic=regex" [...] [--exclude file] [--apply]
   python3 topic_tools.py audit     --project DIR
   python3 topic_tools.py linkcheck --project DIR
+  python3 topic_tools.py crosscut  --project DIR [--max-words 40]
 
 DIR is a project folder, e.g. ~/Documents/Notes/Projects/Patchwork
 """
@@ -155,6 +156,148 @@ def cmd_audit(args):
     print("No OUTGOING topic link:", sorted(n for n in names if not out.get(n)) or "none")
     print("No INCOMING topic link:", sorted(n for n in names if not inn.get(n)) or "none")
 
+# ---------------------------------------------------------------- crosscut
+WIKI = re.compile(r'\[\[([^\]|]+)(\|[^\]]*)?\]\]')
+STRUCTURAL = ('topics', 'tasks', 'events', 'projects')   # folder/index/breadcrumb names
+
+def body_text(txt):
+    # frontmatter closes at the FIRST subsequent --- line (Obsidian semantics);
+    # an empty block (--- directly followed by ---) must not swallow the body
+    # up to a --- horizontal rule
+    lines = txt.split('\n')
+    if lines and lines[0].strip() == '---':
+        for i in range(1, len(lines)):
+            if lines[i].strip() == '---':
+                return '\n'.join(lines[i + 1:])
+    return txt
+
+def cmd_crosscut(args):
+    """Read-only: list Topics that may be evergreen cross-cutting concepts
+    worth graduating to a shared domain folder. Detection only — never writes."""
+    proj, topics, _, _ = dirs(args)
+    proj = os.path.normpath(proj)
+    pname = base(proj)
+    names, alias2 = topic_index(topics)
+    names = {n for n in names if not n.startswith('_')}
+    root = os.path.dirname(os.path.dirname(proj))
+    if base(os.path.dirname(proj)) != 'Projects':
+        root = None
+        print("NOTE: project is not under <vault>/Projects/ — "
+              "vault-wide and cross-project signals skipped\n")
+    inside = {base(f).lower() for f in md_files(proj)} | set(alias2)
+
+    # vault-wide basename index (everything outside this project) + domain folders
+    # (a domain folder = top-level dir with a same-named hub note, e.g. Development/)
+    outside, domains, dom_names = set(), [], {}
+    if root:
+        for d in sorted(os.listdir(root)):
+            top = os.path.join(root, d)
+            if d.startswith('.') or not os.path.isdir(top):
+                continue
+            hub = d != 'Projects' and os.path.isfile(os.path.join(top, d + '.md'))
+            if hub:
+                domains.append(d); dom_names[d] = set()
+            for f in md_files(top):
+                if os.path.normpath(f).startswith(proj + os.sep):
+                    continue
+                outside.add(base(f).lower())
+                if hub:
+                    dom_names[d].add(base(f).lower())
+
+    # links to this project's topics (by basename or alias) from other projects;
+    # a target the referring project itself owns resolves there, not here — skip it
+    xrefs = {n: Counter() for n in names}
+    if root:
+        pdir = os.path.join(root, 'Projects')
+        byproj = {}
+        for f in md_files(pdir):
+            fn = os.path.normpath(f)
+            parts = os.path.relpath(fn, pdir).split(os.sep)
+            if len(parts) >= 2 and not fn.startswith(proj + os.sep):
+                byproj.setdefault(parts[0], []).append(fn)
+        for other, fs in byproj.items():
+            own = {base(f).lower() for f in fs}
+            for f in fs:
+                for t in {(t if t in names else alias2.get(t))
+                          for t in link_targets(read(f))
+                          if t not in own and t not in STRUCTURAL}:
+                    if t in xrefs:
+                        xrefs[t][other] += 1
+
+    # topics flagged standalone/definition/stub in the maintenance-log skip-lists
+    skipflag = set()
+    log = os.path.join(topics, '_topic-maintenance-log.md')
+    kw = re.compile(r'standalone|definition|reference|stub', re.I)
+    if os.path.isfile(log):
+        in_skip = False
+        for line in read(log).splitlines():
+            l = line.strip()
+            if l.startswith('#') or l.startswith('**'):
+                in_skip = l.lower().startswith('**skip-list')
+                continue
+            if in_skip and kw.search(l):
+                # only deliberate mentions — `Name` or [[Name]] — not prose words
+                for m in re.findall(r'`([^`]+)`|\[\[([^\]|#]+)', l):
+                    n = (m[0] or m[1]).strip().lower()
+                    if n in names:
+                        skipflag.add(n)
+
+    cands, scanned = [], 0
+    for f in sorted(glob.glob(os.path.join(topics, '*.md'))):
+        name = base(f); low = name.lower()
+        if name.startswith('_') or low == pname.lower() or low in STRUCTURAL:
+            continue           # maintenance log, project hub, folder-index notes
+        scanned += 1
+        txt = read(f)
+        prose = [l.strip() for l in body_text(txt).splitlines()
+                 if l.strip() and not l.strip().startswith('#')]
+        wc = len(re.findall(r"[\w'-]+", WIKI.sub(r'\1', ' '.join(prose))))
+        first = next((WIKI.sub(r'\1', l) for l in prose
+                      if not re.fullmatch(r'(!?\[\[[^\]]+\]\]\s*)+', l)), '')
+        defn = bool(re.match(r'(the |a |an )?' + re.escape(low) +
+                             r'e?s? +(is|are|was|were|refers to|stands for)\b',
+                             first.lower()))
+        # ignore @people, daily notes, and structural breadcrumbs ([[Topics]] etc.)
+        tgts = {t for t in link_targets(txt)
+                if not t.startswith('@') and not re.match(r'\d{4}-\d{2}-\d{2}', t)
+                and t not in STRUCTURAL}
+        out_t = {t for t in tgts if t not in inside and t in outside}
+        in_t = {t for t in tgts if t in inside and t not in (low, pname.lower())}
+        xc = sum(xrefs.get(low, Counter()).values())
+
+        sig = []
+        if wc <= args.max_words or defn:
+            sig.append('+'.join(filter(None, ['stub' if wc <= args.max_words else '',
+                                              'definition' if defn else '']))
+                       + f'({wc}w)')
+        if out_t:
+            sig.append(f'vault-wide({len(out_t)}/{len(out_t) + len(in_t)} links)')
+        if xc:
+            sig.append(f'x-project({xc} from {", ".join(sorted(xrefs[low]))})')
+        if low in skipflag:
+            sig.append('skip-listed')
+        # conservative gate: cross-project evidence, a human skip-list flag,
+        # or at least two independent signals
+        if not (xc or low in skipflag or len(sig) >= 2):
+            continue
+        votes = {d: len(out_t & dom_names[d]) + (2 if d.lower() in tgts else 0)
+                 for d in domains}
+        best = max(votes, key=votes.get) if votes and max(votes.values()) else None
+        cands.append((len(sig), xc, len(out_t), name, sig, best))
+
+    cands.sort(key=lambda c: (-c[0], -c[1], -c[2], c[3]))
+    print(f"# Graduation suspects in {pname} — {scanned} Topics scanned, "
+          f"{len(cands)} suspect(s)")
+    print("# gate: x-project refs, skip-listed standalone, or >=2 signals — "
+          "a short or empty list is the healthy result")
+    for i, (_, xc, _, name, sig, best) in enumerate(cands, 1):
+        dest = f'-> {best}/' if best else '-> no domain folder — needs a decision'
+        print(f"{i:3}. {name:<32} [{', '.join(sig)}]  x-refs:{xc}  {dest}")
+    if not cands:
+        print("(none)")
+    print("\nGraduation is a human decision — this command only detects; "
+          "see the Graduation step in SKILL.md and [[Topic graduation]].")
+
 # ---------------------------------------------------------------- linkcheck
 def cmd_linkcheck(args):
     proj, _, _, _ = dirs(args)
@@ -183,7 +326,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
-    for name in ('clusters', 'backlink', 'audit', 'linkcheck'):
+    for name in ('clusters', 'backlink', 'audit', 'linkcheck', 'crosscut'):
         s = sub.add_parser(name)
         s.add_argument('--project', required=True)
         if name == 'clusters':
@@ -191,9 +334,12 @@ def main():
         if name == 'backlink':
             s.add_argument('--map', action='append', default=[], required=True)
             s.add_argument('--exclude'); s.add_argument('--apply', action='store_true')
+        if name == 'crosscut':
+            s.add_argument('--max-words', type=int, default=40)
     args = ap.parse_args()
     {'clusters': cmd_clusters, 'backlink': cmd_backlink,
-     'audit': cmd_audit, 'linkcheck': cmd_linkcheck}[args.cmd](args)
+     'audit': cmd_audit, 'linkcheck': cmd_linkcheck,
+     'crosscut': cmd_crosscut}[args.cmd](args)
 
 if __name__ == '__main__':
     main()
