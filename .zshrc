@@ -78,7 +78,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export PATH="/opt/homebrew/bin:$PATH"
 
-export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
+# export OPENAI_API_KEY=$(security find-generic-password -w -s open-ai-api-key)
 export GITHUB_PERSONAL_ACCESS_TOKEN=$(security find-generic-password -w -s github-personal-access-token)
 
 export HF_TOKEN=$(security find-generic-password -w -s HF_TOKEN)
@@ -120,3 +120,4 @@ export PATH="${MY_BIN}:$PATH"
 
 export RETROSPECTIVE_LEDGER=~/dev/retro-ledger.md
 source /Users/channing/.local/share/leaf/completions/_leaf
+

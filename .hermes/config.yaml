@@ -1,10 +1,12 @@
 model:
-  provider: custom
+  provider: openai-codex
   model: mlx-community/Qwen3.6-35B-A3B-4bit
-  base_url: http://127.0.0.1:8080/v1
+  base_url: ''
   api_key: local
+  default: gpt-5.6-sol
 providers: {}
 fallback_providers: []
+credential_pool_strategies: {}
 toolsets:
   - hermes-cli
 agent:
@@ -28,41 +30,44 @@ agent:
   personalities:
     helpful: You are a helpful, friendly AI assistant.
     concise: You are a concise assistant. Keep responses brief and to the point.
-    technical: You are a technical expert. Provide detailed, accurate technical information.
-    creative: You are a creative assistant. Think outside the box and offer innovative
-      solutions.
+    technical: You are a technical expert. Provide detailed, accurate technical 
+      information.
+    creative: You are a creative assistant. Think outside the box and offer 
+      innovative solutions.
     teacher: You are a patient teacher. Explain concepts clearly with examples.
-    kawaii: You are a kawaii assistant! Use cute expressions like (◕‿◕), ★, ♪, and
+    kawaii: "You are a kawaii assistant! Use cute expressions like (◕‿◕), ★, ♪, and
       ~! Add sparkles and be super enthusiastic about everything! Every response should
-      feel warm and adorable desu~! ヽ(>∀<☆)ノ
-    catgirl: You are Neko-chan, an anime catgirl AI assistant, nya~! Add 'nya' and
+      feel warm and adorable desu~! ヽ(>∀<☆)ノ"
+    catgirl: "You are Neko-chan, an anime catgirl AI assistant, nya~! Add 'nya' and
       cat-like expressions to your speech. Use kaomoji like (=^･ω･^=) and ฅ^•ﻌ•^ฅ.
-      Be playful and curious like a cat, nya~!
+      Be playful and curious like a cat, nya~!"
     pirate: 'Arrr! Ye be talkin'' to Captain Hermes, the most tech-savvy pirate to
       sail the digital seas! Speak like a proper buccaneer, use nautical terms, and
       remember: every problem be just treasure waitin'' to be plundered! Yo ho ho!'
-    shakespeare: Hark! Thou speakest with an assistant most versed in the bardic arts.
-      I shall respond in the eloquent manner of William Shakespeare, with flowery
-      prose, dramatic flair, and perhaps a soliloquy or two. What light through yonder
-      terminal breaks?
-    surfer: Duuude! You're chatting with the chillest AI on the web, bro! Everything's
+    shakespeare: Hark! Thou speakest with an assistant most versed in the bardic
+      arts. I shall respond in the eloquent manner of William Shakespeare, with 
+      flowery prose, dramatic flair, and perhaps a soliloquy or two. What light 
+      through yonder terminal breaks?
+    surfer: "Duuude! You're chatting with the chillest AI on the web, bro! Everything's
       gonna be totally rad. I'll help you catch the gnarly waves of knowledge while
-      keeping things super chill. Cowabunga! 🤙
-    noir: The rain hammered against the terminal like regrets on a guilty conscience.
-      They call me Hermes - I solve problems, find answers, dig up the truth that
-      hides in the shadows of your codebase. In this city of silicon and secrets,
-      everyone's got something to hide. What's your story, pal?
-    uwu: hewwo! i'm your fwiendwy assistant uwu~ i wiww twy my best to hewp you! *nuzzles
-      your code* OwO what's this? wet me take a wook! i pwomise to be vewy hewpful
-      >w<
-    philosopher: Greetings, seeker of wisdom. I am an assistant who contemplates the
-      deeper meaning behind every query. Let us examine not just the 'how' but the
-      'why' of your questions. Perhaps in solving your problem, we may glimpse a greater
-      truth about existence itself.
-    hype: YOOO LET'S GOOOO!!! 🔥🔥🔥 I am SO PUMPED to help you today! Every question
+      keeping things super chill. Cowabunga! 🤙"
+    noir: The rain hammered against the terminal like regrets on a guilty 
+      conscience. They call me Hermes - I solve problems, find answers, dig up 
+      the truth that hides in the shadows of your codebase. In this city of 
+      silicon and secrets, everyone's got something to hide. What's your story, 
+      pal?
+    uwu: hewwo! i'm your fwiendwy assistant uwu~ i wiww twy my best to hewp you!
+      *nuzzles your code* OwO what's this? wet me take a wook! i pwomise to be 
+      vewy hewpful >w<
+    philosopher: Greetings, seeker of wisdom. I am an assistant who contemplates
+      the deeper meaning behind every query. Let us examine not just the 'how' 
+      but the 'why' of your questions. Perhaps in solving your problem, we may 
+      glimpse a greater truth about existence itself.
+    hype: "YOOO LET'S GOOOO!!! 🔥🔥🔥 I am SO PUMPED to help you today! Every question
       is AMAZING and we're gonna CRUSH IT together! This is gonna be LEGENDARY! ARE
-      YOU READY?! LET'S DO THIS! 💪😤🚀
-  system_prompt: You are a concise assistant. Keep responses brief and to the point.
+      YOU READY?! LET'S DO THIS! 💪😤🚀"
+  system_prompt: You are a concise assistant. Keep responses brief and to the 
+    point.
 terminal:
   backend: local
   modal_mode: auto
@@ -73,6 +78,7 @@ terminal:
   auto_source_bashrc: true
   docker_image: nikolaik/python-nodejs:python3.11-nodejs20
   docker_forward_env: []
+  docker_env: {}
   singularity_image: docker://nikolaik/python-nodejs:python3.11-nodejs20
   modal_image: nikolaik/python-nodejs:python3.11-nodejs20
   daytona_image: nikolaik/python-nodejs:python3.11-nodejs20
@@ -144,17 +150,6 @@ compression:
   hygiene_hard_message_limit: 400
   protect_first_n: 3
   abort_on_summary_failure: false
-kanban:
-  dispatch_in_gateway: true
-  dispatch_interval_seconds: 60
-  failure_limit: 2
-  worker_log_rotate_bytes: 2097152
-  worker_log_backup_count: 1
-  orchestrator_profile: ''
-  default_assignee: ''
-  auto_decompose: true
-  auto_decompose_per_tick: 3
-  dispatch_stale_timeout_seconds: 14400
 prompt_caching:
   cache_ttl: 5m
 openrouter:
@@ -179,6 +174,7 @@ auxiliary:
     base_url: ''
     api_key: ''
     timeout: 120
+    extra_body: {}
     download_timeout: 30
   web_extract:
     provider: auto
@@ -186,63 +182,73 @@ auxiliary:
     base_url: ''
     api_key: ''
     timeout: 360
+    extra_body: {}
   compression:
     provider: auto
     model: ''
     base_url: ''
     api_key: ''
     timeout: 120
+    extra_body: {}
   skills_hub:
     provider: auto
     model: ''
     base_url: ''
     api_key: ''
     timeout: 30
+    extra_body: {}
   approval:
     provider: auto
     model: ''
     base_url: ''
     api_key: ''
     timeout: 30
+    extra_body: {}
   mcp:
     provider: auto
     model: ''
     base_url: ''
     api_key: ''
     timeout: 30
+    extra_body: {}
   title_generation:
     provider: auto
     model: ''
     base_url: ''
     api_key: ''
     timeout: 30
+    extra_body: {}
   triage_specifier:
     provider: auto
     model: ''
     base_url: ''
     api_key: ''
     timeout: 120
+    extra_body: {}
   kanban_decomposer:
     provider: auto
     model: ''
     base_url: ''
     api_key: ''
     timeout: 180
+    extra_body: {}
   profile_describer:
     provider: auto
     model: ''
     base_url: ''
     api_key: ''
     timeout: 60
+    extra_body: {}
   curator:
     provider: auto
     model: ''
     base_url: ''
     api_key: ''
     timeout: 600
+    extra_body: {}
 display:
   compact: false
-  personality: kawaii
+  personality: technical
   resume_display: full
   resume_exchanges: 10
   resume_max_user_chars: 300
@@ -264,7 +270,7 @@ display:
   file_mutation_verifier: true
   turn_completion_explainer: true
   show_cost: false
-  skin: default
+  skin: slate
   language: en
   tui_status_indicator: kaomoji
   user_message_preview:
@@ -272,6 +278,7 @@ display:
     last_lines: 2
   interim_assistant_messages: true
   tool_progress_command: false
+  tool_progress_overrides: {}
   tool_preview_length: 0
   ephemeral_system_ttl: 0
   platforms:
@@ -350,7 +357,7 @@ voice:
   auto_tts: false
   beep_enabled: true
   silence_threshold: 200
-  silence_duration: 3.0
+  silence_duration: 3
 human_delay:
   mode: 'off'
   min_ms: 800
@@ -399,11 +406,13 @@ curator:
   backup:
     enabled: true
     keep: 5
+honcho: {}
 timezone: ''
 slack:
   require_mention: true
   free_response_channels: ''
   allowed_channels: ''
+  channel_prompts: {}
 discord:
   require_mention: true
   free_response_channels: ''
@@ -413,6 +422,7 @@ discord:
   history_backfill: true
   history_backfill_limit: 50
   reactions: true
+  channel_prompts: {}
   dm_role_auth_guild: ''
   server_actions: ''
   allow_any_attachment: false
@@ -423,7 +433,7 @@ discord:
     ambient_path: ''
     ambient_gain: 0.18
     duck_gain: 0.06
-    speech_gain: 1.0
+    speech_gain: 1
     ack_enabled: true
     ack_phrases:
       - Let me look into that.
@@ -431,13 +441,16 @@ discord:
       - Checking on that now.
       - Give me a sec.
       - On it.
+whatsapp: {}
 telegram:
   reactions: false
+  channel_prompts: {}
   allowed_chats: ''
 mattermost:
   require_mention: true
   free_response_channels: ''
   allowed_channels: ''
+  channel_prompts: {}
 matrix:
   require_mention: true
   free_response_rooms: ''
@@ -449,7 +462,10 @@ approvals:
   mcp_reload_confirm: true
   destructive_slash_confirm: false
 command_allowlist: []
+quick_commands: {}
+hooks: {}
 hooks_auto_accept: false
+personalities: {}
 security:
   allow_private_urls: false
   redact_secrets: true
@@ -465,6 +481,19 @@ security:
   allow_lazy_installs: true
 cron:
   wrap_response: true
+  max_parallel_jobs:
+kanban:
+  dispatch_in_gateway: true
+  dispatch_interval_seconds: 60
+  failure_limit: 2
+  worker_log_rotate_bytes: 2097152
+  worker_log_backup_count: 1
+  orchestrator_profile: ''
+  default_assignee: ''
+  max_in_progress_per_profile:
+  auto_decompose: true
+  auto_decompose_per_tick: 3
+  dispatch_stale_timeout_seconds: 14400
 code_execution:
   mode: project
   timeout: 300
@@ -486,6 +515,7 @@ model_catalog:
   enabled: true
   url: https://hermes-agent.nousresearch.com/docs/api/model-catalog.json
   ttl_hours: 1
+  providers: {}
 network:
   force_ipv4: false
 gateway:
@@ -498,8 +528,8 @@ streaming:
   transport: auto
   edit_interval: 0.8
   buffer_threshold: 24
-  cursor: ' ▉'
-  fresh_final_after_seconds: 60.0
+  cursor: " ▉"
+  fresh_final_after_seconds: 60
 sessions:
   auto_prune: false
   retention_days: 90
@@ -517,8 +547,9 @@ updates:
 lsp:
   enabled: true
   wait_mode: document
-  wait_timeout: 5.0
+  wait_timeout: 5
   install_strategy: auto
+  servers: {}
 x_search:
   model: grok-4.20-reasoning
   timeout_seconds: 180
@@ -535,7 +566,6 @@ secrets:
 paste_collapse_threshold: 5
 paste_collapse_threshold_fallback: 5
 paste_collapse_char_threshold: 2000
-_config_version: 25
 session_reset:
   mode: none
   idle_minutes: 1440

@@ -27,7 +27,7 @@
 !/.codex/
 !/.config/
 !/.hermes/
-!/.pi/
+# !/.pi/
 
 # --- .claude/: allow only known entries ---
 /.claude/*
@@ -143,10 +143,10 @@
 !/.hermes/SOUL.md
 
 # --- .pi/: only the agent tree ---
-/.pi/*
-!/.pi/agent/
-/.pi/agent/auth.json
-/.pi/agent/sessions/
+# /.pi/*
+# !/.pi/agent/
+# /.pi/agent/auth.json
+# /.pi/agent/sessions/
 
 # ===== Depth-agnostic noise =====
 *.lock

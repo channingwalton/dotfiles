@@ -9,12 +9,6 @@ source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 # Added by Toolbox App
 export PATH="$PATH:/Users/channing/Library/Application Support/JetBrains/Toolbox/scripts"
 
-
-
-
-
-# JVM/JAVA_HOME managed by mise (activated below and in .zshrc)
-
 # Added by Obsidian
 export PATH="$PATH:/Applications/Obsidian.app/Contents/MacOS"
 
