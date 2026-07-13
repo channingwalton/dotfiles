@@ -147,6 +147,10 @@
 !/.pi/agent/
 /.pi/agent/auth.json
 /.pi/agent/sessions/
+/.pi/agent/mcp-oauth/
+/.pi/agent/mcp-cache.json
+/.pi/agent/mcp-npx-cache.json
+/.pi/agent/mcp-onboarding.json
 
 # ===== Depth-agnostic noise =====
 *.lock

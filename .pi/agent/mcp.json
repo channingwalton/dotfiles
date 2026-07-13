@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "atlassian": {
+      "url": "https://mcp.atlassian.com/v1/mcp/authv2",
+      "auth": "oauth",
+      "lifecycle": "lazy"
+    }
+  }
+}
