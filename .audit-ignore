@@ -10,10 +10,10 @@
 
 # Tool-managed trees, not user-authored config
 ^\.hermes/(skills|plugins|node)/
+^\.hermes/context_length_cache\.yaml$
 ^\.config/\.semgrep/
 ^\.config/jgit/
 ^\.config/swiftpm/
 
 # Contents behind skill symlinks live in ~/.agents, managed outside git
 ^\.claude/skills/[^/]+/
-^\.config/(goose|devin)/skills/[^/]+/
