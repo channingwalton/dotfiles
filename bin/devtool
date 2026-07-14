@@ -18,7 +18,7 @@ set -euo pipefail
 #   devtool compile          # compile only
 #   devtool lint             # lint only
 #   devtool test [pattern]   # test only, optional filter
-#   devtool cpd <lang> [dir] # find duplicate code (pmd cpd)
+#   devtool cpd <lang> [dir] # find duplicate code (jscpd)
 #
 # A local mise config (mise.toml etc.) overrides detection:
 # every command routes to `mise run <task>` (compile, lint,
@@ -234,17 +234,18 @@ do_cpd() {
 
   if [[ -z "$lang" ]]; then
     echo "Usage: devtool cpd <language> [directory]"
-    echo "  language:   kotlin, java, scala, ruby, ecmascript, typescript, etc."
+    echo "  language:   kotlin, java, scala, ruby, javascript, typescript, etc."
+    echo "              (jscpd format name; run 'jscpd --list' for the full set)"
     echo "  directory:  source directory (default: .)"
     return 1
   fi
 
-  if ! command -v pmd &>/dev/null; then
-    echo "devtool: pmd not found — install with: brew install pmd"
+  if ! command -v jscpd &>/dev/null; then
+    echo "devtool: jscpd not found — install with: brew install jscpd"
     return 1
   fi
 
-  pmd cpd --minimum-tokens 100 --dir "$src_dir" --language "$lang"
+  jscpd --min-tokens 100 --format "$lang" --reporters ai --no-tips "$src_dir"
 }
 
 do_check() {
@@ -286,7 +287,7 @@ usage() {
   echo "  compile          compile only"
   echo "  lint             lint only"
   echo "  test [pattern]   test only, optional filter"
-  echo "  cpd <lang> [dir] find duplicate code (uses pmd cpd)"
+  echo "  cpd <lang> [dir] find duplicate code (uses jscpd)"
   echo ""
   echo "Env:"
   echo "  DEVTOOL_VERBOSE=1  stream output live (default: suppress on success)"
