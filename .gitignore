@@ -121,9 +121,7 @@
 /.config/pgcli/log
 /.config/zed/.tmp*
 /.config/zed/conversations
-/.config/zed/embeddings
 /.config/zed/prompts
-/.config/zed/stable
 
 # --- .hermes/: only curated config ---
 /.hermes/*
