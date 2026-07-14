@@ -18,7 +18,7 @@ set -euo pipefail
 #   devtool compile          # compile only
 #   devtool lint             # lint only
 #   devtool test [pattern]   # test only, optional filter
-#   devtool cpd <lang> [dir] # find duplicate code (jscpd)
+#   devtool cpd [dir] [--format <lang>] [--sorted]  # find duplicate code (jscpd)
 #
 # A local mise config (mise.toml etc.) overrides detection:
 # every command routes to `mise run <task>` (compile, lint,
@@ -228,24 +228,70 @@ do_test() {
   esac
 }
 
-do_cpd() {
-  local lang="${1:-}"
-  local src_dir="${2:-.}"
+cpd_usage() {
+  echo "Usage: devtool cpd [directory] [--format <lang>] [--sorted]"
+  echo "  directory:       source directory (default: .)"
+  echo "  --format <lang>: restrict to one jscpd format (kotlin, ruby, typescript, …;"
+  echo "                   run 'jscpd --list' for the full set). Default: all detected."
+  echo "  --sorted:        list clones largest first (needs jq)"
+}
 
-  if [[ -z "$lang" ]]; then
-    echo "Usage: devtool cpd <language> [directory]"
-    echo "  language:   kotlin, java, scala, ruby, javascript, typescript, etc."
-    echo "              (jscpd format name; run 'jscpd --list' for the full set)"
-    echo "  directory:  source directory (default: .)"
-    return 1
-  fi
+do_cpd() {
+  local lang=""
+  local src_dir=""
+  local sorted=false
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --sorted)  sorted=true; shift ;;
+      --format)
+        if [[ -z "${2:-}" ]]; then echo "devtool cpd: --format needs a language"; return 1; fi
+        lang="$2"; shift 2
+        ;;
+      --format=*) lang="${1#*=}"; shift ;;
+      -h|--help)  cpd_usage; return 0 ;;
+      -*)         echo "devtool cpd: unknown option $1"; cpd_usage; return 1 ;;
+      *)
+        if [[ -n "$src_dir" ]]; then echo "devtool cpd: unexpected argument $1"; return 1; fi
+        src_dir="$1"; shift
+        ;;
+    esac
+  done
+  src_dir="${src_dir:-.}"
 
   if ! command -v jscpd &>/dev/null; then
     echo "devtool: jscpd not found — install with: brew install jscpd"
     return 1
   fi
 
-  jscpd --min-tokens 100 --format "$lang" --reporters ai --no-tips "$src_dir"
+  local fmt_args=()
+  if [[ -n "$lang" ]]; then fmt_args=(--format "$lang"); fi
+
+  if ! $sorted; then
+    jscpd --min-tokens 100 "${fmt_args[@]}" --reporters ai --no-tips "$src_dir"
+    return $?
+  fi
+
+  if ! command -v jq &>/dev/null; then
+    echo "devtool: jq not found (required by --sorted) — install with: brew install jq"
+    return 1
+  fi
+
+  local out_dir
+  out_dir=$(mktemp -d)
+  # shellcheck disable=SC2064
+  trap "rm -rf '$out_dir'" RETURN
+
+  jscpd --min-tokens 100 "${fmt_args[@]}" --reporters json --output "$out_dir" \
+    --no-tips "$src_dir" >/dev/null
+
+  jq -r '
+    .duplicates
+    | sort_by(-.lines)
+    | if length == 0 then "no duplicates found" else
+        .[] | "\(.lines) lines, \(.tokens) tokens [\(.format)]\n  \(.firstFile.name):\(.firstFile.start)-\(.firstFile.end)\n  \(.secondFile.name):\(.secondFile.start)-\(.secondFile.end)"
+      end
+  ' "$out_dir/jscpd-report.json"
 }
 
 do_check() {
@@ -287,7 +333,7 @@ usage() {
   echo "  compile          compile only"
   echo "  lint             lint only"
   echo "  test [pattern]   test only, optional filter"
-  echo "  cpd <lang> [dir] find duplicate code (uses jscpd)"
+  echo "  cpd [dir] [--format <lang>] [--sorted]  find duplicate code (uses jscpd)"
   echo ""
   echo "Env:"
   echo "  DEVTOOL_VERBOSE=1  stream output live (default: suppress on success)"

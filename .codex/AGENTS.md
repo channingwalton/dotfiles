@@ -26,7 +26,7 @@
   - `devtool compile` — compile only. Use when asked "does it compile", "check compilation", or "build the project".
   - `devtool test [pattern]` — run tests, optional filter. Use when asked to "run tests" or "run this test".
   - `devtool lint` — lint only.
-  - `devtool cpd <language> [directory]` — find duplicate code using PMD CPD. Use during code review or when asked to find duplicates.
+  - `devtool cpd [directory] [--format <language>] [--sorted]` — find duplicate code using jscpd. Use during code review or when asked to find duplicates. Directory defaults to `.`; all detected formats are scanned unless `--format` restricts to one; `--sorted` lists clones largest first.
   - Output is suppressed on success; on failure the full log is cat'd between `--- output ---` markers and the log file path is printed (no need to re-run). Set `DEVTOOL_VERBOSE=1` to stream live.
 - Prefer LSP over Grep/Read for code navigation
   - After writing or editing code, check LSP diagnostics and fix errors before proceeding.
