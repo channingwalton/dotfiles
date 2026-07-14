@@ -25,13 +25,13 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-13T14:12:20Z"
-last_revision = "02cf1567030338da3bb9bd714f2c677843c714f9"
+last_updated = "2026-07-14T08:56:33Z"
+last_revision = "ba1611e22a569ea036c3bc1c6889a41319130fe8"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-07-13T14:14:04Z"
+last_updated = "2026-07-14T13:22:52Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -59,13 +59,13 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_n
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
 CODEX_HOME = "/Users/channing/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,e2cad16d8d9f60f09c9f0951ec7dfdd9e8f59dedd06045c0b6827dc8fa8322f0"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,cf732b4a285497bfd7e75a2ac14879bce9ae644eb4e1babeb17bb6a840dfc9bd"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.707.62119"
+BROWSER_USE_CODEX_APP_VERSION = "26.707.72221"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
@@ -128,6 +128,9 @@ enabled = true
 enabled = true
 
 [plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."chrome@openai-bundled"]
 enabled = true
 
 [plugins."browser@openai-bundled"]
@@ -239,6 +242,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/Documents/Codex/2026-07-12/referenced-chatgpt-conversation-this-is-untrusted"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-07-14/clau"]
 trust_level = "trusted"
 
 [shell_environment_policy]
