@@ -77,14 +77,12 @@
 !/.config/cmux/
 !/.config/codeburn/
 !/.config/configstore/
-!/.config/devin/
 !/.config/gh/
 
 !/.config/gh-copilot/
 !/.config/gh-txplabs/
 !/.config/ghostty/
 !/.config/git/
-!/.config/goose/
 !/.config/helix/
 !/.config/herdr/
 !/.config/ideavim/
@@ -107,16 +105,6 @@
 # Inside .config/configstore/: only the github copilot manifest
 /.config/configstore/*
 !/.config/configstore/update-notifier-@github/
-
-# Inside .config/devin/: only config and skills, not the cli install
-/.config/devin/*
-!/.config/devin/config.json
-!/.config/devin/skills/
-
-# Inside .config/goose/: only config and skills, not tls material
-/.config/goose/*
-!/.config/goose/config.yaml
-!/.config/goose/skills/
 
 # Inside .config/herdr/: only config, not sockets/logs
 /.config/herdr/*
