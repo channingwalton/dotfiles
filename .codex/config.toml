@@ -25,13 +25,13 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-14T16:07:15Z"
-last_revision = "b65c78ce17304364291d5c609b285eea83983469"
+last_updated = "2026-07-15T08:37:56Z"
+last_revision = "972e286f4dbc8e0f53f23d870a1e12192faffafc"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-07-14T13:22:52Z"
+last_updated = "2026-07-15T13:17:38Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -327,3 +327,9 @@ trusted_hash = "sha256:c99ea859c36627ab0c79b3ad1c55e0efe5d96134d68721e43697145ab
 
 [hooks.state."/Users/channing/.codex/hooks.json:stop:0:0"]
 trusted_hash = "sha256:ff7debca235a3c1f664078daa00880e7306c7fd9cf82309a97741e4f1e62e21b"
+
+[hooks.state."/Users/channing/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:fc87dbee1cb8a9be4f78ba094c4fa8d5e2fd38cb800854e3717f9b6a52fe2a47"
+
+[hooks.state."/Users/channing/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:ac371f260e4b23ba1d1b7a4ad68a44a323a8470b61f38471a47aceac1b7a5a7c"

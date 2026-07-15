@@ -100,14 +100,6 @@ export UNISON_PAGER=cat
 export GOBIN=~/dev/gobin
 export PATH="$GOBIN:$PATH"
 
-# pnpm
-export PNPM_HOME="/Users/channing/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
 # Interactive zsh only; `zsh -lc` reads .zprofile instead.
 command -v mise >/dev/null && eval "$(mise activate zsh)"
 

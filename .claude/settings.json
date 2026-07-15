@@ -1,121 +1,11 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "agentPushNotifEnabled": true,
-  "alwaysThinkingEnabled": true,
-  "autoDreamEnabled": true,
   "cleanupPeriodDays": 99999,
-  "disabledMcpjsonServers": [
-    "claude_ai_Notion"
-  ],
-  "effortLevel": "xhigh",
-  "enabledPlugins": {
-    "caveman@caveman": false,
-    "chrome-devtools-mcp@claude-plugins-official": false,
-    "claude-md-management@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true,
-    "codex@openai-codex": true,
-    "commit-commands@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": false,
-    "github@claude-plugins-official": false,
-    "kotlin-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true,
-    "pw-engineering@patchskills": true,
-    "pyright-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "swift-lsp@claude-plugins-official": true,
-    "typescript-lsp@claude-plugins-official": true,
-    "understand-anything@understand-anything": false
-  },
   "env": {
     "CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING": "1",
     "CLAUDE_CODE_DISABLE_AUTO_MEMORY": "0",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "ENABLE_LSP_TOOL": "1"
-  },
-  "extraKnownMarketplaces": {
-    "caveman": {
-      "source": {
-        "repo": "JuliusBrussee/caveman",
-        "source": "github"
-      }
-    },
-    "openai-codex": {
-      "source": {
-        "repo": "openai/codex-plugin-cc",
-        "source": "github"
-      }
-    },
-    "patchskills": {
-      "source": {
-        "repo": "patchworkhealth/patchskills",
-        "source": "github"
-      }
-    },
-    "understand-anything": {
-      "source": {
-        "repo": "Lum1104/Understand-Anything",
-        "source": "github"
-      }
-    }
-  },
-  "hooks": {
-    "PostToolUse": [
-      {
-        "hooks": [
-          {
-            "command": "atuin hook claude-code",
-            "type": "command"
-          }
-        ],
-        "matcher": "Bash"
-      }
-    ],
-    "PostToolUseFailure": [
-      {
-        "hooks": [
-          {
-            "command": "atuin hook claude-code",
-            "type": "command"
-          }
-        ],
-        "matcher": "Bash"
-      }
-    ],
-    "PreToolUse": [
-      {
-        "hooks": [
-          {
-            "command": "atuin hook claude-code",
-            "type": "command"
-          }
-        ],
-        "matcher": "Bash"
-      }
-    ],
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "command": "bash '/Users/channing/.claude/hooks/herdr-agent-state.sh' session",
-            "timeout": 10,
-            "type": "command"
-          }
-        ],
-        "matcher": "*"
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "command": "bash '/Users/channing/.claude/hooks/review-route-hook.sh'",
-            "timeout": 5,
-            "type": "command"
-          }
-        ]
-      }
-    ]
   },
   "permissions": {
     "allow": [
@@ -194,25 +84,136 @@
       "mcp__perplexity-mcp__perplexity_search_web",
       "mcp__unison"
     ],
+    "deny": [
+      "mcp__claude_ai_Notion"
+    ],
     "ask": [
       "Bash(git push:*)"
     ],
-    "defaultMode": "auto",
-    "deny": [
-      "mcp__claude_ai_Notion"
+    "defaultMode": "auto"
+  },
+  "disabledMcpjsonServers": [
+    "claude_ai_Notion"
+  ],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "atuin hook claude-code"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "atuin hook claude-code"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "atuin hook claude-code"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/channing/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/channing/.claude/hooks/review-route-hook.sh'",
+            "timeout": 5
+          }
+        ]
+      }
     ]
   },
-  "skipAutoPermissionPrompt": true,
-  "skipDangerousModePermissionPrompt": true,
   "statusLine": {
-    "command": "bash '/Users/channing/.claude/statusline-command.sh'",
-    "type": "command"
+    "type": "command",
+    "command": "bash '/Users/channing/.claude/statusline-command.sh'"
   },
-  "teammateMode": "tmux",
+  "enabledPlugins": {
+    "caveman@caveman": false,
+    "chrome-devtools-mcp@claude-plugins-official": false,
+    "claude-md-management@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "codex@openai-codex": true,
+    "commit-commands@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": false,
+    "github@claude-plugins-official": false,
+    "kotlin-lsp@claude-plugins-official": true,
+    "lua-lsp@claude-plugins-official": true,
+    "pw-engineering@patchskills": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "swift-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "understand-anything@understand-anything": false
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    },
+    "patchskills": {
+      "source": {
+        "source": "github",
+        "repo": "patchworkhealth/patchskills"
+      }
+    },
+    "understand-anything": {
+      "source": {
+        "source": "github",
+        "repo": "Lum1104/Understand-Anything"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
     "mode": "hold"
   },
-  "voiceEnabled": true
+  "autoDreamEnabled": true,
+  "skipDangerousModePermissionPrompt": true,
+  "teammateMode": "tmux",
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true,
+  "model": "claude-fable-5[1m]"
 }
