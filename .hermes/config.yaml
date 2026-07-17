@@ -1,8 +1,8 @@
 model:
-  provider: custom:txp-qwen3.6-35b-a3b-4bit
+  provider: openai-codex
   base_url: http://192.168.178.131:8080/v1
   api_key: local
-  default: mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit
+  default: gpt-5.6-sol
   context_length: 131072
 fallback_providers: []
 toolsets:
@@ -24,7 +24,7 @@ agent:
   image_input_mode: auto
   disabled_toolsets: []
   verbose: false
-  reasoning_effort: xhigh
+  reasoning_effort: high
   personalities:
     helpful: You are a helpful, friendly AI assistant.
     concise: You are a concise assistant. Keep responses brief and to the point.
@@ -610,3 +610,10 @@ custom_providers:
   - name: TXP DeepSeek-R1-Distill-Qwen-14B-4bit
     base_url: http://192.168.178.131:8080/v1
     model: mlx-community/DeepSeek-R1-Distill-Qwen-14B-4bit
+  - name: FM System
+    base_url: http://127.0.0.1:1976/v1
+    model: system
+  - name: FM PCC
+    base_url: http://127.0.0.1:1976/v1
+    model: pcc
+

@@ -68,15 +68,11 @@
       "Bash(which:*)",
       "Bash(xargs:*)",
       "Bash(xxd:*)",
-      "Glob(/Users/channing/.claude/**)",
-      "Glob(/Users/channing/dev/**)",
-      "Glob(/Users/channing/Documents/Notes/**)",
       "Read(/Users/channing/.claude/**)",
       "Read(/Users/channing/dev/**)",
       "Read(/Users/channing/Documents/Notes/**)",
       "Read(/Users/channing/dotfiles/**)",
       "Read(/tmp/**)",
-      "Write(/Users/channing/dev/**)",
       "Edit(/Users/channing/dev/**)",
       "Skill(vault)",
       "mcp__context7__resolve-library-id",
@@ -214,6 +210,5 @@
   "teammateMode": "tmux",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "model": "claude-fable-5[1m]"
+  "voiceEnabled": true
 }

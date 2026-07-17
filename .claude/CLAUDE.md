@@ -17,11 +17,11 @@
 - **NEVER** assume that a question is a request to make changes unless it explicitly asks for a change
 - Before building anything multistep, include a verification plan
 
-## Paths
+## Compound shell commands
 
-Avoid using compound commands like `cd <path> && git ...`, and instead use directory options available
-in the command like `git -C <path>` so that the user is prompted all the time.
-Alternatively, run the commands sequentially.
+- Avoid using compound commands like `cd <path> && git ...`
+- Try to use directory options available in the command like `git -C <path>`
+  - Alternatively, run the commands sequentially.
 
 ## Tools (use when appropriate)
 

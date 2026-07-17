@@ -33,8 +33,23 @@ wtf:
       position:
         top: 0
         left: 1
-        height: 2
+        height: 1
         width: 1
       refreshInterval: 10s
       title: "Service Versions"
+      type: cmdrunner
+
+    # Deployment status
+    deployStatus:
+      args: []
+      cmd: "/Users/channing/dev/patchwork/repos/kmono/tools/deploy-status.sh"
+      enabled: true
+      pty: true
+      position:
+        top: 1
+        left: 1
+        height: 1
+        width: 1
+      refreshInterval: 10s
+      title: "Deploy status"
       type: cmdrunner
