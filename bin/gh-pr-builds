@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+for required_command in gh jq; do
+  if ! command -v "$required_command" >/dev/null 2>&1; then
+    printf 'Missing required command: %s\n' "$required_command" >&2
+    exit 1
+  fi
+done
+
+RED=''
+YELLOW=''
+GREEN=''
+GREY=''
+RESET=''
+
+if [[ -t 1 && -z ${NO_COLOR:-} ]]; then
+  RED='\033[0;31m'
+  YELLOW='\033[0;33m'
+  GREEN='\033[0;32m'
+  GREY='\033[0;90m'
+  RESET='\033[0m'
+fi
+
+if ! pull_requests=$(gh search prs \
+  --author=@me \
+  --state=open \
+  --sort=updated \
+  --order=desc \
+  --limit=1000 \
+  --json repository,title,number,url); then
+  exit 1
+fi
+
+if [[ $(jq 'length' <<<"$pull_requests") -eq 0 ]]; then
+  printf '%s\n' 'No open pull requests.'
+  exit 0
+fi
+
+summarise_checks() {
+  jq -r '
+    def check_name: .name // .context // "unnamed check";
+    def check_bucket:
+      if .__typename == "CheckRun" then
+        if .status != "COMPLETED" then "pending"
+        elif .conclusion == "SUCCESS" or .conclusion == "NEUTRAL" or .conclusion == "SKIPPED" then "pass"
+        elif .conclusion == "CANCELLED" then "cancel"
+        else "fail"
+        end
+      elif .state == "SUCCESS" then "pass"
+      elif .state == "PENDING" or .state == "EXPECTED" then "pending"
+      else "fail"
+      end;
+
+    [.statusCheckRollup[] | . + {buildBucket: check_bucket}] as $checks
+    | if ($checks | length) == 0 then ["NONE", 0, ""]
+      elif any($checks[]; .buildBucket == "fail") then
+        ["FAIL", ($checks | length), ($checks | map(select(.buildBucket == "fail") | check_name) | join(", "))]
+      elif any($checks[]; .buildBucket == "pending") then
+        ["PENDING", ($checks | length), ($checks | map(select(.buildBucket == "pending") | check_name) | join(", "))]
+      elif any($checks[]; .buildBucket == "cancel") then
+        ["CANCELLED", ($checks | length), ($checks | map(select(.buildBucket == "cancel") | check_name) | join(", "))]
+      else ["PASS", ($checks | length), ""]
+      end
+    | @tsv
+  '
+}
+
+while IFS= read -r pull_request; do
+  metadata=$(jq -r '[.repository.nameWithOwner, (.number | tostring), .title, .url] | @tsv' <<<"$pull_request")
+  IFS=$'\t' read -r repository number title url <<<"$metadata"
+
+  if ! check_rollup=$(gh pr view "$url" --json statusCheckRollup); then
+    printf 'Could not read checks for %s#%s.\n' "$repository" "$number" >&2
+    exit 1
+  fi
+
+  if ! summary=$(summarise_checks <<<"$check_rollup"); then
+    printf 'Could not parse checks for %s#%s.\n' "$repository" "$number" >&2
+    exit 1
+  fi
+
+  IFS=$'\t' read -r state check_count details <<<"$summary"
+
+  case "$state" in
+    FAIL) colour=$RED ;;
+    PENDING) colour=$YELLOW ;;
+    PASS) colour=$GREEN ;;
+    *) colour=$GREY ;;
+  esac
+
+  printf '%b%-10s%b %s#%s  %s' "$colour" "$state" "$RESET" "$repository" "$number" "$title"
+  if [[ $check_count -eq 1 ]]; then
+    printf ' (1 check)'
+  elif [[ $check_count -gt 1 ]]; then
+    printf ' (%s checks)' "$check_count"
+  fi
+  printf '\n'
+
+  if [[ -n $details ]]; then
+    printf '           %s\n' "$details"
+  fi
+done < <(jq -c '.[]' <<<"$pull_requests")

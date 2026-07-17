@@ -18,10 +18,25 @@ wtf:
       position:
         top: 0
         left: 0
-        height: 2
+        height: 1
         width: 1
       refreshInterval: 30s
       title: "Local Repos"
+      type: cmdrunner
+
+    # GitHub pull request build status
+    prBuilds:
+      args: []
+      cmd: "/Users/channing/dotfiles/bin/gh-pr-builds"
+      enabled: true
+      pty: true
+      position:
+        top: 1
+        left: 0
+        height: 1
+        width: 1
+      refreshInterval: 30s
+      title: "PR Builds"
       type: cmdrunner
 
     # Service versions across environments
