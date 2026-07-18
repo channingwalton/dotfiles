@@ -22,27 +22,38 @@ Use when the user wants a task-note decision, state change, or open-question res
 4. Draft the change.
 
    **Decision Log entry** — insert newest-first at the top of the list:
+
    ```
    - **[[YYYY-MM-DD]]** — <what changed>. **Why:** <reason>. **Rejected:** <alternative considered, one-line why-not>.
    ```
+
    `Why` is mandatory. Ask if missing.
 
    **Current State** — overwrite the block. Three to five sentences covering current position, active approach, and blockers. Update `*Updated: [[YYYY-MM-DD]]*`. Every Current State rewrite also rewrites `## Next Session` (below).
 
    **Next Session** — a ready-to-paste prompt to resume the task in a fresh session. Rewritten only alongside Current State, never independently. Operational content only: the exact next action, branch, file paths, commands, and constraints agreed in-session. Do not restate Current State or Open Questions — the resuming session reads those anyway.
+
    ```
    ## Next Session
    *Updated: [[YYYY-MM-DD]]*
    <prompt>
    ```
 
-   **Open Question resolution** — write the destination first (`Decision Log`, `Current State`, or spun-out task), then remove the question.
+   **Open Question resolution** — write the destination first (`Decision Log`, `Current State`, spun-out task, or — for experiment tasks — the research note via roll-up), then remove the question.
 
 5. Write directly when the content derives from work done or decisions made in this session — things the user has already seen or agreed. Apply surgically, then show the written entry (not a proposal) so it can be corrected if wrong.
 
 6. Ask **before** writing only when something material is missing or ambiguous: which note, which section, a Decision Log **Why**, or content the user has never seen (e.g. reconstructing history from outside the session).
 
 If the user asks to update both task note and dossier, update dossier files directly under the investigation workflow; the same direct-write rule applies to the task note.
+
+## Experiment tasks
+
+A task with `task-type: experiment` belongs to a research note: a `research:` frontmatter link and a `[[<Research Note>]]` backlink under its H1. Preserve both on every update.
+
+- The task holds only this experiment's material — setup, protocol, results, per-experiment decisions. Cross-experiment synthesis belongs in the research note's Findings (the obsidian-research-maintainer skill rolls it up); never write it into Current State.
+- Open Questions stay experiment-scoped. If an update surfaces a question that spans experiments or would outlive this one, flag it as a promotion candidate for the research note rather than adding it here.
+- After a Current State rewrite, or a Decision Log entry or Open Question resolution with research-level substance, offer a roll-up into the research note in one line — do not perform it unasked.
 
 ## Format rules
 
@@ -66,3 +77,4 @@ If the user asks to update both task note and dossier, update dossier files dire
 - Hardcoding dates instead of running `date`.
 - A Next Session prompt that restates state instead of giving the next concrete action.
 - Rewriting Next Session on a Decision Log or Open Question update — it moves only with Current State.
+- Duplicating a research note's Findings into an experiment task, or editing the research note directly during a task update — roll-up is a separate, offered step.
