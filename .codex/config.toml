@@ -25,8 +25,8 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-17T08:48:27Z"
-last_revision = "ded0c09c1ff6003a16d52fc28eae33ed55e4eb87"
+last_updated = "2026-07-18T15:25:17Z"
+last_revision = "46cf017f6cbeab8727d8af0dea97bec44304636f"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
@@ -264,6 +264,7 @@ status_line = ["model-with-reasoning", "current-dir", "context-remaining", "five
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
+"gpt-5.6-sol" = 1
 
 [apps.connector_76869538009648d5b282a4bb21c3d157.tools.github_create_pull_request]
 approval_mode = "approve"

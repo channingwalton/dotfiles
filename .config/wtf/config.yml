@@ -50,7 +50,7 @@ wtf:
         left: 1
         height: 1
         width: 1
-      refreshInterval: 10s
+      refreshInterval: 30s
       title: "Service Versions"
       type: cmdrunner
 
@@ -65,6 +65,6 @@ wtf:
         left: 1
         height: 1
         width: 1
-      refreshInterval: 10s
+      refreshInterval: 30s
       title: "Deploy status"
       type: cmdrunner
