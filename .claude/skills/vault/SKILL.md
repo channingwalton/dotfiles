@@ -25,6 +25,7 @@ Location: `~/Documents/Notes/` (vault name: `Notes`)
 | Events | `Projects/<project>/Events/<YYYY-MM-DD> <event type> <title>.md` |
 | Glossary | `Projects/<project>/Glossary/` |
 | Topics | Projects/<projects>/Topics |
+| Research | `Projects/<project>/Research/<Title>.md` |
 | Templates | `Vault Metadata/Templates/` |
 
 ## Shell Rules
