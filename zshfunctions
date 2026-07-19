@@ -190,3 +190,13 @@ function wtf() {
   export WTF_GITHUB_TOKEN=$(security find-generic-password -s "wtfutil-github" -w)
   wtfutil
 }
+
+function siri() {
+  if (( $# == 0 )); then
+    echo "Usage: siri <question>"
+    return 1
+  fi
+  fm respond --model system "$*"
+}
+
+alias siri='noglob siri'
