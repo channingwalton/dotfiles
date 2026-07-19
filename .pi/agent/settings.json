@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.80.10",
   "theme": "dark",
   "defaultProvider": "TXP",
-  "defaultModel": "mlx-community/Qwen3.6-35B-A3B-8bit",
+  "defaultModel": "Qwen/Qwen3.6-35B-A3B",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",
