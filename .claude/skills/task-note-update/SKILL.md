@@ -21,22 +21,44 @@ Use when the user wants a task-note decision, state change, or open-question res
 
 4. Draft the change.
 
-   **Decision Log entry** — insert newest-first at the top of the list:
+   **Decision Log entry** — insert newest-first at the top of the list. When the decision carries only a **Why**, one line is fine:
 
    ```
-   - **[[YYYY-MM-DD]]** — <what changed>. **Why:** <reason>. **Rejected:** <alternative considered, one-line why-not>.
+   - **[[YYYY-MM-DD]]** — <what changed>. **Why:** <reason>.
+   ```
+
+   When it carries multiple facets (**Why**, **Rejected**, **Watch**, supporting evidence), break them onto indented sub-bullets rather than chaining them into a run-on sentence:
+
+   ```
+   - **[[YYYY-MM-DD]]** — <what changed>.
+     - **Why:** <reason>
+     - **Rejected:** <alternative considered, one-line why-not>
+     - **Watch:** <risk to keep an eye on> (only if there is one)
    ```
 
    `Why` is mandatory. Ask if missing.
 
-   **Current State** — overwrite the block. Three to five sentences covering current position, active approach, and blockers. Update `*Updated: [[YYYY-MM-DD]]*`. Every Current State rewrite also rewrites `## Next Session` (below).
+   **Current State** — overwrite the block. A one- to two-sentence plain-language lead (the headline: what this is and where it stands), then a short bulleted list of the distinct strands, one per bullet with a **bold label** — subjects, active approach, blockers, inherited context. Do not pack every strand into the lead; that dense paragraph is the wall of text being fixed. Update `*Updated: [[YYYY-MM-DD]]*`. Every Current State rewrite also rewrites `## Next Session` (below).
 
-   **Next Session** — a ready-to-paste prompt to resume the task in a fresh session. Rewritten only alongside Current State, never independently. Operational content only: the exact next action, branch, file paths, commands, and constraints agreed in-session. Do not restate Current State or Open Questions — the resuming session reads those anyway.
+   ```
+   ## Current State
+   *Updated: [[YYYY-MM-DD]]*
+
+   <one- to two-sentence lead>
+
+   - **<Strand>:** <detail>
+   - **Blocker:** <detail>
+   ```
+
+   **Next Session** — a ready-to-paste prompt to resume the task in a fresh session. Rewritten only alongside Current State, never independently. Operational content only: the exact next action, branch, file paths, commands, and constraints agreed in-session. Do not restate Current State or Open Questions — the resuming session reads those anyway. Put any working directory / branch on a lead line; the steps are a **numbered markdown list**, one action per item — never inline `(1)… (2)…` enumerations.
 
    ```
    ## Next Session
    *Updated: [[YYYY-MM-DD]]*
-   <prompt>
+   In `<dir>` on `<branch>`.
+
+   1. <first action>
+   2. <second action>
    ```
 
    **Open Question resolution** — write the destination first (`Decision Log`, `Current State`, spun-out task, or — for experiment tasks — the research note via roll-up), then remove the question.
@@ -57,6 +79,8 @@ A task with `task-type: experiment` belongs to a research note: a `research:` fr
 
 ## Format rules
 
+- Write for a reader scanning the note, not a transcript. Prefer real markdown lists over dense prose; keep sentences short; give each distinct fact its own line or bullet rather than chaining clauses.
+- Never use inline pseudo-lists — `(1)… (2)…`, `(a)… (b)…`, or semicolon-chained runs — where a numbered or bulleted markdown list belongs.
 - One decision per Decision Log entry.
 - Decision Log is append-only and dated. Do not edit or delete prior entries.
 - Current State is overwrite-only.
@@ -72,6 +96,8 @@ A task with `task-type: experiment` belongs to a research note: a `research:` fr
 - Asking for confirmation on content already established in the session — write it and show what was written.
 - Writing invented or reconstructed content the user has never seen without asking first.
 - Silent writes — every write must be followed by showing the entry as written.
+- Walls of text — a Current State or Decision Log entry that packs multiple distinct strands into one dense paragraph. Use a lead sentence plus bulleted strands / sub-bullets instead.
+- Inline pseudo-lists — `(1)… (2)…` or `(a)… (b)…` where a numbered or bulleted markdown list belongs.
 - Decision Log entries without a **Why**.
 - Echoing JIRA content into the task note. Link, don't copy.
 - Hardcoding dates instead of running `date`.

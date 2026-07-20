@@ -23,6 +23,8 @@ For investigation tasks, stage long ticket/PR descriptions, comment threads, or 
 
 Do not write unless the user explicitly asks. For `Current State`, `Decision Log`, or `Open Questions`, use `task-note-update`.
 
+Whatever the section — including hand-written ones like `Design`, `Hypotheses`, or `Context` — write for a reader scanning the note: prefer real markdown lists over dense prose, keep sentences short, give each distinct fact its own bullet, and never use inline `(1)… (2)…` / `(a)… (b)…` pseudo-lists where a real list belongs.
+
 ## Frontmatter
 
 - Default: `task-type: note`
