@@ -1,6 +1,6 @@
 model = "gpt-5.6-sol"
 personality = "pragmatic"
-model_reasoning_effort = "high"
+model_reasoning_effort = "xhigh"
 approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
@@ -25,8 +25,8 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-19T10:20:59Z"
-last_revision = "e09c3b1e5f6e8edbe2cdaf55b5dc38cf87824389"
+last_updated = "2026-07-19T19:01:14Z"
+last_revision = "b0b9f02b0581696da41e20d6c536ec639b44080f"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
@@ -116,9 +116,6 @@ enabled = true
 enabled = true
 
 [plugins."slack@openai-curated"]
-enabled = true
-
-[plugins."slack@claude-plugins-official"]
 enabled = true
 
 [plugins."pdf@openai-primary-runtime"]
@@ -253,6 +250,9 @@ trust_level = "trusted"
 [projects."/Users/channing/dev/TXPLabs/small-models"]
 trust_level = "trusted"
 
+[projects."/Users/channing/dev/personal/ai-experiments"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 inherit = "core"
 
@@ -267,7 +267,7 @@ status_line = ["model-with-reasoning", "current-dir", "context-remaining", "five
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
-"gpt-5.6-sol" = 3
+"gpt-5.6-sol" = 4
 
 [apps.connector_76869538009648d5b282a4bb21c3d157.tools.github_create_pull_request]
 approval_mode = "approve"

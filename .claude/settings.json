@@ -88,6 +88,7 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "claude-opus-4-8[1m]",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],
@@ -210,6 +211,5 @@
   "teammateMode": "tmux",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "model": "claude-fable-5[1m]"
+  "voiceEnabled": true
 }

@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.80.10",
   "theme": "dark",
-  "defaultProvider": "TXP",
-  "defaultModel": "Qwen/Qwen3.6-35B-A3B",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.6-sol",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",

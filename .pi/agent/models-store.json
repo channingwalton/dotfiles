@@ -149,7 +149,7 @@
             }
           ]
         },
-        "contextWindow": 372000,
+        "contextWindow": 272000,
         "maxTokens": 128000,
         "thinkingLevelMap": {
           "xhigh": "xhigh",
@@ -186,7 +186,7 @@
             }
           ]
         },
-        "contextWindow": 372000,
+        "contextWindow": 272000,
         "maxTokens": 128000,
         "thinkingLevelMap": {
           "xhigh": "xhigh",
@@ -223,7 +223,7 @@
             }
           ]
         },
-        "contextWindow": 372000,
+        "contextWindow": 272000,
         "maxTokens": 128000,
         "thinkingLevelMap": {
           "xhigh": "xhigh",
@@ -235,7 +235,7 @@
         }
       }
     ],
-    "checkedAt": 1784484662885
+    "checkedAt": 1784551969147
   },
   "huggingface": {
     "models": [
@@ -1333,7 +1333,7 @@
         "maxTokens": 131072
       }
     ],
-    "checkedAt": 1784484662878
+    "checkedAt": 1784551969205
   },
   "anthropic": {
     "models": [
@@ -1661,6 +1661,6 @@
         }
       }
     ],
-    "checkedAt": 1784484663077
+    "checkedAt": 1784551969181
   }
 }
