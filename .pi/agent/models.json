@@ -204,6 +204,22 @@
             "cacheRead": 0,
             "cacheWrite": 0
           }
+        },
+        {
+          "id": "Qwen/Qwen3.6-35B-A3B:deepinfra",
+          "name": "Qwen3.6-35B-A3B (deepinfra via HF router)",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.15,
+            "output": 0.95,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
         }
       ]
     }
