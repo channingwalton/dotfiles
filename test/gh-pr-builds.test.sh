@@ -68,15 +68,15 @@ FAKE_GH
 chmod +x "$TMP_DIR/bin/gh"
 
 actual=$(PATH="$TMP_DIR/bin:$PATH" NO_COLOR=1 "$ROOT/bin/gh-pr-builds")
-expected='FAIL       acme/widgets#1  Broken build (1 check)
+expected='FAIL       https://github.com/acme/widgets/pull/1  Broken build (1 check)
            unit
-PENDING    acme/widgets#2  Building (1 check)
+PENDING    https://github.com/acme/widgets/pull/2  Building (1 check)
            lint
-PASS       acme/widgets#3  Ready (1 check)
-NONE       acme/widgets#4  No workflow
-CANCELLED  acme/widgets#5  Cancelled (1 check)
+PASS       https://github.com/acme/widgets/pull/3  Ready (1 check)
+NONE       https://github.com/acme/widgets/pull/4  No workflow
+CANCELLED  https://github.com/acme/widgets/pull/5  Cancelled (1 check)
            deploy
-FAIL       acme/widgets#6  Legacy failure (1 check)
+FAIL       https://github.com/acme/widgets/pull/6  Legacy failure (1 check)
            buildkite'
 
 if [[ $actual != "$expected" ]]; then

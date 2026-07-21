@@ -89,7 +89,7 @@ while IFS= read -r pull_request; do
     *) colour=$GREY ;;
   esac
 
-  printf '%b%-10s%b %s#%s  %s' "$colour" "$state" "$RESET" "$repository" "$number" "$title"
+  printf '%b%-10s%b %s  %s' "$colour" "$state" "$RESET" "$url" "$title"
   if [[ $check_count -eq 1 ]]; then
     printf ' (1 check)'
   elif [[ $check_count -gt 1 ]]; then
