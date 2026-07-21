@@ -42,7 +42,7 @@ wtf:
     # Service versions across environments
     serviceVersions:
       args: []
-      cmd: "/Users/channing/dev/patchwork/repos/kmono/tools/service-versions.sh"
+      cmd: "/Users/channing/dev/patchwork/repos/glue/tools/service-versions.sh"
       enabled: true
       pty: true
       position:
@@ -57,7 +57,7 @@ wtf:
     # Deployment status
     deployStatus:
       args: []
-      cmd: "/Users/channing/dev/patchwork/repos/kmono/tools/deploy-status.sh"
+      cmd: "/Users/channing/dev/patchwork/repos/glue/tools/deploy-status.sh"
       enabled: true
       pty: true
       position:

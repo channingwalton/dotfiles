@@ -81,14 +81,14 @@
       "mcp__unison"
     ],
     "deny": [
-      "mcp__claude_ai_Notion"
+      "mcp__claude_ai_Notion",
+      "Bash(screencapture:*)"
     ],
     "ask": [
       "Bash(git push:*)"
     ],
     "defaultMode": "auto"
   },
-  "model": "claude-fable-5[1m]",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],

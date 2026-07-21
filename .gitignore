@@ -51,7 +51,6 @@
 /.codex/*
 !/.codex/AGENTS.md
 !/.codex/config.toml
-!/.codex/herdr-agent-state.sh
 !/.codex/hooks.json
 !/.codex/rules/
 !/.codex/skills/

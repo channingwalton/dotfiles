@@ -83,6 +83,7 @@ A task with `task-type: experiment` belongs to a research note: a `research:` fr
 - Never use inline pseudo-lists — `(1)… (2)…`, `(a)… (b)…`, or semicolon-chained runs — where a numbered or bulleted markdown list belongs.
 - One decision per Decision Log entry.
 - Decision Log is append-only and dated. Do not edit or delete prior entries.
+- Do not write a causal or factual claim into Decision Log, Current State or a research note unless the check that establishes it has been run. If it rests on inference, write it as an Open Question, or state the evidence and its limit ("from the SP log only") — four unverified claims were written into notes in one fortnight and one is still standing.
 - Current State is overwrite-only.
 - Next Session is overwrite-only and changes only alongside Current State; its date must match Current State's.
 - Open Questions are ephemeral and should empty over time.

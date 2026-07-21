@@ -17,7 +17,7 @@ window-padding-x = 5
 # background-opacity = 0.9
 
 #font-family = "JetBrainsMonoNL NFM Regular"
-#font-size = 12
+font-size = 12
 
 # keybind = global:cmd+grave_accent=toggle_quick_terminal
 macos-option-as-alt = left
