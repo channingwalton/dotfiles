@@ -40,7 +40,7 @@
 - Check for relevant skills before performing tasks
 - When user refers to `vault`, use the vault skill
 
-## Task Notes
+## Obsidian Task Notes
 
 Tasks I work on are tracked as notes in my Obsidian vault at:
 
@@ -57,6 +57,8 @@ Conventions those skills don't hold:
 - Read the linked ticket yourself — don't ask me to summarise it.
 - If **Current State**, **Decision Log**, or **Open Questions** are missing from a note, offer to add them.
 - Refer to people by full name as `[[@Firstname Surname]]`.
+
+Note that xml needs to be escaped to avoid parsing errors in Obsidian: \<tag>
 
 ## Context discipline
 
