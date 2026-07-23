@@ -115,3 +115,8 @@ export PATH="${MY_BIN}:$PATH"
 export RETROSPECTIVE_LEDGER=~/dev/retro-ledger.md
 source /Users/channing/.local/share/leaf/completions/_leaf
 
+# edit-command-buffer
+export VISUAL=nvim
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
