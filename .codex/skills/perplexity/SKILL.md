@@ -9,8 +9,9 @@ Ask perplexity.ai questions through the browser instead of the paid MCP server.
 
 ## Prerequisites
 
-Use the @Chrome tool — they drive Channing's own Chrome, where he is already
-logged into Perplexity.
+Use the **claude-in-chrome** tools — they drive Channing's own Chrome, where he is already
+logged into Perplexity. Do **not** use `agent-browser` or WebFetch: they have no session and
+will hit the logged-out page.
 
 ## Asking
 
