@@ -137,17 +137,6 @@
           }
         ]
       }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash '/Users/channing/.claude/hooks/review-route-hook.sh'",
-            "timeout": 5
-          }
-        ]
-      }
     ]
   },
   "statusLine": {
