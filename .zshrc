@@ -61,6 +61,14 @@ alias ddc=deleteDockerContainers
 alias cc='devtool check'
 alias compile='devtool compile'
 
+# Suffix aliases
+alias -s md="leaf"
+alias -s html="open"
+alias -s png="open"
+alias -s mp4="open"
+alias -s ts="$EDITOR"
+alias -s yaml="bat -l yaml"
+alias -s json="jless"
 
 # direnv
 export DIRENV_ALLOW=$HOME
