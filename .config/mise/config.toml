@@ -6,6 +6,8 @@ python = "3.13"
 rust = "latest"
 "npm:@earendil-works/pi-coding-agent" = "latest"
 pnpm = "latest"
+maven = "latest"
+gradle = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["node", "ruby", "python"]

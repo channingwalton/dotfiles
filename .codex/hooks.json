@@ -37,15 +37,6 @@
       {
         "hooks": [
           {
-            "command": "bash '/Users/channing/.codex/herdr-agent-state.sh' session",
-            "timeout": 10,
-            "type": "command"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
             "command": "[ -n \"${SUPACODE_SURFACE_ID:-}\" ] && { __tty=$(ps -o tty= -p \"$PPID\" 2>/dev/null | tr -d '[:space:]'); case \"$__tty\" in *[0-9]*) __tty=\"/dev/${__tty#/dev/}\";; *) __tty=\"/dev/tty\";; esac; __sp=\"\"; [ -n \"${SUPACODE_SOCKET_PATH:-}\" ] && __sp=\";pid=$PPID\"; printf '\\033]3008;start=codex;event=session_start%s\\033\\\\' \"$__sp\" > \"$__tty\"; } >/dev/null 2>&1 || true # supacode-managed-hook",
             "timeout": 5,
             "type": "command"

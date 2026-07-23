@@ -235,7 +235,7 @@
         }
       }
     ],
-    "checkedAt": 1784706334798
+    "checkedAt": 1784752760780
   },
   "huggingface": {
     "models": [
@@ -616,7 +616,16 @@
           "supportsDeveloperRole": false
         },
         "contextWindow": 262144,
-        "maxTokens": 32768
+        "maxTokens": 32768,
+        "thinkingLevelMap": {
+          "off": "none",
+          "minimal": null,
+          "low": "low",
+          "medium": "medium",
+          "high": "high",
+          "xhigh": null,
+          "max": null
+        }
       },
       {
         "id": "Qwen/Qwen3.5-9B",
@@ -839,7 +848,16 @@
           "supportsDeveloperRole": false
         },
         "contextWindow": 1048576,
-        "maxTokens": 393216
+        "maxTokens": 393216,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": null,
+          "medium": null,
+          "high": "high",
+          "xhigh": null,
+          "max": null
+        }
       },
       {
         "id": "google/gemma-4-26B-A4B-it",
@@ -1064,7 +1082,16 @@
           "supportsDeveloperRole": false
         },
         "contextWindow": 131072,
-        "maxTokens": 32768
+        "maxTokens": 32768,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": "medium",
+          "high": "high",
+          "xhigh": null,
+          "max": null
+        }
       },
       {
         "id": "openai/gpt-oss-20b",
@@ -1086,7 +1113,16 @@
           "supportsDeveloperRole": false
         },
         "contextWindow": 131072,
-        "maxTokens": 32768
+        "maxTokens": 32768,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": "medium",
+          "high": "high",
+          "xhigh": null,
+          "max": null
+        }
       },
       {
         "id": "stepfun-ai/Step-3.5-Flash",
@@ -1131,7 +1167,16 @@
           "supportsDeveloperRole": false
         },
         "contextWindow": 262144,
-        "maxTokens": 256000
+        "maxTokens": 256000,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": "medium",
+          "high": "high",
+          "xhigh": null,
+          "max": null
+        }
       },
       {
         "id": "zai-org/GLM-4.5",
@@ -1333,7 +1378,7 @@
         "maxTokens": 131072
       }
     ],
-    "checkedAt": 1784706334800
+    "checkedAt": 1784751500122
   },
   "anthropic": {
     "models": [
@@ -1661,6 +1706,6 @@
         }
       }
     ],
-    "checkedAt": 1784706334987
+    "checkedAt": 1784751500082
   }
 }
