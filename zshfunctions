@@ -55,6 +55,10 @@ function updates {
   echo "\nleaf\n"
   leaf --update
 
+# Updates with: cargo install cargo-update
+  echo "\nCargo\n"
+  cargo install-update -a
+
   echo "\nSkills\n"
   npx skills update -g
 
