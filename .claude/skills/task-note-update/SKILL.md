@@ -50,7 +50,7 @@ Use when the user wants a task-note decision, state change, or open-question res
    - **Blocker:** <detail>
    ```
 
-   **Next Session** — a ready-to-paste prompt to resume the task in a fresh session. Rewritten only alongside Current State, never independently. Operational content only: the exact next action, branch, file paths, commands, and constraints agreed in-session. Do not restate Current State or Open Questions — the resuming session reads those anyway. Put any working directory / branch on a lead line; the steps are a **numbered markdown list**, one action per item — never inline `(1)… (2)…` enumerations.
+   **Next Session** — a ready-to-paste prompt to resume the task in a fresh session for the current task.Rewritten only alongside Current State, never independently. Operational content only: the exact next action, branch, file paths, commands, and constraints agreed in-session. Do not restate Current State or Open Questions — the resuming session reads those anyway. Do not add notes for future tickets, those notes should go in the future ticket since this one will be closed and forgotten. Put any working directory / branch on a lead line; the steps are a **numbered markdown list**, one action per item — never inline `(1)… (2)…` enumerations.
 
    ```
    ## Next Session

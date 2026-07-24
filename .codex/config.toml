@@ -25,18 +25,18 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-23T09:21:25Z"
-last_revision = "e3e378cbbb205673a5d7254ded32679cafa6179d"
+last_updated = "2026-07-24T08:06:35Z"
+last_revision = "66799ffb4611b7e0c3af391c7569823a4d6b4246"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-07-23T11:28:03Z"
+last_updated = "2026-07-24T11:41:34Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-16T14:14:14Z"
+last_updated = "2026-07-24T12:14:14Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -59,13 +59,13 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_n
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
 CODEX_HOME = "/Users/channing/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,7182a69deb1cf34d457c66e124d0df74d480677b1136fc255b1a52074a5b4b6d"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,d0b55a8f9e8e7e9c88421416ea4ce9542c302abf43aa7fc871be4553ea70dd26"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.715.70719"
+BROWSER_USE_CODEX_APP_VERSION = "26.715.72359"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
@@ -262,7 +262,7 @@ inherit = "core"
 [shell_environment_policy.set]
 ENABLE_LSP_TOOL = "1"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,7182a69deb1cf34d457c66e124d0df74d480677b1136fc255b1a52074a5b4b6d"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,d0b55a8f9e8e7e9c88421416ea4ce9542c302abf43aa7fc871be4553ea70dd26"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
 
 [tui]
@@ -346,3 +346,6 @@ trusted_hash = "sha256:fc87dbee1cb8a9be4f78ba094c4fa8d5e2fd38cb800854e3717f9b6a5
 
 [hooks.state."/Users/channing/.codex/hooks.json:post_tool_use:0:0"]
 trusted_hash = "sha256:ac371f260e4b23ba1d1b7a4ad68a44a323a8470b61f38471a47aceac1b7a5a7c"
+
+[projects."/Users/channing/dev/patchwork/repos/glue"]
+trust_level = "trusted"
