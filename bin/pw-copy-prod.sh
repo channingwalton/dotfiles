@@ -12,7 +12,7 @@ fi
 
 remote_path=$1
 local_path=$2
-connect_script=${PW_CONNECT_INSTANCE_SHELL:-/Users/channing/dev/patchwork/repos/InfraTools/aws/connect-instance-shell.sh}
+connect_script=${PW_CONNECT_INSTANCE_SHELL:-/Users/channing/dev/patchwork/glue/InfraTools/aws/connect-instance-shell.sh}
 
 if [[ ! -x "$connect_script" ]]; then
   echo "pw-copy-prod.sh: connect script not executable: $connect_script" >&2
@@ -69,9 +69,9 @@ awk '
   /^__BEGIN__$/ { capture = 1; next }
   /^__END__$/ { capture = 0; exit }
   capture { print }
-' "$normalised_log" \
-  | tr -cd 'A-Za-z0-9+/=' \
-  | decode_base64 >"$tmp_out"
+' "$normalised_log" |
+  tr -cd 'A-Za-z0-9+/=' |
+  decode_base64 >"$tmp_out"
 
 mv "$tmp_out" "$local_path"
 trap - EXIT

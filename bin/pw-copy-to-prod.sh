@@ -12,7 +12,7 @@ fi
 
 local_path=$1
 remote_path=$2
-connect_script=${PW_CONNECT_INSTANCE_SHELL:-/Users/channing/dev/patchwork/repos/InfraTools/aws/connect-instance-shell.sh}
+connect_script=${PW_CONNECT_INSTANCE_SHELL:-/Users/channing/dev/patchwork/glue/InfraTools/aws/connect-instance-shell.sh}
 chunk_size=${PW_COPY_TO_PROD_CHUNK_SIZE:-12000}
 
 if [[ ! -r "$local_path" ]]; then
@@ -39,7 +39,7 @@ run_remote() {
   raw_log=$(mktemp -t pw-copy-to-prod.XXXXXX)
   normalised_log=$(mktemp -t pw-copy-to-prod.XXXXXX)
 
-  if ! "$connect_script" -q prod -- "$remote_command" >"$raw_log" < /dev/null; then
+  if ! "$connect_script" -q prod -- "$remote_command" >"$raw_log" </dev/null; then
     tr -d '\r' <"$raw_log" >"$normalised_log"
     if grep -q '^__ERROR__' "$normalised_log"; then
       grep '^__ERROR__' "$normalised_log" >&2

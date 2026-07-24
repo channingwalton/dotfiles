@@ -104,22 +104,22 @@
     "slack@claude-plugins-official": [
       {
         "scope": "project",
-        "projectPath": "/Users/channing/dev/patchwork/glue",
+        "projectPath": "/Users/channing/dev/patchwork/repos/glue",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/slack/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-04-07T10:21:35.835Z",
-        "lastUpdated": "2026-04-07T10:21:35.835Z",
+        "lastUpdated": "2026-07-24T13:52:25.553Z",
         "gitCommitSha": "7b9458950d38bb01ddb48b669f9fa89bcdfd98b8"
       }
     ],
     "atlassian@claude-plugins-official": [
       {
         "scope": "project",
-        "projectPath": "/Users/channing/dev/patchwork/glue",
+        "projectPath": "/Users/channing/dev/patchwork/repos/glue",
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/atlassian/385c1469c567",
         "version": "385c1469c567",
         "installedAt": "2026-04-07T10:21:36.605Z",
-        "lastUpdated": "2026-04-07T10:21:36.605Z",
+        "lastUpdated": "2026-07-24T13:52:25.553Z",
         "gitCommitSha": "385c1469c567399970e1d3fc23687a0312aa63dc"
       }
     ],
@@ -192,12 +192,35 @@
     ],
     "pw-engineering@patchskills": [
       {
-        "scope": "user",
+        "scope": "project",
         "installPath": "/Users/channing/.claude/plugins/cache/patchskills/pw-engineering/1.1.0",
         "version": "1.1.0",
         "installedAt": "2026-07-09T08:36:10.060Z",
-        "lastUpdated": "2026-07-09T08:36:10.060Z",
-        "gitCommitSha": "529f24d48de775aa654cff484d297fc0a940514e"
+        "lastUpdated": "2026-07-24T13:52:25.553Z",
+        "gitCommitSha": "529f24d48de775aa654cff484d297fc0a940514e",
+        "projectPath": "/Users/channing/dev/patchwork/repos/glue"
+      }
+    ],
+    "pw-productivity@patchskills": [
+      {
+        "scope": "project",
+        "installPath": "/Users/channing/.claude/plugins/cache/patchskills/pw-productivity/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-07-24T13:52:25.553Z",
+        "lastUpdated": "2026-07-24T13:52:25.553Z",
+        "gitCommitSha": "529f24d48de775aa654cff484d297fc0a940514e",
+        "projectPath": "/Users/channing/dev/patchwork/repos/glue"
+      }
+    ],
+    "pw-product-management@patchskills": [
+      {
+        "scope": "project",
+        "installPath": "/Users/channing/.claude/plugins/cache/patchskills/pw-product-management/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-07-24T13:52:25.553Z",
+        "lastUpdated": "2026-07-24T13:52:25.553Z",
+        "gitCommitSha": "529f24d48de775aa654cff484d297fc0a940514e",
+        "projectPath": "/Users/channing/dev/patchwork/repos/glue"
       }
     ]
   }

@@ -83,8 +83,8 @@ home_last_prompted_at = 1778103668
 home = true
 
 [notice.external_config_migration_prompts.project_last_prompted_at]
-"/Users/channing/dev/patchwork/repos/PatchworkApps" = 1777553192
-"/Users/channing/dev/patchwork/repos/InfraTools" = 1779358587
+"/Users/channing/dev/patchwork/glue/PatchworkApps" = 1777553192
+"/Users/channing/dev/patchwork/glue/InfraTools" = 1779358587
 "/Users/channing/dev/treelog-direct" = 1777832181
 "/Users/channing" = 1778968167
 "/Users/channing/dev/omnear-model" = 1778971587
@@ -98,7 +98,7 @@ home = true
 "/Users/channing/dev/treelog-direct" = true
 "/Users/channing/dev/patchwork/repos/InfraTools" = true
 "/Users/channing/dev/patchwork/L2P" = true
-"/Users/channing/dev/patchwork/repos/PatchworkOnRails" = true
+"/Users/channing/dev/patchwork/glue/PatchworkOnRails" = true
 
 [plugins."atlassian-rovo@openai-curated"]
 enabled = true
