@@ -59,16 +59,20 @@ def normalise_id(rid: str) -> str:
     return rid.replace("_", "-").lower()
 
 
-def resolve_req_id(tail: str, known: set[str] | None) -> str:
-    """Where an id ends inside an identifier is genuinely ambiguous: nothing separates
-    `req_health_obs_received` from `req_health_obs_received_on_rejected_method`. Rather than
-    invent a terminator nobody will remember, resolve against the ids the documents actually
-    define, longest first - so a descriptive suffix is free, and one requirement can have
-    several tests.
+def resolve_id(tail: str, known: set[str] | None) -> str:
+    """Where an id ends in a test name is genuinely ambiguous. `.` and `-` are legal inside
+    an id, so `#live-ok. The service …` would otherwise yield `live-ok.`; and nothing
+    separates `req_health_obs_received` from `req_health_obs_received_on_rejected_method`.
 
-    An unmatched `req_` still yields its raw text, so a typo surfaces as an orphan rather
-    than vanishing into the unlinked pile.
+    Rather than invent a terminator nobody will remember, resolve against the ids the
+    documents actually define, longest first. That makes the rule the same for both forms
+    and easy to state: **after the id, write whatever you like** - the rest of the name is
+    for the reader, and the tool ignores it.
+
+    An unmatched marker keeps its raw text, so a typo surfaces as an orphan rather than
+    vanishing into the unlinked pile.
     """
+    tail = tail.rstrip("._-")
     if not known:
         return tail
     for candidate in sorted((k for k in known if tail == k or tail.startswith(k + "-")),
@@ -78,9 +82,8 @@ def resolve_req_id(tail: str, known: set[str] | None) -> str:
 
 
 def ids_in_name(name: str, known: set[str] | None = None) -> list[str]:
-    found = [normalise_id(m) for m in HASH_IN_NAME.findall(name)]
-    found += [resolve_req_id(normalise_id(m), known) for m in REQ_IN_NAME.findall(name)]
-    return list(dict.fromkeys(found))
+    raw = HASH_IN_NAME.findall(name) + REQ_IN_NAME.findall(name)
+    return list(dict.fromkeys(resolve_id(normalise_id(m), known) for m in raw))
 
 
 # --------------------------------------------------------------------------- model

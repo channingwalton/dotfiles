@@ -59,7 +59,16 @@ first. There is no correct granularity to discover — it is whatever you wrote 
 
 ## Test names
 
-The id goes anywhere in the test name:
+The id goes anywhere in the test name, and **anything may follow it** — the tool reads the
+id and ignores the rest. Punctuation, underscores, a trailing full stop: all fine.
+
+The id is resolved against the ids the documents define, longest first. That is what removes
+the ambiguity: `.` and `-` are legal *inside* an id, so `#live-ok. Answers 200` would
+otherwise bind `live-ok.` and fail as an orphan. An id matching nothing keeps its raw text
+and is reported as an orphan, so typos surface rather than passing silently.
+
+Write the rest of the name to say what *this test* checks. Restating the requirement adds
+nothing — the report prints it directly above.
 
 ```scala
 test("#live-ok /health answers 200 while the service is running") { … }

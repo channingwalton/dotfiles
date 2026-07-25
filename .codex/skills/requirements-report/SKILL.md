@@ -1,6 +1,6 @@
 ---
 name: requirements-report
-description: Link a project's requirements to its tests and generate a browsable report showing which requirements pass, fail, or have no test at all. Use when the user wants requirements traceability, a living requirements document, acceptance criteria tied to tests, a report showing which requirement a failing test belongs to, or wants to know which requirements are untested. Works with any language and any test framework that can emit JUnit XML.
+description: Link requirements to the tests that demonstrate them and render a report showing which requirements pass, fail, or have no test at all. Use whenever a requirements or specification document drives the work - implementing a feature from a requirements doc, writing tests for a spec, adding requirements to an existing project - and for requirements traceability, a living requirements document, acceptance criteria tied to tests, finding untested requirements, or seeing which requirement a failing test belongs to. Read this BEFORE writing any tests: it sets how they must be named. Works with any language and any test framework that can emit JUnit XML.
 ---
 
 # Requirements report
@@ -50,6 +50,27 @@ without failing.
 
 ## What to actually do
 
+### Naming a test
+
+**After the id, write whatever you like.** The tool takes the id and ignores the rest of the
+name, so there is no format to get right:
+
+```
+"#live-ok /health answers 200 while the service is running"    ScalaTest, Jest, pytest…
+"#live-ok. Answers 200."                                        punctuation is fine
+fn req_live_ok_when_starting()                                  Rust, Go
+```
+
+The id is resolved against the ids the documents define, longest first, so a suffix costs
+nothing and one requirement may have several tests. An id that matches nothing is reported
+as an **orphan** and fails the build — typos do not pass silently.
+
+Use the rest of the name to say what *this test* checks, not to restate the requirement. The
+report already prints the requirement directly above it, so an echo reads like verification
+while adding nothing.
+
+### Setting it up
+
 0. **Pick the marker form.** If test names are free text (ScalaTest, pytest, Jest, Vitest,
    JUnit `@DisplayName`), put `#the-id` in the name. If they are identifiers (Rust, Go),
    name the test `req_the_id` — plain `#[test]` and plain `go test` are then enough. Do not
@@ -69,9 +90,12 @@ without failing.
 3. **Add `#id` markers.** See `references/conventions.md` for the marker rules and tree
    shape.
 
-4. **Link existing tests.** Where a test clearly covers a requirement, add the id to its
-   name. Where you are not sure, leave it and tell the user — a wrongly linked test is worse
-   than an unlinked one, because it reports coverage that does not exist.
+4. **Name the tests.** If you are writing the tests as part of this work, name them for
+   their requirement as you go — that is far cheaper than renaming afterwards, and it is why
+   this skill should be read before any test is written. If the tests already exist, add the
+   id to the name of each one that clearly covers a requirement. Where you are not sure,
+   leave it and tell the user: a wrongly linked test is worse than an unlinked one, because
+   it reports coverage that does not exist.
 
 5. **Wire it into the build**, after the tests, deleting the JUnit XML directory first. See
    *Wiring* below.
