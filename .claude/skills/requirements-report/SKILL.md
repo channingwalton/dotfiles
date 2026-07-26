@@ -45,8 +45,16 @@ python3 reqreport.py --requirements requirements/ \
 ```
 
 Exit 0 clean, 1 requirement problems, 2 bad input. Options can also live in
-`.reqreport.json` (`requirements`, `junit`, `sources`, `out`). `--no-gate` writes the report
-without failing.
+`.reqreport.json` (`requirements`, `junit`, `sources`, `out`, `root`). `--no-gate` writes the
+report without failing.
+
+Source paths in the report are shown relative to `--root`, which defaults to the working
+directory. Set it from the project root your build tool already knows — sbt's
+`baseDirectory`, Gradle's `projectDir`, `$PWD` in a Makefile — so the report reads the same
+whichever directory the build was launched from and carries no trace of the machine that
+rendered it. Do not derive it from git: that finds the *repository* root, which is the
+project root only when the two coincide, and in a monorepo prefixes every path with the
+project's own directory name.
 
 ## What to actually do
 

@@ -12,7 +12,7 @@ every test framework's report carries the test name, and every one can emit JUni
 Stdlib only. No install step.
 
     reqreport.py --requirements requirements/ --junit build/test-results/test/ \
-                 --sources src/test/ --out target/requirements/
+                 --sources src/test/ --out target/requirements/ --root .
 
 Exit codes: 0 clean, 1 requirement problems found, 2 bad input.
 """
@@ -405,10 +405,35 @@ def extract_block(lines: list[str], marked: int) -> str:
     return "\n".join(rest[:15])
 
 
-def index_sources(roots: list[Path], known: set[str]) -> dict[str, tuple[str, int, str]]:
+def display_path(p: Path, project_root: Path) -> str:
+    """The path as the report should show it: relative to the project root. Build tools pass
+    --sources absolute, and an absolute path in the report is both noise and a record of the
+    machine that happened to build it, so two people rendering the same commit get different
+    pages.
+
+    `project_root` comes from --root, which the build tool sets from the project root it
+    already knows, and falls back to the working directory. Deriving it instead - from git,
+    or by walking up for a marker file - finds the *repository* root, which is the project
+    root only when the two coincide; in a monorepo it prefixes every path with the project's
+    own directory name.
+
+    Named in full because `index_sources` iterates the *source* roots in a variable called
+    `root`, and a parameter of that name is silently shadowed by it: every path then comes
+    out relative to whichever source root it was found under.
+
+    A file outside the project keeps its absolute path - a `../../..` chain out of the tree
+    locates it no better and reads worse."""
+    try:
+        return str(p.resolve().relative_to(project_root))
+    except (ValueError, OSError):
+        return str(p)
+
+
+def index_sources(roots: list[Path], known: set[str],
+                  project_root: Path) -> dict[str, tuple[str, int, str]]:
     """id -> (file, line, code). Shown behind a disclosure so a developer or an agent can
     see whether the test matches the requirement it claims - the one check no mechanism
-    can make."""
+    can make. Paths are rendered relative to `project_root`; see `display_path`."""
     found: dict[str, tuple[str, int, str]] = {}
     origin: dict[str, tuple[str, int]] = {}
     for root in roots:
@@ -427,8 +452,11 @@ def index_sources(roots: list[Path], known: set[str]) -> dict[str, tuple[str, in
                         continue
                     body = referenced_definition(lines, i)
                     start = body if body is not None else enclosing_definition(lines, i)
-                    found[rid] = (str(p), start + 1, extract_block(lines, start))
-                    origin[rid] = (str(p), start)
+                    # Both carry the display path: `origin` is regrouped back into `found`
+                    # below, so an absolute path here would reappear in the report.
+                    shown = display_path(p, project_root)
+                    found[rid] = (shown, start + 1, extract_block(lines, start))
+                    origin[rid] = (shown, start)
 
     # If several ids resolve to the same block, the extraction failed rather than found
     # something - they are pointing at a registry or a shared wrapper. Repeating one large
@@ -706,6 +734,9 @@ def main() -> int:
     ap.add_argument("--junit", type=Path, help="directory of JUnit XML")
     ap.add_argument("--sources", nargs="*", default=[], type=Path, help="test source roots")
     ap.add_argument("--out", type=Path)
+    ap.add_argument("--root", type=Path,
+                    help="project root that source paths in the report are relative to "
+                         "(default: the working directory)")
     ap.add_argument("--config", default=Path(".reqreport.json"), type=Path)
     ap.add_argument("--no-gate", action="store_true", help="write the report but always exit 0")
     args = ap.parse_args()
@@ -718,12 +749,16 @@ def main() -> int:
             die(f"{args.config}: {e}")
 
     for key, fallback in (("requirements", "requirements"), ("junit", None),
-                          ("out", "target/requirements")):
+                          ("out", "target/requirements"), ("root", None)):
         if getattr(args, key) is None:
             value = cfg.get(key, fallback)
             setattr(args, key, Path(value) if value is not None else None)
     if not args.sources:
         args.sources = [Path(s) for s in cfg.get("sources", [])]
+
+    # Resolved once, because display_path compares it against resolved source paths and a
+    # symlinked or relative root would never match one.
+    args.root = (args.root or Path.cwd()).resolve()
 
     if args.junit is None:
         die("--junit is required (the directory your test runner writes JUnit XML to), "
@@ -732,7 +767,8 @@ def main() -> int:
     docs = load_docs(args.requirements)
     known = {b.rid for d in docs for b in d.marked}
     cases = load_tests(args.junit, known)
-    src = index_sources(args.sources or [Path("src/test"), Path("test"), Path("tests")], known)
+    src = index_sources(args.sources or [Path("src/test"), Path("test"), Path("tests")],
+                        known, args.root)
     stamp = datetime.now().strftime("%-d %b %Y %H:%M")
 
     by_id: dict[str, list[TestCase]] = {}
