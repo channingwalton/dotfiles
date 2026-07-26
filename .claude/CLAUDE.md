@@ -70,7 +70,7 @@ Note that xml needs to be escaped to avoid parsing errors in Obsidian: \<tag>
 
 ## Context discipline
 
-- Prefer the narrowest reliable navigation tool: CodeGraph for structural code discovery, LSP/native tools for editor diagnostics/definitions, and `rg` for literal text. When using raw search, locate first (`rg -l`, counts, narrow globs), then read only the slice needed. Widen only if required.
+- Prefer the narrowest reliable navigation tool: LSP/native tools for definitions, references, and diagnostics; `rg` for literal text. When using raw search, locate first (`rg -l`, counts, narrow globs), then read only the slice needed. Widen only if required.
 - Never dump whole large/generated files or repo-wide content; search for the specific symbol/section.
 - External/MCP data (Jira/JQL, Confluence, Slack, API responses): if you know the scope, narrow at the source (specific IDs, status/date filters, field lists). If you don't, fetch the full payload **once to a file**, then read slices from that file with `jq`/`rg` — re-read the file freely (lossless, no round-trip); never blind-truncate an unsaved response. Only slices you read enter context.
 - Diffs: `git diff --stat` / `--name-only` first, then `git diff -- <file>`.

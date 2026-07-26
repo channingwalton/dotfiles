@@ -79,29 +79,23 @@ A task with `task-type: experiment` belongs to a research note: a `research:` fr
 
 ## Format rules
 
-- Write for a reader scanning the note, not a transcript. Prefer real markdown lists over dense prose; keep sentences short; give each distinct fact its own line or bullet rather than chaining clauses.
+Writing:
+
+- Write for a reader scanning the note, not a transcript. Prefer real markdown lists over dense prose; keep sentences short; give each distinct fact its own line or bullet rather than chaining clauses. A Current State or Decision Log entry that packs several distinct strands into one dense paragraph is the failure being avoided.
 - Never use inline pseudo-lists — `(1)… (2)…`, `(a)… (b)…`, or semicolon-chained runs — where a numbered or bulleted markdown list belongs.
-- One decision per Decision Log entry.
-- Decision Log is append-only and dated. Do not edit or delete prior entries.
-- Do not write a causal or factual claim into Decision Log, Current State or a research note unless the check that establishes it has been run. If it rests on inference, write it as an Open Question, or state the evidence and its limit ("from the SP log only") — four unverified claims were written into notes in one fortnight and one is still standing.
-- Current State is overwrite-only.
-- Next Session is overwrite-only and changes only alongside Current State; its date must match Current State's.
-- Open Questions are ephemeral and should empty over time.
+- Link, don't copy: never echo JIRA or PR content into the task note.
 - Use British spelling.
-- Dates are Obsidian wikilinks `[[YYYY-MM-DD]]` — never bare `YYYY-MM-DD` — so they backlink to daily notes.
+- Dates are Obsidian wikilinks `[[YYYY-MM-DD]]` — never bare `YYYY-MM-DD` — so they backlink to daily notes. Get them from `date`, never from memory.
+
+Section mechanics:
+
+- One decision per Decision Log entry, each with a **Why**. Append-only and dated — do not edit or delete prior entries.
+- Current State is overwrite-only.
+- Next Session is overwrite-only, moves **only** alongside Current State (never on a Decision Log or Open Question update), and its date must match Current State's. It gives the next concrete action, not a restatement of state.
+- Open Questions are ephemeral and should empty over time.
+
+Claims and status:
+
+- Do not write a causal or factual claim into Decision Log, Current State or a research note unless the check that establishes it has been run. If it rests on inference, write it as an Open Question, or state the evidence and its limit ("from the SP log only") — four unverified claims were written into notes in one fortnight and one is still standing.
 - Frontmatter `status` values are hyphenated: `in-progress` / `done` (never `in progress`).
 - Set `status: done` + `completedDate` only after the branch is **merged** — a PR being open or approved is still `in-progress`. For tasks with no branch (investigations), `done` additionally requires every strand in Current State / Open Questions to be resolved; "no work needed on strand X" is not task-complete. When the user says "close it out", propose `in-progress` with the open strand named — do not offer `done` as a default to rubber-stamp.
-
-## Anti-patterns
-
-- Asking for confirmation on content already established in the session — write it and show what was written.
-- Writing invented or reconstructed content the user has never seen without asking first.
-- Silent writes — every write must be followed by showing the entry as written.
-- Walls of text — a Current State or Decision Log entry that packs multiple distinct strands into one dense paragraph. Use a lead sentence plus bulleted strands / sub-bullets instead.
-- Inline pseudo-lists — `(1)… (2)…` or `(a)… (b)…` where a numbered or bulleted markdown list belongs.
-- Decision Log entries without a **Why**.
-- Echoing JIRA content into the task note. Link, don't copy.
-- Hardcoding dates instead of running `date`.
-- A Next Session prompt that restates state instead of giving the next concrete action.
-- Rewriting Next Session on a Decision Log or Open Question update — it moves only with Current State.
-- Duplicating a research note's Findings into an experiment task, or editing the research note directly during a task update — roll-up is a separate, offered step.

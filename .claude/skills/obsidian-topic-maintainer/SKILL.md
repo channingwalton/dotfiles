@@ -16,9 +16,9 @@ A helper script lives at `scripts/topic_tools.py` (run it with `python3 <skill-d
 - Vault root is typically `~/Documents/Notes`; projects live under `Projects/<Name>/`, each with `Topics/`, `Tasks/`, and usually `Events/`.
 - **Domain knowledge lives outside projects.** Top-level folders (`Development/`, `Artificial Intelligence/`, `Process/`, `Knowledge management/`, ...) hold evergreen, project-independent notes. Each has a same-named hub note that acts as its **MOC (Map of Content)**; some are Dataview-backed, surfacing every note that links `[[<Domain>]]` automatically. A concept that recurs across projects belongs here, not trapped in one project's `Topics/`.
 - **Every note's H1 is a self wikilink**: `# [[Note Title]]`, followed by a parent link line. For a project Topic that parent is `[[<Project>]]`; for a graduated domain note it is `[[<Domain>]]`.
-- **Topic hub** = an evergreen, conceptual note in `Topics/`. It describes a subject in prose, links to related topics, recipes and glossary terms, and ends with a `## See also` line of middot-separated wikilinks. A hub does **not** enumerate task notes.
+- **Topic hub** = an evergreen, conceptual note in `Topics/`. It describes a subject in prose, links to related topics and definition notes, and ends with a `## See also` line of middot-separated wikilinks. A hub does **not** enumerate task notes.
 - **Direction of links is one-way: tasks -> topics.** Task/Event notes carry a bare-wikilink backlink line (e.g. `[[Importers]] [[Leave Entitlements]]`) immediately under their H1. Topics never list their tasks.
-- **Definitions vs hubs**: short "what is X" notes (a glossary term) and longer "what we did / how it works" hubs both live in `Topics/`. Don't create a second note for a concept that already has one - merge instead.
+- **Definitions vs hubs**: short "what is X" definition notes and longer "what we did / how it works" hubs both live in `Topics/` — there is no separate glossary folder (see the `vault` skill for the definition-note shape). Don't create a second note for a concept that already has one - merge instead.
 - **Aliases**: give abbreviations and singular/plural variants an `aliases:` entry so existing links keep resolving (e.g. hub `kmono Architecture` with alias `kmono`; hub `Job Plans` with alias `Job Plan`). Keep note **basenames unique** across the project - duplicate basenames force Obsidian to write fragile full-path links.
 - **Links resolve by basename, vault-wide.** Moving a note between folders (Topics -> a domain folder) does not break `[[wikilinks]]`, so graduation needs no stub or redirect. Never leave a same-named copy behind - duplicate basenames make links ambiguous.
 - British spelling. Generate any timestamp with the shell `date` command, never a guess.
@@ -63,7 +63,7 @@ For each approved topic, write `Topics/<Topic>.md`:
 - Frontmatter (with `aliases:` if it has an abbreviation/variant).
 - `# [[<Topic>]]` then `[[<Project>]]`.
 - 2-5 short prose sections: what it is, why it matters, recurring themes, where it lives in code.
-- A `## See also` line linking related topics, recipes and glossary terms.
+- A `## See also` line linking related topics and definition notes.
 - **No enumerated task links.**
 Match the voice of existing hubs in that project. Prefer a folder-topic or a loose note to match whatever layout the project already uses.
 

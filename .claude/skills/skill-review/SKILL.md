@@ -7,7 +7,7 @@ description: >-
   when wondering whether a skill is still worth keeping; or after writing or
   editing a skill. Reviews authored skills only: real dirs in ~/.claude/skills
   and ~/.claude/commands (symlinks skipped) plus the dev repo in
-  ~/dev/skills/skills.
+  ~/dev/personal/skills/skills.
 ---
 
 # Skill Review
@@ -20,7 +20,7 @@ This is a critical review, not a rubber stamp. Be willing to recommend dropping 
 
 ## Scope
 
-Default: review **every** authored skill. Discover them with the bundled script — it returns real dirs in `~/.claude/skills` and `~/.claude/commands` (skills exposed as slash commands, e.g. `unison-update`) plus everything in `~/dev/skills/skills`. Symlinks are skipped on purpose: they point at install targets for third-party or already-published skills, which are out of authored scope (published ones are reviewed via their dev-repo source instead):
+Default: review **every** authored skill. Discover them with the bundled script — it returns real dirs in `~/.claude/skills` and `~/.claude/commands` (skills exposed as slash commands, e.g. `code-query`) plus everything in `~/dev/personal/skills/skills`. Symlinks are skipped on purpose: they point at install targets for third-party or already-published skills, which are out of authored scope (published ones are reviewed via their dev-repo source instead). The script warns on stderr if a source directory is missing — treat that as a blocker, not a note, because the skills behind it are silently absent from the audit:
 
 ```sh
 ~/.claude/skills/skill-review/scripts/discover.sh

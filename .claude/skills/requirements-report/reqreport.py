@@ -20,6 +20,7 @@ Exit codes: 0 clean, 1 requirement problems found, 2 bad input.
 from __future__ import annotations
 
 import argparse
+import functools
 import html
 import json
 import re
@@ -448,13 +449,58 @@ def index_sources(roots: list[Path], known: set[str]) -> dict[str, tuple[str, in
     return found
 
 
-def git_last_changed(path: str) -> int | None:
+def _git(near: str, *args: str) -> str | None:
+    """Run git anchored at `near` rather than at the working directory: --requirements and
+    --sources may point outside the tree reqreport was launched from, and asking the wrong
+    repository about a path yields nothing at all rather than an error."""
+    p = Path(near)
+    cwd = p if p.is_dir() else p.parent
     try:
-        out = subprocess.run(["git", "log", "-1", "--format=%ct", "--", path],
+        out = subprocess.run(["git", "-C", str(cwd), *args],
                              capture_output=True, text=True, timeout=10)
-        return int(out.stdout.strip()) if out.returncode == 0 and out.stdout.strip() else None
+        return out.stdout if out.returncode == 0 else None
     except Exception:
         return None
+
+
+@functools.lru_cache(maxsize=None)
+def git_last_changed(path: str) -> int | None:
+    """When the tree is clean this is the last commit that touched `path`.
+
+    An uncommitted edit is newer than every commit and completely invisible to `git log`,
+    so a dirty path reports its working-tree mtime instead. Without that, the staleness
+    hint compares a state that has already been superseded and fires precisely while the
+    tests are being brought back into line with the document."""
+    # Porcelain paths are relative to the repo root, not the working directory, and
+    # reqreport is routinely run from a subdirectory of the repo.
+    root = _git(path, "rev-parse", "--show-toplevel")
+    status = _git(path, "status", "--porcelain", "-z", "--", path)
+    if root and status:
+        base = Path(root.strip())
+        # -z entries are `XY <path>`. A rename adds its bare origin as a further entry,
+        # so `[3:]` truncates that one into a path that does not exist; it drops out with
+        # the deletions, which have no mtime either. Both are ignorable: what the hint
+        # needs is the newest surviving file, not a complete inventory.
+        times = []
+        for entry in status.split("\0"):
+            if len(entry) > 3:
+                try:
+                    times.append((base / entry[3:]).stat().st_mtime)
+                except OSError:
+                    pass
+        if times:
+            return int(max(times))
+    out = _git(path, "log", "-1", "--format=%ct", "--", path)
+    return int(out.strip()) if out and out.strip() else None
+
+
+@functools.lru_cache(maxsize=None)
+def git_is_dirty(path: str) -> bool:
+    """Whether `path` has uncommitted changes. The hint asks whether the tests have been
+    revisited since the document changed; when both sides are dirty in the same working
+    tree the answer is yes, and comparing their mtimes only measures which file happened
+    to be saved last - a gap of seconds, reported as if it were drift."""
+    return bool((_git(path, "status", "--porcelain", "--", path) or "").strip())
 
 
 # ------------------------------------------------------------------------- render
@@ -755,6 +801,25 @@ def main() -> int:
         for i in c.ids:
             by_id.setdefault(i, []).append(c)
 
+    # An id may name at most one test. When several tests shared an id the report showed
+    # the first one's source under every row, so a row's code did not match the row's own
+    # name - and that adjacency is the only check on a test that names one requirement and
+    # tests another. Fatal for the same reason a duplicate document id is: the join key is
+    # ambiguous, and a wrong join reads exactly like a right one.
+    named_by: dict[str, list[str]] = {}
+    for c in cases:
+        where = f"{c.classname}.{c.name}" if c.classname else c.name
+        for i in c.ids:
+            if where not in named_by.setdefault(i, []):
+                named_by[i].append(where)
+    shared = {k: v for k, v in named_by.items() if len(v) > 1}
+    if shared:
+        detail = "\n".join(
+            f"  #{k} is named by {len(v)} tests:\n" + "\n".join(f"      {n}" for n in v)
+            for k, v in sorted(shared.items()))
+        die("a requirement may be named by only one test:\n" + detail +
+            "\n  Split the requirement so each test has its own id, or merge the tests.")
+
     results: list[DocResult] = []
     for d in docs:
         tests_of = {b.rid: by_id.get(b.rid, []) for b in d.marked}
@@ -766,7 +831,12 @@ def main() -> int:
             if b.rid and b.kind == "heading" and not tests_of[b.rid] and i in roll:
                 status_of[b.rid] = roll[i]
         req_t = git_last_changed(str(args.requirements / d.source))
-        test_t = min((t for t in (git_last_changed(str(s)) for s in args.sources) if t), default=None)
+        # max, not min: "when were the tests last changed" is the most recent change across
+        # the source roots. Taking the oldest root makes the hint fire on documents whose
+        # tests were revisited only yesterday.
+        test_t = max((t for t in (git_last_changed(str(s)) for s in args.sources) if t), default=None)
+        in_flight = (git_is_dirty(str(args.requirements / d.source))
+                     and any(git_is_dirty(str(s)) for s in args.sources))
         results.append(DocResult(
             doc=d,
             page=re.sub(r"\.md$", ".html", d.source),
@@ -775,7 +845,7 @@ def main() -> int:
             rollup=roll,
             classes=sorted({t.classname for ts in tests_of.values() for t in ts}),
             hint=("This document was changed after the tests were. Worth checking they still match."
-                  if req_t and test_t and req_t > test_t else None),
+                  if req_t and test_t and req_t > test_t and not in_flight else None),
         ))
 
     orphans = [c for c in cases if c.ids and not all(i in known for i in c.ids)]

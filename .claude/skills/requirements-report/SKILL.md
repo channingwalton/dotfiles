@@ -62,8 +62,13 @@ fn req_live_ok_when_starting()                                  Rust, Go
 ```
 
 The id is resolved against the ids the documents define, longest first, so a suffix costs
-nothing and one requirement may have several tests. An id that matches nothing is reported
-as an **orphan** and fails the build — typos do not pass silently.
+nothing. An id that matches nothing is reported as an **orphan** and fails the build — typos
+do not pass silently.
+
+**One requirement, one test.** Two tests naming the same id is fatal. If you want to assert a
+second thing, that second thing is a requirement the document does not yet state — write it
+down and give it its own id. This is the rule that stops design decisions being smuggled in
+under an existing requirement, where nobody reviewing the document would ever see them.
 
 Use the rest of the name to say what *this test* checks, not to restate the requirement. The
 report already prints the requirement directly above it, so an echo reads like verification
@@ -76,8 +81,7 @@ while adding nothing.
    name the test `req_the_id` — plain `#[test]` and plain `go test` are then enough. Do not
    reach for `libtest-mimic`, subtest wrappers or a sidecar map to get a `#` into the name.
    The id is resolved against the ids the documents define, so `req_the_id_and_more_words`
-   still binds `#the-id`, and a requirement may have several tests. Go needs underscores —
-   `Test_req_the_id`, not `TestReqTheId`.
+   still binds `#the-id`. Go needs underscores — `Test_req_the_id`, not `TestReqTheId`.
 
 1. **Find the test runner and make it emit JUnit XML.** This is the only genuinely
    project-specific step. See `references/junit-xml.md` for how, per runner, and where the
@@ -147,6 +151,7 @@ report:
 | No test | no test names a requirement — nothing demonstrates it works |
 | Orphan | a test names an id no document defines |
 | Duplicate | the same `#id` is defined twice — fatal, it double-counts coverage |
+| Shared id | two tests name the same `#id` — fatal, the second assertion is an unwritten requirement |
 
 Tests with no id are listed but are **not** errors. Unit tests need not map to requirements.
 

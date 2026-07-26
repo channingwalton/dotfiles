@@ -1,6 +1,6 @@
 ---
 name: vault
-description: Read and write notes in the Obsidian vault. Use for task logs, knowledge capture, and building context.
+description: Read and write notes in the Obsidian vault — paths, filename conventions, linking rules, and where a given kind of note belongs. Use when reading or writing vault notes, capturing knowledge, defining a domain term, or building context from notes.
 ---
 
 # Vault (Obsidian Notes)
@@ -23,10 +23,18 @@ Location: `~/Documents/Notes/` (vault name: `Notes`)
 | Daily notes | `Journal/Daily Notes/<YYYY>/<YYYY-MM>/<YYYY-MM-DD>.md` |
 | Weekly notes | `Journal/Weekly Notes/<YYYY>-W<WW>.md` |
 | Events | `Projects/<project>/Events/<YYYY-MM-DD> <event type> <title>.md` |
-| Glossary | `Projects/<project>/Glossary/` |
-| Topics | Projects/<projects>/Topics |
+| Topics | `Projects/<project>/Topics/<Topic>.md` |
 | Research | `Projects/<project>/Research/<Title>.md` |
 | Templates | `Vault Metadata/Templates/` |
+
+Evergreen, project-independent knowledge lives in the top-level domain folders
+(`Development/`, `Artificial Intelligence/`, `Process/`, `Knowledge management/`, ...), not
+in a project's `Topics/`. Moving a note there is the `obsidian-topic-maintainer` graduation
+step.
+
+Section ownership: `Current State`, `Decision Log`, `Open Questions`, and `Next Session` on a
+task note belong to `task-note-update`; routing a task note by `task-type` belongs to `task`.
+Do not write those sections from here.
 
 ## Shell Rules
 
@@ -38,22 +46,6 @@ date -Iseconds              # frontmatter
 ```
 
 Use normal Unix tools (`rg`, `find`, `sed`, `awk`, `perl`, `stat`, `mkdir`, `cp`, `mv`, `printf`). Quote paths because project names contain spaces.
-
-## Task Notes
-
-When creating a task note:
-
-- Use `date +"%Y-%m-%d %H%M%S"` for the filename timestamp.
-- Include the external ID when one exists, e.g. `RH-1234`.
-- Create the note directly with required frontmatter and sections.
-- If using a template, inspect `Vault Metadata/Templates/` and choose the relevant vault template.
-- Keep knowledge notes out of `Tasks/`; extract reusable steps into `Recipes/`.
-
-Task section ownership:
-
-- `Current State`, `Decision Log`, and `Open Questions` are maintained through `task-note-update`.
-- If those sections are missing from an active task note, offer to add them.
-- Do not write task-note updates unless the user explicitly asks; draft first where `task-note-update` requires it.
 
 ## Linking
 
@@ -67,15 +59,28 @@ Use aliased WikiLinks for ticket references:
 
 Every mention of a Jira issue number in summaries, blockers, carryover, or task updates should be a WikiLink to its task note when a matching note exists.
 
-## Capture Heuristics
+## Domain terms
 
-**Worth capturing when:** principle applies across contexts, caused debugging time, method that saves time later, non-obvious choice with reasoning worth preserving, link to documentation.
+There is no `Glossary/` folder. A domain term is a short note in the project's `Topics/`,
+sitting alongside the longer hubs — same folder, same shape, just briefer. Search first: if
+the concept already has a hub, extend it rather than adding a second note, because duplicate
+basenames make links ambiguous.
 
-**Where to capture:**
+```markdown
+---
+aliases:
+  - <abbreviation or singular/plural variant>
+---
 
-| Destination | When |
-|-------------|------|
-| **Existing note** | Extends/refines an existing topic (search first) |
-| **New note** | Substantial, standalone, referenceable |
-| **Task log only** | One-off detail that won't generalise |
-| **Project recipe** | Repeatable steps specific to this project |
+# [[Term]]
+
+<Plain-language definition, one or two sentences, wikilinking the concepts it leans on.
+Do not define jargon with more jargon.>
+
+<Optional: a concrete example, or how it differs from the term it is confused with.>
+
+## See also
+[[Related]] · [[Related]]
+```
+
+Give every abbreviation an `aliases:` entry so existing links keep resolving. `obsidian-topic-maintainer` owns hub shape, alias collisions, and promotion to a domain folder.
