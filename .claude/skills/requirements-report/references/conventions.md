@@ -165,8 +165,15 @@ being forbidden.
 **No content hash, no approvals file.** Version control already puts changed prose in front
 of a reviewer at the moment they should ask "does the test still match?". A hash tripwire
 duplicates that check, fires on every wording clarification, and trains people to
-re-approve without reading. The report shows a git-derived *hint* when a document changed
-after its tests did — information, not a gate, nothing stored.
+re-approve without reading.
+
+**No staleness hint.** Earlier versions compared the document's last-changed time against
+the test sources' and warned when the document was newer. Commit times are a poor proxy for
+"the requirement's meaning changed": the warning fired on a formatting commit, and — since
+the test side took the newest change across the whole source root — stayed silent whenever
+any unrelated test file had been touched more recently. False both ways, so it said nothing.
+The report is a build artefact regenerated on every run, so it is always current with the
+document it renders; there is no staleness for it to report.
 
 **No tables, fixtures, or expectation columns.** They bind a requirement's expected value,
 which is real but narrow, at the cost of requiring every requirement to be tabular. Most are

@@ -20,11 +20,9 @@ Exit codes: 0 clean, 1 requirement problems found, 2 bad input.
 from __future__ import annotations
 
 import argparse
-import functools
 import html
 import json
 import re
-import subprocess
 import sys
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass
@@ -127,7 +125,6 @@ class DocResult:
     tests_of: dict[str, list[TestCase]]       # id -> its tests
     rollup: dict[int, str]                    # block index -> rolled-up status (headings)
     classes: list[str]
-    hint: str | None
 
     def count(self, status: str) -> int:
         return sum(1 for s in self.status_of.values() if s == status)
@@ -449,60 +446,6 @@ def index_sources(roots: list[Path], known: set[str]) -> dict[str, tuple[str, in
     return found
 
 
-def _git(near: str, *args: str) -> str | None:
-    """Run git anchored at `near` rather than at the working directory: --requirements and
-    --sources may point outside the tree reqreport was launched from, and asking the wrong
-    repository about a path yields nothing at all rather than an error."""
-    p = Path(near)
-    cwd = p if p.is_dir() else p.parent
-    try:
-        out = subprocess.run(["git", "-C", str(cwd), *args],
-                             capture_output=True, text=True, timeout=10)
-        return out.stdout if out.returncode == 0 else None
-    except Exception:
-        return None
-
-
-@functools.lru_cache(maxsize=None)
-def git_last_changed(path: str) -> int | None:
-    """When the tree is clean this is the last commit that touched `path`.
-
-    An uncommitted edit is newer than every commit and completely invisible to `git log`,
-    so a dirty path reports its working-tree mtime instead. Without that, the staleness
-    hint compares a state that has already been superseded and fires precisely while the
-    tests are being brought back into line with the document."""
-    # Porcelain paths are relative to the repo root, not the working directory, and
-    # reqreport is routinely run from a subdirectory of the repo.
-    root = _git(path, "rev-parse", "--show-toplevel")
-    status = _git(path, "status", "--porcelain", "-z", "--", path)
-    if root and status:
-        base = Path(root.strip())
-        # -z entries are `XY <path>`. A rename adds its bare origin as a further entry,
-        # so `[3:]` truncates that one into a path that does not exist; it drops out with
-        # the deletions, which have no mtime either. Both are ignorable: what the hint
-        # needs is the newest surviving file, not a complete inventory.
-        times = []
-        for entry in status.split("\0"):
-            if len(entry) > 3:
-                try:
-                    times.append((base / entry[3:]).stat().st_mtime)
-                except OSError:
-                    pass
-        if times:
-            return int(max(times))
-    out = _git(path, "log", "-1", "--format=%ct", "--", path)
-    return int(out.strip()) if out and out.strip() else None
-
-
-@functools.lru_cache(maxsize=None)
-def git_is_dirty(path: str) -> bool:
-    """Whether `path` has uncommitted changes. The hint asks whether the tests have been
-    revisited since the document changed; when both sides are dirty in the same working
-    tree the answer is yes, and comparing their mtimes only measures which file happened
-    to be saved last - a gap of seconds, reported as if it were drift."""
-    return bool((_git(path, "status", "--porcelain", "--", path) or "").strip())
-
-
 # ------------------------------------------------------------------------- render
 
 def esc(s: str) -> str:
@@ -576,8 +519,6 @@ CSS = """
  .msg { background:#fdf0ef; border:1px solid #f3c6c2; border-radius:.4rem; padding:.5rem .7rem;
         font-size:.85rem; margin:.35rem 0; }
  section.aside { margin-top:2.5rem; } section.aside h2 { font-size:1rem; border:0; }
- .hint { background:#fffbe6; border:1px solid #f0e0a0; border-radius:.4rem; padding:.6rem .75rem;
-         font-size:.875rem; }
  #filter { width:100%; padding:.5rem .7rem; font-size:.9rem; border:1px solid var(--line);
            border-radius:.4rem; margin-bottom:1rem; }
 """
@@ -690,7 +631,6 @@ nothing here is written by hand.</p>
 def doc_html(r: DocResult, src, up: str, stamp: str) -> str:
     covered = (f"Covered by <code>{esc('</code>, <code>'.join(r.classes))}</code>." if r.classes
                else "No tests name any requirement in this document.")
-    hint = f'<p class="hint">{esc(r.hint)}</p>' if r.hint else ""
     return shell(r.doc.source, f"""<p class="meta"><a href="{esc(up)}">&larr; all requirements</a></p>
 <p class="meta">Generated {stamp}. Source: <code>{esc(r.doc.source)}</code>. {covered}</p>
 <ul class="counts">
@@ -698,7 +638,6 @@ def doc_html(r: DocResult, src, up: str, stamp: str) -> str:
  <li><b>{r.count(FAIL)}</b> failing</li>
  <li><b>{r.count(UNTESTED)}</b> with no test</li>
 </ul>
-{hint}
 <input id="filter" placeholder="Filter requirements&hellip;" oninput="f(this.value)">
 <div class="doc" id="doc">{render_doc_body(r, src)}</div>
 <script>{FILTER_JS}</script>""")
@@ -830,13 +769,6 @@ def main() -> int:
         for i, b in enumerate(d.blocks):
             if b.rid and b.kind == "heading" and not tests_of[b.rid] and i in roll:
                 status_of[b.rid] = roll[i]
-        req_t = git_last_changed(str(args.requirements / d.source))
-        # max, not min: "when were the tests last changed" is the most recent change across
-        # the source roots. Taking the oldest root makes the hint fire on documents whose
-        # tests were revisited only yesterday.
-        test_t = max((t for t in (git_last_changed(str(s)) for s in args.sources) if t), default=None)
-        in_flight = (git_is_dirty(str(args.requirements / d.source))
-                     and any(git_is_dirty(str(s)) for s in args.sources))
         results.append(DocResult(
             doc=d,
             page=re.sub(r"\.md$", ".html", d.source),
@@ -844,8 +776,6 @@ def main() -> int:
             tests_of=tests_of,
             rollup=roll,
             classes=sorted({t.classname for ts in tests_of.values() for t in ts}),
-            hint=("This document was changed after the tests were. Worth checking they still match."
-                  if req_t and test_t and req_t > test_t and not in_flight else None),
         ))
 
     orphans = [c for c in cases if c.ids and not all(i in known for i in c.ids)]
