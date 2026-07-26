@@ -75,8 +75,12 @@ Rules:
 
 ## Linking
 
+Use Obsidian wikilinks for dossier files inside the vault; use relative Markdown links for a dossier that lives outside the vault (for example in a Git repo).
+
 - Task note links to dossier `README.md`, `event-log.md`, `manifest.md`, and any other key dossier files.
 - Dossier `README.md` links back to the task note and each top-level dossier file.
+- The `README`, `event-log`, and `manifest` basenames repeat across dossiers, so a bare `[[event-log]]` is ambiguous — qualify the wikilink with the dossier folder (`[[<dossier-folder>/event-log]]`) or enough of the path for Obsidian to resolve the intended file.
+- Wikilinks resolve to files, not folders — reference an artefact folder as vault-relative text (for example `Projects/Patchwork/Investigations/<case>/`), not a link.
 - Link Slack/Jira/GitHub by permalink; do not paste whole threads.
 - Link raw or bulky artefacts from `manifest.md`.
 
@@ -88,7 +92,7 @@ After every new run, transform, comparison, or evidence reorganisation:
 2. Add or update `manifest.md`.
 3. Append `event-log.md`.
 4. Mark superseded artefacts in `manifest.md`.
-5. Update Markdown links if files moved or names changed.
+5. Update links if files moved or names changed — wikilinks for in-vault dossier files, Markdown links otherwise.
 
 When investigation work produces code, a job, script, migration, one-off command, PR, or commit, record branch, commit SHA, PR URL, entrypoint, inputs, outputs, and verification in `event-log.md`; index consumed or produced artefacts in `manifest.md`.
 

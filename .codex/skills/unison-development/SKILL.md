@@ -29,7 +29,19 @@ Before any code change, create a branch with the MCP server tool — working out
 
 ## When `update-definitions` reports broken dependents
 
-If the call returns `sourceCodeUpdates` (affected definitions that no longer typecheck), use the `unison-update` skill — it owns the repair loop. The risk it guards: any affected definition omitted from the next update is removed from the codebase.
+The call returns `sourceCodeUpdates` when affected definitions no longer typecheck:
+
+```
+-- The definitions below no longer typecheck with the changes above.
+-- Please fix the errors and try `update` again.
+```
+
+The server has placed that code in a temporary branch for you to fix. Repair loop:
+
+1. Review **every** affected definition in the `sourceCodeUpdates` response.
+2. Fix the type errors, updating signatures where needed, preserving existing behaviour.
+3. Include **every** fixed definition in a single `update-definitions` call — any definition left out is removed from the codebase, so completeness here is not optional.
+4. Repeat until the update succeeds.
 
 ## Modifying abilities
 
