@@ -19,8 +19,8 @@ needs.
 ## Structure
 
 **The rendered report is the document**, in order: headings stay headings, prose stays prose,
-lists stay lists. A marker adds a status badge and the test detail; it does not turn the line
-into something else, and unmarked lines are not dropped.
+lists stay lists, tables stay tables. A marker adds a status badge and the test detail; it
+does not turn the line into something else, and unmarked lines are not dropped.
 
 Headings roll up — a heading shows the worst status of the marked lines beneath it, down to
 the next heading of the same or higher level. **This needs no id.** Give a heading an id only
@@ -49,6 +49,34 @@ none. This is what lets a reader skim at section level and drill in only where i
 
 A bullet may wrap onto indented continuation lines, and the marker may land on the last of
 them. That is handled.
+
+## Tables
+
+Pipe tables render as tables, with column alignment from the delimiter row. Use one where a
+requirement is naturally tabular — a rate card, a set of boundary cases, a state matrix —
+rather than flattening it into a bullet list nobody wants to read.
+
+```markdown
+### A late return costs one unit a week, capped after four `#fines`
+
+| Week | Days out | Fine |                          |
+|------|----------|-----:|--------------------------|
+| 4    | 21 to 27 | 0.00 | the last free week       |
+| 5    | 28 to 34 | 1.00 | the first charged week   |
+| 8    | 49 to 55 | 4.00 | the cap is reached       |
+```
+
+**A table is prose.** It illustrates the requirement above it and is not itself one, so a
+marker in a cell defines nothing — `reqreport` warns and renders the cell as written. The id
+then matches no requirement, so any test naming it fails as an orphan. Put the marker on the
+heading or bullet the table sits under, as above.
+
+Two details worth knowing:
+
+- **The delimiter row (`|---|`) is what makes it a table.** A run of pipe-leading lines
+  without one stays prose, so a line that merely starts with `|` is never mistaken for a
+  table. It must be the second line of the run, as GitHub requires.
+- **Ragged rows are padded**, not rejected. Write `\|` for a literal pipe inside a cell.
 
 ## Granularity
 
@@ -175,11 +203,13 @@ any unrelated test file had been touched more recently. False both ways, so it s
 The report is a build artefact regenerated on every run, so it is always current with the
 document it renders; there is no staleness for it to report.
 
-**No tables, fixtures, or expectation columns.** They bind a requirement's expected value,
-which is real but narrow, at the cost of requiring every requirement to be tabular. Most are
-not. Where a requirement *is* naturally tabular, its test can be a parameterised body over
-rows and the binding comes back — same id, same report. An optimisation of a subset, not the
-architecture.
+**No fixtures or expectation columns.** Tables render (see *Tables* above), but they are
+illustration only — nothing reads the expected values back out of them. Binding a
+requirement's expected value is real but narrow, and doing it here would make the document a
+runtime input: a wording change would become a test change, and every language would need a
+Markdown table parser. Where a requirement *is* naturally tabular, its test can be a
+parameterised body over rows and the binding comes back — same id, same report. An
+optimisation of a subset, not the architecture.
 
 One caveat, given *One requirement, one test* above: parameterisation must stay inside a
 **single** test case. Runners that emit one JUnit `<testcase>` per row — pytest

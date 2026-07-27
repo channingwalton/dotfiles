@@ -8,7 +8,7 @@ description: Link requirements to the tests that demonstrate them and render a r
 Link human-readable requirements to the tests that demonstrate them, and render a report
 showing which requirement each failure belongs to.
 
-**The report is the document.** Headings, prose and lists come out in their original order;
+**The report is the document.** Headings, prose, lists and tables come out in their original order;
 a status badge lands on every line carrying a marker, and the test source and failure fold in
 beneath it. Nothing unmarked is discarded, and headings roll up the status of what sits under
 them whether or not they carry an id of their own.
@@ -45,8 +45,16 @@ python3 reqreport.py --requirements requirements/ \
 ```
 
 Exit 0 clean, 1 requirement problems, 2 bad input. Options can also live in
-`.reqreport.json` (`requirements`, `junit`, `sources`, `out`). `--no-gate` writes the report
-without failing.
+`.reqreport.json` (`requirements`, `junit`, `sources`, `out`, `root`). `--no-gate` writes the
+report without failing.
+
+Source paths in the report are shown relative to `--root`, which defaults to the working
+directory. Set it from the project root your build tool already knows — sbt's
+`baseDirectory`, Gradle's `projectDir`, `$PWD` in a Makefile — so the report reads the same
+whichever directory the build was launched from and carries no trace of the machine that
+rendered it. Do not derive it from git: that finds the *repository* root, which is the
+project root only when the two coincide, and in a monorepo prefixes every path with the
+project's own directory name.
 
 ## What to actually do
 

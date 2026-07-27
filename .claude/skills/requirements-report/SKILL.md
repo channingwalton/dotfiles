@@ -8,7 +8,7 @@ description: Link requirements to the tests that demonstrate them and render a r
 Link human-readable requirements to the tests that demonstrate them, and render a report
 showing which requirement each failure belongs to.
 
-**The report is the document.** Headings, prose and lists come out in their original order;
+**The report is the document.** Headings, prose, lists and tables come out in their original order;
 a status badge lands on every line carrying a marker, and the test source and failure fold in
 beneath it. Nothing unmarked is discarded, and headings roll up the status of what sits under
 them whether or not they carry an id of their own.

@@ -12,7 +12,7 @@ every test framework's report carries the test name, and every one can emit JUni
 Stdlib only. No install step.
 
     reqreport.py --requirements requirements/ --junit build/test-results/test/ \
-                 --sources src/test/ --out target/requirements/
+                 --sources src/test/ --out target/requirements/ --root .
 
 Exit codes: 0 clean, 1 requirement problems found, 2 bad input.
 """
@@ -20,14 +20,12 @@ Exit codes: 0 clean, 1 requirement problems found, 2 bad input.
 from __future__ import annotations
 
 import argparse
-import functools
 import html
 import json
 import re
-import subprocess
 import sys
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
@@ -46,6 +44,11 @@ BULLET = re.compile(r"^(\s*)(?:[-*+]|\d+[.)])\s+(.*)$")
 FENCE = re.compile(r"^\s*(```|~~~)(.*)$")
 QUOTE = re.compile(r"^\s*>\s?(.*)$")
 RULE = re.compile(r"^\s*(?:-{3,}|\*{3,}|_{3,})\s*$")
+# A pipe table. The delimiter row is what makes a run of these a table rather than prose
+# that happens to start with a pipe, so TABLE_ROW alone never decides anything.
+TABLE_ROW = re.compile(r"^\s*\|(.*)\|\s*$")
+TABLE_CELL = re.compile(r"(?<!\\)\|")
+TABLE_DELIM_CELL = re.compile(r":?-+:?")
 
 PASS, FAIL, UNTESTED, SKIPPED = "pass", "fail", "untested", "skipped"
 LABEL = {PASS: "PASS", FAIL: "FAIL", UNTESTED: "NO TEST", SKIPPED: "SKIPPED"}
@@ -92,12 +95,14 @@ def ids_in_name(name: str, known: set[str] | None = None) -> list[str]:
 @dataclass
 class Block:
     """One piece of the document, in the order it was written."""
-    kind: str                 # heading | para | item | code | quote | rule
+    kind: str                 # heading | para | item | code | quote | rule | table
     text: str = ""
     level: int = 0            # heading level, or list nesting depth
     rid: str | None = None    # requirement id, if this line carries a marker
     line: int = 0
     lang: str = ""
+    rows: list[list[str]] = field(default_factory=list)   # table: header row, then body
+    align: list[str] = field(default_factory=list)        # table: "", "center" or "right"
 
 
 @dataclass
@@ -127,7 +132,6 @@ class DocResult:
     tests_of: dict[str, list[TestCase]]       # id -> its tests
     rollup: dict[int, str]                    # block index -> rolled-up status (headings)
     classes: list[str]
-    hint: str | None
 
     def count(self, status: str) -> int:
         return sum(1 for s in self.status_of.values() if s == status)
@@ -160,7 +164,11 @@ def join_wrapped(lines: list[str]) -> list[str]:
             continue
         is_bullet = bool(BULLET.match(line))
         is_heading = bool(HEADING.match(line))
-        cont = open_idx >= 0 and line[:1].isspace() and line.strip() and not is_bullet and not is_heading
+        # An indented table directly under a bullet would otherwise be swallowed as that
+        # bullet's continuation text and vanish from the report.
+        is_table = bool(TABLE_ROW.match(line))
+        cont = (open_idx >= 0 and line[:1].isspace() and line.strip()
+                and not is_bullet and not is_heading and not is_table)
         if cont:
             out[open_idx] = out[open_idx] + " " + line.strip()
             out.append("")
@@ -170,6 +178,24 @@ def join_wrapped(lines: list[str]) -> list[str]:
     return out
 
 
+def table_cells(raw: str) -> list[str]:
+    inner = TABLE_ROW.match(raw).group(1)
+    return [c.strip().replace("\\|", "|") for c in TABLE_CELL.split(inner)]
+
+
+def is_delimiter_row(cells: list[str]) -> bool:
+    """`|---|:--:|` - the row that separates a table's header from its body, and the only
+    thing distinguishing a table from prose that starts with a pipe."""
+    return bool(cells) and all(TABLE_DELIM_CELL.fullmatch(c) for c in cells)
+
+
+def alignment_of(cells: list[str]) -> list[str]:
+    def one(c: str) -> str:
+        left, right = c.startswith(":"), c.endswith(":")
+        return "center" if left and right else "right" if right else ""
+    return [one(c) for c in cells]
+
+
 def strip_marker(s: str) -> str:
     return re.sub(r"\s+", " ", MARKER_IN_DOC.sub("", s)).strip()
 
@@ -177,6 +203,17 @@ def strip_marker(s: str) -> str:
 def marker_of(s: str) -> str | None:
     m = MARKER_IN_DOC.search(s)
     return normalise_id(m.group(1)) if m else None
+
+
+def warn_markers_in_table(source: str, line: int, rows: list[list[str]]) -> None:
+    """A table is prose, so a marker in a cell defines nothing. Say so rather than dropping
+    it silently - the author meant to write a requirement and did not. Any test naming that
+    id then fails as an orphan, which is the backstop if this warning is missed."""
+    ids = [m.group(1) for row in rows for cell in row for m in MARKER_IN_DOC.finditer(cell)]
+    for rid in ids:
+        print(f"[reqreport] {source}:{line}: `#{rid}` is in a table cell, so it defines no "
+              f"requirement - tables are prose. Move it to a heading or a bullet.",
+              file=sys.stderr)
 
 
 def parse_document(source: str, text: str) -> Doc:
@@ -238,6 +275,26 @@ def parse_document(source: str, text: str) -> Doc:
             blocks.append(Block("quote", strip_marker(q.group(1)), rid=marker_of(q.group(1)), line=n))
             i += 1
             continue
+
+        if TABLE_ROW.match(raw):
+            run = []
+            j = i
+            while j < len(lines) and TABLE_ROW.match(lines[j]):
+                run.append(table_cells(lines[j]))
+                j += 1
+            # No delimiter row in second place and this is not a table: fall through and let
+            # the lines be prose, which is what they were before tables were understood.
+            if len(run) >= 2 and is_delimiter_row(run[1]):
+                flush()
+                align = alignment_of(run[1])
+                rows = [run[0]] + run[2:]
+                width = max(len(r) for r in rows)
+                pad = lambda r, fill="": r + [fill] * (width - len(r))
+                blocks.append(Block("table", line=n,
+                                    rows=[pad(r) for r in rows], align=pad(align)))
+                warn_markers_in_table(source, n, rows)
+                i = j
+                continue
 
         if RULE.match(raw):
             flush()
@@ -408,10 +465,35 @@ def extract_block(lines: list[str], marked: int) -> str:
     return "\n".join(rest[:15])
 
 
-def index_sources(roots: list[Path], known: set[str]) -> dict[str, tuple[str, int, str]]:
+def display_path(p: Path, project_root: Path) -> str:
+    """The path as the report should show it: relative to the project root. Build tools pass
+    --sources absolute, and an absolute path in the report is both noise and a record of the
+    machine that happened to build it, so two people rendering the same commit get different
+    pages.
+
+    `project_root` comes from --root, which the build tool sets from the project root it
+    already knows, and falls back to the working directory. Deriving it instead - from git,
+    or by walking up for a marker file - finds the *repository* root, which is the project
+    root only when the two coincide; in a monorepo it prefixes every path with the project's
+    own directory name.
+
+    Named in full because `index_sources` iterates the *source* roots in a variable called
+    `root`, and a parameter of that name is silently shadowed by it: every path then comes
+    out relative to whichever source root it was found under.
+
+    A file outside the project keeps its absolute path - a `../../..` chain out of the tree
+    locates it no better and reads worse."""
+    try:
+        return str(p.resolve().relative_to(project_root))
+    except (ValueError, OSError):
+        return str(p)
+
+
+def index_sources(roots: list[Path], known: set[str],
+                  project_root: Path) -> dict[str, tuple[str, int, str]]:
     """id -> (file, line, code). Shown behind a disclosure so a developer or an agent can
     see whether the test matches the requirement it claims - the one check no mechanism
-    can make."""
+    can make. Paths are rendered relative to `project_root`; see `display_path`."""
     found: dict[str, tuple[str, int, str]] = {}
     origin: dict[str, tuple[str, int]] = {}
     for root in roots:
@@ -430,8 +512,11 @@ def index_sources(roots: list[Path], known: set[str]) -> dict[str, tuple[str, in
                         continue
                     body = referenced_definition(lines, i)
                     start = body if body is not None else enclosing_definition(lines, i)
-                    found[rid] = (str(p), start + 1, extract_block(lines, start))
-                    origin[rid] = (str(p), start)
+                    # Both carry the display path: `origin` is regrouped back into `found`
+                    # below, so an absolute path here would reappear in the report.
+                    shown = display_path(p, project_root)
+                    found[rid] = (shown, start + 1, extract_block(lines, start))
+                    origin[rid] = (shown, start)
 
     # If several ids resolve to the same block, the extraction failed rather than found
     # something - they are pointing at a registry or a shared wrapper. Repeating one large
@@ -447,60 +532,6 @@ def index_sources(roots: list[Path], known: set[str]) -> dict[str, tuple[str, in
                               "probably a registry rather than a test body - open the file "
                               "to see what this requirement actually checks)")
     return found
-
-
-def _git(near: str, *args: str) -> str | None:
-    """Run git anchored at `near` rather than at the working directory: --requirements and
-    --sources may point outside the tree reqreport was launched from, and asking the wrong
-    repository about a path yields nothing at all rather than an error."""
-    p = Path(near)
-    cwd = p if p.is_dir() else p.parent
-    try:
-        out = subprocess.run(["git", "-C", str(cwd), *args],
-                             capture_output=True, text=True, timeout=10)
-        return out.stdout if out.returncode == 0 else None
-    except Exception:
-        return None
-
-
-@functools.lru_cache(maxsize=None)
-def git_last_changed(path: str) -> int | None:
-    """When the tree is clean this is the last commit that touched `path`.
-
-    An uncommitted edit is newer than every commit and completely invisible to `git log`,
-    so a dirty path reports its working-tree mtime instead. Without that, the staleness
-    hint compares a state that has already been superseded and fires precisely while the
-    tests are being brought back into line with the document."""
-    # Porcelain paths are relative to the repo root, not the working directory, and
-    # reqreport is routinely run from a subdirectory of the repo.
-    root = _git(path, "rev-parse", "--show-toplevel")
-    status = _git(path, "status", "--porcelain", "-z", "--", path)
-    if root and status:
-        base = Path(root.strip())
-        # -z entries are `XY <path>`. A rename adds its bare origin as a further entry,
-        # so `[3:]` truncates that one into a path that does not exist; it drops out with
-        # the deletions, which have no mtime either. Both are ignorable: what the hint
-        # needs is the newest surviving file, not a complete inventory.
-        times = []
-        for entry in status.split("\0"):
-            if len(entry) > 3:
-                try:
-                    times.append((base / entry[3:]).stat().st_mtime)
-                except OSError:
-                    pass
-        if times:
-            return int(max(times))
-    out = _git(path, "log", "-1", "--format=%ct", "--", path)
-    return int(out.strip()) if out and out.strip() else None
-
-
-@functools.lru_cache(maxsize=None)
-def git_is_dirty(path: str) -> bool:
-    """Whether `path` has uncommitted changes. The hint asks whether the tests have been
-    revisited since the document changed; when both sides are dirty in the same working
-    tree the answer is yes, and comparing their mtimes only measures which file happened
-    to be saved last - a gap of seconds, reported as if it were drift."""
-    return bool((_git(path, "status", "--porcelain", "--", path) or "").strip())
 
 
 # ------------------------------------------------------------------------- render
@@ -546,6 +577,9 @@ CSS = """
  th, td { text-align:left; padding:.5rem .6rem; border-bottom:1px solid var(--line); vertical-align:top; }
  th { font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:#5b5f66; }
  td.num { text-align:right; font-variant-numeric: tabular-nums; width:5rem; }
+ .tablewrap { margin:.75rem 0 1.25rem; overflow-x:auto; }
+ .tablewrap table { width:auto; min-width:min(100%, 24rem); }
+ .tablewrap th { white-space:nowrap; }
 
  /* the document, rendered as written */
  .doc h2 { font-size:1.25rem; margin:2rem 0 .5rem; padding-bottom:.2rem;
@@ -576,8 +610,6 @@ CSS = """
  .msg { background:#fdf0ef; border:1px solid #f3c6c2; border-radius:.4rem; padding:.5rem .7rem;
         font-size:.85rem; margin:.35rem 0; }
  section.aside { margin-top:2.5rem; } section.aside h2 { font-size:1rem; border:0; }
- .hint { background:#fffbe6; border:1px solid #f0e0a0; border-radius:.4rem; padding:.6rem .75rem;
-         font-size:.875rem; }
  #filter { width:100%; padding:.5rem .7rem; font-size:.9rem; border:1px solid var(--line);
            border-radius:.4rem; margin-bottom:1rem; }
 """
@@ -654,6 +686,15 @@ def render_doc_body(r: DocResult, src) -> str:
             out.append(f"<blockquote>{inline(b.text)}</blockquote>")
         elif b.kind == "code":
             out.append(f"<pre>{esc(b.text)}</pre>")
+        elif b.kind == "table":
+            def cells(tag: str, row: list[str]) -> str:
+                return "".join(
+                    f'<{tag}{f" style=\"text-align:{a}\"" if a else ""}>{inline(c)}</{tag}>'
+                    for c, a in zip(row, b.align))
+            head = f"<tr>{cells('th', b.rows[0])}</tr>"
+            body = "".join(f"<tr>{cells('td', row)}</tr>" for row in b.rows[1:])
+            out.append(f'<div class="tablewrap"><table><thead>{head}</thead>'
+                       f"<tbody>{body}</tbody></table></div>")
         elif b.kind == "rule":
             out.append("<hr>")
     return "\n".join(out)
@@ -690,7 +731,6 @@ nothing here is written by hand.</p>
 def doc_html(r: DocResult, src, up: str, stamp: str) -> str:
     covered = (f"Covered by <code>{esc('</code>, <code>'.join(r.classes))}</code>." if r.classes
                else "No tests name any requirement in this document.")
-    hint = f'<p class="hint">{esc(r.hint)}</p>' if r.hint else ""
     return shell(r.doc.source, f"""<p class="meta"><a href="{esc(up)}">&larr; all requirements</a></p>
 <p class="meta">Generated {stamp}. Source: <code>{esc(r.doc.source)}</code>. {covered}</p>
 <ul class="counts">
@@ -698,7 +738,6 @@ def doc_html(r: DocResult, src, up: str, stamp: str) -> str:
  <li><b>{r.count(FAIL)}</b> failing</li>
  <li><b>{r.count(UNTESTED)}</b> with no test</li>
 </ul>
-{hint}
 <input id="filter" placeholder="Filter requirements&hellip;" oninput="f(this.value)">
 <div class="doc" id="doc">{render_doc_body(r, src)}</div>
 <script>{FILTER_JS}</script>""")
@@ -767,6 +806,9 @@ def main() -> int:
     ap.add_argument("--junit", type=Path, help="directory of JUnit XML")
     ap.add_argument("--sources", nargs="*", default=[], type=Path, help="test source roots")
     ap.add_argument("--out", type=Path)
+    ap.add_argument("--root", type=Path,
+                    help="project root that source paths in the report are relative to "
+                         "(default: the working directory)")
     ap.add_argument("--config", default=Path(".reqreport.json"), type=Path)
     ap.add_argument("--no-gate", action="store_true", help="write the report but always exit 0")
     args = ap.parse_args()
@@ -779,12 +821,16 @@ def main() -> int:
             die(f"{args.config}: {e}")
 
     for key, fallback in (("requirements", "requirements"), ("junit", None),
-                          ("out", "target/requirements")):
+                          ("out", "target/requirements"), ("root", None)):
         if getattr(args, key) is None:
             value = cfg.get(key, fallback)
             setattr(args, key, Path(value) if value is not None else None)
     if not args.sources:
         args.sources = [Path(s) for s in cfg.get("sources", [])]
+
+    # Resolved once, because display_path compares it against resolved source paths and a
+    # symlinked or relative root would never match one.
+    args.root = (args.root or Path.cwd()).resolve()
 
     if args.junit is None:
         die("--junit is required (the directory your test runner writes JUnit XML to), "
@@ -793,7 +839,8 @@ def main() -> int:
     docs = load_docs(args.requirements)
     known = {b.rid for d in docs for b in d.marked}
     cases = load_tests(args.junit, known)
-    src = index_sources(args.sources or [Path("src/test"), Path("test"), Path("tests")], known)
+    src = index_sources(args.sources or [Path("src/test"), Path("test"), Path("tests")],
+                        known, args.root)
     stamp = datetime.now().strftime("%-d %b %Y %H:%M")
 
     by_id: dict[str, list[TestCase]] = {}
@@ -830,13 +877,6 @@ def main() -> int:
         for i, b in enumerate(d.blocks):
             if b.rid and b.kind == "heading" and not tests_of[b.rid] and i in roll:
                 status_of[b.rid] = roll[i]
-        req_t = git_last_changed(str(args.requirements / d.source))
-        # max, not min: "when were the tests last changed" is the most recent change across
-        # the source roots. Taking the oldest root makes the hint fire on documents whose
-        # tests were revisited only yesterday.
-        test_t = max((t for t in (git_last_changed(str(s)) for s in args.sources) if t), default=None)
-        in_flight = (git_is_dirty(str(args.requirements / d.source))
-                     and any(git_is_dirty(str(s)) for s in args.sources))
         results.append(DocResult(
             doc=d,
             page=re.sub(r"\.md$", ".html", d.source),
@@ -844,8 +884,6 @@ def main() -> int:
             tests_of=tests_of,
             rollup=roll,
             classes=sorted({t.classname for ts in tests_of.values() for t in ts}),
-            hint=("This document was changed after the tests were. Worth checking they still match."
-                  if req_t and test_t and req_t > test_t and not in_flight else None),
         ))
 
     orphans = [c for c in cases if c.ids and not all(i in known for i in c.ids)]

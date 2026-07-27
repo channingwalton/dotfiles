@@ -25,7 +25,7 @@ import json
 import re
 import sys
 import xml.etree.ElementTree as ET
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 
@@ -44,6 +44,11 @@ BULLET = re.compile(r"^(\s*)(?:[-*+]|\d+[.)])\s+(.*)$")
 FENCE = re.compile(r"^\s*(```|~~~)(.*)$")
 QUOTE = re.compile(r"^\s*>\s?(.*)$")
 RULE = re.compile(r"^\s*(?:-{3,}|\*{3,}|_{3,})\s*$")
+# A pipe table. The delimiter row is what makes a run of these a table rather than prose
+# that happens to start with a pipe, so TABLE_ROW alone never decides anything.
+TABLE_ROW = re.compile(r"^\s*\|(.*)\|\s*$")
+TABLE_CELL = re.compile(r"(?<!\\)\|")
+TABLE_DELIM_CELL = re.compile(r":?-+:?")
 
 PASS, FAIL, UNTESTED, SKIPPED = "pass", "fail", "untested", "skipped"
 LABEL = {PASS: "PASS", FAIL: "FAIL", UNTESTED: "NO TEST", SKIPPED: "SKIPPED"}
@@ -90,12 +95,14 @@ def ids_in_name(name: str, known: set[str] | None = None) -> list[str]:
 @dataclass
 class Block:
     """One piece of the document, in the order it was written."""
-    kind: str                 # heading | para | item | code | quote | rule
+    kind: str                 # heading | para | item | code | quote | rule | table
     text: str = ""
     level: int = 0            # heading level, or list nesting depth
     rid: str | None = None    # requirement id, if this line carries a marker
     line: int = 0
     lang: str = ""
+    rows: list[list[str]] = field(default_factory=list)   # table: header row, then body
+    align: list[str] = field(default_factory=list)        # table: "", "center" or "right"
 
 
 @dataclass
@@ -157,7 +164,11 @@ def join_wrapped(lines: list[str]) -> list[str]:
             continue
         is_bullet = bool(BULLET.match(line))
         is_heading = bool(HEADING.match(line))
-        cont = open_idx >= 0 and line[:1].isspace() and line.strip() and not is_bullet and not is_heading
+        # An indented table directly under a bullet would otherwise be swallowed as that
+        # bullet's continuation text and vanish from the report.
+        is_table = bool(TABLE_ROW.match(line))
+        cont = (open_idx >= 0 and line[:1].isspace() and line.strip()
+                and not is_bullet and not is_heading and not is_table)
         if cont:
             out[open_idx] = out[open_idx] + " " + line.strip()
             out.append("")
@@ -167,6 +178,24 @@ def join_wrapped(lines: list[str]) -> list[str]:
     return out
 
 
+def table_cells(raw: str) -> list[str]:
+    inner = TABLE_ROW.match(raw).group(1)
+    return [c.strip().replace("\\|", "|") for c in TABLE_CELL.split(inner)]
+
+
+def is_delimiter_row(cells: list[str]) -> bool:
+    """`|---|:--:|` - the row that separates a table's header from its body, and the only
+    thing distinguishing a table from prose that starts with a pipe."""
+    return bool(cells) and all(TABLE_DELIM_CELL.fullmatch(c) for c in cells)
+
+
+def alignment_of(cells: list[str]) -> list[str]:
+    def one(c: str) -> str:
+        left, right = c.startswith(":"), c.endswith(":")
+        return "center" if left and right else "right" if right else ""
+    return [one(c) for c in cells]
+
+
 def strip_marker(s: str) -> str:
     return re.sub(r"\s+", " ", MARKER_IN_DOC.sub("", s)).strip()
 
@@ -174,6 +203,17 @@ def strip_marker(s: str) -> str:
 def marker_of(s: str) -> str | None:
     m = MARKER_IN_DOC.search(s)
     return normalise_id(m.group(1)) if m else None
+
+
+def warn_markers_in_table(source: str, line: int, rows: list[list[str]]) -> None:
+    """A table is prose, so a marker in a cell defines nothing. Say so rather than dropping
+    it silently - the author meant to write a requirement and did not. Any test naming that
+    id then fails as an orphan, which is the backstop if this warning is missed."""
+    ids = [m.group(1) for row in rows for cell in row for m in MARKER_IN_DOC.finditer(cell)]
+    for rid in ids:
+        print(f"[reqreport] {source}:{line}: `#{rid}` is in a table cell, so it defines no "
+              f"requirement - tables are prose. Move it to a heading or a bullet.",
+              file=sys.stderr)
 
 
 def parse_document(source: str, text: str) -> Doc:
@@ -235,6 +275,26 @@ def parse_document(source: str, text: str) -> Doc:
             blocks.append(Block("quote", strip_marker(q.group(1)), rid=marker_of(q.group(1)), line=n))
             i += 1
             continue
+
+        if TABLE_ROW.match(raw):
+            run = []
+            j = i
+            while j < len(lines) and TABLE_ROW.match(lines[j]):
+                run.append(table_cells(lines[j]))
+                j += 1
+            # No delimiter row in second place and this is not a table: fall through and let
+            # the lines be prose, which is what they were before tables were understood.
+            if len(run) >= 2 and is_delimiter_row(run[1]):
+                flush()
+                align = alignment_of(run[1])
+                rows = [run[0]] + run[2:]
+                width = max(len(r) for r in rows)
+                pad = lambda r, fill="": r + [fill] * (width - len(r))
+                blocks.append(Block("table", line=n,
+                                    rows=[pad(r) for r in rows], align=pad(align)))
+                warn_markers_in_table(source, n, rows)
+                i = j
+                continue
 
         if RULE.match(raw):
             flush()
@@ -517,6 +577,9 @@ CSS = """
  th, td { text-align:left; padding:.5rem .6rem; border-bottom:1px solid var(--line); vertical-align:top; }
  th { font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; color:#5b5f66; }
  td.num { text-align:right; font-variant-numeric: tabular-nums; width:5rem; }
+ .tablewrap { margin:.75rem 0 1.25rem; overflow-x:auto; }
+ .tablewrap table { width:auto; min-width:min(100%, 24rem); }
+ .tablewrap th { white-space:nowrap; }
 
  /* the document, rendered as written */
  .doc h2 { font-size:1.25rem; margin:2rem 0 .5rem; padding-bottom:.2rem;
@@ -623,6 +686,15 @@ def render_doc_body(r: DocResult, src) -> str:
             out.append(f"<blockquote>{inline(b.text)}</blockquote>")
         elif b.kind == "code":
             out.append(f"<pre>{esc(b.text)}</pre>")
+        elif b.kind == "table":
+            def cells(tag: str, row: list[str]) -> str:
+                return "".join(
+                    f'<{tag}{f" style=\"text-align:{a}\"" if a else ""}>{inline(c)}</{tag}>'
+                    for c, a in zip(row, b.align))
+            head = f"<tr>{cells('th', b.rows[0])}</tr>"
+            body = "".join(f"<tr>{cells('td', row)}</tr>" for row in b.rows[1:])
+            out.append(f'<div class="tablewrap"><table><thead>{head}</thead>'
+                       f"<tbody>{body}</tbody></table></div>")
         elif b.kind == "rule":
             out.append("<hr>")
     return "\n".join(out)
