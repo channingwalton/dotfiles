@@ -97,6 +97,7 @@
 !/.config/nvim/
 !/.config/opencode/
 !/.config/pgcli/
+!/.config/ranger/
 !/.config/wezterm/
 !/.config/wtf/
 !/.config/yazi/
