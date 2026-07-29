@@ -25,18 +25,18 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-07-28T13:35:56Z"
-last_revision = "df098247831a98731abfc96b4b1298292f03e9c6"
+last_updated = "2026-07-29T20:44:20Z"
+last_revision = "fa8e83aa876322357f97ccd8abf32049df0426b1"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-07-26T21:28:47Z"
+last_updated = "2026-07-29T21:10:09Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-07-24T12:14:14Z"
+last_updated = "2026-07-29T21:13:55Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -59,13 +59,13 @@ NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_n
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
 CODEX_HOME = "/Users/channing/.codex"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,e13fd947e846d3d306e9249dd3c73d14931b6494803dbafb16cef85e6add9506"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "14e425736668bf21b5b39f2cc022ee8684728617fb5c49f35533c2e349f47193,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = "Control desktop apps on macOS through Computer Use."
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.721.41059"
+BROWSER_USE_CODEX_APP_VERSION = "26.721.81911"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.computer-use]
@@ -262,7 +262,7 @@ inherit = "core"
 [shell_environment_policy.set]
 ENABLE_LSP_TOOL = "1"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,e13fd947e846d3d306e9249dd3c73d14931b6494803dbafb16cef85e6add9506"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "14e425736668bf21b5b39f2cc022ee8684728617fb5c49f35533c2e349f47193,6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f"
 NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex"
 
 [tui]
@@ -332,7 +332,7 @@ global = "zed"
 trusted_hash = "sha256:68bae0c904f5fb8a50302647c5d96057363dd062dd734a95469f2fdeafe60a75"
 
 [hooks.state."/Users/channing/.codex/hooks.json:session_start:1:0"]
-trusted_hash = "sha256:68bae0c904f5fb8a50302647c5d96057363dd062dd734a95469f2fdeafe60a75"
+trusted_hash = "sha256:67562e7fb168876fdd49e3e3198e97744bf698568e6f996948a6208f994f1076"
 enabled = true
 
 [hooks.state."/Users/channing/.codex/hooks.json:user_prompt_submit:0:0"]
@@ -347,8 +347,32 @@ trusted_hash = "sha256:fc87dbee1cb8a9be4f78ba094c4fa8d5e2fd38cb800854e3717f9b6a5
 [hooks.state."/Users/channing/.codex/hooks.json:post_tool_use:0:0"]
 trusted_hash = "sha256:ac371f260e4b23ba1d1b7a4ad68a44a323a8470b61f38471a47aceac1b7a5a7c"
 
+[hooks.state."/Users/channing/.codex/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:8ae6e7e2f51343802f3ac91f0966fcbc6e27bcd67c8962aa704574d83e33b559"
+
+[hooks.state."/Users/channing/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:e41a66300532cecdf712da9f4e5f0e6dcdfd9371b84dfceb0ea47fae49c6c944"
+
+[hooks.state."/Users/channing/.codex/hooks.json:post_tool_use:1:0"]
+trusted_hash = "sha256:4dd7c2582312dd3980a4a16c4de7290245ffa093e6cf3be9d9f4d773499da0af"
+
+[hooks.state."/Users/channing/.codex/hooks.json:user_prompt_submit:1:0"]
+trusted_hash = "sha256:7cf2b2b9d616fc40063473190e43512a043e0d63f3a448d1d2fd4c8c7bf18713"
+
+[hooks.state."/Users/channing/.codex/hooks.json:subagent_start:0:0"]
+trusted_hash = "sha256:9d741a3c7db0bc8b0312d79695f160b529a052e35cb9b42e2976ba82e0f154a2"
+
+[hooks.state."/Users/channing/.codex/hooks.json:subagent_stop:0:0"]
+trusted_hash = "sha256:d3f143b1f39b2da0c67c3d075c006f3cb7b07dfcbf3462c52bf3be03a86eef8a"
+
+[hooks.state."/Users/channing/.codex/hooks.json:stop:1:0"]
+trusted_hash = "sha256:ef7acd9b12800cc613ffc22cf906d675c7512dd29cae1f3724f218be082f737c"
+
 [projects."/Users/channing/dev/patchwork/repos/glue"]
 trust_level = "trusted"
 
 [projects."/Users/channing/dev/patchwork/glue"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/personal/skills"]
 trust_level = "trusted"

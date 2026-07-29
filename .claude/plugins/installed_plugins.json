@@ -57,7 +57,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/frontend-design/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.471Z",
-        "lastUpdated": "2026-07-27T16:25:25.803Z",
+        "lastUpdated": "2026-07-29T18:15:01.486Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -67,7 +67,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/github/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.478Z",
-        "lastUpdated": "2026-07-27T16:25:25.801Z",
+        "lastUpdated": "2026-07-29T18:15:01.482Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -77,7 +77,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.487Z",
-        "lastUpdated": "2026-07-27T16:25:25.800Z",
+        "lastUpdated": "2026-07-29T18:15:01.484Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -187,17 +187,16 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
         "version": "unknown",
         "installedAt": "2026-07-03T12:00:11.009Z",
-        "lastUpdated": "2026-07-27T16:25:25.800Z"
+        "lastUpdated": "2026-07-29T18:15:01.485Z"
       }
     ],
     "pw-engineering@patchskills": [
       {
-        "scope": "project",
-        "projectPath": "/Users/channing/dev/patchwork/repos/glue",
+        "scope": "user",
         "installPath": "/Users/channing/.claude/plugins/cache/patchskills/pw-engineering/1.1.0",
         "version": "1.1.0",
         "installedAt": "2026-07-09T08:36:10.060Z",
-        "lastUpdated": "2026-07-24T13:52:25.553Z",
+        "lastUpdated": "2026-07-28T22:14:29.825Z",
         "gitCommitSha": "529f24d48de775aa654cff484d297fc0a940514e"
       }
     ],

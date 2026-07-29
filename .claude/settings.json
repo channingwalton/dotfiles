@@ -89,6 +89,7 @@
     ],
     "defaultMode": "auto"
   },
+  "model": "claude-fable-5[1m]",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],
@@ -102,6 +103,16 @@
             "command": "atuin hook claude-code"
           }
         ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "PostToolUseFailure": [
@@ -111,6 +122,16 @@
           {
             "type": "command",
             "command": "atuin hook claude-code"
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
           }
         ]
       }
@@ -124,9 +145,97 @@
             "command": "atuin hook claude-code"
           }
         ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
       }
     ],
-    "SessionStart": []
+    "SessionStart": [],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "TeammateIdle": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
   },
   "statusLine": {
     "type": "command",
