@@ -65,8 +65,8 @@ function updates {
   echo "\nRepos\n"
   $HOME/dotfiles/bin/backupRepos.sh
 
-  echo "\nUnison\n"
-  $HOME/dotfiles/bin/backupUnison.sh
+  echo "\nUnison --- SKIPPED\n"
+#  $HOME/dotfiles/bin/backupUnison.sh
 }
 
 function jdk() {
