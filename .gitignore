@@ -102,6 +102,7 @@
 !/.config/wtf/
 !/.config/yazi/
 !/.config/zed/
+!/.config/zennotes/
 
 # Inside .config/configstore/: only the github copilot manifest
 /.config/configstore/*

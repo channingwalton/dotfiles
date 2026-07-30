@@ -89,7 +89,6 @@
     ],
     "defaultMode": "auto"
   },
-  "model": "claude-fable-5[1m]",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],
