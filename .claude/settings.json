@@ -7,6 +7,11 @@
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "ENABLE_LSP_TOOL": "1"
   },
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
   "permissions": {
     "allow": [
       "WebFetch(domain:*)",
@@ -84,9 +89,7 @@
       "mcp__claude_ai_Notion",
       "Bash(screencapture:*)"
     ],
-    "ask": [
-      "Bash(git push:*)"
-    ],
+    "ask": [],
     "defaultMode": "auto"
   },
   "disabledMcpjsonServers": [
@@ -142,6 +145,11 @@
           {
             "type": "command",
             "command": "atuin hook claude-code"
+          },
+          {
+            "type": "command",
+            "command": "python3 '/Users/channing/.claude/hooks/git-push-gate.py'",
+            "timeout": 10
           }
         ]
       },
