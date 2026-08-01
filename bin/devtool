@@ -32,6 +32,7 @@ set -euo pipefail
 PROJECT_TYPE=""
 HAS_MISE=false
 SBT_HAS_COMMIT_CHECK=false
+SBT_TEST_TASK="test"
 USE_BLOOP=false
 GW="gradle"
 GW_TASKS=""
@@ -62,6 +63,11 @@ detect_project() {
     PROJECT_TYPE="scala"
     if [[ -d ".bloop" ]]; then USE_BLOOP=true; fi
     if grep -q "commitCheck" build.sbt 2>/dev/null; then SBT_HAS_COMMIT_CHECK=true; fi
+    # sbt 2 made `test` incremental and its disk cache survives clean;
+    # testFull is the only task guaranteed to execute every test.
+    if grep -qE '^sbt\.version *= *[2-9]' project/build.properties 2>/dev/null; then
+      SBT_TEST_TASK="testFull"
+    fi
   elif [[ -f "build.gradle.kts" || -f "build.gradle" ]]; then
     PROJECT_TYPE="kotlin"
     if [[ -f "./gradlew" ]]; then GW="./gradlew"; fi
@@ -184,7 +190,7 @@ do_test() {
         if [[ -n "$pattern" ]]; then
           run_quiet sbt --warn "testOnly *${pattern}*"
         else
-          run_quiet sbt --warn test
+          run_quiet sbt --warn "$SBT_TEST_TASK"
         fi
       fi
       ;;
