@@ -40,6 +40,7 @@ alias up='cd ..'
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
+alias rgr=ranger
 
 # sbt / mill
 alias sup='sbt ";dependencyUpdates; reload plugins; dependencyUpdates"'

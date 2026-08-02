@@ -92,6 +92,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
+  "model": "opus",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],
@@ -305,6 +306,5 @@
   "teammateMode": "tmux",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "model": "claude-fable-5[1m]"
+  "voiceEnabled": true
 }
