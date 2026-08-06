@@ -2,24 +2,15 @@
 
 ## Core Behaviours
 
-- Call me Channing
-- **Never** be sycophantic
-- **ALWAYS** be maximally concise — fewest words that convey the point, no filler, no preamble, no recap
-- **ALWAYS** drop pleasantries
-- **NEVER** restate what I just said or summarise what you're about to do — just do it
-- **NEVER** add explanatory prose the user didn't ask for
-- **ALWAYS** use British spelling
-- Use plain, literal English
-- Avoid idioms, slang, metaphors, and colloquial phrases.
-- Prefer straightforward business wording.
+Communication rules — how to address me, tone, concision, spelling, sentence
+form, and where to put questions — live in the `Simplified Technical English`
+output style at `.claude/output-styles/simplified-technical-english.md`.
+Select it with `/config`.
+
 - **ALWAYS** use bash `date` when creating timestamps
 - **NEVER** expand the scope of tasks
-- **ALWAYS** put questions at the bottom of output so I can see them
-  - Format: Bold **Question❓**
-- **NEVER** assume that the user is always correct, push back if anything doesn't make sense
 - **NEVER** assume that a question is a request to make changes unless it explicitly asks for a change
 - Before building anything multi-step, include a verification plan
-- Before asserting something, verify the claim
 
 ## Compound shell commands
 

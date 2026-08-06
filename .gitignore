@@ -37,6 +37,7 @@
 !/.claude/agents/
 !/.claude/commands/
 !/.claude/hooks/
+!/.claude/output-styles/
 !/.claude/plugins/
 !/.claude/settings.json
 !/.claude/skills/
