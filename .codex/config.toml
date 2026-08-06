@@ -25,18 +25,18 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-08-01T13:45:27Z"
-last_revision = "10dee3b37671692f9c2437988b68faa5e1256b38"
+last_updated = "2026-08-05T13:46:15Z"
+last_revision = "87c11d11ec90ecabd5def24a11929c0f6e4614b0"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-08-01T13:45:38Z"
+last_updated = "2026-08-04T08:14:52Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-08-01T22:13:59Z"
+last_updated = "2026-08-04T08:16:17Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -330,17 +330,17 @@ global = "zed"
 [hooks.state]
 
 [hooks.state."/Users/channing/.codex/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:68bae0c904f5fb8a50302647c5d96057363dd062dd734a95469f2fdeafe60a75"
+trusted_hash = "sha256:67562e7fb168876fdd49e3e3198e97744bf698568e6f996948a6208f994f1076"
 
 [hooks.state."/Users/channing/.codex/hooks.json:session_start:1:0"]
-trusted_hash = "sha256:67562e7fb168876fdd49e3e3198e97744bf698568e6f996948a6208f994f1076"
+trusted_hash = "sha256:db766c50ab85093ce9d20634c1ddcfebd755ce433a31c2745f87f79bda64b262"
 enabled = true
 
 [hooks.state."/Users/channing/.codex/hooks.json:user_prompt_submit:0:0"]
-trusted_hash = "sha256:c99ea859c36627ab0c79b3ad1c55e0efe5d96134d68721e43697145ab8ed6d58"
+trusted_hash = "sha256:7cf2b2b9d616fc40063473190e43512a043e0d63f3a448d1d2fd4c8c7bf18713"
 
 [hooks.state."/Users/channing/.codex/hooks.json:stop:0:0"]
-trusted_hash = "sha256:ff7debca235a3c1f664078daa00880e7306c7fd9cf82309a97741e4f1e62e21b"
+trusted_hash = "sha256:ef7acd9b12800cc613ffc22cf906d675c7512dd29cae1f3724f218be082f737c"
 
 [hooks.state."/Users/channing/.codex/hooks.json:pre_tool_use:0:0"]
 trusted_hash = "sha256:fc87dbee1cb8a9be4f78ba094c4fa8d5e2fd38cb800854e3717f9b6a52fe2a47"
@@ -358,7 +358,7 @@ trusted_hash = "sha256:e41a66300532cecdf712da9f4e5f0e6dcdfd9371b84dfceb0ea47fae4
 trusted_hash = "sha256:4dd7c2582312dd3980a4a16c4de7290245ffa093e6cf3be9d9f4d773499da0af"
 
 [hooks.state."/Users/channing/.codex/hooks.json:user_prompt_submit:1:0"]
-trusted_hash = "sha256:7cf2b2b9d616fc40063473190e43512a043e0d63f3a448d1d2fd4c8c7bf18713"
+trusted_hash = "sha256:fb3be58db5ee7b2c9545c22102d419a3c2d087bbb5c8d479d8f88630c1f128c1"
 
 [hooks.state."/Users/channing/.codex/hooks.json:subagent_start:0:0"]
 trusted_hash = "sha256:9d741a3c7db0bc8b0312d79695f160b529a052e35cb9b42e2976ba82e0f154a2"
@@ -367,7 +367,7 @@ trusted_hash = "sha256:9d741a3c7db0bc8b0312d79695f160b529a052e35cb9b42e2976ba82e
 trusted_hash = "sha256:d3f143b1f39b2da0c67c3d075c006f3cb7b07dfcbf3462c52bf3be03a86eef8a"
 
 [hooks.state."/Users/channing/.codex/hooks.json:stop:1:0"]
-trusted_hash = "sha256:ef7acd9b12800cc613ffc22cf906d675c7512dd29cae1f3724f218be082f737c"
+trusted_hash = "sha256:071a31ec8697e93a44c6363d1cec91e93945b33824c7a077bba9a2200f0ffdcd"
 
 [projects."/Users/channing/dev/patchwork/repos/glue"]
 trust_level = "trusted"
@@ -382,4 +382,7 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/dev/patchwork/glue/kmono"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/TXPLabs/workflow-engine"]
 trust_level = "trusted"

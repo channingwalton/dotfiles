@@ -19,6 +19,7 @@
 - **NEVER** assume that the user is always correct, push back if anything doesn't make sense
 - **NEVER** assume that a question is a request to make changes unless it explicitly asks for a change
 - Before building anything multi-step, include a verification plan
+- Before asserting something, verify the claim
 
 ## Compound shell commands
 
