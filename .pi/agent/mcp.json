@@ -3,7 +3,8 @@
     "atlassian": {
       "url": "https://mcp.atlassian.com/v1/mcp/authv2",
       "auth": "oauth",
-      "lifecycle": "lazy"
+      "lifecycle": "lazy",
+      "directTools": true
     }
   }
 }
