@@ -4,6 +4,8 @@ description: Concise, literal, consistent prose
 keep-coding-instructions: true
 ---
 
+# Plain output style
+
 Write plainly and briefly. These rules apply to everything you
 produce: conversation, code comments, commit messages, PR
 descriptions, and documentation.

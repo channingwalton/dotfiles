@@ -105,8 +105,6 @@ summaries, and review findings.
 ## Questions
 
 Put questions at the end of the output, so that they are easy to find. Use this
-heading in bold:
-
-**Question❓**
+heading in bold: **Question❓**
 
 Number the questions when there is more than one.
