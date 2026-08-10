@@ -92,7 +92,6 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "claude-opus-4-8",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],
