@@ -1,5 +1,4 @@
 {
-  "outputStyle": "plain",
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "cleanupPeriodDays": 99999,
   "env": {
@@ -93,7 +92,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "opus",
+  "model": "claude-opus-4-8",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],
@@ -161,6 +160,16 @@
           {
             "type": "command",
             "command": "if [ -f '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -r '/Users/channing/.orca/agent-hooks/claude-hook.sh' ] && [ -x '/Users/channing/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/channing/.orca/agent-hooks/claude-hook.sh'; else { command -p cat 2>/dev/null || cat; } >/dev/null 2>&1 || :; fi",
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|mcp__claude_ai_Atlassian_Rovo__.*|mcp__claude_ai_Slack__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 '/Users/channing/.claude/hooks/outward-write-gate.py'",
             "timeout": 10
           }
         ]
@@ -295,6 +304,7 @@
       }
     }
   },
+  "outputStyle": "plain",
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
   "tui": "fullscreen",
