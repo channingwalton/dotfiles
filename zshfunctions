@@ -200,7 +200,7 @@ function siri() {
     echo "Usage: siri <question>"
     return 1
   fi
-  fm respond --model pcc "$*"
+  fm respond --model system "$*"
 }
 
 alias siri='noglob siri'
