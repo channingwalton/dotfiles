@@ -1,14 +1,14 @@
 {
-  "lastChangelogVersion": "0.83.0",
+  "lastChangelogVersion": "0.84.1",
   "theme": "dark",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-sol",
+  "defaultProvider": "HFR",
+  "defaultModel": "Qwen/Qwen3.8-27B",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",
     "npm:pi-setup-custom-providers"
   ],
-  "defaultThinkingLevel": "xhigh",
+  "defaultThinkingLevel": "high",
   "enabledModels": [
     "openai-codex/gpt-5.6-sol:xhigh",
     "TXP/mlx-community/Qwen3.6-35B-A3B-4bit",
@@ -17,6 +17,7 @@
     "TXP/mlx-community/Qwen3.6-27B-4bit",
     "TXP/Qwen/Qwen3-Next-80B-A3B-Instruct",
     "TXP/mlx-community/Qwen3.6-27B-8bit",
+    "Local/mlx-community/Qwen3.8-27B-8bit",
     "FM/system",
     "FM/pcc"
   ]

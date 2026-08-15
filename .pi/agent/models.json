@@ -5,6 +5,23 @@
       "api": "openai-completions",
       "models": [
         {
+          "id": "Qwen/Qwen3.6-35B-A3B",
+          "name": "Qwen/Qwen3.6-35B-A3B",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 128000,
+          "maxTokens": 32768,
+          "limitSource": "inferred",
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "mlx-community/Qwen3.6-35B-A3B-4bit",
           "name": "mlx-community/Qwen3.6-35B-A3B-4bit",
           "reasoning": false,
@@ -190,6 +207,26 @@
       "apiKey": "${HF_TOKEN}",
       "models": [
         {
+          "id": "Qwen/Qwen3.8-27B",
+          "name": "Qwen/Qwen3.8-27B",
+          "reasoning": true,
+          "compat": {
+            "supportsDeveloperRole": false
+          },
+          "input": [
+            "text"
+          ],
+          "contextWindow": 128000,
+          "maxTokens": 32768,
+          "limitSource": "inferred",
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "Qwen/Qwen3-Next-80B-A3B-Instruct:novita",
           "name": "Qwen3-Next-80B-A3B-Instruct (novita via HF router)",
           "reasoning": false,
@@ -222,6 +259,33 @@
           }
         }
       ]
+    },
+    "Local": {
+      "baseUrl": "http://127.0.0.1:8080/v1",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "mlx-community/Qwen3.8-27B-8bit",
+          "name": "mlx-community/Qwen3.8-27B-8bit",
+          "reasoning": true,
+          "compat": {
+            "supportsDeveloperRole": false
+          },
+          "input": [
+            "text"
+          ],
+          "contextWindow": 128000,
+          "maxTokens": 32768,
+          "limitSource": "inferred",
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ],
+      "apiKey": "no-key"
     }
   }
 }
