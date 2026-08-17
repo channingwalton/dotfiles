@@ -112,7 +112,7 @@
             "text"
           ],
           "contextWindow": 128000,
-          "maxTokens": 32768,
+          "maxTokens": 200000,
           "limitSource": "inferred",
           "cost": {
             "input": 0,

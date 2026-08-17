@@ -1,0 +1,171 @@
+#!/usr/bin/env bash
+#
+# pi-sandbox — run the pi coding agent in a container that can see one directory.
+#
+# The directory is mounted at /workspace and is the only host path the agent can
+# write to. Your global pi config (~/.pi/agent) is copied into the image at build
+# time and refreshed into the container on each start, so pi behaves as it does
+# on the host. The host config directory itself is never mounted, so the agent
+# cannot modify it. Login state and session history live in a named volume.
+#
+# Uses Apple's `container` when available, otherwise docker. Override with
+# PI_SANDBOX_RUNTIME=docker.
+
+set -euo pipefail
+
+IMAGE=${PI_SANDBOX_IMAGE:-}
+VOLUME=${PI_SANDBOX_VOLUME:-}
+PI_HOME=${PI_SANDBOX_PI_HOME:-$HOME/.pi/agent}
+CACHE_DIR=${XDG_CACHE_HOME:-$HOME/.cache}/pi-sandbox
+REBUILD=0
+NO_CONFIG=0
+DIR=""
+PI_ARGS=()
+
+usage() {
+  cat <<'EOF'
+Usage:
+  pi-sandbox [DIR] [-- PI_ARGS...]
+  pi-sandbox --rebuild [DIR]
+  pi-sandbox --no-config [DIR]
+
+  DIR           directory to expose to the agent (default: current directory)
+  --rebuild     force an image rebuild (normally automatic when config changes)
+  --no-config   stock pi, none of your ~/.pi/agent config; uses its own image
+                and volume, so the configured sandbox is left untouched
+  -- ...        everything after -- is passed through to pi
+
+Environment:
+  PI_SANDBOX_RUNTIME   container | docker   (default: container if installed)
+  PI_SANDBOX_IMAGE     image tag            (default: pi-sandbox[-bare])
+  PI_SANDBOX_VOLUME    config volume name   (default: pi-agent-home|pi-agent-bare)
+  PI_SANDBOX_PI_HOME   host pi config dir   (default: ~/.pi/agent)
+  ANTHROPIC_API_KEY    passed through if set; otherwise use /login inside pi
+EOF
+}
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --rebuild) REBUILD=1; shift ;;
+    --no-config|--bare) NO_CONFIG=1; shift ;;
+    -h|--help) usage; exit 0 ;;
+    --) shift; PI_ARGS=("$@"); break ;;
+    *)
+      if [ -z "$DIR" ]; then
+        DIR="$1"; shift
+      else
+        PI_ARGS=("$@"); break
+      fi
+      ;;
+  esac
+done
+
+if [ "$NO_CONFIG" -eq 1 ]; then
+  IMAGE=${IMAGE:-pi-sandbox-bare}
+  VOLUME=${VOLUME:-pi-agent-bare}
+else
+  IMAGE=${IMAGE:-pi-sandbox}
+  VOLUME=${VOLUME:-pi-agent-home}
+fi
+
+RUNTIME=${PI_SANDBOX_RUNTIME:-}
+if [ -z "$RUNTIME" ]; then
+  if command -v container >/dev/null 2>&1; then
+    RUNTIME=container
+  elif command -v docker >/dev/null 2>&1; then
+    RUNTIME=docker
+  else
+    echo "pi-sandbox: neither 'container' nor 'docker' found" >&2
+    exit 1
+  fi
+fi
+
+DIR=${DIR:-$PWD}
+if [ ! -d "$DIR" ]; then
+  echo "pi-sandbox: no such directory: $DIR" >&2
+  exit 1
+fi
+DIR=$(cd "$DIR" && pwd -P)
+
+# Mounting the whole home directory or / defeats the point of the sandbox.
+case "$DIR" in
+  "$HOME"|/) echo "pi-sandbox: refusing to mount $DIR — pick a project directory" >&2; exit 1 ;;
+esac
+
+CTX=$(mktemp -d)
+trap 'rm -rf "$CTX"' EXIT
+
+# Stage the host pi config for baking into the image. Sessions are skipped
+# (they belong to the volume) and anything that looks like a credential is left
+# behind — log in once inside the container and the volume remembers it.
+mkdir -p "$CTX/pi-agent"
+if [ "$NO_CONFIG" -eq 0 ] && [ -d "$PI_HOME" ]; then
+  ( cd "$PI_HOME" && tar -cf - \
+      --exclude './sessions' \
+      --exclude './sessions/*' \
+      --exclude 'auth*' \
+      --exclude 'credential*' \
+      --exclude '*token*' \
+      --exclude '*.key' \
+      --exclude '*.pem' \
+      . ) | ( cd "$CTX/pi-agent" && tar -xf - )
+fi
+: >"$CTX/pi-agent/.pi-sandbox-seed"
+
+config_hash() {
+  ( cd "$CTX/pi-agent" && find . -type f | LC_ALL=C sort | while IFS= read -r f; do
+      printf '%s ' "$f"; shasum "$f" | cut -d' ' -f1
+    done ) | shasum | cut -d' ' -f1
+}
+
+HASH=$(config_hash)
+mkdir -p "$CACHE_DIR"
+HASH_FILE="$CACHE_DIR/config-hash-$IMAGE"
+PREV_HASH=$(cat "$HASH_FILE" 2>/dev/null || true)
+
+cat >"$CTX/Dockerfile" <<'EOF'
+FROM node:24-bookworm-slim
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends bash ca-certificates curl git ripgrep \
+  && rm -rf /var/lib/apt/lists/*
+RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+COPY pi-agent /opt/pi-seed
+COPY entrypoint.sh /usr/local/bin/pi-entrypoint
+RUN chmod +x /usr/local/bin/pi-entrypoint
+WORKDIR /workspace
+ENTRYPOINT ["/usr/local/bin/pi-entrypoint"]
+EOF
+
+cat >"$CTX/entrypoint.sh" <<'EOF'
+#!/bin/sh
+# Refresh the baked config into the volume-backed config dir. Credentials and
+# session history already in the volume are left alone.
+mkdir -p /root/.pi/agent
+cp -a /opt/pi-seed/. /root/.pi/agent/ 2>/dev/null || true
+exec pi "$@"
+EOF
+
+if [ "$RUNTIME" = container ]; then
+  container system start >/dev/null 2>&1 || true
+  container volume create "$VOLUME" >/dev/null 2>&1 || true
+fi
+
+if [ "$REBUILD" -eq 1 ] \
+  || [ "$HASH" != "$PREV_HASH" ] \
+  || ! "$RUNTIME" image inspect "$IMAGE" >/dev/null 2>&1; then
+  echo "pi-sandbox: building $IMAGE with $RUNTIME" >&2
+  "$RUNTIME" build -t "$IMAGE" "$CTX"
+  printf '%s\n' "$HASH" >"$HASH_FILE"
+fi
+
+ENV_ARGS=()
+if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+  ENV_ARGS+=(--env ANTHROPIC_API_KEY)
+fi
+
+exec "$RUNTIME" run --rm -i -t \
+  ${ENV_ARGS[@]+"${ENV_ARGS[@]}"} \
+  --volume "$DIR:/workspace" \
+  --volume "$VOLUME:/root/.pi/agent" \
+  --workdir /workspace \
+  "$IMAGE" ${PI_ARGS[@]+"${PI_ARGS[@]}"}
