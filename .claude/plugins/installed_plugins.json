@@ -102,7 +102,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/frontend-design/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.471Z",
-        "lastUpdated": "2026-08-17T09:58:57.326Z",
+        "lastUpdated": "2026-08-17T19:39:15.104Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -112,7 +112,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/github/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.478Z",
-        "lastUpdated": "2026-08-17T09:58:57.325Z",
+        "lastUpdated": "2026-08-17T19:39:15.102Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -122,7 +122,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.487Z",
-        "lastUpdated": "2026-08-17T09:58:57.323Z",
+        "lastUpdated": "2026-08-17T19:39:15.105Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       },
       {
@@ -131,7 +131,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
         "version": "unknown",
         "installedAt": "2026-08-07T07:43:37.555Z",
-        "lastUpdated": "2026-08-15T20:39:01.537Z",
+        "lastUpdated": "2026-08-17T19:39:15.112Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -201,7 +201,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/unknown",
         "version": "unknown",
         "installedAt": "2026-08-15T20:31:48.297Z",
-        "lastUpdated": "2026-08-15T20:39:01.544Z"
+        "lastUpdated": "2026-08-17T19:39:15.114Z"
       }
     ],
     "codex@openai-codex": [
@@ -273,7 +273,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
         "version": "unknown",
         "installedAt": "2026-07-03T12:00:11.009Z",
-        "lastUpdated": "2026-08-17T09:58:57.324Z"
+        "lastUpdated": "2026-08-17T19:39:15.104Z"
       },
       {
         "scope": "project",
@@ -281,7 +281,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
         "version": "unknown",
         "installedAt": "2026-08-07T07:43:37.555Z",
-        "lastUpdated": "2026-08-15T20:39:01.537Z"
+        "lastUpdated": "2026-08-17T19:39:15.111Z"
       }
     ],
     "pw-engineering@patchskills": [

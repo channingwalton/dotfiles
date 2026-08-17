@@ -7,12 +7,35 @@
         {
           "id": "Qwen/Qwen3.8-27B",
           "name": "Qwen/Qwen3.8-27B",
-          "reasoning": false,
+          "reasoning": true,
+          "compat": {
+            "supportsDeveloperRole": false
+          },
           "input": [
             "text"
           ],
           "contextWindow": 128000,
-          "maxTokens": 32768,
+          "maxTokens": 200000,
+          "limitSource": "inferred",
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "mlx-community/Qwen3.8-27B-8bit",
+          "name": "mlx-community/Qwen3.8-27B-8bit",
+          "reasoning": true,
+          "compat": {
+            "supportsDeveloperRole": false
+          },
+          "input": [
+            "text"
+          ],
+          "contextWindow": 128000,
+          "maxTokens": 200000,
           "limitSource": "inferred",
           "cost": {
             "input": 0,
@@ -41,7 +64,7 @@
           ]
         },
         {
-          "id": "Qwen/Qwen3-Next-80B-A3B-Instruct:novita",
+          "id": "hf-Qwen/Qwen3-Next-80B-A3B-Instruct:novita",
           "name": "Qwen3-Next-80B-A3B-Instruct (novita via HF router)",
           "reasoning": false,
           "input": [

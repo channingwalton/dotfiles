@@ -2,7 +2,7 @@ model:
   provider: custom:txp-qwen3.6-35b-a3b
   base_url: http://192.168.178.131:8080/v1
   api_key: local
-  default: Qwen/Qwen3.8-27B
+  default: mlx-community/Qwen3.8-27B-8bit
   context_length: 131072
 fallback_providers: []
 toolsets:
