@@ -150,6 +150,11 @@
             "type": "command",
             "command": "python3 '/Users/channing/.claude/hooks/git-push-gate.py'",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "python3 '/Users/channing/.claude/hooks/git-cwd-gate.py'",
+            "timeout": 10
           }
         ]
       },
