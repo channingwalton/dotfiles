@@ -1,7 +1,7 @@
 {
   "providers": {
     "TXP": {
-      "baseUrl": "http://TXP-MacBook-Pro.local:8080/v1",
+      "baseUrl": "http://192.168.178.20:8080/v1",
       "api": "openai-completions",
       "models": [
         {

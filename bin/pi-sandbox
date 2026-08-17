@@ -103,6 +103,8 @@ if [ "$NO_CONFIG" -eq 0 ] && [ -d "$PI_HOME" ]; then
   ( cd "$PI_HOME" && tar -cf - \
       --exclude './sessions' \
       --exclude './sessions/*' \
+      --exclude './npm/node_modules' \
+      --exclude './npm/node_modules/*' \
       --exclude 'auth*' \
       --exclude 'credential*' \
       --exclude '*token*' \
@@ -111,6 +113,11 @@ if [ "$NO_CONFIG" -eq 0 ] && [ -d "$PI_HOME" ]; then
       . ) | ( cd "$CTX/pi-agent" && tar -xf - )
 fi
 : >"$CTX/pi-agent/.pi-sandbox-seed"
+
+# Apple's `container` build drops the contents of a directory COPY (it bakes an
+# empty dir), so stage the seed as a tarball and let ADD auto-extract it in the
+# image. COPYFILE_DISABLE keeps macOS from adding ._ AppleDouble entries.
+COPYFILE_DISABLE=1 tar -C "$CTX/pi-agent" -cf "$CTX/pi-seed.tar" .
 
 config_hash() {
   ( cd "$CTX/pi-agent" && find . -type f | LC_ALL=C sort | while IFS= read -r f; do
@@ -129,7 +136,8 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends bash ca-certificates curl git ripgrep \
   && rm -rf /var/lib/apt/lists/*
 RUN npm install -g --ignore-scripts @earendil-works/pi-coding-agent
-COPY pi-agent /opt/pi-seed
+RUN mkdir -p /opt/pi-seed
+ADD pi-seed.tar /opt/pi-seed/
 COPY entrypoint.sh /usr/local/bin/pi-entrypoint
 RUN chmod +x /usr/local/bin/pi-entrypoint
 WORKDIR /workspace

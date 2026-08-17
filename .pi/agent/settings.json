@@ -7,14 +7,12 @@
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",
     "npm:pi-setup-custom-providers",
-    "npm:pi-lens"
+    "npm:pi-lens",
+    "npm:@ff-labs/pi-fff"
   ],
   "defaultThinkingLevel": "high",
   "enabledModels": [
-    "openai-codex/gpt-5.6-sol:xhigh",
-    "TXP/Qwen/Qwen3.6-35B-A3B",
     "TXP/mlx-community/Qwen3.8-27B-8bit",
-    "TXP/Qwen/Qwen3-Next-80B-A3B-Instruct",
     "Local/mlx-community/Qwen3.8-27B-8bit:high"
   ]
 }
