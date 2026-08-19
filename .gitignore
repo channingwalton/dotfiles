@@ -100,6 +100,7 @@
 !/.config/opencode/
 !/.config/pgcli/
 !/.config/ranger/
+!/.config/superfile/
 !/.config/wezterm/
 !/.config/wtf/
 !/.config/yazi/
@@ -119,6 +120,11 @@
 !/.config/opencode/opencode.json
 !/.config/opencode/plugins/
 !/.config/opencode/skills/
+
+# Inside .config/superfile/: only config, not the bundled themes
+/.config/superfile/*
+!/.config/superfile/config.toml
+!/.config/superfile/hotkeys.toml
 
 # Noise inside otherwise-allowed config dirs
 /.config/pgcli/history
@@ -141,6 +147,7 @@
 /.pi/agent/mcp-cache.json
 /.pi/agent/mcp-npx-cache.json
 /.pi/agent/mcp-onboarding.json
+/.pi/agent/fff/
 
 # ===== Depth-agnostic noise =====
 *.lock
