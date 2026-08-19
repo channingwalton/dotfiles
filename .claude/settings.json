@@ -321,6 +321,5 @@
   "teammateMode": "tmux",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "model": "claude-opus-4-8"
+  "voiceEnabled": true
 }

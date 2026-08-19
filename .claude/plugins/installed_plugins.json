@@ -102,7 +102,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/frontend-design/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.471Z",
-        "lastUpdated": "2026-08-17T20:42:05.924Z",
+        "lastUpdated": "2026-08-19T09:53:56.799Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -112,7 +112,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/github/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.478Z",
-        "lastUpdated": "2026-08-17T20:42:05.922Z",
+        "lastUpdated": "2026-08-19T09:53:56.797Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -122,7 +122,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
         "version": "unknown",
         "installedAt": "2026-03-17T20:06:21.487Z",
-        "lastUpdated": "2026-08-17T20:42:05.925Z",
+        "lastUpdated": "2026-08-19T09:53:56.792Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       },
       {
@@ -131,7 +131,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
         "version": "unknown",
         "installedAt": "2026-08-07T07:43:37.555Z",
-        "lastUpdated": "2026-08-17T19:39:15.112Z",
+        "lastUpdated": "2026-08-19T09:53:56.798Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -201,7 +201,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/unknown",
         "version": "unknown",
         "installedAt": "2026-08-15T20:31:48.297Z",
-        "lastUpdated": "2026-08-17T19:39:15.114Z"
+        "lastUpdated": "2026-08-19T09:53:56.805Z"
       }
     ],
     "codex@openai-codex": [
@@ -273,7 +273,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
         "version": "unknown",
         "installedAt": "2026-07-03T12:00:11.009Z",
-        "lastUpdated": "2026-08-17T20:42:05.924Z"
+        "lastUpdated": "2026-08-19T09:53:56.792Z"
       },
       {
         "scope": "project",
@@ -281,7 +281,7 @@
         "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
         "version": "unknown",
         "installedAt": "2026-08-07T07:43:37.555Z",
-        "lastUpdated": "2026-08-17T19:39:15.111Z"
+        "lastUpdated": "2026-08-19T09:53:56.798Z"
       }
     ],
     "pw-engineering@patchskills": [
@@ -318,6 +318,15 @@
         "version": "1.1.0",
         "installedAt": "2026-08-12T17:27:50.223Z",
         "lastUpdated": "2026-08-12T17:27:50.223Z",
+        "gitCommitSha": "529f24d48de775aa654cff484d297fc0a940514e"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/channing/multica_workspaces_desktop-api.multica.ai/eb11a759-063d-4832-b3e7-c6fc25e40f71/9c9b10df/worktree",
+        "installPath": "/Users/channing/.claude/plugins/cache/patchskills/pw-engineering/1.1.0",
+        "version": "1.1.0",
+        "installedAt": "2026-08-18T11:46:08.200Z",
+        "lastUpdated": "2026-08-18T11:46:08.200Z",
         "gitCommitSha": "529f24d48de775aa654cff484d297fc0a940514e"
       }
     ],

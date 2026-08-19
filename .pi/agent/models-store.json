@@ -247,7 +247,7 @@
         }
       }
     ],
-    "checkedAt": 1786998070634,
+    "checkedAt": 1787085497801,
     "lastModified": 1786710729000,
     "etag": "W/\"7572a78e60b78526600ed2a9b74b579d\""
   },
@@ -605,6 +605,61 @@
         },
         "contextWindow": 262144,
         "maxTokens": 131072
+      },
+      {
+        "id": "Qwen/Qwen3-VL-235B-A22B-Instruct",
+        "name": "Qwen3 VL 235B A22B Instruct",
+        "api": "openai-completions",
+        "provider": "huggingface",
+        "baseUrl": "https://router.huggingface.co/v1",
+        "reasoning": false,
+        "input": [
+          "text",
+          "image"
+        ],
+        "cost": {
+          "input": 0.3,
+          "output": 1.5,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "compat": {
+          "supportsDeveloperRole": false
+        },
+        "contextWindow": 131072,
+        "maxTokens": 32768
+      },
+      {
+        "id": "Qwen/Qwen3-VL-235B-A22B-Thinking",
+        "name": "Qwen3 VL 235B A22B Thinking",
+        "api": "openai-completions",
+        "provider": "huggingface",
+        "baseUrl": "https://router.huggingface.co/v1",
+        "reasoning": true,
+        "input": [
+          "text",
+          "image"
+        ],
+        "cost": {
+          "input": 0.98,
+          "output": 3.95,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "compat": {
+          "supportsDeveloperRole": false
+        },
+        "contextWindow": 131072,
+        "maxTokens": 32768,
+        "thinkingLevelMap": {
+          "off": null,
+          "minimal": null,
+          "low": "low",
+          "medium": "medium",
+          "high": "high",
+          "xhigh": null,
+          "max": null
+        }
       },
       {
         "id": "Qwen/Qwen3.5-122B-A10B",
@@ -1797,9 +1852,9 @@
         "maxTokens": 131072
       }
     ],
-    "checkedAt": 1786998070588,
-    "lastModified": 1786970917000,
-    "etag": "W/\"b400a0fb6d658aea8d939f0952091ede\""
+    "checkedAt": 1787085497817,
+    "lastModified": 1787057789000,
+    "etag": "W/\"517d343abfa162de017e31e922afe96e\""
   },
   "anthropic": {
     "models": [

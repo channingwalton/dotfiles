@@ -78,6 +78,7 @@
 !/.config/cmux/
 !/.config/codeburn/
 !/.config/configstore/
+!/.config/espanso/
 !/.config/gh/
 
 !/.config/gh-copilot/

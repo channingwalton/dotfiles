@@ -18,7 +18,7 @@
 - Prefer LSP over Grep/Read for code navigation
   - After writing or editing code, check LSP diagnostics and fix errors before proceeding.
   - Use Grep or rg only when LSP isn't available or for text/pattern searches (comments, strings, config).
-- ast-grep is installed. Reach for it when the *match condition itself is structural* and a text search can't express it without false positives.
+- For any file search or grep in the current git-indexed directory, use fff tools.
 - **ALWAYS** use the `/software-development` skill for software development tasks.
 - **ALWAYS** use the **code-reviewer skill** (`Skill(code-reviewer)`, not an agent type) for code reviews — never do ad-hoc reviews without it
 - When user refers to `vault`, use the vault skill

@@ -25,13 +25,13 @@ goals = true
 js_repl = false
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-08-16T21:34:02Z"
-last_revision = "0bc1c2e378c6d9d04c2914ce61c646832cd4e337"
+last_updated = "2026-08-18T13:38:27Z"
+last_revision = "3411fb9108778ca0e950db59c6511d2f7020cbc8"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-08-16T21:34:43Z"
+last_updated = "2026-08-18T13:38:20Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
@@ -73,6 +73,9 @@ command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.
 args = ["mcp"]
 cwd = "."
 enabled = false
+
+[mcp_servers.fff]
+command = "/opt/homebrew/bin/fff-mcp"
 
 [notice]
 fast_default_opt_out = true
