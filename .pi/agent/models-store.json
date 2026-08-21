@@ -247,7 +247,7 @@
         }
       }
     ],
-    "checkedAt": 1787085497801,
+    "checkedAt": 1787259690052,
     "lastModified": 1786710729000,
     "etag": "W/\"7572a78e60b78526600ed2a9b74b579d\""
   },
@@ -1742,6 +1742,29 @@
         "maxTokens": 131072
       },
       {
+        "id": "zai-org/GLM-4.6V-Flash",
+        "name": "GLM-4.6V-Flash",
+        "api": "openai-completions",
+        "provider": "huggingface",
+        "baseUrl": "https://router.huggingface.co/v1",
+        "reasoning": true,
+        "input": [
+          "text",
+          "image"
+        ],
+        "cost": {
+          "input": 0.3,
+          "output": 0.9,
+          "cacheRead": 0,
+          "cacheWrite": 0
+        },
+        "compat": {
+          "supportsDeveloperRole": false
+        },
+        "contextWindow": 131072,
+        "maxTokens": 32768
+      },
+      {
         "id": "zai-org/GLM-4.7",
         "name": "GLM-4.7",
         "api": "openai-completions",
@@ -1852,9 +1875,9 @@
         "maxTokens": 131072
       }
     ],
-    "checkedAt": 1787085497817,
-    "lastModified": 1787057789000,
-    "etag": "W/\"517d343abfa162de017e31e922afe96e\""
+    "checkedAt": 1787259690089,
+    "lastModified": 1787216307000,
+    "etag": "W/\"7392529195e177ec4070a98949207564\""
   },
   "anthropic": {
     "models": [
