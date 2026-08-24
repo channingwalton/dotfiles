@@ -38,33 +38,3 @@ wtf:
       refreshInterval: 30s
       title: "PR Builds"
       type: cmdrunner
-
-    # Service versions across environments
-    serviceVersions:
-      args: []
-      cmd: "/Users/channing/dev/patchwork/glue/tools/service-versions.sh"
-      enabled: true
-      pty: true
-      position:
-        top: 0
-        left: 1
-        height: 1
-        width: 1
-      refreshInterval: 30s
-      title: "Service Versions"
-      type: cmdrunner
-
-    # Deployment status
-    deployStatus:
-      args: []
-      cmd: "/Users/channing/dev/patchwork/glue/tools/deploy-status.sh"
-      enabled: true
-      pty: true
-      position:
-        top: 1
-        left: 1
-        height: 1
-        width: 1
-      refreshInterval: 30s
-      title: "Deploy status"
-      type: cmdrunner

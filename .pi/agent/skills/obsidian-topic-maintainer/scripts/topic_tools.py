@@ -14,7 +14,7 @@ Usage:
   python3 topic_tools.py linkcheck --project DIR
   python3 topic_tools.py crosscut  --project DIR [--max-words 40]
 
-DIR is a project folder, e.g. ~/Documents/Notes/Projects/Patchwork
+DIR is a project folder, e.g. ~/Documents/Notes/Projects/TXPLabs
 """
 import argparse, glob, json, os, re
 from collections import Counter

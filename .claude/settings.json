@@ -274,7 +274,6 @@
     "github@claude-plugins-official": false,
     "kotlin-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
-    "pw-engineering@patchskills": true,
     "pyright-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
@@ -293,12 +292,6 @@
       "source": {
         "source": "github",
         "repo": "openai/codex-plugin-cc"
-      }
-    },
-    "patchskills": {
-      "source": {
-        "source": "github",
-        "repo": "patchworkhealth/patchskills"
       }
     },
     "understand-anything": {

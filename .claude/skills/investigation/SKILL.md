@@ -80,7 +80,7 @@ Use Obsidian wikilinks for dossier files inside the vault; use relative Markdown
 - Task note links to dossier `README.md`, `event-log.md`, `manifest.md`, and any other key dossier files.
 - Dossier `README.md` links back to the task note and each top-level dossier file.
 - The `README`, `event-log`, and `manifest` basenames repeat across dossiers, so a bare `[[event-log]]` is ambiguous — qualify the wikilink with the dossier folder (`[[<dossier-folder>/event-log]]`) or enough of the path for Obsidian to resolve the intended file.
-- Wikilinks resolve to files, not folders — reference an artefact folder as vault-relative text (for example `Projects/Patchwork/Investigations/<case>/`), not a link.
+- Wikilinks resolve to files, not folders — reference an artefact folder as vault-relative text (for example `Projects/Archive/Patchwork/Investigations/<case>/`), not a link.
 - Link Slack/Jira/GitHub by permalink; do not paste whole threads.
 - Link raw or bulky artefacts from `manifest.md`.
 
