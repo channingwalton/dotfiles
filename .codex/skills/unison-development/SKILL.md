@@ -5,20 +5,20 @@ description: Write, test, update, and repair Unison code using Unison MCP tools 
 
 # Unison Development
 
-Extends `software-development`. Use the Unison MCP tools for every operation when they are available in the session. If they are missing, stop and say so rather than falling back to ad hoc UCM commands — the command line bypasses the safeguards below.
+For implementation, extends `software-development`. Use Unison MCP tools for codebase operations in this workflow. If they are unavailable, report the missing capability and stop before codebase mutations; read-only explanations and local file inspection can still proceed.
 
 ## Why Unison is different
 
-Unison stores code in the UCM codebase, not in files or Git. Two consequences drive everything else:
+The UCM codebase holds the active definitions. Scratch `.u` files contain candidate definitions that enter the codebase through an update.
 
-- The CLI and `scratch.u` files are not the source of truth, so editing or running code outside the MCP tools desyncs your work from the codebase. Drive everything through the MCP tools directly — the one exception is branch creation.
-- Git never holds Unison code. A git commit won't capture your changes and `commit-commands` don't apply, so don't reach for them.
+- MCP-only codebase operations are a workflow constraint here, preserving the update and dependent-repair procedure below. This includes branch creation.
+- A Git commit of scratch files does not record a UCM codebase update; verify changes through the codebase tools.
 
 Work in a branch, and use fully qualified names when writing code so references resolve unambiguously.
 
 ## Branch first
 
-Before any code change, create a branch with the MCP server tool — working outside a branch mutates shared state. Use a descriptive name like `extract-domain-service` or `fix-login-bug`.
+Before the first code change, select the branch authorised for this task or create one with the MCP server tool. Use a descriptive name like `extract-domain-service` or `fix-login-bug`, and verify the active branch before updating definitions.
 
 ## Workflow
 

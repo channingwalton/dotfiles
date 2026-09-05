@@ -1,23 +1,23 @@
 ---
 name: task
-description: "Resolve and operate on Channing's Obsidian vault task notes by frontmatter type. Use when the user references a task note, Jira/GitHub issue tracked by a vault task, asks to inspect or continue task context, or asks to update/capture task state. Routes task-type values such as investigation, implementation, review, experiment, and note to the appropriate specialist skill."
+description: "Resolve Channing's Obsidian task context and route the requested action. Use when the user references a task note or a Jira/GitHub issue tracked by one, resumes task work, or asks to capture task state."
 ---
 
 # Task
 
-Router for vault-backed task work. The task note is the canonical entry point.
+Router for vault-backed task work. The task note is the canonical entry point; the user's current request determines what work to perform. Task metadata and saved next steps provide context, not authorisation for additional actions.
 
 ## Resolve
 
 1. Locate the task note under `~/Documents/Notes/Projects/<project>/Tasks/`; if the user names a Jira/GitHub issue, find the matching task note first.
 2. Read the task note in full.
 3. Read linked Jira or GitHub issue if present.
-4. Read frontmatter and route by `task-type` (a few legacy notes use `task_type`; treat it the same). If missing, treat as `note`.
-5. When resuming work and the note has a `## Next Session` block, take it as the starting instruction. If its date is older than Current State's `*Updated:*`, it is stale — ignore it and say so.
+4. Read frontmatter for context using `task-type` (a few legacy notes use `task_type`; treat it the same). If missing, treat as `note`.
+5. When resuming work and the note has a `## Next Session` block, use its next steps only where consistent with the current request. If its date is older than Current State's `*Updated:*`, it is stale — ignore it and say so.
 
 ## External Data
 
-For investigation tasks, stage long ticket/PR descriptions, comment threads, or diffs into the dossier and reference by path rather than the task note.
+When dossier updates are authorised, stage long ticket/PR descriptions, comment threads, or diffs into the dossier and reference by path rather than the task note. For read-only requests, use temporary working files for fetched material.
 
 ## Task Note Rules
 
@@ -31,17 +31,21 @@ Whatever the section — including hand-written ones like `Design`, `Hypotheses`
 - Investigation: `task-type: investigation` plus `investigation_root: ./<same-basename>/README.md`
 - Experiment: `task-type: experiment` plus a `research:` wikilink to its research note
 
-If `investigation_root` is missing, look for a sibling folder with the same basename as the task note. Ask before creating or moving evidence.
+If `investigation_root` is missing, look for a sibling folder with the same basename as the task note. Create or move evidence within the user's authorised scope; ask only if the intended location or move is unclear.
 
 ## Routes
 
-- `task-type: investigation` - load the task note, linked ticket, and `investigation_root`; then use `investigation`.
-- `task-type: implementation` - load the task note and linked ticket; then use `software-development`.
-- `task-type: review` - load the task note and linked PR/ticket; then use `code-reviewer`.
-- `task-type: experiment` - load the task note and its linked research note; use `task-note-update` for capture and `obsidian-research-maintainer` for roll-up.
-- `task-type: note` or missing - use `vault` and `task-note-update` as needed
+Load the task note and linked ticket, plus `investigation_root` for investigations or the linked research note for experiments. Then route by the requested action, regardless of `task-type`:
 
-If a task type is unknown, read the note and ask how to route it.
+- Explain, summarise, or report status: answer from the context without changing task artefacts or starting an implementation workflow.
+- Implement or fix software: use `software-development`.
+- Review code: use `code-reviewer`.
+- Create or maintain an evidence dossier: use `investigation`.
+- Capture task state or decisions: use `task-note-update`.
+- Roll experiment findings into research: use `obsidian-research-maintainer`.
+- Other vault work: use `vault` as needed.
+
+For an unknown task type, infer the relevant context from the note and request. Ask only when a material ambiguity prevents the requested work.
 
 ## Investigation Links
 

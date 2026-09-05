@@ -7,7 +7,7 @@ description: Maintain a project's Research layer in an Obsidian vault — scaffo
 
 Maintains the **Research** layer of an Obsidian project. A research note holds one research question end to end: problem, hypotheses, links to experiments, a rolling summary of findings, and open questions. Experiments are ordinary **Tasks** (`task-type: experiment`) that link back to their research note — no separate experiment structure exists or should be invented. Supporting documents are captured in **Events** and linked from the research note.
 
-This skill is **propose-then-apply** for anything that rewrites existing notes: show what would change and get the user's go-ahead. Creating a fresh research note or experiment task on request needs no confirmation loop.
+For requested changes whose scope and content are established, write directly and show the result. Ask only when a substantive choice remains unresolved, such as competing interpretations of evidence or a new research direction. Existing authorisation carries through the workflow; an audit-only request produces findings.
 
 ## Vault model & conventions
 
@@ -52,8 +52,8 @@ and a `[[<Research Note>]]` backlink line under its H1. The task keeps its own C
 
 ### Start a research question
 
-1. Ask for the question if not given; agree a short title (the filename).
-2. Create `Research/<Title>.md` from the template shape above (shell `date` for timestamps). Write the Problem section from the user's phrasing; draft 2–4 falsifiable Hypotheses and confirm them with the user.
+1. Ask for the question if not given; use an agreed short title or choose one that preserves the question's meaning.
+2. Create `Research/<Title>.md` from the template shape above (shell `date` for timestamps). Write the Problem section from the user's phrasing. Record agreed hypotheses; label newly drafted hypotheses as provisional and ask only if choosing between them changes the research scope or method.
 3. Add the note to `Research/Research.md`'s list. Create `Research/` and `Research.md` first if the project lacks them, and add the footer link to the project note.
 
 ### Add an experiment
@@ -64,18 +64,18 @@ and a `[[<Research Note>]]` backlink line under its H1. The task keeps its own C
 ### Roll up findings
 
 1. Read each linked experiment task's Current State / Results / Decision Log.
-2. Propose an updated **Findings** section: short bolded claims, each attributable to an experiment, with an `*Updated: [[<date>]]*` line. Propose which experiment-level open questions have become research-level (move up) and which research questions an experiment has answered (mark or remove, noting the answer in Findings).
-3. On approval, apply and bump `dateModified`. Never edit the experiment tasks during roll-up except to fix a missing backlink.
+2. Update **Findings** from established results: short bolded claims, each attributable to an experiment, with an `*Updated: [[<date>]]*` line. Put cross-experiment questions in the research note and record answers in Findings before resolving research questions. If the synthesis requires an unresolved interpretation, ask about that claim before recording it as a finding.
+3. Bump `dateModified` and show the changes. The experiment tasks remain unchanged during roll-up except for a missing backlink; use `task-note-update` if the user also requests experiment-task updates.
 
 ### Conclude a research question
 
-1. Confirm with the user that the question is answered or abandoned; set `status: concluded` and add a dated **Conclusion** section summarising the answer.
-2. **Graduate durable findings into Topics**: propose one or more Topic hubs (new or existing) that should carry the evergreen knowledge, in topic-hub voice — concept prose, no experiment enumeration, `## See also` links. Defer to the obsidian-topic-maintainer skill's conventions for hub shape and any promotion to a domain folder.
+1. When the user asks to conclude the research, record whether it is answered or abandoned from the established context; ask only if that disposition is unclear. Set `status: concluded` and add a dated **Conclusion** section summarising the outcome.
+2. **Graduate durable findings into Topics**: use `obsidian-topic-maintainer` for Topics updates already within the requested scope. Otherwise present candidate hubs and destinations for approval. Write in topic-hub voice — concept prose, no experiment enumeration, `## See also` links.
 3. The research note stays in `Research/` as the archived record; the Topic carries the knowledge forward.
 
 ### Audit
 
-On request, check across a project: every `task-type: experiment` task has a resolving `research:` link and H1 backlink; every research note's Experiments list matches the tasks that claim it; every open research note has been updated since its newest experiment activity (flag stale ones); `Research.md` lists every research note. Report, then fix approved items.
+On request, check across a project: every `task-type: experiment` task has a resolving `research:` link and H1 backlink; every research note's Experiments list matches the tasks that claim it; every open research note has been updated since its newest experiment activity (flag stale ones); `Research.md` lists every research note. Report findings; apply fixes when requested, using any authorisation already given.
 
 ## Notes
 
