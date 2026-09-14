@@ -92,6 +92,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
+  "model": "claude-fable-5-1[1m]",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],
@@ -272,10 +273,8 @@
     "commit-commands@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": false,
     "github@claude-plugins-official": false,
-    "kotlin-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true,
     "rust-analyzer-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
@@ -314,5 +313,10 @@
   "teammateMode": "tmux",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "high"
+    }
+  }
 }

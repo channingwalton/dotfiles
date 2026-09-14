@@ -1,6 +1,6 @@
 model = "gpt-6-astra"
 personality = "pragmatic"
-model_reasoning_effort = "xhigh"
+model_reasoning_effort = "high"
 approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
 
@@ -11,7 +11,7 @@ sandbox_mode = "workspace-write"
 [sandbox_workspace_write]
 writable_roots = [
   "/Users/channing/Documents/Notes",
-  "/Users/channing/.codex/automations",
+  "/Users/channing/dotfiles/.codex/automations",
   "/Users/channing/dev",
   "/private/tmp",
 ]
@@ -31,12 +31,10 @@ source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
 [marketplaces.openai-bundled]
-last_updated = "2026-09-05T20:00:23Z"
 source_type = "local"
 source = "/Users/channing/dotfiles/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-08-14T08:17:14Z"
 source_type = "local"
 source = "/Users/channing/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
@@ -57,22 +55,26 @@ startup_timeout_sec = 120
 NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
 NODE_REPL_NODE_MODULE_DIRS = "/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
 NODE_REPL_NODE_PATH = "/Applications/ChatGPT.app/Contents/Resources/cua_node/bin/node"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
-CODEX_HOME = "/Users/channing/.codex"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/channing/dotfiles/.codex:/Applications/ChatGPT.app/Contents/Resources/cua_node/lib/node_modules"
+CODEX_HOME = "/Users/channing/dotfiles/.codex"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
 BROWSER_USE_TINYSKY_ENABLED = "1"
-NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
-NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
+NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.901.41600"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/channing/.codex/plugins/cache/openai-bundled/browser/26.901.41600/scripts/browser-service.mjs"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.908.40834"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/channing/dotfiles/.codex/plugins/cache/openai-bundled/browser/26.908.40834/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+SKY_CUA_SERVICE_PATH = "/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
 [mcp_servers.fff]
-command = "/opt/homebrew/bin/fff-mcp"
+command = "/Users/channing/.local/bin/fff-mcp"
 
-[mcp_servers.cua_repl]
-command = "/Applications/ChatGPT.app/Contents/MacOS/ChatGPT"
+[mcp_servers.computer-use]
+command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+args = ["mcp"]
+cwd = "."
 enabled = false
 
 [notice]
@@ -126,6 +128,15 @@ enabled = true
 enabled = true
 
 [plugins."browser@openai-bundled"]
+enabled = true
+
+[plugins."codex-app-tools@openai-bundled"]
+enabled = true
+
+[plugins."unified-computer-use@openai-bundled"]
+enabled = true
+
+[plugins."computer-use@openai-bundled"]
 enabled = true
 
 [projects."/Users/channing/dev"]
@@ -241,7 +252,7 @@ terminal_title = ["activity", "project-name", "current-dir", "git-branch", "cont
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 4
-gpt-6-astra = 2
+gpt-6-astra = 4
 
 [apps.connector_76869538009648d5b282a4bb21c3d157.tools.github_create_pull_request]
 approval_mode = "approve"
@@ -339,6 +350,45 @@ trusted_hash = "sha256:d3f143b1f39b2da0c67c3d075c006f3cb7b07dfcbf3462c52bf3be03a
 [hooks.state."/Users/channing/.codex/hooks.json:stop:1:0"]
 trusted_hash = "sha256:071a31ec8697e93a44c6363d1cec91e93945b33824c7a077bba9a2200f0ffdcd"
 
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:fc87dbee1cb8a9be4f78ba094c4fa8d5e2fd38cb800854e3717f9b6a52fe2a47"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:8ae6e7e2f51343802f3ac91f0966fcbc6e27bcd67c8962aa704574d83e33b559"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:permission_request:0:0"]
+trusted_hash = "sha256:e41a66300532cecdf712da9f4e5f0e6dcdfd9371b84dfceb0ea47fae49c6c944"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:ac371f260e4b23ba1d1b7a4ad68a44a323a8470b61f38471a47aceac1b7a5a7c"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:post_tool_use:1:0"]
+trusted_hash = "sha256:4dd7c2582312dd3980a4a16c4de7290245ffa093e6cf3be9d9f4d773499da0af"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:67562e7fb168876fdd49e3e3198e97744bf698568e6f996948a6208f994f1076"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:session_start:1:0"]
+trusted_hash = "sha256:db766c50ab85093ce9d20634c1ddcfebd755ce433a31c2745f87f79bda64b262"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:7cf2b2b9d616fc40063473190e43512a043e0d63f3a448d1d2fd4c8c7bf18713"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:user_prompt_submit:1:0"]
+trusted_hash = "sha256:fb3be58db5ee7b2c9545c22102d419a3c2d087bbb5c8d479d8f88630c1f128c1"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:subagent_start:0:0"]
+trusted_hash = "sha256:9d741a3c7db0bc8b0312d79695f160b529a052e35cb9b42e2976ba82e0f154a2"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:subagent_stop:0:0"]
+trusted_hash = "sha256:d3f143b1f39b2da0c67c3d075c006f3cb7b07dfcbf3462c52bf3be03a86eef8a"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:ef7acd9b12800cc613ffc22cf906d675c7512dd29cae1f3724f218be082f737c"
+
+[hooks.state."/Users/channing/dotfiles/.codex/hooks.json:stop:1:0"]
+trusted_hash = "sha256:071a31ec8697e93a44c6363d1cec91e93945b33824c7a077bba9a2200f0ffdcd"
+
 [projects."/Users/channing/dev/personal/skills"]
 trust_level = "trusted"
 
@@ -346,4 +396,22 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/channing/dev/TXPLabs/workflow-engine"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/personal/treelog-direct"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Desktop"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-09/create-an-image-of"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-09/create-an-image-of-me"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-14/how-x20"]
+trust_level = "trusted"
+
+[projects."/Users/channing/tmp/megawidgets-rerun-copilot"]
 trust_level = "trusted"

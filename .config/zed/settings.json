@@ -7,23 +7,55 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "project_panel": {
+    "dock": "left"
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
+  "git_panel": {
+    "dock": "left"
+  },
   "relative_line_numbers": "enabled",
   "vim_mode": true,
-  "scrolloff": 10,
   "cursor_blink": false,
   "show_wrap_guides": false,
-  "soft_wrap": "preferred_line_length",
+  "soft_wrap": "editor_width",
   "vim": {
     "use_system_clipboard": "always",
-    "use_multiline_find": true,
     "use_smartcase_find": true
   },
   "agent_buffer_font_size": 12.0,
   "agent": {
-    "always_allow_tool_actions": true,
+    "tool_permissions": {
+      "tools": {
+        "skill": {
+          "default": "allow"
+        },
+        "fetch": {
+          "default": "allow"
+        }
+      }
+    },
+    "sandbox_permissions": {
+      "network_hosts": [
+        "raw.githubusercontent.com",
+        "htmx.org",
+        "datatracker.ietf.org",
+        "unpkg.com",
+        "www.rfc-editor.org"
+      ]
+    },
+    "default_profile": "ask",
+    "dock": "right",
     "default_model": {
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-5-latest"
+      "effort": "xhigh",
+      "enable_thinking": true,
+      "provider": "openai-subscribed",
+      "model": "gpt-5.6-sol"
     },
     "model_parameters": []
   },
