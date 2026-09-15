@@ -92,7 +92,6 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "claude-fable-5-1[1m]",
   "disabledMcpjsonServers": [
     "claude_ai_Notion"
   ],
@@ -303,6 +302,11 @@
   "outputStyle": "plain",
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "high"
+    }
+  },
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
@@ -313,10 +317,5 @@
   "teammateMode": "tmux",
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
-  "voiceEnabled": true,
-  "modelSettings": {
-    "claude-fable-5-1": {
-      "effortLevel": "high"
-    }
-  }
+  "voiceEnabled": true
 }

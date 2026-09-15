@@ -35,37 +35,51 @@ function y() {
 	rm -f -- "$tmp"
 }
 
+# Section heading for `updates`: a full-width reversed bar, plain text when
+# the output is not a terminal (e.g. piped to a log).
+function _updates_heading {
+  if [[ -t 1 ]]; then
+    local w=$(( ${COLUMNS:-60} - 2 ))
+    print -P "\n%S%F{42}%B ${(r:w:: :)1}%b%f%s"
+  else
+    print -- "\n== $1 =="
+  fi
+}
+
 function updates {
-  echo "OMZ"
+  _updates_heading OMZ
   omz update
 
-  echo "\nBrew\n"
+  _updates_heading Brew
   brew update
   brew upgrade
   brew upgrade --cask
   brew cleanup
   brew autoremove
 
-  echo "\nmise\n"
-  mise upgrade
+  _updates_heading mise
+  mise upgrade --bump
 
-  echo "\nCoursier\n"
+  _updates_heading Coursier
   coursier update
 
-  echo "\nleaf\n"
+  _updates_heading leaf
   leaf --update
 
 # Updates with: cargo install cargo-update
-  echo "\nCargo\n"
+  _updates_heading Cargo
   cargo install-update -a
 
-  echo "\nSkills\n"
+  _updates_heading Skills
   npx skills update -g
 
-  echo "\nRepos\n"
+  _updates_heading Repos
   $HOME/dotfiles/bin/backupRepos.sh
 
-  echo "\nUnison --- SKIPPED\n"
+  _updates_heading "TXPLabs repos"
+  GH_CONFIG_DIR="$HOME/.config/gh-txplabs" $HOME/dev/TXPLabs/backup-repos.sh
+
+  _updates_heading "Unison --- SKIPPED"
 #  $HOME/dotfiles/bin/backupUnison.sh
 }
 

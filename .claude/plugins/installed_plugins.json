@@ -110,10 +110,10 @@
       {
         "scope": "project",
         "projectPath": "/Users/channing/dotfiles",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
-        "version": "unknown",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/da823e86c8fe",
+        "version": "da823e86c8fe",
         "installedAt": "2026-08-07T07:43:37.555Z",
-        "lastUpdated": "2026-08-24T12:00:22.060Z",
+        "lastUpdated": "2026-09-15T09:51:52.875Z",
         "gitCommitSha": "78497c524da3762865d47377357c30af5b50d522"
       }
     ],
@@ -180,10 +180,10 @@
       {
         "scope": "local",
         "projectPath": "/Users/channing/dotfiles",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/unknown",
-        "version": "unknown",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/da823e86c8fe",
+        "version": "da823e86c8fe",
         "installedAt": "2026-08-15T20:31:48.297Z",
-        "lastUpdated": "2026-08-24T12:00:22.065Z"
+        "lastUpdated": "2026-09-15T09:51:52.872Z"
       }
     ],
     "codex@openai-codex": [
@@ -260,10 +260,10 @@
       {
         "scope": "project",
         "projectPath": "/Users/channing/dotfiles",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
-        "version": "unknown",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/code-review/da823e86c8fe",
+        "version": "da823e86c8fe",
         "installedAt": "2026-08-07T07:43:37.555Z",
-        "lastUpdated": "2026-08-24T12:00:22.059Z"
+        "lastUpdated": "2026-09-15T09:51:52.875Z"
       }
     ],
     "caveman@caveman": [
