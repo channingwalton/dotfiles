@@ -3,17 +3,19 @@ personality = "pragmatic"
 model_reasoning_effort = "high"
 approval_policy = "on-request"
 approvals_reviewer = "guardian_subagent"
-
-notify = ["/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended"]
+notify = [
+    "/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient",
+    "turn-ended",
+]
 service_tier = "default"
 sandbox_mode = "workspace-write"
 
 [sandbox_workspace_write]
 writable_roots = [
-  "/Users/channing/Documents/Notes",
-  "/Users/channing/dotfiles/.codex/automations",
-  "/Users/channing/dev",
-  "/private/tmp",
+    "/Users/channing/Documents/Notes",
+    "/Users/channing/dotfiles/.codex/automations",
+    "/Users/channing/dev",
+    "/private/tmp",
 ]
 network_access = true
 
@@ -63,8 +65,8 @@ NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = ""
 NODE_REPL_INSTRUCTIONS_USE_CASE_COMPUTER_USE = ""
 BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
-BROWSER_USE_CODEX_APP_VERSION = "26.908.40834"
-NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/channing/dotfiles/.codex/plugins/cache/openai-bundled/browser/26.908.40834/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
+BROWSER_USE_CODEX_APP_VERSION = "26.908.70816"
+NODE_REPL_TRUSTED_SERVICES = '{"browser":"/Users/channing/dotfiles/.codex/plugins/cache/openai-bundled/browser/26.908.70816/scripts/browser-service.mjs","sky":"@oai/sky/service"}'
 SKY_CUA_SERVICE_PATH = "/Users/channing/dotfiles/.codex/computer-use/Codex Computer Use.app"
 CODEX_CLI_PATH = "/Applications/ChatGPT.app/Contents/Resources/codex"
 
@@ -238,16 +240,75 @@ trust_level = "trusted"
 [projects."/Users/channing/dev/personal/ai-experiments"]
 trust_level = "trusted"
 
+[projects."/Users/channing/dev/personal/skills"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/personal/advisor"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/TXPLabs/workflow-engine"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/personal/treelog-direct"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Desktop"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-09/create-an-image-of"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-09/create-an-image-of-me"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-14/how-x20"]
+trust_level = "trusted"
+
+[projects."/Users/channing/tmp/megawidgets-rerun-copilot"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-15/is-x20"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-15/can"]
+trust_level = "trusted"
+
+[projects."/Users/channing/dev/TXPLabs/annieworks"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-16/is-i"]
+trust_level = "trusted"
+
+[projects."/Users/channing/Documents/Codex/2026-09-16/ca"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 inherit = "core"
 
 [shell_environment_policy.set]
 ENABLE_LSP_TOOL = "1"
 NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "9230e2bd8b24b7ac7a0ba6774c64bf0d78ecdabbdd91d0ed627b02a587bae2df"
+CLAUDE_CODE_DISABLE_ADAPTIVE_THINKING = "1"
+CLAUDE_CODE_DISABLE_AUTO_MEMORY = "0"
+CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1"
 
 [tui]
-status_line = ["model-with-reasoning", "current-dir", "context-remaining", "five-hour-limit", "weekly-limit", "git-branch"]
-terminal_title = ["activity", "project-name", "current-dir", "git-branch", "context-remaining", "model-with-reasoning"]
+status_line = [
+    "model-with-reasoning",
+    "current-dir",
+    "context-remaining",
+    "five-hour-limit",
+    "weekly-limit",
+    "git-branch",
+]
+terminal_title = [
+    "activity",
+    "project-name",
+    "current-dir",
+    "git-branch",
+    "context-remaining",
+    "model-with-reasoning",
+]
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
@@ -262,13 +323,17 @@ appearanceTheme = "dark"
 appearanceLightCodeThemeId = "codex"
 appearanceDarkCodeThemeId = "catppuccin"
 usePointerCursors = false
-dictationDictionary = ["Channing", "Omnear"]
+dictationDictionary = [
+    "Channing",
+    "Omnear",
+]
 git-show-sidebar-pr-icons = true
 show-context-window-usage = true
 appearanceDiffMarkerStyle = "color"
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
 keepRemoteControlAwakeWhilePluggedIn = true
+external-agent-import-sync-enabled = true
 
 [desktop.appearanceLightChromeTheme]
 accent = "#0169cc"
@@ -308,7 +373,14 @@ global = "zed"
 [desktop.open-in-target-preferences.perPath]
 "/Users/channing/dotfiles" = "zed"
 
-[hooks.state]
+[desktop.external-agent-import-sync-item-types]
+SESSIONS = "original"
+AGENTS_MD = "original"
+CONFIG = "original"
+SKILLS = "original"
+PLUGINS = "original"
+MCP_SERVER_CONFIG = "original"
+SUBAGENTS = "original"
 
 [hooks.state."/Users/channing/.codex/hooks.json:session_start:0:0"]
 trusted_hash = "sha256:67562e7fb168876fdd49e3e3198e97744bf698568e6f996948a6208f994f1076"
@@ -388,36 +460,3 @@ trusted_hash = "sha256:ef7acd9b12800cc613ffc22cf906d675c7512dd29cae1f3724f218be0
 
 [hooks.state."/Users/channing/dotfiles/.codex/hooks.json:stop:1:0"]
 trusted_hash = "sha256:071a31ec8697e93a44c6363d1cec91e93945b33824c7a077bba9a2200f0ffdcd"
-
-[projects."/Users/channing/dev/personal/skills"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/personal/advisor"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/TXPLabs/workflow-engine"]
-trust_level = "trusted"
-
-[projects."/Users/channing/dev/personal/treelog-direct"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Desktop"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-09-09/create-an-image-of"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-09-09/create-an-image-of-me"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-09-14/how-x20"]
-trust_level = "trusted"
-
-[projects."/Users/channing/tmp/megawidgets-rerun-copilot"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-09-15/is-x20"]
-trust_level = "trusted"
-
-[projects."/Users/channing/Documents/Codex/2026-09-15/can"]
-trust_level = "trusted"

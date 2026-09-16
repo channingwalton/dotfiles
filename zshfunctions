@@ -76,9 +76,6 @@ function updates {
   _updates_heading Repos
   $HOME/dotfiles/bin/backupRepos.sh
 
-  _updates_heading "TXPLabs repos"
-  GH_CONFIG_DIR="$HOME/.config/gh-txplabs" $HOME/dev/TXPLabs/backup-repos.sh
-
   _updates_heading "Unison --- SKIPPED"
 #  $HOME/dotfiles/bin/backupUnison.sh
 }

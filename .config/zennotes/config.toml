@@ -16,6 +16,8 @@ config_version = 1
 enabled = true  # true | false — CodeMirror Vim bindings
 insert_escape = ""  # key sequence to leave insert mode, e.g. "jk"; empty disables
 yank_to_clipboard = false  # sync the system clipboard with Vim yank/delete/change and p/P paste
+block_ime_in_normal_mode = true  # keep the OS input method (a CJK IME) from composing in normal and visual mode, so hjkl stay motions
+wrapped_line_motions = "display"  # display | logical — how $, I, A and dependent operators treat soft-wrapped lines
 which_key_hints = true  # show the leader-key hint overlay (Vim only)
 which_key_hint_mode = "timed"  # timed | sticky
 which_key_hint_timeout_ms = 900  # how long timed hints stay visible (ms)
@@ -38,6 +40,7 @@ hide_builtin_templates = false  # hide the shipped templates from the pickers
 tabs_enabled = true  # enable tab-based editing
 wrap_tabs = false  # wrap the tab strip instead of scrolling it
 font_size = 16  # editor + preview font size (px)
+math_font_scale = 100  # math size as a percentage (50-200); scales $…$ and $$…$$ in editor and preview
 line_height = 1.7  # line-height multiplier
 tab_size = 4  # tab width in columns, from 1 through 8
 list_indent_guides = true  # vertical guide lines at each nested list level
@@ -48,6 +51,8 @@ editor_max_width = 920  # max width of the editor column (px)
 completed_task_style = "none"  # none | strikethrough | gray | gray-strikethrough — style checked-task text
 math_renderer = "katex"  # katex | typst: typesetter for $…$ / $$…$$ math
 typst_tag_preambles = false  # true | false — prepend Typst definitions from notes in a `typst` folder, chosen by a note's tags
+harper_enabled = false  # true | false: grammar and spelling with Harper, checked on this device
+harper_dialect = "american"  # american | british | australian | canadian | indian
 loose_math_delimiters = false  # render $$…$$ display math even with text before/after the fences
 default_view_mode = "edit"  # edit | split | preview — the mode a note opens in before it has a remembered one
 line_number_mode = "off"  # off | absolute | relative
@@ -55,6 +60,8 @@ line_number_position = "text"  # text | edge
 word_wrap = true  # wrap long lines vs. scroll horizontally
 preview_smooth_scroll = true  # animate half-page scroll in the preview
 pdf_embed_in_edit_mode = "compact"  # compact | full
+external_application_schemes = []  # application links enabled for opening, e.g. ["zotero", "obsidian", "vscode"]
+ignored_keys = []  # keys the app ignores entirely, by DOM key or code, e.g. ["KanaMode"] for the no-op a Kanata/QMK tap-hold layer sends with every keystroke
 
 [appearance]
 pdf_export_use_theme = false  # true | false — export PDFs using the current theme instead of a clean light print theme
@@ -62,6 +69,7 @@ theme_family = "gruvbox"  # apple | gruvbox | catppuccin | github | solarized | 
 theme_mode = "dark"  # light | dark | auto
 theme_id = "dark-hard"  # resolved theme id; normally set automatically from family + mode
 dark_sidebar = true  # tint the sidebar darker than the canvas
+show_window_title_bar = true  # show the main window title bar and window controls
 show_sidebar_chevrons = true  # show disclosure arrows in the sidebar
 content_align = "center"  # center | left
 unified_sidebar = true  # merge the note list into the sidebar tree
@@ -72,6 +80,7 @@ text_font = ""  # editor + preview font; empty = system default
 mono_font = ""  # code / monospace font; empty = system default
 
 [view]
+atlas_enabled = true  # the Atlas map view of the vault (sidebar row, command, Space g); on by default
 workflows_enabled = false  # opt in to the Workflows view, its sidebar row, command, and leader shortcut (off by default)
 asset_sort_order = "name-asc"  # Assets view sort: name | used | type | size | modified, each -asc or -desc
 note_sort_order = "none"  # none | manual | updated-desc | updated-asc | created-desc | created-asc | name-asc | name-desc
@@ -86,13 +95,16 @@ calendar_week_start = "monday"  # monday | sunday | locale
 calendar_show_week_numbers = true  # show ISO week numbers in the calendar
 tasks_view_mode = "kanban"  # list | calendar | kanban
 show_archived_tasks = false  # keep tasks from archived notes in the Tasks views
-kanban_group_by = "status"  # status | priority | folder
+kanban_group_by = "status"  # status | priority | folder (each note's own folder; see kanban_folder_root) | field:<key>
+kanban_folder_root = ""  # folder board: group by the children of this folder, e.g. "Projects" (deeper notes roll up, notes outside it share one column); "" = each note's own folder
 kanban_statuses = ["open", "in_progress", "blocked", "done"]  # custom-status Kanban columns, in order — e.g. ["backlog", "in_progress", "review", "done"]
 hidden_workflow_presets = []  # built-in workflow recipes hidden from the gallery, by id — e.g. ["reading-log"]
 
 # Keymap overrides. Add or uncomment "<action.id>" = "<binding>" lines.
 # Binding syntax: "Mod+P" = Cmd/Ctrl+P, "Shift+Mod+K", "Ctrl+W", "Space",
 # or a two-key sequence like "g g". Uncomment a reference line to remap it.
+# An empty binding ("") removes the key entirely: nothing triggers that
+# action until you give it a key again or delete the line.
 [keymaps]
 
 # --- All actions (defaults shown; uncomment + edit to override) ---
@@ -101,6 +113,7 @@ hidden_workflow_presets = []  # built-in workflow recipes hidden from the galler
 # "global.searchNotesNonVim" = "Mod+F"  # Search notes in non-Vim mode
 # "global.commandPalette" = "Shift+Mod+P"  # Open command palette
 # "global.newQuickNote" = "Shift+Mod+N"  # New quick note
+# "global.newNoteHere" = "Mod+N"  # New note in current folder
 # "global.openSettings" = "Mod+,"  # Open settings
 # "global.openFile" = "Mod+O"  # Open file
 # "global.toggleSidebar" = "Mod+1"  # Toggle sidebar
@@ -126,10 +139,21 @@ hidden_workflow_presets = []  # built-in workflow recipes hidden from the galler
 # "global.historyBack" = "Alt+ArrowLeft"  # Go back in note history
 # "global.historyForward" = "Alt+ArrowRight"  # Go forward in note history
 # "global.toggleRecentNote" = "Ctrl+Tab"  # Switch to previous note
+# "tabs.select1" = "Ctrl+1"  # Go to tab 1
+# "tabs.select2" = "Ctrl+2"  # Go to tab 2
+# "tabs.select3" = "Ctrl+3"  # Go to tab 3
+# "tabs.select4" = "Ctrl+4"  # Go to tab 4
+# "tabs.select5" = "Ctrl+5"  # Go to tab 5
+# "tabs.select6" = "Ctrl+6"  # Go to tab 6
+# "tabs.select7" = "Ctrl+7"  # Go to tab 7
+# "tabs.select8" = "Ctrl+8"  # Go to tab 8
+# "tabs.select9" = "Ctrl+9"  # Go to tab 9
 # Vim
 # "vim.leaderPrefix" = "Space"  # Leader key
 # "vim.leaderOpenBuffers" = "o"  # Leader: open buffers
+# "vim.leaderCloudConflicts" = "r"  # Leader: review Cloud conflicts
 # "vim.leaderWorkflows" = "a"  # Leader: open workflows
+# "vim.leaderAtlas" = "g"  # Leader: open atlas
 # "vim.leaderSearchNotes" = "f"  # Leader: search notes
 # "vim.leaderSearchGroup" = "s"  # Leader: search…
 # "vim.leaderSearchVaultText" = "t"  # Leader search: vault text
@@ -162,10 +186,16 @@ hidden_workflow_presets = []  # built-in workflow recipes hidden from the galler
 # "vim.tabNext" = "g t"  # Next tab
 # "vim.hintMode" = "h"  # Leader: hint mode
 # "vim.goToDefinition" = "g d"  # Follow link at cursor
+# "vim.createNoteFromLink" = "g D"  # Create note for link at cursor
 # "vim.foldCurrent" = "z c"  # Fold heading at cursor
 # "vim.unfoldCurrent" = "z o"  # Unfold heading at cursor
 # "vim.foldAll" = "z M"  # Fold all headings
 # "vim.unfoldAll" = "z R"  # Unfold all headings
+# "vim.harperNext" = "] s"  # Next Harper suggestion
+# "vim.harperPrevious" = "[ s"  # Previous Harper suggestion
+# "vim.harperSuggest" = "z ="  # Harper suggestions at cursor
+# "vim.harperAddWord" = "z g"  # Add word to Harper dictionary
+# "vim.harperIgnore" = "z G"  # Ignore Harper suggestion
 # Navigation
 # "nav.moveDown" = "j"  # Move selection down
 # "nav.moveUp" = "k"  # Move selection up
@@ -188,6 +218,7 @@ hidden_workflow_presets = []  # built-in workflow recipes hidden from the galler
 # "nav.toggleTask" = "x"  # Toggle task
 # "tasks.moveTaskUp" = "K"  # Move task up
 # "tasks.moveTaskDown" = "J"  # Move task down
+# "tasks.savedFilters" = "F"  # Pick a saved Tasks filter
 # "editor.hopMarkerForward" = "Ctrl+."  # Hop past next marker
 # "editor.hopMarkerBackward" = "Ctrl+,"  # Hop before previous marker
 # "editor.foldHeading" = "Alt+Mod+F"  # Fold heading
@@ -195,6 +226,7 @@ hidden_workflow_presets = []  # built-in workflow recipes hidden from the galler
 # "editor.moveLineUp" = "Alt+ArrowUp"  # Move line up
 # "editor.moveLineDown" = "Alt+ArrowDown"  # Move line down
 # "editor.toggleCheckbox" = "Mod+L"  # Toggle checkbox
+# "editor.reflowParagraph" = "Ctrl+Q"  # Reflow paragraph
 # "nav.localEx" = ":"  # Open local ex prompt
 # "nav.newQuickNote" = "n"  # New quick note from Quick Notes view
 # "nav.unarchive" = "u"  # Unarchive selected note
@@ -219,3 +251,9 @@ density = "compact"
 # Text replacements expanded while typing, keyed by trigger.
 # Example: "->" = "→"
 [text_replacements]
+
+# Saved Tasks filters: a name you pick = the filter query it stands for.
+# Recall one from the chips above the task list, the command palette,
+# or `:filter <name>` in the Tasks view; `:savefilter <name>` adds one.
+# Example: "Project alpha" = "@project:alpha"
+[saved_filters]
