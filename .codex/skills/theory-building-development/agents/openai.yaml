@@ -1,0 +1,4 @@
+interface:
+  display_name: "Theory-Building Development"
+  short_description: "Preserve developer understanding during AI coding"
+  default_prompt: "Use $theory-building-development to help me make this change while retaining a theory of the system."

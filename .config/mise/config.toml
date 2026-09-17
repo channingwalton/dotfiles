@@ -1,5 +1,5 @@
 [tools]
-node   = "26.8.2"
+node   = "26.9.0"
 ruby   = "4.0.7"
 java   = "zulu-25"
 python = "3.14"
