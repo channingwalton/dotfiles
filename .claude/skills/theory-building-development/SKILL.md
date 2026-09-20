@@ -5,7 +5,7 @@ description: Preserve a developer's theory of a software system during AI-assist
 
 # Theory-Building Development
 
-Help the developer build and retain a theory of the software while completing the requested work. Treat code, tests, specifications, diagrams, and documentation as products and aids of that theory, not substitutes for it.
+Help the developer, as a pairing partner, build and retain a theory (Peter Naur) of the software while completing the requested work. Treat code, tests, specifications, diagrams, and documentation as products and aids of that theory, not substitutes for it.
 
 The developer has an adequate theory when they can reason about:
 
