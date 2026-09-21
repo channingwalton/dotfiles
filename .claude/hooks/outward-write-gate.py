@@ -65,10 +65,19 @@ def main() -> int:
         if not hit:
             return 0
 
+        # `ask`, not `additionalContext`. Retro 2026-09-20: as an advisory this
+        # gate was INEFFECTIVE for three consecutive windows, and the reason is
+        # structural rather than a wording problem — additionalContext reaches
+        # the model only after the payload has been composed, so it can prompt a
+        # retraction but never prevent the claim. Observed shape every time:
+        # publish, self-audit, patch in place ~60s later, with one false claim
+        # left permanently in an external ticket's edit history. Asking suspends
+        # the call while the text can still be changed.
         print(json.dumps({
             "hookSpecificOutput": {
                 "hookEventName": "PreToolUse",
-                "additionalContext": REMINDER,
+                "permissionDecision": "ask",
+                "permissionDecisionReason": REMINDER,
             }
         }))
     except Exception:

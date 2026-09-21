@@ -115,11 +115,8 @@
 /.config/herdr/*
 !/.config/herdr/config.toml
 
-# Inside .config/opencode/: only opencode.json, plugins/, and skills/
+# Inside .config/opencode/: nothing is tracked
 /.config/opencode/*
-!/.config/opencode/opencode.json
-!/.config/opencode/plugins/
-!/.config/opencode/skills/
 
 # Inside .config/superfile/: only config, not the bundled themes
 /.config/superfile/*

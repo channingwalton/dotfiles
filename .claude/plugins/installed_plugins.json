@@ -172,10 +172,11 @@
       {
         "scope": "local",
         "projectPath": "/Users/channing",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/unknown",
-        "version": "unknown",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/skill-creator/c447c3207a42",
+        "version": "c447c3207a42",
         "installedAt": "2026-04-14T13:04:55.310Z",
-        "lastUpdated": "2026-08-12T09:03:20.134Z"
+        "lastUpdated": "2026-09-20T20:10:46.730Z",
+        "gitCommitSha": "c447c3207a425bc4e2a0d068435f64b0477ae981"
       },
       {
         "scope": "local",

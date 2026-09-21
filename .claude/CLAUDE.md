@@ -15,14 +15,10 @@
   - `devtool test [pattern]` — run tests, optional filter. Use when asked to "run tests" or "run this test".
   - `devtool lint` — lint only.
   - `devtool cpd [directory] [--format <language>] [--sorted]` — find duplicate code using jscpd. Use during code review or when asked to find duplicates. Directory defaults to `.`; all detected formats are scanned unless `--format` restricts to one; `--sorted` lists clones largest first.
-- Prefer LSP over Grep/Read for code navigation
-  - After writing or editing code, check LSP diagnostics and fix errors before proceeding.
-  - Use Grep or rg only when LSP isn't available or for text/pattern searches (comments, strings, config).
-- For any file search or grep in the current git-indexed directory, use fff tools.
+- Search narrow before wide: locate with `rg -l`, a count, or a narrow glob, then read only the slice you need. After editing code, check LSP diagnostics if LSP is available.
 - **ALWAYS** use the `/software-development` skill for software development tasks.
 - **ALWAYS** use the **code-reviewer skill** (`Skill(code-reviewer)`, not an agent type) for code reviews — never do ad-hoc reviews without it
 - When user refers to `vault`, use the vault skill
-- Prefer the narrowest reliable navigation tool: LSP/native tools for definitions, references, and diagnostics; `rg` for literal text. When using raw search, locate first (`rg -l`, counts, narrow globs), then read only the slice needed. Widen only if required.
 - Never dump whole large/generated files or repo-wide content; search for the specific symbol/section.
 - External/MCP data (Jira/JQL, Confluence, Slack, API responses): if you know the scope, narrow at the source (specific IDs, status/date filters, field lists). If you don't, fetch the full payload **once to a file**, then read slices from that file with `jq`/`rg` — re-read the file freely (lossless, no round-trip); never blind-truncate an unsaved response. Only slices you read enter context.
 - Diffs: `git diff --stat` / `--name-only` first, then `git diff -- <file>`.
