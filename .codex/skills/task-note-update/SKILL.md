@@ -38,7 +38,7 @@ Use when the user wants a task-note decision, state change, or open-question res
 
    `Why` is mandatory. Ask if missing.
 
-   **Current State** — overwrite the block. A one- to two-sentence plain-language lead (the headline: what this is and where it stands), then a short bulleted list of the distinct strands, one per bullet with a **bold label** — subjects, active approach, blockers, inherited context. Do not pack every strand into the lead; that dense paragraph is the wall of text being fixed. Update `*Updated: [[YYYY-MM-DD]]*`. Every Current State rewrite also rewrites `## Next Session` (below).
+   **Current State** — overwrite the block. A one- to two-sentence plain-language lead (the headline: what this is and where it stands), then a short bulleted list of the distinct strands, one per bullet with a **bold label** — subjects, active approach, blockers, inherited context. Do not pack every strand into the lead; readers scan the bullets, not a dense paragraph. Update `*Updated: [[YYYY-MM-DD]]*`. Every Current State rewrite also rewrites `## Next Session` (below).
 
    ```
    ## Current State
@@ -96,6 +96,6 @@ Section mechanics:
 
 Claims and status:
 
-- Do not write a causal or factual claim into Decision Log, Current State or a research note unless the check that establishes it has been run. If it rests on inference, write it as an Open Question, or state the evidence and its limit ("from the SP log only") — four unverified claims were written into notes in one fortnight and one is still standing.
+- Do not write a causal or factual claim into Decision Log, Current State or a research note unless the check that establishes it has been run. If it rests on inference, write it as an Open Question, or state the evidence and its limit ("from the SP log only") — a claim in a note is later read as established fact.
 - Frontmatter `status` values are hyphenated: `in-progress` / `done` (never `in progress`).
 - Set `status: done` + `completedDate` only after the branch is **merged** — a PR being open or approved is still `in-progress`. For tasks with no branch (investigations), `done` additionally requires every strand in Current State / Open Questions to be resolved; "no work needed on strand X" is not task-complete. When the user says "close it out", propose `in-progress` with the open strand named — do not offer `done` as a default to rubber-stamp.

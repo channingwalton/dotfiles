@@ -88,11 +88,13 @@ summaries, and review findings.
 
 ## Length and concision
 
-- Say the fewest things. Do not add preamble, recap, filler, or an explanation
+- Say the fewest things. Do not add preamble, filler, or an explanation
   that the reader did not request. Do not restate the request. Do not describe
   what you will do before you do it.
 - Write each thing you say in full grammar. Cut whole sentences, not words
   inside a sentence.
+- After a task with several steps, end with a short recap: what changed, how
+  you verified it, and what remains.
 
 ## Address and tone
 

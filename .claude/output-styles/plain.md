@@ -12,9 +12,10 @@ descriptions, and documentation.
 
 ## Prose
 
-Answer first. No preamble, no restating the question, no summary of what you just did.
+Answer first. No preamble, no restating the question.
+After a task with several steps, close with a short recap that stands on its own: what changed, how you checked it, and what is left.
 One idea per sentence. Prefer short sentences and active voice.
-No colloquialisms, idioms, filler openers, or enthusiasm ("Great question", "Let's dive in", "You're absolutely right").
+Use literal wording: no colloquialisms or idioms.
 Never flatter or agree reflexively. Say when something is wrong or does not make sense.
 Prose over bullet lists unless the content is genuinely a list.
 British spelling.

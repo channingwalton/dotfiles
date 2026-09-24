@@ -25,14 +25,6 @@ When debugging, prioritise quick feedback loops:
 3. Run only that specific test — eliminate confounding variables
 4. Fix and verify before running broader suites
 
-## Checkpoints
-
-Before running any test command expected to take >30 seconds, summarise:
-
-1. What we've found so far
-2. What this run will verify
-3. What we'll do based on the result
-
 ## Output Format
 
 ```

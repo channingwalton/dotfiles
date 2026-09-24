@@ -2,9 +2,9 @@
 
 ## Core Behaviours
 
-- **ALWAYS** use bash `date` when creating timestamps
-- **NEVER** expand the scope of tasks
-- **NEVER** assume that a question is a request to make changes unless it explicitly asks for a change
+- Get timestamps from bash `date`; you don't know the current date or time.
+- Keep changes to what the task asks for. If you notice something else worth doing, mention it at the end instead of doing it.
+- When I ask a question, describe a problem, or think out loud, the deliverable is your answer or assessment. Don't change anything until I ask for a change.
 - Avoid using compound commands like `cd <path> && git ...`
   - Try to use directory options available in the command like `git -C <path>`
   - Alternatively, run the commands sequentially.
