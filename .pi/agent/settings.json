@@ -1,14 +1,14 @@
 {
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.87.0",
   "theme": "dark",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-sol",
   "packages": [
     "npm:pi-web-access",
     "npm:pi-mcp-adapter",
-    "npm:pi-setup-custom-providers",
     "npm:pi-lens",
-    "npm:@ff-labs/pi-fff"
+    "npm:@ff-labs/pi-fff",
+    "npm:pi-blackhole"
   ],
   "defaultThinkingLevel": "high",
   "enabledModels": [

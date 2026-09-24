@@ -22,9 +22,10 @@ set -euo pipefail
 #
 # A local mise config (mise.toml etc.) overrides detection:
 # every command routes to `mise run <task>` (compile, lint,
-# test, and commit-check for check). Otherwise check prefers a
-# commitCheck.sh or justfile commit-check recipe, falling back
-# to project detection.
+# test, and commit-check or check for check). Otherwise check prefers a
+# commitCheck.sh or justfile commit-check/check recipe, falling back
+# to project detection. For mise and just, check is used only when
+# commit-check does not exist.
 # ============================================
 
 # --- Project detection ---
@@ -303,7 +304,11 @@ do_cpd() {
 do_check() {
   # A local mise config wins outright.
   if $HAS_MISE; then
-    run_quiet mise run commit-check
+    if mise tasks info commit-check &>/dev/null; then
+      run_quiet mise run commit-check
+    else
+      run_quiet mise run check
+    fi
     return $?
   fi
 
@@ -313,11 +318,15 @@ do_check() {
     return $?
   fi
 
-  # justfile with a commit-check recipe takes precedence
-  if [[ -f "justfile" || -f "Justfile" ]] && command -v just &>/dev/null \
-    && just --show commit-check &>/dev/null; then
-    run_quiet just commit-check
-    return $?
+  # Prefer commit-check, then check, before project detection.
+  if [[ -f "justfile" || -f "Justfile" ]] && command -v just &>/dev/null; then
+    local recipe
+    for recipe in commit-check check; do
+      if just --show "$recipe" &>/dev/null; then
+        run_quiet just "$recipe"
+        return $?
+      fi
+    done
   fi
 
   # Scala with commitCheck sbt target
@@ -335,7 +344,7 @@ usage() {
   echo "Usage: devtool <command> [args]"
   echo ""
   echo "Commands:"
-  echo "  check            compile + lint + test (prefers just/mise commit-check)"
+  echo "  check            compile + lint + test (prefers just/mise commit-check, then check)"
   echo "  compile          compile only"
   echo "  lint             lint only"
   echo "  test [pattern]   test only, optional filter"

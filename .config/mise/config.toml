@@ -1,7 +1,7 @@
 [tools]
-node   = "26.9.0"
+node   = "26.10.0"
 ruby   = "4.0.7"
-java   = "zulu-25"
+java   = "latest"
 python = "3.14"
 rust = "latest"
 "npm:@earendil-works/pi-coding-agent" = "latest"
@@ -12,3 +12,4 @@ gradle = "latest"
 [settings]
 idiomatic_version_file_enable_tools = ["node", "ruby", "python"]
 disable_tools = ["bundler"]
+minimum_release_age = "0"
