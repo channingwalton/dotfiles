@@ -10,8 +10,8 @@ Router for vault-backed task work. The task note is the canonical entry point.
 ## Resolve
 
 1. Locate the task note under `~/Documents/Notes/Projects/<project>/Tasks/`; if the user names a Jira/GitHub issue, find the matching task note first.
-2. Read the task note in full.
-3. Read linked Jira or GitHub issue if present.
+2. Read the task note in full, then the notes it links to, one hop deep.
+3. Read the linked Jira, GitHub, or Linear ticket yourself rather than asking the user to summarise it.
 4. Read frontmatter and route by `task-type` (a few legacy notes use `task_type`; treat it the same). If missing, treat as `note`.
 5. When resuming work and the note has a `## Next Session` block, take it as the starting instruction. If its date is older than Current State's `*Updated:*`, it is stale — ignore it and say so.
 
@@ -21,7 +21,7 @@ For investigation tasks, stage long ticket/PR descriptions, comment threads, or 
 
 ## Task Note Rules
 
-Do not write unless the user explicitly asks. For `Current State`, `Decision Log`, or `Open Questions`, use `task-note-update`.
+Do not write unless the user explicitly asks. For `Current State`, `Decision Log`, or `Open Questions`, use `task-note-update`. If any of those three sections is missing, offer to add it.
 
 Whatever the section — including hand-written ones like `Design`, `Hypotheses`, or `Context` — write for a reader scanning the note: prefer real markdown lists over dense prose, keep sentences short, give each distinct fact its own bullet, and never use inline `(1)… (2)…` / `(a)… (b)…` pseudo-lists where a real list belongs.
 

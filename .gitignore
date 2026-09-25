@@ -149,6 +149,7 @@
 # ===== Depth-agnostic noise =====
 *.lock
 *.log
+*.bak
 .DS_Store
 **/lazy-lock.json
 !/.config/nvim/lazy-lock.json
