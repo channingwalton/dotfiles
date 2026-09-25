@@ -11,6 +11,7 @@
 - After editing code, check LSP diagnostics if LSP is available.
 - Changes to code or tests go through the `software-development` skill.
 - Expand unusual acronyms on first use, e.g. "Service Level Objective (SLO)". Leave well-known ones like API, URL and LLM as they are.
+- Where Mermaid renders (Obsidian notes, GitHub Markdown, artifacts, pi's terminal), include a Mermaid diagram to visually illustrate complex concepts, workflows, architectures, or multi-step processes whenever visual scaffolding improves clarity.
 
 ## Obsidian Task Notes
 
