@@ -1,0 +1,16 @@
+{
+  "cursors": {
+    "observer": {
+      "entryId": "d9ef4ea4",
+      "state": "empty"
+    },
+    "reflector": {
+      "entryId": "d9ef4ea4",
+      "state": "skipped"
+    },
+    "dropper": {
+      "entryId": "d9ef4ea4",
+      "state": "skipped"
+    }
+  }
+}

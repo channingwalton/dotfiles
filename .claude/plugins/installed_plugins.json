@@ -81,31 +81,31 @@
     "frontend-design@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/frontend-design/ad30d62cd52a",
-        "version": "ad30d62cd52a",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/frontend-design/ca08d5e47d64",
+        "version": "ca08d5e47d64",
         "installedAt": "2026-03-17T20:06:21.471Z",
-        "lastUpdated": "2026-09-24T22:46:51.645Z",
-        "gitCommitSha": "ad30d62cd52ad0d0af1beda1eab7f61c601045d0"
+        "lastUpdated": "2026-09-25T20:34:50.949Z",
+        "gitCommitSha": "ca08d5e47d6402db586d37780c559a0c4c7ded9a"
       }
     ],
     "github@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/github/ad30d62cd52a",
-        "version": "ad30d62cd52a",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/github/ca08d5e47d64",
+        "version": "ca08d5e47d64",
         "installedAt": "2026-03-17T20:06:21.478Z",
-        "lastUpdated": "2026-09-24T22:46:51.649Z",
-        "gitCommitSha": "ad30d62cd52ad0d0af1beda1eab7f61c601045d0"
+        "lastUpdated": "2026-09-25T20:34:50.948Z",
+        "gitCommitSha": "ca08d5e47d6402db586d37780c559a0c4c7ded9a"
       }
     ],
     "commit-commands@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/ad30d62cd52a",
-        "version": "ad30d62cd52a",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/commit-commands/ca08d5e47d64",
+        "version": "ca08d5e47d64",
         "installedAt": "2026-03-17T20:06:21.487Z",
-        "lastUpdated": "2026-09-24T22:46:51.647Z",
-        "gitCommitSha": "ad30d62cd52ad0d0af1beda1eab7f61c601045d0"
+        "lastUpdated": "2026-09-25T20:34:50.948Z",
+        "gitCommitSha": "ca08d5e47d6402db586d37780c559a0c4c7ded9a"
       },
       {
         "scope": "project",
@@ -254,11 +254,11 @@
     "code-review@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/code-review/ad30d62cd52a",
-        "version": "ad30d62cd52a",
+        "installPath": "/Users/channing/.claude/plugins/cache/claude-plugins-official/code-review/ca08d5e47d64",
+        "version": "ca08d5e47d64",
         "installedAt": "2026-07-03T12:00:11.009Z",
-        "lastUpdated": "2026-09-24T22:46:51.646Z",
-        "gitCommitSha": "ad30d62cd52ad0d0af1beda1eab7f61c601045d0"
+        "lastUpdated": "2026-09-25T20:34:50.947Z",
+        "gitCommitSha": "ca08d5e47d6402db586d37780c559a0c4c7ded9a"
       },
       {
         "scope": "project",
