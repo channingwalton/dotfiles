@@ -6,6 +6,23 @@
 vim.keymap.set("n", "dd", '"ddd', { desc = "send latest delete to d register" })
 vim.keymap.set("n", "x", '"_x', { desc = "send char deletes to black hole, not worth saving" })
 
+-- lowercase spellfile entries match any capitalisation except mixed case (PlantUML, UUIDs),
+-- which only matches an exact entry, so mixed-case forms are added as-is too
+local function spellgood_any_case(word)
+  vim.cmd.spellgood(word:lower())
+  if word:sub(2):match("%u") and word:match("%l") then
+    vim.cmd.spellgood(word)
+  end
+end
+
+vim.keymap.set("n", "zg", function()
+  local word = vim.fn.expand("<cword>")
+  spellgood_any_case(word)
+  if not word:match("[sS]$") then
+    spellgood_any_case(word .. "s")
+  end
+end, { desc = "Add word (any case + plural) to spellfile" })
+
 -- DAP keybindings (defined globally so they work without LSP)
 vim.keymap.set("n", "<F9>", function() require("dap").toggle_breakpoint() end, { desc = "Toggle Breakpoint" })
 vim.keymap.set("n", "<F5>", function() require("dap").continue() end, { desc = "Continue" })

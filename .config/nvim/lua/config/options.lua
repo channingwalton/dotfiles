@@ -8,6 +8,7 @@ vim.g.maplocalleader = "\\"
 vim.opt.cursorline = false
 vim.opt.spell = false
 vim.opt.spelllang = { "en_gb" }
+vim.opt.spelloptions = "camel"
 vim.opt.scrolloff = 10
 vim.opt.linebreak = true
 vim.opt.timeoutlen = 300
