@@ -87,10 +87,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export PATH="/opt/homebrew/bin:$PATH"
 
-# Secrets
-export GITHUB_PERSONAL_ACCESS_TOKEN=$(security find-generic-password -w -s github-personal-access-token)
-export HF_TOKEN=$(security find-generic-password -w -s HF_TOKEN)
-
 # Load tools etc
 zmodload -i zsh/complist
 
