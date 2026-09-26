@@ -11,6 +11,10 @@ return {
     words = {
       enabled = true,
     },
+    -- ii/ai belong to vim-indent-object; Snacks' versions would win until it loads
+    scope = {
+      keys = { textobject = { ii = false, ai = false } },
+    },
     image = {
       enabled = true,
     },

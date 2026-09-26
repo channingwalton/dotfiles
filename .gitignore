@@ -131,6 +131,8 @@
 /.config/zed/conversations
 /.config/zed/prompts
 /.config/zed/settings_backup.json
+# Compiled from spell/*.add at nvim startup (see lua/config/options.lua)
+/.config/nvim/spell/*.spl
 
 # --- .hermes/: only curated config ---
 /.hermes/*

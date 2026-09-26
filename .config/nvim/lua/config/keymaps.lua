@@ -2,26 +2,62 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
--- remap delete
-vim.keymap.set("n", "dd", '"ddd', { desc = "send latest delete to d register" })
-vim.keymap.set("n", "x", '"_x', { desc = "send char deletes to black hole, not worth saving" })
+-- remap delete, unless a register is named ("add, "ax). With no register named, v:register
+-- is the clipboard register for typed keys but '"' under :normal (:g/pat/normal dd).
+local function register_named()
+  local clipboard = vim.o.clipboard
+  local default = clipboard:find("unnamedplus") and "+" or clipboard:find("unnamed") and "*" or '"'
+  return vim.v.register ~= '"' and vim.v.register ~= default
+end
+vim.keymap.set("n", "dd", function()
+  return register_named() and "dd" or '"ddd'
+end, { expr = true, desc = "send latest delete to d register" })
+vim.keymap.set("n", "x", function()
+  return register_named() and "x" or '"_x'
+end, { expr = true, desc = "send char deletes to black hole, not worth saving" })
 
--- lowercase spellfile entries match any capitalisation except mixed case (PlantUML, UUIDs),
--- which only matches an exact entry, so mixed-case forms are added as-is too
-local function spellgood_any_case(word)
-  vim.cmd.spellgood(word:lower())
-  if word:sub(2):match("%u") and word:match("%l") then
-    vim.cmd.spellgood(word)
+-- zg adds the word and its plural. Lowercase spellfile entries match any capitalisation
+-- except mixed case (PlantUML, UUIDs), which only matches an exact entry, so mixed-case
+-- forms are added as-is too. zug removes every form zg added.
+local function plural(word)
+  local lower = vim.fn.tolower(word)
+  if lower:match("s$") then
+    return nil
+  elseif vim.fn.toupper(word) == word then
+    return word .. "s" -- acronyms: APIs, UUIDs
+  elseif lower:match("[xz]$") or lower:match("[cs]h$") then
+    return word .. "es"
+  elseif lower:match("[^aeiou]y$") then
+    return word:sub(1, -2) .. "ies"
   end
+  return word .. "s"
 end
 
-vim.keymap.set("n", "zg", function()
-  local word = vim.fn.expand("<cword>")
-  spellgood_any_case(word)
-  if not word:match("[sS]$") then
-    spellgood_any_case(word .. "s")
+local function spell_entries(word)
+  local entries = {}
+  for _, form in ipairs({ word, plural(word) }) do
+    table.insert(entries, vim.fn.tolower(form))
+    local rest = vim.fn.strcharpart(form, 1)
+    if vim.fn.tolower(rest) ~= rest and vim.fn.toupper(form) ~= form then
+      table.insert(entries, form)
+    end
   end
-end, { desc = "Add word (any case + plural) to spellfile" })
+  return entries
+end
+
+local function map_spell(lhs, command, desc)
+  vim.keymap.set("n", lhs, function()
+    local word = vim.fn.expand("<cword>")
+    if word == "" then
+      return
+    end
+    for _, entry in ipairs(spell_entries(word)) do
+      vim.cmd[command](entry)
+    end
+  end, { desc = desc })
+end
+map_spell("zg", "spellgood", "Add word (any case + plural) to spellfile")
+map_spell("zug", "spellundo", "Remove word (any case + plural) from spellfile")
 
 -- DAP keybindings (defined globally so they work without LSP)
 vim.keymap.set("n", "<F9>", function() require("dap").toggle_breakpoint() end, { desc = "Toggle Breakpoint" })

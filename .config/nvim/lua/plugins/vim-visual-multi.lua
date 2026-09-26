@@ -4,6 +4,5 @@ return {
     { "<C-n>", mode = { "n", "x" } },
     { "<C-Up>", mode = "n" },
     { "<C-Down>", mode = "n" },
-    { "<leader><leader>", mode = "n" },
   },
 }

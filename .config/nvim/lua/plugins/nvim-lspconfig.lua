@@ -6,8 +6,17 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = false },
+      -- diagnostics on lines below the code (built in since 0.11, replacing lsp_lines)
+      diagnostics = { virtual_text = false, virtual_lines = true },
     },
     keys = {
+      {
+        "<leader>cL",
+        function()
+          vim.diagnostic.config({ virtual_lines = not vim.diagnostic.config().virtual_lines })
+        end,
+        desc = "Toggle diagnostic lines",
+      },
       -- LSP commands (gd/gr/gI/<leader>sd are handled by LazyVim snacks_picker defaults)
       { "<leader>ml", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "Codelens run" },
       { "<leader>mo", "<cmd>Outline<CR>", desc = "Outline" },
@@ -79,25 +88,5 @@ return {
       { "<leader>mO", "<cmd>Lspsaga outgoing_calls<CR>", desc = "Outgoing calls" },
       { "<leader>mn", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc = "Diagnostic Next" },
     },
-  },
-
-  -- Enhanced LSP diagnostics display
-  {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-    event = "LspAttach",
-    keys = {
-      {
-        "<leader>cL",
-        function()
-          require("lsp_lines").toggle()
-        end,
-        desc = "Toggle lsp_lines",
-      },
-    },
-    config = function()
-      require("lsp_lines").setup()
-      -- Disable virtual_text since it's redundant due to lsp_lines
-      vim.diagnostic.config({ virtual_text = false })
-    end,
   },
 }

@@ -13,23 +13,14 @@ return {
         return not inherited[type(key) == "string" and key or key[1]]
       end, keys)
     end,
-    opts = function()
-      local metals_config = require("metals").bare_config()
-
-      metals_config.init_options.statusBarProvider = "off"
-
-      metals_config.settings = {
+    -- Extend the extra's config (implicit/inferred-type display, excluded packages,
+    -- test explorer, status bar off) rather than replacing it
+    opts = function(_, metals_config)
+      metals_config.settings = vim.tbl_deep_extend("force", metals_config.settings or {}, {
         defaultBspToBuildTool = false,
         mcpClient = "claude",
-        showImplicitArguments = true,
-        showInferredType = true,
         startMcpServer = true,
-        superMethodLensesEnabled = true,
         useGlobalExecutable = true, -- use the globally installed metals: cs install metals
-        verboseCompilation = true,
-        showImplicitConversionsAndClasses = true,
-        testUserInterface = "Test Explorer",
-        excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
         inlayHints = {
           byNameParameters = { enable = true },
           hintsInPatternMatch = { enable = true },
@@ -49,7 +40,7 @@ return {
           "-XX:+UseZGC",
           "-Xmx2G",
         },
-      }
+      })
 
       metals_config.on_attach = function(_client, bufnr)
         require("metals").setup_dap()
@@ -117,7 +108,6 @@ return {
         map("<leader>mN", metals.new_scala_file, "New Scala File")
         map("<leader>mW", metals.quick_worksheet, "Quick Worksheet")
         map("<leader>mh", metals.hover_worksheet, "Hover Worksheet")
-        map("K", metals.hover_worksheet, "Hover Worksheet")
       end
 
       return metals_config
