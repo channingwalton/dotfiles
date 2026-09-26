@@ -48,6 +48,10 @@
 !/.claude/plugins/config.json
 !/.claude/plugins/installed_plugins.json
 
+# Inside .claude/skills/: claude.ai skill sync writes Anthropic-licensed
+# skills here; not ours to publish
+/.claude/skills/synced/
+
 # --- .codex/: allow durable config and user-managed content only ---
 /.codex/*
 !/.codex/AGENTS.md
