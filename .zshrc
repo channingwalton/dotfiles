@@ -1,3 +1,7 @@
+# Keep only the first copy of each PATH entry; several files below prepend the same dirs.
+# Both names: -U on the path array alone ignores assignments to the PATH string.
+typeset -U PATH path
+
 # added to make git signing with GPG work. See https://github.com/Homebrew/homebrew-core/issues/14737
 export GPG_TTY=$(tty)
 
@@ -104,7 +108,8 @@ export UNISON_PAGER=cat
 export GOBIN=~/dev/gobin
 export PATH="$GOBIN:$PATH"
 
-# Interactive zsh only; `zsh -lc` reads .zprofile instead.
+# Interactive zsh only; `zsh -lc` reads .zprofile instead. This runs after the PATH
+# edits above, so mise's tools stay ahead of them.
 command -v mise >/dev/null && eval "$(mise activate zsh)"
 
 

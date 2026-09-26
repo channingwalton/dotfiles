@@ -1,3 +1,6 @@
+# Keep only the first copy of each PATH entry (.zshrc prepends some of these again).
+# Both names: -U on the path array alone ignores assignments to the PATH string.
+typeset -U PATH path
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -19,5 +22,8 @@ export PATH="/Users/channing/.local/bin:$PATH"
 # Activate mise for login shells, so `zsh -lc` gets the locked toolchain rather
 # than system Ruby 2.6. This must live here, not in ~/.zshenv: /etc/zprofile runs
 # path_helper *after* ~/.zshenv and would push mise behind /usr/bin.
-# ~/.zshrc keeps its own activate, for non-login interactive shells.
-command -v mise >/dev/null && eval "$(mise activate zsh)"
+# Interactive shells skip it: ~/.zshrc activates mise after its own PATH edits, and
+# activating twice cost a second mise run and left stale mise entries on PATH.
+if [[ ! -o interactive ]] && command -v mise >/dev/null; then
+  eval "$(mise activate zsh)"
+fi
