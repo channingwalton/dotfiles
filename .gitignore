@@ -17,6 +17,7 @@
 !/LICENSE
 !/README.md
 !/bin/
+!/commitCheck.sh
 !/git-hooks/
 !/keychron/
 !/misc/

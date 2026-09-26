@@ -19,11 +19,6 @@ esac
 RUNNER
 chmod +x "$TMP_DIR/bin/npm"
 
-# devtool exits early when mise is not on PATH, so the no-node case needs
-# one; the fixture has no mise config, so it is never run.
-printf '#!/bin/sh\nexit 99\n' > "$TMP_DIR/bin/mise"
-chmod +x "$TMP_DIR/bin/mise"
-
 failures=0
 cases=0
 # run_case <name> <command> <package.json scripts> <lint-status> <expected-status> <expected-calls> [path]

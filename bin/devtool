@@ -43,6 +43,8 @@ RUBY_TEST="rake"
 # A local mise config short-circuits every command to `mise run <task>`,
 # overriding project detection. Only local files count (not the global
 # or parent-merged config), so this fires solely in mise-managed repos.
+# The global config is excluded even when reached through a local path,
+# as in ~ or a dotfiles repo that ~/.config links into.
 MISE_CONFIGS=(
   mise.toml mise.local.toml
   .mise.toml .mise.local.toml
@@ -50,11 +52,17 @@ MISE_CONFIGS=(
   mise/config.toml .mise/config.toml
 )
 
+mise_global_config() {
+  local dir=${MISE_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/mise}
+  realpath "${MISE_GLOBAL_CONFIG_FILE:-$dir/config.toml}" 2>/dev/null || true
+}
+
 detect_mise() {
-  command -v mise &>/dev/null || return
-  local f
+  command -v mise &>/dev/null || return 0
+  local f global
+  global=$(mise_global_config)
   for f in "${MISE_CONFIGS[@]}"; do
-    if [[ -f "$f" ]]; then HAS_MISE=true; return; fi
+    if [[ -f "$f" && $(realpath "$f") != "$global" ]]; then HAS_MISE=true; return; fi
   done
 }
 
