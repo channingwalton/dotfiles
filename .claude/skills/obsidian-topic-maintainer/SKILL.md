@@ -20,7 +20,7 @@ A helper script lives at `scripts/topic_tools.py` (run it with `python3 <skill-d
 - **Direction of links is one-way: tasks -> topics.** Task/Event notes carry a bare-wikilink backlink line (e.g. `[[Importers]] [[Leave Entitlements]]`) immediately under their H1. Topics never list their tasks.
 - **Definitions vs hubs**: short "what is X" definition notes and longer "what we did / how it works" hubs both live in `Topics/` — there is no separate glossary folder (see the `vault` skill for the definition-note shape). Don't create a second note for a concept that already has one - merge instead.
 - **Aliases**: give abbreviations and singular/plural variants an `aliases:` entry so existing links keep resolving (e.g. hub `kmono Architecture` with alias `kmono`; hub `Job Plans` with alias `Job Plan`). Keep note **basenames unique** across the project - duplicate basenames force Obsidian to write fragile full-path links.
-- **Links resolve by basename, vault-wide.** Moving a note between folders (Topics -> a domain folder) does not break `[[wikilinks]]`, so graduation needs no stub or redirect. Never leave a same-named copy behind - duplicate basenames make links ambiguous.
+- **Check links when moving notes.** Bare wikilinks to a unique basename can survive a move; path-qualified links and source-relative links may need rewriting. Check incoming links across the vault and outgoing links in the moved note. Keep one canonical file, without a same-named stub or copy.
 - British spelling. Generate any timestamp with the shell `date` command, never a guess.
 - **Task frontmatter** shape (match the project's existing tasks):
   ```
@@ -100,20 +100,20 @@ One line per suspect: fired signals (definition-style stub, links resolving outs
 
 **To graduate an approved Topic:**
 - Distil it into an atomic, concept-oriented note in your own words (drop project-specific incidental detail, or split it out — keep the project-specific part as a project Topic that links the new general note).
-- Move it to the domain folder (`git mv` if the vault is a git repo, to preserve history). Basename unchanged, so every existing `[[link]]` keeps resolving — leave **no** stub behind.
+- Move it to the domain folder (`git mv` if the vault is a git repo). Preserve its basename, update affected path-qualified incoming links and source-relative outgoing links, and leave no stub behind.
 - Re-point the parent link from `[[Topics]]`/`[[<Project>]]` to `[[<Domain>]]`, drop the `project:` frontmatter binding, and add a `Used in [[<Project>]]` line so the project relationship stays explicit.
 - Ensure the note links `[[<Domain>]]`; a Dataview-backed MOC then surfaces it automatically. If the domain hub is a hand-maintained list, add the note to it.
-- Verify with `linkcheck` (step 7) that nothing broke.
+- Verify file targets with `linkcheck` (step 8) and inspect any ambiguous or heading/block links affected by the move.
 
 ### 7. Hygiene
 - **Duplicate names / alias collisions**: if a concept exists twice (or a definition + a hub), merge into one note, fold the alias on so links resolve, and delete the duplicate. After removing duplicates, collapse any `[[Projects/.../full/path]]` links Obsidian created for disambiguation back to bare `[[Name]]`.
-- **Dated retrospectives**: a dated, completed write-up (a retro, a posted Slack analysis) belongs in `Tasks/`, not `Topics/`. Convert it - add task frontmatter (`completedDate` = its date, `tags: task`), move it to `Tasks/`, and **extract its durable lessons** into the relevant evergreen hubs, leaving the dated note as an archived task. Links resolve by basename, so moving folders doesn't break them.
+- **Dated retrospectives**: a dated, completed write-up (a retro, a posted Slack analysis) belongs in `Tasks/`, not `Topics/`. Convert it - add task frontmatter (`completedDate` = its date, `tags: task`), move it to `Tasks/`, and **extract its durable lessons** into the relevant evergreen hubs, leaving the dated note as an archived task. Check affected links using the same move procedure as graduation.
 
 ### 8. Verify
 ```
-python3 scripts/topic_tools.py linkcheck --project "<PROJECT_DIR>"
+python3 scripts/topic_tools.py linkcheck --project "<PROJECT_DIR>" --vault "<VAULT_DIR>"
 ```
-Confirms no links were broken. Daily-notes (`2026-05-22`), `@people` and attachments live elsewhere in the vault and will always appear here - ignore those; look only for newly-unresolved Topic/Task names. `\|` table-escape artifacts are already filtered out. After a graduation, also confirm the moved note's old and new references still resolve.
+Checks wikilink file targets in the project against files across the vault, retaining target directories. Compare with a pre-edit baseline to identify newly unresolved links. Without `--vault`, resolution is project-only. After a move, use the vault root for both arguments so the check includes cross-project incoming links and the moved note's outgoing links. This is a file-existence check: it does not prove ambiguous basenames resolve to the intended note or validate heading/block anchors; inspect those affected links separately.
 
 Then **update `Topics/_topic-maintenance-log.md`**: append a dated entry (shell `date`) with the final coverage counts, the topics/backlinks touched this pass, **any promotions (Topic -> domain folder) and graduation candidates flagged-but-deferred**, and any notes added to the skip-list. This is the state the next run reads first — keep it short and append-only.
 

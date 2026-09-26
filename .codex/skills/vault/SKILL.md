@@ -11,9 +11,9 @@ Location: `~/Documents/Notes/` (vault name: `Notes`)
 
 1. Treat the vault as Markdown files under `~/Documents/Notes`; do not use the `obsidian` CLI.
 2. Use WikiLinks for semantic note links, especially dates: `[[YYYY-MM-DD]]`.
-3. Use `date` for all timestamps; never hardcode placeholders.
-4. New task notes start with `status: open`.
-5. Read before writing, preserve existing structure, and avoid whole-file rewrites unless unavoidable.
+3. New task notes start with `status: open`.
+4. Read before writing, preserve existing structure, and avoid whole-file rewrites unless unavoidable.
+5. In prose, escape `<` as `\<` so Obsidian doesn't parse it as HTML. Leave code spans and fenced blocks as they are; a backslash there renders literally.
 
 ## Core Paths
 
@@ -50,6 +50,8 @@ Use normal Unix tools (`rg`, `find`, `sed`, `awk`, `perl`, `stat`, `mkdir`, `cp`
 ## Linking
 
 Link if it improves navigation, not just because a term matches.
+
+Link people by full name: `[[@Firstname Surname]]`.
 
 Use aliased WikiLinks for ticket references:
 

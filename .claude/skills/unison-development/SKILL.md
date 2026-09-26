@@ -11,7 +11,7 @@ Extends `software-development`. Use the Unison MCP tools for every operation whe
 
 Unison stores code in the UCM codebase, not in files or Git. Two consequences drive everything else:
 
-- The CLI and `scratch.u` files are not the source of truth, so editing or running code outside the MCP tools desyncs your work from the codebase. Drive everything through the MCP tools directly — the one exception is branch creation.
+- The CLI and `scratch.u` files are not the source of truth, so editing or running code outside the MCP tools desyncs your work from the codebase. Drive everything through the MCP tools directly, including branch creation.
 - Git never holds Unison code. A git commit won't capture your changes and `commit-commands` don't apply, so don't reach for them.
 
 Work in a branch, and use fully qualified names when writing code so references resolve unambiguously.

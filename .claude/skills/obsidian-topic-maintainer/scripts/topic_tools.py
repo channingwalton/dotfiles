@@ -3,15 +3,14 @@
 Topic-maintenance helpers for an Obsidian project that has Topics/ and Tasks/
 (and usually Events/) sub-folders.
 
-Philosophy: PROPOSE then APPLY. Read commands (clusters, audit, linkcheck) only
-print findings. The one write command (backlink) is dry-run by default and needs
+Read commands (clusters, audit, linkcheck) only print findings. The one write command (backlink) is dry-run by default and needs
 --apply to touch files.
 
 Usage:
   python3 topic_tools.py clusters  --project DIR [--keywords map.json] [--min 4]
   python3 topic_tools.py backlink  --project DIR --map "Topic=regex" [...] [--exclude file] [--apply]
   python3 topic_tools.py audit     --project DIR
-  python3 topic_tools.py linkcheck --project DIR
+  python3 topic_tools.py linkcheck --project DIR [--vault VAULT_DIR]
   python3 topic_tools.py crosscut  --project DIR [--max-words 40]
 
 DIR is a project folder, e.g. ~/Documents/Notes/Projects/TXPLabs
@@ -301,26 +300,46 @@ def cmd_crosscut(args):
 # ---------------------------------------------------------------- linkcheck
 def cmd_linkcheck(args):
     proj, _, _, _ = dirs(args)
-    files = glob.glob(os.path.join(proj, '**', '*.md'), recursive=True)
-    names = {base(f).lower() for f in files}
-    alias = set()
-    for f in files:
-        for a in frontmatter_aliases(read(f)):
-            alias.add(a.lower())
-    resolvable = names | alias
+    proj = os.path.abspath(proj)
+    root = os.path.abspath(os.path.expanduser(args.vault)) if args.vault else proj
+    for directory in (proj, root):
+        if not os.path.isdir(directory):
+            raise SystemExit(f"not a directory: {directory}")
+
+    # Index whole paths and their suffixes: [[Topics/Name]] retains its directory.
+    paths, targets = set(), set()
+    for f in glob.glob(os.path.join(root, '**', '*'), recursive=True):
+        if not os.path.isfile(f):
+            continue
+        paths.add(os.path.normpath(f).lower())
+        relative = os.path.relpath(f, root).replace(os.sep, '/').lower()
+        variants = [relative]
+        if relative.endswith('.md'):
+            variants.append(relative[:-3])
+            targets.update(a.lower() for a in frontmatter_aliases(read(f)))
+        for variant in variants:
+            parts = variant.split('/')
+            targets.update('/'.join(parts[i:]) for i in range(len(parts)))
+
     broken = Counter()
-    for f in files:
+    for f in md_files(proj):
         for raw in LINK.findall(read(f)):
-            if '\\' in raw.split('|')[0]:
+            target = raw.replace(r'\|', '|').split('|')[0].split('#')[0].strip().lower()
+            if not target:
                 continue
-            t = raw.split('|')[0].split('#')[0].split('/')[-1].strip().lower()
-            if t and t not in resolvable:
-                broken[t] += 1
-    print(f"Unresolved link targets within {proj}")
-    print("(daily-notes, @people and attachments live elsewhere in the vault — "
-          "expected to show here):")
-    for t, c in broken.most_common():
-        print(f"  {c:4}  {t}")
+            # Source-relative paths must resolve from the containing note.
+            relative = target.startswith(('./', '../'))
+            if not relative and target in targets:
+                continue
+            candidate = os.path.normpath(os.path.join(os.path.dirname(f), target)).lower()
+            if candidate not in paths and candidate + '.md' not in paths:
+                broken[target] += 1
+    print(f"File targets from {proj}, resolved against {root}")
+    if not args.vault:
+        print("Project-only resolution; pass --vault to include external targets.")
+    print(f"{len(broken)} unresolved file target(s)")
+    for target, count in broken.most_common():
+        print(f"  {count:4}  {target}")
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__,
@@ -334,6 +353,8 @@ def main():
         if name == 'backlink':
             s.add_argument('--map', action='append', default=[], required=True)
             s.add_argument('--exclude'); s.add_argument('--apply', action='store_true')
+        if name == 'linkcheck':
+            s.add_argument('--vault', help='Vault root for file-target resolution; defaults to project')
         if name == 'crosscut':
             s.add_argument('--max-words', type=int, default=40)
     args = ap.parse_args()
