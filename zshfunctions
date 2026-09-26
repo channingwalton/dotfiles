@@ -218,8 +218,8 @@ function repo() {
 }
 
 function wtf() {
-  export WTF_GITHUB_TOKEN=$(security find-generic-password -s "wtfutil-github" -w)
-  wtfutil
+  # Token for wtfutil (and the commands it runs) only, not left in this shell
+  WTF_GITHUB_TOKEN=$(security find-generic-password -s "wtfutil-github" -w) wtfutil "$@"
 }
 
 function siri() {
