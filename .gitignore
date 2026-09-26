@@ -54,9 +54,10 @@
 /.claude/skills/synced/
 
 # --- .codex/: allow durable config and user-managed content only ---
+# config.toml is not tracked: Codex rewrites it with marketplace stamps,
+# per-directory trust and app state, which outweigh the settings in it
 /.codex/*
 !/.codex/AGENTS.md
-!/.codex/config.toml
 !/.codex/hooks.json
 !/.codex/rules/
 !/.codex/skills/

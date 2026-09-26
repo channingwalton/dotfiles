@@ -9,6 +9,9 @@
 ^\.pi\.backup-
 ^\.config/zed/settings_backup\.json$
 
+# Deliberately untracked: mostly tool-written state (see .gitignore)
+^\.codex/config\.toml$
+
 # Tool-managed trees, not user-authored config
 ^\.hermes/(skills|plugins|node)/
 ^\.hermes/context_length_cache\.yaml$
