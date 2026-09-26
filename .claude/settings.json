@@ -258,9 +258,7 @@
     "command": "bash '/Users/channing/.claude/statusline-command.sh'"
   },
   "enabledPlugins": {
-    "caveman@caveman": false,
     "chrome-devtools-mcp@claude-plugins-official": false,
-    "claude-md-management@claude-plugins-official": true,
     "code-review@claude-plugins-official": false,
     "codex@openai-codex": true,
     "commit-commands@claude-plugins-official": true,
@@ -271,25 +269,14 @@
     "rust-analyzer-lsp@claude-plugins-official": true,
     "swift-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
-    "understand-anything@understand-anything": false
+    "engineering@synced": false,
+    "productivity@synced": false
   },
   "extraKnownMarketplaces": {
-    "caveman": {
-      "source": {
-        "source": "github",
-        "repo": "JuliusBrussee/caveman"
-      }
-    },
     "openai-codex": {
       "source": {
         "source": "github",
         "repo": "openai/codex-plugin-cc"
-      }
-    },
-    "understand-anything": {
-      "source": {
-        "source": "github",
-        "repo": "Lum1104/Understand-Anything"
       }
     }
   },
