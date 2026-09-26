@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# Pre-commit hook: scan staged changes for secrets using gitleaks
+# Pre-commit hook: scan staged changes for secrets using gitleaks, then audit
+# the .gitignore allowlist. The repo is public, so a missing scanner blocks
+# the commit rather than skipping the scan.
 
 if ! command -v gitleaks &>/dev/null; then
-  echo "gitleaks not installed — skipping secret scan"
-  exit 0
+  echo "gitleaks not found on PATH — refusing to commit without a secret scan (brew install gitleaks)" >&2
+  exit 1
 fi
 
 gitleaks protect --staged --verbose || exit 1

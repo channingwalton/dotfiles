@@ -13,3 +13,10 @@ After cloning this repository, initialise submodules:
 ```bash
 git submodule update --init --recursive
 ```
+
+Enable the pre-commit hook (gitleaks secret scan and `.gitignore` audit). Git does not enable a repository's hooks on clone, and the hook needs `gitleaks` on `PATH`:
+
+```bash
+git config core.hooksPath git-hooks
+brew install gitleaks
+```
