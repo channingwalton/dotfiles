@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """PreToolUse gate: outward writes must carry checked claims.
 
-Fires only when a write is about to leave the machine — a Jira issue or comment,
-a GitHub PR/issue comment, a Slack message. Injects a short reminder as
-additionalContext. Never blocks; any internal error exits 0 silently.
+Fires only when a write is about to leave the machine — a Jira, Confluence or
+Linear issue, comment or document, a GitHub PR/issue/release text, a Slack
+message. Asks for confirmation with a short checklist; any internal error exits
+0 silently. settings.json routes every MCP tool here, so the tool-name suffix
+alone decides, whichever server exposes it.
 
 Targets failure class: assert-before-check/unverified-claim-into-outward-artefact
 Retro 2026-08-09. Replaces the task-note-update-scoped rule, which could not fire
@@ -15,18 +17,33 @@ import re
 import sys
 
 MCP_WRITE = re.compile(
-    r"(addCommentToJiraIssue|editJiraIssue|createJiraIssue|updateConfluencePage"
-    r"|createConfluencePage|createConfluenceFooterComment|createConfluenceInlineComment"
-    r"|slack_send_message|slack_send_message_draft|slack_update_canvas|slack_create_canvas)$"
+    r"(addCommentToJiraIssue|editJiraIssue|createJiraIssue|addWorklogToJiraIssue"
+    r"|updateConfluencePage|createConfluencePage|createConfluenceFooterComment"
+    r"|createConfluenceInlineComment"
+    r"|slack_send_message|slack_send_message_draft|slack_schedule_message"
+    r"|slack_update_canvas|slack_create_canvas"
+    r"|save_comment|save_issue|save_document|save_status_update|save_release_note"
+    r"|save_diff_comment|submit_diff_review)$"
 )
 
-# `gh` must sit in command position — start of string, or after a shell
-# operator/newline. Without this anchor the pattern also matches its own
-# description quoted inside a heredoc, which it did on first use.
-BASH_WRITE = re.compile(
-    r"(?:\A|[\n;|&]|\$\(|\bxargs\s+)\s*gh\s+"
+# `gh` must sit in command position — start of string, after a shell
+# operator, newline or subshell opener, optionally behind a wrapper
+# (timeout, env, VAR=value …). Without this anchor the pattern also matches
+# its own description quoted inside a heredoc, which it did on first use.
+COMMAND_START = r"(?:\A|[\n;|&({]|\$\(|\bxargs\s+)\s*"
+WRAPPERS = r"(?:(?:timeout\s+\S+|env|command|nice|nohup|time)\s+|[A-Za-z_]\w*=\S*\s+)*"
+GH_REPO_FLAG = r"(?:(?:-R|--repo)(?:\s+|=)\S+\s+)*"
+GH_WRITE = (
     r"(?:(?:pr|issue)\s+(?:comment|create|edit|review)\b"
-    r"|api\b[^\n]*\b(?:comments|issues|pulls)\b)"
+    # close/merge/reopen only write prose when given a comment or body
+    r"|(?:pr|issue)\s+(?:close|merge|reopen)\b[^\n;|&]*\s(?:-c|--comment|-b|--body|-F|--body-file)\b"
+    r"|release\s+(?:create|edit)\b"
+    r"|api\b[^\n]*\b(?:comments|issues|pulls)\b"
+    r"|api\s+graphql\b[^\n]*\bmutation\b)"
+)
+SLACK_API = r"curl\b[^\n]*(?:hooks\.slack\.com/|slack\.com/api/(?:chat|files|canvases)\.)"
+BASH_WRITE = re.compile(
+    COMMAND_START + WRAPPERS + r"(?:gh\s+" + GH_REPO_FLAG + GH_WRITE + r"|" + SLACK_API + r")"
 )
 
 REMINDER = (

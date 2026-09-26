@@ -149,11 +149,6 @@
             "type": "command",
             "command": "python3 '/Users/channing/.claude/hooks/git-cwd-gate.py'",
             "timeout": 10
-          },
-          {
-            "type": "command",
-            "command": "python3 '/Users/channing/.claude/hooks/review-coverage-gate.py'",
-            "timeout": 10
           }
         ]
       },
@@ -168,7 +163,7 @@
         ]
       },
       {
-        "matcher": "Bash|mcp__claude_ai_Atlassian_Rovo__.*|mcp__claude_ai_Slack__.*",
+        "matcher": "Bash|mcp__.*",
         "hooks": [
           {
             "type": "command",
