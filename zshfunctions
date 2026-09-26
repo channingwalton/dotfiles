@@ -7,7 +7,9 @@ function del() {
     if [[ ! -e "$item" ]]; then
       echo "del: $item: No such file or directory"
     else
-      osascript -e "tell application \"Finder\" to delete POSIX file \"$(realpath "$item")\"" > /dev/null
+      # Pass the path as an argument: interpolating it breaks on names containing "
+      osascript -e 'on run argv' -e 'set doomed to (POSIX file (item 1 of argv)) as alias' \
+        -e 'tell application "Finder" to delete doomed' -e 'end run' "$(realpath "$item")" > /dev/null
     fi
   done
 }
@@ -46,38 +48,52 @@ function _updates_heading {
   fi
 }
 
+# Run one updates step; a failure is recorded rather than stopping the run, so the
+# later steps still happen and updates reports every failure at the end
+function _updates_try {
+  "$@" || _updates_failed+=("$*")
+}
+
 function updates {
+  local -a _updates_failed
+
   _updates_heading OMZ
-  omz update
+  _updates_try omz update
 
   _updates_heading Brew
-  brew update
-  brew upgrade
-  brew upgrade --cask
-  brew cleanup
-  brew autoremove
+  _updates_try brew update
+  _updates_try brew upgrade
+  _updates_try brew upgrade --cask
+  _updates_try brew cleanup
+  _updates_try brew autoremove
 
   _updates_heading mise
-  mise upgrade --bump
+  _updates_try mise upgrade --bump
 
   _updates_heading Coursier
-  coursier update
+  _updates_try coursier update
 
   _updates_heading leaf
-  leaf --update
+  _updates_try leaf --update
 
 # Updates with: cargo install cargo-update
   _updates_heading Cargo
-  cargo install-update -a
+  _updates_try cargo install-update -a
 
   _updates_heading Skills
-  npx skills update -g
+  _updates_try npx skills update -g
 
   _updates_heading Repos
-  $HOME/dotfiles/bin/backupRepos.sh
+  _updates_try $HOME/dotfiles/bin/backupRepos.sh
 
   _updates_heading "Unison --- SKIPPED"
-#  $HOME/dotfiles/bin/backupUnison.sh
+#  _updates_try $HOME/dotfiles/bin/backupUnison.sh
+
+  if (( ${#_updates_failed} )); then
+    print -u2 -- "\nupdates: ${#_updates_failed} step(s) failed:"
+    print -u2 -l -- "  "${^_updates_failed}
+    return 1
+  fi
 }
 
 function jdk() {

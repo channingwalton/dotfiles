@@ -9,8 +9,9 @@ GREY='\033[0;90m'
 BOLD='\033[1m'
 NC='\033[0m'
 
-this_week=$(date +%Y-W%V)
-last_week=$(date -v-7d +%Y-W%V)
+# %G is the ISO week-numbering year that %V belongs to (%Y breaks around New Year)
+this_week=$(date +%G-W%V)
+last_week=$(date -v-7d +%G-W%V)
 
 strip_markdown() {
   sed '

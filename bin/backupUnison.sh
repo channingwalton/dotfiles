@@ -33,7 +33,9 @@ fi
 
 echo "Found $(echo "$projects" | wc -l | tr -d ' ') projects"
 
-# Iterate through each project
+# Iterate through each project, recording failures so one bad project does not
+# hide behind a "complete" message
+failed=()
 while IFS= read -r project; do
   [ -z "$project" ] && continue
 
@@ -44,9 +46,10 @@ while IFS= read -r project; do
   # Run UCM in temp dir so scratch.u is created there
   cd "$temp_dir"
   rm -f scratch.u
-  echo "edit.namespace ." | ucm --project "$project/main" >/dev/null 2>&1 || true
-
-  if [ -f scratch.u ]; then
+  if ! echo "edit.namespace ." | ucm --project "$project/main" >/dev/null 2>&1; then
+    failed+=("$project")
+    echo "  $project -> FAILED (ucm exited non-zero)"
+  elif [ -f scratch.u ]; then
     cp scratch.u "$ARCHIVE/${safe_name}.u"
     echo "  $project -> ${safe_name}.u"
   else
@@ -55,5 +58,11 @@ while IFS= read -r project; do
 
   cd "$OLDPWD"
 done <<<"$projects"
+
+if [ ${#failed[@]} -gt 0 ]; then
+  echo "Unison backup FAILED for ${#failed[@]} project(s) at $(date):" >&2
+  printf '  %s\n' "${failed[@]}" >&2
+  exit 1
+fi
 
 echo "Unison backup complete at $(date)"

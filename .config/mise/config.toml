@@ -12,3 +12,6 @@ gradle = "latest"
 [settings]
 idiomatic_version_file_enable_tools = ["node", "ruby", "python"]
 disable_tools = ["bundler"]
+# Skip releases younger than 3 days, so `mise upgrade --bump` misses freshly
+# published malicious versions before they are pulled
+minimum_release_age = "3d"

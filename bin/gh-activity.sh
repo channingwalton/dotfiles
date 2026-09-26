@@ -9,10 +9,15 @@ set -euo pipefail
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 DATE="${1:-$(date +%Y-%m-%d)}"
-SINCE="${DATE}T00:00:00Z"
-# macOS date for tomorrow
-TOMORROW=$(date -j -v+1d -f "%Y-%m-%d" "$DATE" +"%Y-%m-%dT00:00:00Z" 2>/dev/null || \
-  date -d "$DATE +1 day" +"%Y-%m-%dT00:00:00Z")
+
+# Local midnight at the start of DATE plus $2 days, as a UTC timestamp for the API
+# (UTC midnight would drop the first hour of the day during BST). macOS, then GNU date.
+local_midnight_utc() {
+  date -j -u -r "$(date -j -v+"$2"d -f "%Y-%m-%d %H:%M:%S" "$1 00:00:00" +%s)" +%Y-%m-%dT%H:%M:%SZ 2>/dev/null ||
+    date -u -d "$1 00:00 +$2 day" +%Y-%m-%dT%H:%M:%SZ
+}
+SINCE=$(local_midnight_utc "$DATE" 0)
+TOMORROW=$(local_midnight_utc "$DATE" 1)
 USER="channingwalton"
 
 echo "# GitHub Activity for $DATE"
@@ -23,7 +28,7 @@ echo ""
 echo "## Pull Requests Authored"
 PR_OUTPUT=$(gh api graphql -f query="
 query {
-  search(query: \"author:$USER updated:>=$DATE type:pr\", type: ISSUE, first: 20) {
+  search(query: \"author:$USER updated:>=$SINCE type:pr\", type: ISSUE, first: 20) {
     nodes {
       ... on PullRequest {
         title url state
@@ -40,7 +45,7 @@ query {
   ([.commits.nodes[] |
     select(.commit.committedDate >= "'"$SINCE"'") |
     "- " + (.commit.message | split("\n")[0])
-  ] | if length == 0 then ["- (no new commits today)"] else . end | join("\n"))' 2>&1)
+  ] | if length == 0 then ["- (no new commits today)"] else . end | join("\n"))')
 if [ -n "$PR_OUTPUT" ]; then
   echo "$PR_OUTPUT"
 else
@@ -52,7 +57,7 @@ echo ""
 echo "## PR Reviews"
 REVIEW_OUTPUT=$(gh api graphql -f query="
 query {
-  search(query: \"reviewed-by:$USER updated:>=$DATE type:pr -author:$USER\", type: ISSUE, first: 20) {
+  search(query: \"reviewed-by:$USER updated:>=$SINCE type:pr -author:$USER\", type: ISSUE, first: 20) {
     nodes {
       ... on PullRequest {
         title url state
@@ -65,7 +70,7 @@ query {
   }
 }" --jq '.data.search.nodes[] |
   select(.reviews.nodes | length > 0) |
-  "- [\(.reviews.nodes[-1].state)] \(.repository.nameWithOwner): \(.title)\n  \(.url)"' 2>&1)
+  "- [\(.reviews.nodes[-1].state)] \(.repository.nameWithOwner): \(.title)\n  \(.url)"')
 if [ -n "$REVIEW_OUTPUT" ]; then
   echo "$REVIEW_OUTPUT"
 else
@@ -89,12 +94,12 @@ query {
       }
     }
   }
-}" --jq '.data.viewer.contributionsCollection.commitContributionsByRepository[] | .repository.nameWithOwner' 2>&1)
+}" --jq '.data.viewer.contributionsCollection.commitContributionsByRepository[] | .repository.nameWithOwner')
 
 if [ -n "$REPOS" ]; then
   while IFS= read -r repo; do
-    COMMITS=$(gh api "repos/$repo/commits?author=$USER&since=$SINCE&per_page=20" \
-      --jq '.[] | "- " + (.commit.message | split("\n")[0])' 2>&1) || true
+    COMMITS=$(gh api "repos/$repo/commits?author=$USER&since=$SINCE&until=$TOMORROW&per_page=20" \
+      --jq '.[] | "- " + (.commit.message | split("\n")[0])') || true
     if [ -n "$COMMITS" ]; then
       echo "### $repo"
       echo "$COMMITS"
@@ -109,7 +114,7 @@ fi
 echo "## Issues"
 ISSUE_OUTPUT=$(gh api graphql -f query="
 query {
-  search(query: \"involves:$USER updated:>=$DATE type:issue\", type: ISSUE, first: 10) {
+  search(query: \"involves:$USER updated:>=$SINCE type:issue\", type: ISSUE, first: 10) {
     nodes {
       ... on Issue {
         title url state
@@ -118,7 +123,7 @@ query {
     }
   }
 }" --jq '.data.search.nodes[] |
-  "- [\(.state)] \(.repository.nameWithOwner): \(.title)\n  \(.url)"' 2>&1)
+  "- [\(.state)] \(.repository.nameWithOwner): \(.title)\n  \(.url)"')
 if [ -n "$ISSUE_OUTPUT" ]; then
   echo "$ISSUE_OUTPUT"
 else
