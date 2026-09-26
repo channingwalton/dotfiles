@@ -87,6 +87,18 @@ gradle_has_task() {
   echo "$GW_TASKS" | grep -q "^$1 " 2>/dev/null
 }
 
+# Fails only when package.json is readable and lacks the script. With no
+# node (e.g. standalone pnpm) or an unreadable package.json, report it
+# present and let the package manager decide.
+node_has_script() {
+  local rc=0
+  node -e '
+    let scripts
+    try { scripts = require("./package.json").scripts } catch { process.exit(2) }
+    process.exit(scripts && scripts[process.argv[1]] ? 0 : 1)' "$1" 2>/dev/null || rc=$?
+  (( rc != 1 ))
+}
+
 # Run a command silently; on failure, point at a log file instead of
 # replaying output. Honours DEVTOOL_VERBOSE=1 to stream output live.
 run_quiet() {
@@ -162,7 +174,11 @@ do_lint() {
       fi
       ;;
     node)
-      run_quiet $PM run lint || true
+      if node_has_script lint; then
+        run_quiet $PM run lint
+      else
+        echo "devtool: no lint script in package.json, skipping lint"
+      fi
       ;;
     ruby)
       run_quiet bundle exec rubocop
