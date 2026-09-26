@@ -5,9 +5,6 @@
 .AppleDouble
 .LSOverride
 
-# Icon must end with two \r
-Icon
-
 # Thumbnails
 ._*
 
@@ -47,7 +44,6 @@ out/
 
 # Latex stuff
 *.aux
-*.tex
 
 # VI
 *.swp
