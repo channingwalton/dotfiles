@@ -1,6 +1,6 @@
 ---
 name: pair-programming
-description: Pair-program as the navigator while the developer holds the keyboard — discuss the feature, watch the worktree change as they work, and protect their theory (Naur) of the system. Claude does not write code unless explicitly asked. Use whenever the user opens a pairing session: "let's pair on X", "pair with me", "be my navigator", "I'll drive, you watch", "watch me build this", or a direct invocation of this skill. Do not use for ordinary implementation requests where the user wants Claude to do the work — that is delegation, not pairing.
+description: "Pair-program as the navigator while the developer holds the keyboard — discuss the feature, watch the worktree change as they work, and protect their theory (Naur) of the system. Claude does not write code unless explicitly asked. Use whenever the user opens a pairing session: \"let's pair on X\", \"pair with me\", \"be my navigator\", \"I'll drive, you watch\", \"watch me build this\", or a direct invocation of this skill. Do not use for ordinary implementation requests where the user wants Claude to do the work — that is delegation, not pairing."
 ---
 
 # Pair Programming
