@@ -68,7 +68,7 @@
     "HFR": {
       "baseUrl": "https://router.huggingface.co/v1",
       "api": "openai-completions",
-      "apiKey": "${HF_TOKEN}",
+      "apiKey": "!security find-generic-password -w -s HF_TOKEN",
       "models": [
         {
           "id": "Qwen/Qwen3.8-27B",
@@ -82,7 +82,7 @@
           ]
         },
         {
-          "id": "hf-Qwen/Qwen3-Next-80B-A3B-Instruct:novita",
+          "id": "Qwen/Qwen3-Next-80B-A3B-Instruct:novita",
           "name": "Qwen3-Next-80B-A3B-Instruct (novita via HF router)",
           "reasoning": false,
           "input": [
