@@ -98,7 +98,6 @@
 !/.config/lazygit/
 !/.config/lazysql/
 !/.config/leaf/
-!/.config/lf/
 !/.config/lsd/
 !/.config/mise/
 !/.config/nvim/
@@ -106,7 +105,6 @@
 !/.config/pgcli/
 !/.config/ranger/
 !/.config/superfile/
-!/.config/wezterm/
 !/.config/wtf/
 !/.config/yazi/
 !/.config/zed/

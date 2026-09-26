@@ -75,9 +75,6 @@ alias -s ts="$EDITOR"
 alias -s yaml="bat -l yaml"
 alias -s json="jless"
 
-# direnv
-export DIRENV_ALLOW=$HOME
-
 # paths
 export MY_BIN="$HOME/dotfiles/bin"
 export PATH="${MY_BIN}:$PATH"
@@ -100,8 +97,6 @@ eval "$(atuin init zsh)"
 
 source ~/dotfiles/zshfunctions
 
-export UCM_MERGETOOL='"~/Applications/IntelliJ\ IDEA\ Community\ Edition.app/Contents/MacOS/idea" merge "$LOCAL" "$REMOTE" "$BASE" "$MERGED"'
-
 export UNISON_PAGER=cat
 
 # Go
@@ -111,10 +106,6 @@ export PATH="$GOBIN:$PATH"
 # Interactive zsh only; `zsh -lc` reads .zprofile instead. This runs after the PATH
 # edits above, so mise's tools stay ahead of them.
 command -v mise >/dev/null && eval "$(mise activate zsh)"
-
-
-# Added by Windsurf
-export PATH="/Users/channing/.codeium/windsurf/bin:$PATH"
 
 # Prefer personal bin (contains codex symlink to Codex.app) over mise shims
 export PATH="${MY_BIN}:$PATH"
