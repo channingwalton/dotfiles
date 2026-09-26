@@ -12,4 +12,3 @@ gradle = "latest"
 [settings]
 idiomatic_version_file_enable_tools = ["node", "ruby", "python"]
 disable_tools = ["bundler"]
-minimum_release_age = "0"
