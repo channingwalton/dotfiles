@@ -91,8 +91,16 @@ detect_project() {
   fi
 }
 
+# True if the root project or any subproject ("app:ktlintCheck") has the task;
+# running it by bare name from the root runs it in every project that has it.
+# Here-strings, not `echo | grep -q`: grep -q exits at the first match, and under
+# pipefail echo's SIGPIPE on a large task list made a found task read as missing.
 gradle_has_task() {
-  echo "$GW_TASKS" | grep -q "^$1 " 2>/dev/null
+  grep -qE "^([^ ]+:)?$1( |$)" <<<"$GW_TASKS"
+}
+
+gradle_has_subproject_test() {
+  grep -q "^$1:test " <<<"$GW_TASKS"
 }
 
 # Fails only when package.json is readable and lacks the script. With no
@@ -221,7 +229,7 @@ do_test() {
       ;;
     kotlin)
       if [[ -n "$pattern" ]]; then
-        if echo "$GW_TASKS" | grep -q "^${pattern}:test "; then
+        if gradle_has_subproject_test "$pattern"; then
           run_quiet $GW --quiet ":${pattern}:test"
         else
           run_quiet $GW --quiet test --tests "*${pattern}*"
