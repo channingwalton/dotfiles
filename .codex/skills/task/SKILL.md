@@ -39,7 +39,7 @@ Load the task note and linked ticket, plus `investigation_root` for investigatio
 
 - Explain, summarise, or report status: answer from the context without changing task artefacts or starting an implementation workflow.
 - Implement or fix software: use `software-development`.
-- Review code: use `code-reviewer`.
+- Review code: run the native review as `fix-loop` describes it for Codex (`codex review` with a scope flag), reporting only; use `fix-loop` itself when the request also asks for fixes.
 - Create or maintain an evidence dossier: use `investigation`.
 - Capture task state or decisions: use `task-note-update`.
 - Roll experiment findings into research: use `obsidian-research-maintainer`.

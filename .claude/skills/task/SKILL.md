@@ -37,7 +37,7 @@ If `investigation_root` is missing, look for a sibling folder with the same base
 
 - `task-type: investigation` - load the task note, linked ticket, and `investigation_root`; then use `investigation`.
 - `task-type: implementation` - load the task note and linked ticket; then use `software-development`.
-- `task-type: review` - load the task note and linked PR/ticket; then use `code-reviewer`.
+- `task-type: review` - load the task note and linked PR/ticket; then run the host's native code review as `fix-loop` describes it for this host, reporting only. Use `fix-loop` itself when the task also asks for fixes.
 - `task-type: experiment` - load the task note and its linked research note; use `task-note-update` for capture and `obsidian-research-maintainer` for roll-up.
 - `task-type: note` or missing - use `vault` and `task-note-update` as needed
 
