@@ -14,7 +14,7 @@ set -euo pipefail
 # to stream output live instead.
 #
 # Usage:
-#   devtool check            # compile + lint + test
+#   devtool check            # compile + lint + test, then a duplicate-code report
 #   devtool compile          # compile only
 #   devtool lint             # lint only
 #   devtool test [pattern]   # test only, optional filter
@@ -267,6 +267,17 @@ do_test() {
   esac
 }
 
+# Duplicate-code report after a passing check. Informational: duplicates, a
+# jscpd error or a missing jscpd never fail the check.
+cpd_report() {
+  echo "--- duplicate code (report only) ---"
+  if ! command -v jscpd &>/dev/null; then
+    echo "jscpd not found, skipping (brew install jscpd)"
+    return 0
+  fi
+  jscpd --min-tokens 100 --reporters ai --no-tips . || echo "(jscpd exited $?; not counted against the check)"
+}
+
 cpd_usage() {
   echo "Usage: devtool cpd [directory] [--format <lang>] [--sorted]"
   echo "  directory:       source directory (default: .)"
@@ -376,7 +387,8 @@ usage() {
   echo "Usage: devtool <command> [args]"
   echo ""
   echo "Commands:"
-  echo "  check            compile + lint + test (prefers just/mise commit-check, then check)"
+  echo "  check            compile + lint + test (prefers just/mise commit-check, then check),"
+  echo "                   then a duplicate-code report (jscpd) that never fails the check"
   echo "  compile          compile only"
   echo "  lint             lint only"
   echo "  test [pattern]   test only, optional filter"
@@ -413,7 +425,7 @@ main() {
   fi
 
   case "$cmd" in
-    check)    do_check ;;
+    check)    do_check; cpd_report ;;
     compile)  do_compile ;;
     lint)     do_lint ;;
     test)     do_test "$@" ;;
