@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 # pi-sbx: run pi in a Docker Sandbox (sbx) microVM.
 #
-# - Mounts the current directory as the workspace.
+# Usage: pi-sbx [DIR] [-- PI_ARGS...]
+#
+# - Mounts DIR (default: the current directory) as the workspace. Refuses
+#   $HOME, its parents, and anything inside or containing ~/.pi or ~/.agents.
 # - Copies ~/.pi and ~/.agents into the sandbox home (/home/agent),
-#   excluding credentials, session history and host-built node_modules.
+#   excluding credential-looking files, MCP OAuth state, session history
+#   and host-built node_modules.
 # - Reuses one sandbox per directory, and re-copies the config on every run.
+# - Passes everything after -- through to pi.
 #
 # One-time prerequisites:
 #   brew install docker/tap/sbx
@@ -20,16 +25,59 @@ die() {
   exit 1
 }
 warn() { printf 'pi-sbx: warning: %s\n' "$*" >&2; }
+usage() {
+  cat <<'EOF'
+Usage: pi-sbx [DIR] [-- PI_ARGS...]
+
+  DIR      directory to mount as the workspace (default: current directory)
+  -- ...   everything after -- is passed through to pi
+EOF
+}
+
+dir=""
+pi_args=()
+while (($#)); do
+  case "$1" in
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  --)
+    shift
+    pi_args=("$@")
+    break
+    ;;
+  -*) die "unknown option: $1 (pi arguments go after --)" ;;
+  *)
+    [[ -z "$dir" ]] || die "unexpected argument: $1 (pi arguments go after --)"
+    dir=$1
+    shift
+    ;;
+  esac
+done
 
 command -v sbx >/dev/null || die "sbx not found. Install it with: brew install docker/tap/sbx"
 
-workdir="$(pwd -P)"
-[[ "$workdir" != "$HOME" ]] || die "refusing to mount the whole home directory"
-case "$workdir" in
-"$HOME/.pi" | "$HOME/.pi/"* | "$HOME/.agents" | "$HOME/.agents/"*)
-  die "refusing to mount an agent config directory"
-  ;;
+physical() { CDPATH='' cd -- "$1" && pwd -P; }
+
+dir=${dir:-.}
+[[ -d "$dir" ]] || die "no such directory: $dir"
+workdir="$(physical "$dir")"
+
+# Compare physical paths: ~/.pi may be a symlink (into dotfiles, say).
+case "$(physical "$HOME")/" in
+"${workdir%/}/"*) die "refusing to mount $workdir; pick a project directory" ;;
 esac
+for config in "$HOME/.pi" "$HOME/.agents"; do
+  [[ -d "$config" ]] || continue
+  config="$(physical "$config")"
+  case "$workdir/" in
+  "$config/"*) die "refusing to mount an agent config directory" ;;
+  esac
+  case "$config/" in
+  "${workdir%/}/"*) die "refusing to mount $workdir; it contains $config" ;;
+  esac
+done
 
 # Sandbox name: pi-<dir>-<hash of full path>.
 # sbx allows letters, digits, hyphens and periods.
@@ -43,6 +91,9 @@ if ! sbx ls 2>/dev/null | grep -qF -- "$name"; then
 fi
 
 # Copy config into the sandbox home.
+# find chooses the entries and tar -n archives just those, so the
+# credential patterns only match file names and never drop a directory
+# such as skills/authoring. Log in once inside the sandbox instead.
 # The extracting tar runs as the sandbox's default user, so the files
 # are owned by that user, not root.
 sources=()
@@ -54,13 +105,15 @@ if ((${#sources[@]})); then
     warn "$HOME/.pi/agent/models.json contains apiKey fields; any literal keys will be copied into the sandbox"
   fi
 
-  COPYFILE_DISABLE=1 tar -C "$HOME" -c -h --no-mac-metadata \
-    --exclude='.pi/agent/auth.json' \
-    --exclude='.pi/agent/sessions' \
-    --exclude='node_modules' \
-    --exclude='.DS_Store' \
-    -f - "${sources[@]}" |
+  (cd "$HOME" && find -L "${sources[@]}" \
+    \( -name node_modules -o -path .pi/agent/sessions -o -path .pi/agent/mcp-oauth \) -prune -o \
+    \( -type d -o -type f ! \( -name .DS_Store -o -iname '*auth*' -o -iname 'credential*' \
+    -o -iname '*token*' -o -iname '*.key' -o -iname '*.pem' \) \) -print0) |
+    COPYFILE_DISABLE=1 tar -C "$HOME" -c -h -n --no-mac-metadata --null -T - -f - |
     sbx exec -i "$name" tar -C "$SANDBOX_HOME" --warning=no-unknown-keyword -xf -
 fi
 
+if ((${#pi_args[@]})); then
+  exec sbx run --name "$name" -- "${pi_args[@]}"
+fi
 exec sbx run --name "$name"
