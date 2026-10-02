@@ -16,5 +16,6 @@
     "TXP/mlx-community/Qwen3.8-27B-8bit:high",
     "HFR/Qwen/Qwen3.8-27B:high",
     "Local/mlx-community/Qwen3.8-27B-8bit:high"
-  ]
+  ],
+  "deviceId": "6b06cb83-7f86-4c1f-8655-6e6d2a2c3c97"
 }
