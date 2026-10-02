@@ -17,7 +17,7 @@ zstyle ':omz:update' frequency 7
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="yyyy-mm-dd"
 
-plugins=(aliases brew git gh fzf-tab macos sbt scala wd z)
+plugins=(aliases brew git gh fzf-tab macos scala wd z)
 
 source $ZSH/oh-my-zsh.sh
 

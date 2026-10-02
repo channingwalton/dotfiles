@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+# pi-sbx: run pi in a Docker Sandbox (sbx) microVM.
+#
+# - Mounts the current directory as the workspace.
+# - Copies ~/.pi and ~/.agents into the sandbox home (/home/agent),
+#   excluding credentials, session history and host-built node_modules.
+# - Reuses one sandbox per directory, and re-copies the config on every run.
+#
+# One-time prerequisites:
+#   brew install docker/tap/sbx
+#   sbx login
+#   sbx policy init balanced
+#   sbx secret set anthropic
+set -euo pipefail
+
+KIT="docker.io/sbx/pi-kit:latest"
+SANDBOX_HOME="/home/agent"
+
+die()  { printf 'pi-sbx: %s\n' "$*" >&2; exit 1; }
+warn() { printf 'pi-sbx: warning: %s\n' "$*" >&2; }
+
+command -v sbx >/dev/null || die "sbx not found. Install it with: brew install docker/tap/sbx"
+
+workdir="$(pwd -P)"
+[[ "$workdir" != "$HOME" ]] || die "refusing to mount the whole home directory"
+case "$workdir" in
+  "$HOME/.pi"|"$HOME/.pi/"*|"$HOME/.agents"|"$HOME/.agents/"*)
+    die "refusing to mount an agent config directory" ;;
+esac
+
+# Sandbox name: pi-<dir>-<hash of full path>.
+# sbx allows letters, digits, hyphens and periods.
+base="$(printf '%s' "$(basename "$workdir")" | tr -c 'A-Za-z0-9.-' '-' | cut -c1-40)"
+hash="$(printf '%s' "$workdir" | shasum | cut -c1-6)"
+name="pi-${base:-dir}-${hash}"
+
+# Create the sandbox on first use in this directory.
+if ! sbx ls 2>/dev/null | grep -qF -- "$name"; then
+  sbx create --name "$name" "$KIT" "$workdir"
+fi
+
+# Copy config into the sandbox home.
+# The extracting tar runs as the sandbox's default user, so the files
+# are owned by that user, not root.
+sources=()
+[[ -d "$HOME/.pi" ]]     && sources+=(.pi)
+[[ -d "$HOME/.agents" ]] && sources+=(.agents)
+
+if (( ${#sources[@]} )); then
+  if [[ -f "$HOME/.pi/agent/models.json" ]] && grep -q '"apiKey"' "$HOME/.pi/agent/models.json"; then
+    warn "$HOME/.pi/agent/models.json contains apiKey fields; any literal keys will be copied into the sandbox"
+  fi
+
+  COPYFILE_DISABLE=1 tar -C "$HOME" -c -h --no-mac-metadata \
+      --exclude='.pi/agent/auth.json' \
+      --exclude='.pi/agent/sessions' \
+      --exclude='node_modules' \
+      --exclude='.DS_Store' \
+      -f - "${sources[@]}" \
+    | sbx exec -i "$name" tar -C "$SANDBOX_HOME" --warning=no-unknown-keyword -xf -
+fi
+
+exec sbx run --name "$name"
