@@ -57,9 +57,6 @@ function _updates_try {
 function updates {
   local -a _updates_failed
 
-  _updates_heading OMZ
-  _updates_try omz update
-
   _updates_heading Brew
   _updates_try brew update
   _updates_try brew upgrade
@@ -71,7 +68,7 @@ function updates {
   _updates_try mise upgrade --bump
 
   _updates_heading Coursier
-  _updates_try coursier update
+  _updates_try cs update
 
   _updates_heading leaf
   _updates_try leaf --update

@@ -12,12 +12,17 @@
 # Deliberately untracked: mostly tool-written state (see .gitignore)
 ^\.codex/config\.toml$
 
+# Deliberately untracked: login state for a work GitHub account
+^\.config/\.copilot/config\.json$
+
 # Tool-managed trees, not user-authored config
 ^\.hermes/(skills|plugins|node)/
 ^\.hermes/context_length_cache\.yaml$
 ^\.config/\.semgrep/
 ^\.config/jgit/
 ^\.config/swiftpm/
+^\.config/superfile/theme/
+^\.config/devin/config\.json$
 
 # Contents behind skill symlinks live in ~/.agents, managed outside git
 ^\.claude/skills/[^/]+/

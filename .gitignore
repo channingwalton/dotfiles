@@ -58,6 +58,7 @@
 # per-directory trust and app state, which outweigh the settings in it
 /.codex/*
 !/.codex/AGENTS.md
+!/.codex/agents/
 !/.codex/hooks.json
 !/.codex/rules/
 !/.codex/skills/
@@ -141,6 +142,8 @@
 /.pi/*
 !/.pi/agent/
 /.pi/agent/auth.json
+/.pi/agent/mcp-auth.json
+/.pi/agent/mcp-project-approvals.json
 /.pi/agent/sessions/
 /.pi/agent/mcp-oauth/
 /.pi/agent/mcp-cache.json
