@@ -18,16 +18,16 @@ Work in a branch, and use fully qualified names when writing code so references 
 
 ## Branch first
 
-Before the first code change, select the branch authorised for this task or create one with the MCP server tool. Use a descriptive name like `extract-domain-service` or `fix-login-bug`, and verify the active branch before updating definitions.
+Before the first code change, select the branch authorised for this task or create one with `mcp__unison__create-branch`. Use a descriptive name like `extract-domain-service` or `fix-login-bug`, and verify the active branch before updating definitions.
 
 ## Workflow
 
-1. **Explore**: `view-definitions`, `search-definitions-by-name`, `list-project-definitions` to understand existing code before writing.
+1. **Explore**: `mcp__unison__view-definitions`, `mcp__unison__search-definitions-by-name`, `mcp__unison__list-project-definitions` to understand existing code before writing.
 2. **Typecheck**: `mcp__unison__typecheck-code` to validate before updating.
 3. **Update**: `mcp__unison__update-definitions` to apply changes to the codebase.
 4. **Test**: `mcp__unison__run-tests` to verify.
 
-## When `update-definitions` reports broken dependents
+## When `mcp__unison__update-definitions` reports broken dependents
 
 The call returns `sourceCodeUpdates` when affected definitions no longer typecheck:
 
@@ -40,12 +40,12 @@ The server has placed that code in a temporary branch for you to fix. Repair loo
 
 1. Review **every** affected definition in the `sourceCodeUpdates` response.
 2. Fix the type errors, updating signatures where needed, preserving existing behaviour.
-3. Include **every** fixed definition in a single `update-definitions` call — any definition left out is removed from the codebase, so completeness here is not optional.
+3. Include **every** fixed definition in a single `mcp__unison__update-definitions` call — any definition left out is removed from the codebase, so completeness here is not optional.
 4. Repeat until the update succeeds.
 
 ## Modifying abilities
 
-Changing an ability breaks its dependents, so repair them in the same update. View the ability and its `default` handler, use `list-definition-dependents` to find every caller, and include the ability and all dependents in one `update-definitions` call.
+Changing an ability breaks its dependents, so repair them in the same update. View the ability and its `default` handler, use `mcp__unison__list-definition-dependents` to find every caller, and include the ability and all dependents in one `mcp__unison__update-definitions` call.
 
 ## Done when
 

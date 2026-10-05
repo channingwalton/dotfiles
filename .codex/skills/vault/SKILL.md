@@ -11,9 +11,18 @@ Location: `~/Documents/Notes/` (vault name: `Notes`)
 
 1. Treat the vault as Markdown files under `~/Documents/Notes`; do not use the `obsidian` CLI.
 2. Use WikiLinks for semantic note links, especially dates: `[[YYYY-MM-DD]]`.
-3. New task notes start with `status: open`.
-4. Read before writing, preserve existing structure, and avoid whole-file rewrites unless unavoidable.
-5. In prose, escape `<` as `\<` so Obsidian doesn't parse it as HTML. Leave code spans and fenced blocks as they are; a backslash there renders literally.
+3. Read before writing, preserve existing structure, and avoid whole-file rewrites unless unavoidable.
+4. In prose, escape `<` as `\<` so Obsidian doesn't parse it as HTML. Leave code spans and fenced blocks as they are; a backslash there renders literally.
+
+## Writing notes
+
+These hold for every skill that writes to the vault.
+
+- Use British spelling.
+- Write for a reader scanning the note: real markdown lists over dense prose, short sentences, one distinct fact per bullet. Where a run of `(1)… (2)…` or `(a)… (b)…` would go, write a numbered or bulleted list.
+- Take every date and timestamp from `date` (Shell Rules below), never from memory.
+- When you edit a note that has `dateModified`, set it to `date -Iseconds`.
+- A new note matches the H1 and parent-link pattern of its siblings. Topic, Research and domain notes open with a self-wikilinked H1, `# [[Note Title]]`, then a line linking the parent (`[[<Project>]]`, `[[Research]]`, `[[<Domain>]]`).
 
 ## Core Paths
 
@@ -47,6 +56,26 @@ date +"%Y-%m-%d %H%M%S"    # task filename
 date +"%Y-%m-%d %H:%M"      # log entry header
 date -Iseconds              # frontmatter
 ```
+
+## Task frontmatter
+
+Match the project's existing tasks. The TaskNotes plugin reads these fields:
+
+```yaml
+---
+status: open                 # open | in-progress | in-review | blocked | done
+priority: normal
+projects:
+  - "[[<Project>]]"
+dateCreated: <ISO8601>
+dateModified: <ISO8601>
+tags:
+  - task
+completedDate: <YYYY-MM-DD>  # only with status: done
+---
+```
+
+New task notes start with `status: open`. `task-type` and when a task may become `done` belong to `task` and `task-note-update`.
 
 ## Linking
 

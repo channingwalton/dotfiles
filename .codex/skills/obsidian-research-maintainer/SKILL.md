@@ -11,10 +11,11 @@ For requested changes whose scope and content are established, write directly an
 
 ## Vault model & conventions
 
+Follow the `vault` skill's Writing notes and Task frontmatter sections. The bullets below add what is specific to Research.
+
 - Vault root is typically `~/Documents/Notes`; projects live under `Projects/<Name>/` with `Research/`, `Tasks/`, `Topics/`, and usually `Events/`.
 - `Research/Research.md` is the index hub for a project's research notes; the project note links it in its footer line.
-- **Every note's H1 is a self wikilink** (`# [[Note Title]]`) followed by a parent link line — `[[Research]]` for research notes.
-- British spelling. Generate any timestamp with the shell `date` command, never a guess.
+- A research note's parent line is `[[Research]]`.
 - **Research note** shape (template: `Vault Metadata/Templates/Inputs/research.md`) — no date prefix in the filename; named by a short form of the question:
 
   ```

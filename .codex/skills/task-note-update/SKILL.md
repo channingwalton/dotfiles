@@ -5,11 +5,7 @@ description: Append a Decision Log entry, rewrite Current State, or resolve an O
 
 # Task Note Update
 
-Maintains `Current State`, `Decision Log`, and `Open Questions`. Writes directly when the content is already established in the session; asks first only when something material is missing or ambiguous.
-
-## When to use
-
-Use when the user wants a task-note decision, state change, or open-question resolution captured durably.
+Maintains `Current State`, `Decision Log`, and `Open Questions`. Once the user asks for an update, writes it directly when the content is already established in the session; asks first only when something material is missing or ambiguous.
 
 ## Procedure
 
@@ -38,7 +34,12 @@ Use when the user wants a task-note decision, state change, or open-question res
 
    `Why` is mandatory. Ask if missing.
 
-   **Current State** — overwrite the block. A one- to two-sentence plain-language lead (the headline: what this is and where it stands), then a short bulleted list of the distinct strands, one per bullet with a **bold label** — subjects, active approach, blockers, inherited context. Do not pack every strand into the lead; readers scan the bullets, not a dense paragraph. Update `*Updated: [[YYYY-MM-DD]]*`. Every Current State rewrite also rewrites `## Next Session` (below).
+   **Current State** — overwrite the block:
+
+   - Lead with one or two plain sentences: what this is and where it stands.
+   - Give each distinct strand its own bullet with a **bold label** — subjects, active approach, blockers, inherited context. The strands live in the bullets, not the lead.
+   - Set `*Updated: [[YYYY-MM-DD]]*`.
+   - Rewrite `## Next Session` (below) in the same edit.
 
    ```
    ## Current State
@@ -50,7 +51,12 @@ Use when the user wants a task-note decision, state change, or open-question res
    - **Blocker:** <detail>
    ```
 
-   **Next Session** — a ready-to-paste prompt to resume the task in a fresh session for the current task.Rewritten only alongside Current State, never independently. Operational content only: the exact next action, branch, file paths, commands, and constraints agreed in-session. Do not restate Current State or Open Questions — the resuming session reads those anyway. Do not add notes for future tickets, those notes should go in the future ticket since this one will be closed and forgotten. Put any working directory / branch on a lead line; the steps are a **numbered markdown list**, one action per item — never inline `(1)… (2)…` enumerations.
+   **Next Session** — a ready-to-paste prompt that resumes this task in a fresh session:
+
+   - Operational content only: the exact next action, branch, file paths, commands, and constraints agreed in-session.
+   - Leave out Current State and Open Questions; the resuming session reads those anyway.
+   - Leave out notes for future tickets; they belong in that ticket, because this note will be closed and forgotten.
+   - Put any working directory and branch on a lead line, then one action per item in a **numbered markdown list**.
 
    ```
    ## Next Session
@@ -81,21 +87,22 @@ A task with `task-type: experiment` belongs to a research note: a `research:` fr
 
 Writing:
 
-- Write for a reader scanning the note, not a transcript. Prefer real markdown lists over dense prose; keep sentences short; give each distinct fact its own line or bullet rather than chaining clauses. A Current State or Decision Log entry that packs several distinct strands into one dense paragraph is the failure being avoided.
-- Never use inline pseudo-lists — `(1)… (2)…`, `(a)… (b)…`, or semicolon-chained runs — where a numbered or bulleted markdown list belongs.
+- Follow the `vault` skill's Writing notes rules.
 - Link, don't copy: never echo JIRA or PR content into the task note.
-- Use British spelling.
-- Dates are Obsidian wikilinks `[[YYYY-MM-DD]]` — never bare `YYYY-MM-DD` — so they backlink to daily notes. Get them from `date`, never from memory.
+- Dates are `[[YYYY-MM-DD]]` wikilinks, never bare, so they backlink to daily notes.
 
 Section mechanics:
 
 - One decision per Decision Log entry, each with a **Why**. Append-only and dated — do not edit or delete prior entries.
 - Current State is overwrite-only.
-- Next Session is overwrite-only, moves **only** alongside Current State (never on a Decision Log or Open Question update), and its date must match Current State's. It gives the next concrete action, not a restatement of state.
+- Next Session is overwrite-only and moves **only** alongside Current State, never on a Decision Log or Open Question update. Its date always matches Current State's.
 - Open Questions are ephemeral and should empty over time.
 
 Claims and status:
 
-- Do not write a causal or factual claim into Decision Log, Current State or a research note unless the check that establishes it has been run. If it rests on inference, write it as an Open Question, or state the evidence and its limit ("from the SP log only") — a claim in a note is later read as established fact.
+- Write a causal or factual claim into Decision Log, Current State or a research note only once the check that establishes it has run. A claim in a note is later read as established fact.
+- When a claim rests on inference, raise it as an Open Question, or state the evidence and its limit ("from the SP log only").
 - Frontmatter `status` values are hyphenated: `in-progress` / `done` (never `in progress`).
-- Set `status: done` + `completedDate` only after the branch is **merged** — a PR being open or approved is still `in-progress`. For tasks with no branch (investigations), `done` additionally requires every strand in Current State / Open Questions to be resolved; "no work needed on strand X" is not task-complete. When the user says "close it out", propose `in-progress` with the open strand named — do not offer `done` as a default to rubber-stamp.
+- Set `status: done` + `completedDate` only after the branch is **merged**. An open or approved PR is still `in-progress`.
+- A task with no branch (an investigation) is `done` only when every strand in Current State and Open Questions is resolved. "No work needed on strand X" does not complete the task.
+- When the user says "close it out" before then, propose `in-progress` with the open strand named. `done` is not the default to rubber-stamp.

@@ -13,29 +13,16 @@ A helper script lives at `scripts/topic_tools.py` (run it with `python3 <skill-d
 
 ## Vault model & conventions
 
+Follow the `vault` skill's Writing notes and Task frontmatter sections. The bullets below add what is specific to Topics.
+
 - Vault root is typically `~/Documents/Notes`; projects live under `Projects/<Name>/`, each with `Topics/`, `Tasks/`, and usually `Events/`.
 - **Domain knowledge lives outside projects.** Top-level folders (`Development/`, `Artificial Intelligence/`, `Process/`, `Knowledge management/`, ...) hold evergreen, project-independent notes. Each has a same-named hub note that acts as its **MOC (Map of Content)**; some are Dataview-backed, surfacing every note that links `[[<Domain>]]` automatically. A concept that recurs across projects belongs here, not trapped in one project's `Topics/`.
-- **Every note's H1 is a self wikilink**: `# [[Note Title]]`, followed by a parent link line. For a project Topic that parent is `[[<Project>]]`; for a graduated domain note it is `[[<Domain>]]`.
+- **Parent links**: a project Topic's parent line is `[[<Project>]]`; a graduated domain note's is `[[<Domain>]]`.
 - **Topic hub** = an evergreen, conceptual note in `Topics/`. It describes a subject in prose, links to related topics and definition notes, and ends with a `## See also` line of middot-separated wikilinks. A hub does **not** enumerate task notes.
 - **Direction of links is one-way: tasks -> topics.** Task/Event notes carry a bare-wikilink backlink line (e.g. `[[Importers]] [[Leave Entitlements]]`) immediately under their H1. Topics never list their tasks.
 - **Definitions vs hubs**: short "what is X" definition notes and longer "what we did / how it works" hubs both live in `Topics/` — there is no separate glossary folder (see the `vault` skill for the definition-note shape). Don't create a second note for a concept that already has one - merge instead.
 - **Aliases**: give abbreviations and singular/plural variants an `aliases:` entry so existing links keep resolving (e.g. hub `kmono Architecture` with alias `kmono`; hub `Job Plans` with alias `Job Plan`). Keep note **basenames unique** across the project - duplicate basenames force Obsidian to write fragile full-path links.
 - **Check links when moving notes.** Bare wikilinks to a unique basename can survive a move; path-qualified links and source-relative links may need rewriting. Check incoming links across the vault and outgoing links in the moved note. Keep one canonical file, without a same-named stub or copy.
-- British spelling. Generate any timestamp with the shell `date` command, never a guess.
-- **Task frontmatter** shape (match the project's existing tasks):
-  ```
-  ---
-  status: done
-  priority: normal
-  projects:
-    - "[[<Project>]]"
-  dateCreated: <ISO8601>
-  dateModified: <ISO8601>
-  tags:
-    - task
-  completedDate: <YYYY-MM-DD>
-  ---
-  ```
 
 ## Workflow
 
@@ -46,15 +33,15 @@ Work one project at a time. Resolve the project folder and check that `Topics/` 
 ### 1. Inventory
 List existing topics (and their aliases) and the Task/Event notes:
 ```
-python3 scripts/topic_tools.py audit --project "<PROJECT_DIR>"
+python3 <skill-dir>/scripts/topic_tools.py audit --project "<PROJECT_DIR>"
 ```
 This also reports current task->topic coverage and topic->topic connectivity - a baseline.
 
 ### 2. Find candidate topics
 Surface recurring subjects that have no hub yet:
 ```
-python3 scripts/topic_tools.py clusters --project "<PROJECT_DIR>"            # heuristic discovery
-python3 scripts/topic_tools.py clusters --project "<PROJECT_DIR>" --keywords map.json
+python3 <skill-dir>/scripts/topic_tools.py clusters --project "<PROJECT_DIR>"            # heuristic discovery
+python3 <skill-dir>/scripts/topic_tools.py clusters --project "<PROJECT_DIR>" --keywords map.json
 ```
 `map.json` is `{"Label": "regex", ...}` - use it to quantify specific themes you suspect. Read the results and judge: a good Topic is a recurring **subject** (10+ related notes is a strong signal, but a coherent smaller cluster counts), distinct from existing hubs. Classify each candidate as a work-theme hub or a short definition. If selection remains open, present a ranked shortlist with counts and a one-line rationale each, then ask which to create. When the user has named topics or authorised selection, continue within that scope. Flag overlaps with existing topics and decide merge-vs-keep before splitting.
 
@@ -70,7 +57,7 @@ Match the voice of existing hubs in that project. Prefer a folder-topic or a loo
 ### 4. Add task->topic backlinks
 Insert a bare-wikilink line under the H1 of every Task/Event that genuinely mentions the topic. Dry-run first, eyeball the counts and the matched files, curate out false positives, then apply:
 ```
-python3 scripts/topic_tools.py backlink --project "<DIR>" \
+python3 <skill-dir>/scripts/topic_tools.py backlink --project "<DIR>" \
     --map "Importers=\bimport(s|ed|ing|er|ers)?\b|\bupload" \
     --map "Leave Entitlements=entitlement"
 # add --exclude false_positives.txt (one basename per line) and --apply to write
@@ -83,35 +70,15 @@ Re-run `audit`. Aim for:
 - **Topics -> Topics: links must be evidence-gated.** Add a `## See also` link between two topics **only when they co-occur in real task/event text** (the same notes mention both). Never invent a topic->topic link to clear the orphan-connectivity number — a false link is worse than an orphan. Give a topic with no *outgoing* link a `## See also` only if such evidence exists; otherwise leave it. Intentional peripheral orphans (dev/admin/reference, or a standalone definition) are acceptable — record them in the skip-list, don't force a link. **Experiment tasks** (`task-type: experiment`) carry a `[[<Research Note>]]` backlink under the H1 that is *not* a topic link — add topic backlinks only where they genuinely fit, otherwise skip-list them; their knowledge reaches Topics via the research note's conclusion (obsidian-research-maintainer), not forced task->topic links.
 
 ### 6. Graduation (promote evergreen concepts out of the project)
-Most Topics describe *this* project and stay. A few are really **cross-cutting concepts** that will recur elsewhere — promote those into a shared domain folder so project work compounds into reusable knowledge. Canonical procedure: the vault note `[[Topic graduation]]`. This step is **conservative by default** — when in doubt, leave it in the project.
-
-**Where to look.** The prime suspects are the notes step 5 parks in the skip-list as "standalone definition / reference stubs", and any note whose links already resolve vault-wide rather than to project topics. Re-evaluate those here instead of parking them forever. The `crosscut` command (read-only) ranks them:
-```
-python3 scripts/topic_tools.py crosscut --project "<PROJECT_DIR>"    # --max-words tunes the stub threshold (default 40)
-```
-One line per suspect: fired signals (definition-style stub, links resolving outside the project, linked from other projects, skip-listed as standalone), cross-project reference count, and a suggested destination domain folder where one fits. It only detects — apply the three-part test below yourself.
-
-**The test — graduate only if all three hold:**
-1. **Concept-oriented, not project-oriented.** Ask: *would I want this note when working on a different project?* Names tied to this project (clients, sites, internal systems, ticket-specific behaviour) fail — they stay.
-2. **A real destination domain folder already exists** (`Development/`, `Artificial Intelligence/`, ...). If the concept is genuinely cross-cutting but has **no** home folder, do **not** invent a top-level folder — surface it to the user as a naming decision and leave the note in place until they choose. (A dense project-specific domain — e.g. an NHS rostering product — is correct as-is; do not strip it for the sake of promotion.)
-3. **The concept is actually stated.** A stub title is not knowledge. If the note is a stub, distil it into a proper atomic note first (or flag that it needs writing) — don't move an empty hull.
-
-Present graduation candidates with destinations and a one-line rationale when those choices remain open. Apply moves already authorised by the user directly. Expect the candidate list to be short or empty.
-
-**To graduate an approved Topic:**
-- Distil it into an atomic, concept-oriented note in your own words (drop project-specific incidental detail, or split it out — keep the project-specific part as a project Topic that links the new general note).
-- Move it to the domain folder (`git mv` if the vault is a git repo). Preserve its basename, update affected path-qualified incoming links and source-relative outgoing links, and leave no stub behind.
-- Re-point the parent link from `[[Topics]]`/`[[<Project>]]` to `[[<Domain>]]`, drop the `project:` frontmatter binding, and add a `Used in [[<Project>]]` line so the project relationship stays explicit.
-- Ensure the note links `[[<Domain>]]`; a Dataview-backed MOC then surfaces it automatically. If the domain hub is a hand-maintained list, add the note to it.
-- Verify file targets with `linkcheck` (step 8) and inspect any ambiguous or heading/block links affected by the move.
+Most Topics describe *this* project and stay. On a full pass, or when the user asks to promote a Topic, read [GRADUATION.md](GRADUATION.md) and follow it.
 
 ### 7. Hygiene
 - **Duplicate names / alias collisions**: if a concept exists twice (or a definition + a hub), merge into one note, fold the alias on so links resolve, and delete the duplicate. After removing duplicates, collapse any `[[Projects/.../full/path]]` links Obsidian created for disambiguation back to bare `[[Name]]`.
-- **Dated retrospectives**: a dated, completed write-up (a retro, a posted Slack analysis) belongs in `Tasks/`, not `Topics/`. Convert it - add task frontmatter (`completedDate` = its date, `tags: task`), move it to `Tasks/`, and **extract its durable lessons** into the relevant evergreen hubs, leaving the dated note as an archived task. Check affected links using the same move procedure as graduation.
+- **Dated retrospectives**: a dated, completed write-up (a retro, a posted Slack analysis) belongs in `Tasks/`, not `Topics/`. Convert it - add task frontmatter (`completedDate` = its date, `tags: task`), move it to `Tasks/`, and **extract its durable lessons** into the relevant evergreen hubs, leaving the dated note as an archived task. Check affected links as in **Check links when moving notes** above.
 
 ### 8. Verify
 ```
-python3 scripts/topic_tools.py linkcheck --project "<PROJECT_DIR>" --vault "<VAULT_DIR>"
+python3 <skill-dir>/scripts/topic_tools.py linkcheck --project "<PROJECT_DIR>" --vault "<VAULT_DIR>"
 ```
 Checks wikilink file targets in the project against files across the vault, retaining target directories. Compare with a pre-edit baseline to identify newly unresolved links. Without `--vault`, resolution is project-only. After a move, use the vault root for both arguments so the check includes cross-project incoming links and the moved note's outgoing links. This is a file-existence check: it does not prove ambiguous basenames resolve to the intended note or validate heading/block anchors; inspect those affected links separately.
 
@@ -119,6 +86,5 @@ After authorised maintenance changes, **update `Topics/_topic-maintenance-log.md
 
 ## Notes
 - Deleting files in a connected vault may need delete permission - if `rm` reports "Operation not permitted", request it rather than reporting it impossible.
-- Graduation needs a destination domain folder. Never create a new top-level domain folder unprompted — if a cross-cutting concept has no home, that is a decision for the user, not a default.
 - Run on demand. If the user wants it kept fresh, offer to schedule a periodic run (e.g. weekly) that does steps 1-2 and proposes new topics.
 - Generalises across projects: nothing here is specific to one project - point it at any `Projects/<Name>/` with `Topics/` + `Tasks/`.
