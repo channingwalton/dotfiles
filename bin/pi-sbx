@@ -7,8 +7,9 @@
 #   $HOME, its parents, and anything inside or containing ~/.pi or ~/.agents.
 # - Copies ~/.pi and ~/.agents into the sandbox home (/home/agent),
 #   excluding credential-looking files, MCP OAuth state, session history
-#   and host-built node_modules.
-# - Reuses one sandbox per directory, and re-copies the config on every run.
+#   and host package installations (Git checkouts, npm state and node_modules).
+# - Reuses one sandbox per directory, and replaces the config copy on every
+#   run, keeping the sandbox's own logins, sessions and packages.
 # - Passes everything after -- through to pi.
 #
 # One-time prerequisites:
@@ -90,28 +91,55 @@ if ! sbx ls 2>/dev/null | grep -qF -- "$name"; then
   sbx create --name "$name" "$KIT" "$workdir"
 fi
 
-# Copy config into the sandbox home.
+# Copy config into the sandbox home, replacing the last run's copy so
+# files deleted or renamed here don't linger there.
 # find chooses the entries and tar -n archives just those, so the
 # credential patterns only match file names and never drop a directory
 # such as skills/authoring. Log in once inside the sandbox instead.
+# skip matches what the copy leaves out. Clearing leaves the sandbox's
+# own copies of those alone, so its logins, sessions and packages survive.
 # The extracting tar runs as the sandbox's default user, so the files
 # are owned by that user, not root.
+# Include descendants so exclusions also apply to the depth-first cleanup,
+# where -prune cannot prevent traversal.
+skip=(
+  \( -name node_modules -o -path '*/node_modules/*'
+  -o -path .pi/agent/git -o -path '.pi/agent/git/*'
+  -o -path .pi/agent/npm -o -path '.pi/agent/npm/*'
+  -o -path .pi/agent/sessions -o -path '.pi/agent/sessions/*'
+  -o -path .pi/agent/mcp-oauth -o -path '.pi/agent/mcp-oauth/*' \) -prune -o
+  ! -type d \( -name .DS_Store -o -iname '*auth*' -o -iname 'credential*'
+  -o -iname '*token*' -o -iname '*.key' -o -iname '*.pem' \) -o
+)
+# Runs in the sandbox home, with skip as its arguments.
+# shellcheck disable=SC2016 # expands in the sandbox, not here
+refresh='
+  set -euo pipefail
+  dirs=()
+  for d in .pi .agents; do [[ -d $d ]] && dirs+=("$d"); done
+  if ((${#dirs[@]})); then
+    find "${dirs[@]}" "$@" ! -type d -exec rm -f -- {} +
+    find "${dirs[@]}" -depth "$@" -type d -empty -delete
+  fi
+  tar --warning=no-unknown-keyword -xf -
+'
 sources=()
 [[ -d "$HOME/.pi" ]] && sources+=(.pi)
 [[ -d "$HOME/.agents" ]] && sources+=(.agents)
 
-if ((${#sources[@]})); then
-  if [[ -f "$HOME/.pi/agent/models.json" ]] && grep -q '"apiKey"' "$HOME/.pi/agent/models.json"; then
-    warn "$HOME/.pi/agent/models.json contains apiKey fields; any literal keys will be copied into the sandbox"
-  fi
-
-  (cd "$HOME" && find -L "${sources[@]}" \
-    \( -name node_modules -o -path .pi/agent/sessions -o -path .pi/agent/mcp-oauth \) -prune -o \
-    \( -type d -o -type f ! \( -name .DS_Store -o -iname '*auth*' -o -iname 'credential*' \
-    -o -iname '*token*' -o -iname '*.key' -o -iname '*.pem' \) \) -print0) |
-    COPYFILE_DISABLE=1 tar -C "$HOME" -c -h -n --no-mac-metadata --null -T - -f - |
-    sbx exec -i "$name" tar -C "$SANDBOX_HOME" --warning=no-unknown-keyword -xf -
+if [[ -f "$HOME/.pi/agent/models.json" ]] && grep -q '"apiKey"' "$HOME/.pi/agent/models.json"; then
+  warn "$HOME/.pi/agent/models.json contains apiKey fields; any literal keys will be copied into the sandbox"
 fi
+
+# An empty source list produces an empty archive, but still clears stale config.
+(
+  cd "$HOME"
+  if ((${#sources[@]})); then
+    find -L "${sources[@]}" "${skip[@]}" \( -type d -o -type f \) -print0
+  fi
+) |
+  COPYFILE_DISABLE=1 tar -C "$HOME" -c -h -n --no-mac-metadata --null -T - -f - |
+  sbx exec -i -w "$SANDBOX_HOME" "$name" bash -c "$refresh" bash "${skip[@]}"
 
 if ((${#pi_args[@]})); then
   exec sbx run --name "$name" -- "${pi_args[@]}"

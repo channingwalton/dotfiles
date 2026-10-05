@@ -18,10 +18,13 @@ Location: `~/Documents/Notes/` (vault name: `Notes`)
 ## Core Paths
 
 | Type | Path |
-|---|---|
-| Tasks | `Projects/<project>/Tasks/<YYYY-MM-DD HHMMSS> <ID> <title>.md` |
+| --- | --- |
 | Daily notes | `Journal/Daily Notes/<YYYY>/<YYYY-MM>/<YYYY-MM-DD>.md` |
 | Weekly notes | `Journal/Weekly Notes/<YYYY>-W<WW>.md` |
+| Monthly notes | `Journal/Monthly Notes/<YYYY>-<MM>.md` |
+| Quarterly notes | `Journal/Quarterly Notes/<YYYY>-Q<Q>.md` |
+| Yearly notes | `Journal/Yearly Notes/<YYYY>.md` |
+| Tasks | `Projects/<project>/Tasks/<YYYY-MM-DD HHMMSS> <ID> <title>.md` |
 | Events | `Projects/<project>/Events/<YYYY-MM-DD> <event type> <title>.md` |
 | Topics | `Projects/<project>/Topics/<Topic>.md` |
 | Research | `Projects/<project>/Research/<Title>.md` |
@@ -45,8 +48,6 @@ date +"%Y-%m-%d %H:%M"      # log entry header
 date -Iseconds              # frontmatter
 ```
 
-Use normal Unix tools (`rg`, `find`, `sed`, `awk`, `perl`, `stat`, `mkdir`, `cp`, `mv`, `printf`). Quote paths because project names contain spaces.
-
 ## Linking
 
 Link if it improves navigation, not just because a term matches.
@@ -59,7 +60,7 @@ Use aliased WikiLinks for ticket references:
 [[2026-02-13 141534 RH-6949 Performance issue|RH-6949]]
 ```
 
-Every mention of a Jira issue number in summaries, blockers, carryover, or task updates should be a WikiLink to its task note when a matching note exists.
+Every mention of a Jira/Linear/etc. issue number in summaries, blockers, carryover, or task updates should be a WikiLink to its task note when a matching note exists.
 
 ## Domain terms
 
