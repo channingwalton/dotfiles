@@ -46,15 +46,15 @@ Work one project at a time. Confirm the project folder and that `Topics/` and `T
 ### 1. Inventory
 List existing topics (and their aliases) and the Task/Event notes:
 ```
-python3 scripts/topic_tools.py audit --project "<PROJECT_DIR>"
+python3 <skill-dir>/scripts/topic_tools.py audit --project "<PROJECT_DIR>"
 ```
 This also reports current task->topic coverage and topic->topic connectivity - a baseline.
 
 ### 2. Find candidate topics
 Surface recurring subjects that have no hub yet:
 ```
-python3 scripts/topic_tools.py clusters --project "<PROJECT_DIR>"            # heuristic discovery
-python3 scripts/topic_tools.py clusters --project "<PROJECT_DIR>" --keywords map.json
+python3 <skill-dir>/scripts/topic_tools.py clusters --project "<PROJECT_DIR>"            # heuristic discovery
+python3 <skill-dir>/scripts/topic_tools.py clusters --project "<PROJECT_DIR>" --keywords map.json
 ```
 `map.json` is `{"Label": "regex", ...}` - use it to quantify specific themes you suspect. Read the results and judge: a good Topic is a recurring **subject** (10+ related notes is a strong signal, but a coherent smaller cluster counts), distinct from existing hubs. Classify each candidate as a work-theme hub or a short definition. **Present a ranked shortlist with counts and a one-line rationale each, then ask which to create** (offer "just the clearest", "top 3", "top 5"). Flag overlaps with existing topics and decide merge-vs-keep before splitting.
 
@@ -70,7 +70,7 @@ Match the voice of existing hubs in that project. Prefer a folder-topic or a loo
 ### 4. Add task->topic backlinks
 Insert a bare-wikilink line under the H1 of every Task/Event that genuinely mentions the topic. Dry-run first, eyeball the counts and the matched files, curate out false positives, then apply:
 ```
-python3 scripts/topic_tools.py backlink --project "<DIR>" \
+python3 <skill-dir>/scripts/topic_tools.py backlink --project "<DIR>" \
     --map "Importers=\bimport(s|ed|ing|er|ers)?\b|\bupload" \
     --map "Leave Entitlements=entitlement"
 # add --exclude false_positives.txt (one basename per line) and --apply to write
@@ -87,7 +87,7 @@ Most Topics describe *this* project and stay. A few are really **cross-cutting c
 
 **Where to look.** The prime suspects are the notes step 5 parks in the skip-list as "standalone definition / reference stubs", and any note whose links already resolve vault-wide rather than to project topics. Re-evaluate those here instead of parking them forever. The `crosscut` command (read-only) ranks them:
 ```
-python3 scripts/topic_tools.py crosscut --project "<PROJECT_DIR>"    # --max-words tunes the stub threshold (default 40)
+python3 <skill-dir>/scripts/topic_tools.py crosscut --project "<PROJECT_DIR>"    # --max-words tunes the stub threshold (default 40)
 ```
 One line per suspect: fired signals (definition-style stub, links resolving outside the project, linked from other projects, skip-listed as standalone), cross-project reference count, and a suggested destination domain folder where one fits. It only detects — apply the three-part test below yourself.
 
@@ -111,7 +111,7 @@ One line per suspect: fired signals (definition-style stub, links resolving outs
 
 ### 8. Verify
 ```
-python3 scripts/topic_tools.py linkcheck --project "<PROJECT_DIR>" --vault "<VAULT_DIR>"
+python3 <skill-dir>/scripts/topic_tools.py linkcheck --project "<PROJECT_DIR>" --vault "<VAULT_DIR>"
 ```
 Checks wikilink file targets in the project against files across the vault, retaining target directories. Compare with a pre-edit baseline to identify newly unresolved links. Without `--vault`, resolution is project-only. After a move, use the vault root for both arguments so the check includes cross-project incoming links and the moved note's outgoing links. This is a file-existence check: it does not prove ambiguous basenames resolve to the intended note or validate heading/block anchors; inspect those affected links separately.
 
