@@ -21,9 +21,9 @@ For investigation tasks, stage long ticket/PR descriptions, comment threads, or 
 
 ## Task Note Rules
 
-Do not write unless the user explicitly asks. For `Current State`, `Decision Log`, or `Open Questions`, use `task-note-update`. If any of those three sections is missing, offer to add it.
+Write to the task note only when the user asks for a change. For `Current State`, `Decision Log`, or `Open Questions`, use `task-note-update`, which then writes directly and shows the result. If any of those three sections is missing, offer to add it.
 
-Whatever the section — including hand-written ones like `Design`, `Hypotheses`, or `Context` — write for a reader scanning the note: prefer real markdown lists over dense prose, keep sentences short, give each distinct fact its own bullet, and never use inline `(1)… (2)…` / `(a)… (b)…` pseudo-lists where a real list belongs.
+In every section, including hand-written ones like `Design`, `Hypotheses`, or `Context`, follow the `vault` skill's Writing notes rules.
 
 ## Frontmatter
 

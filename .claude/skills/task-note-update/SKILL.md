@@ -5,7 +5,7 @@ description: Append a Decision Log entry, rewrite Current State, or resolve an O
 
 # Task Note Update
 
-Maintains `Current State`, `Decision Log`, and `Open Questions`. Writes directly when the content is already established in the session; asks first only when something material is missing or ambiguous.
+Maintains `Current State`, `Decision Log`, and `Open Questions`. Once the user asks for an update, writes it directly when the content is already established in the session; asks first only when something material is missing or ambiguous.
 
 ## Procedure
 
@@ -87,11 +87,9 @@ A task with `task-type: experiment` belongs to a research note: a `research:` fr
 
 Writing:
 
-- Write for a reader scanning the note, not a transcript. Prefer real markdown lists over dense prose; keep sentences short; give each distinct fact its own line or bullet rather than chaining clauses. A Current State or Decision Log entry that packs several distinct strands into one dense paragraph is the failure being avoided.
-- Never use inline pseudo-lists — `(1)… (2)…`, `(a)… (b)…`, or semicolon-chained runs — where a numbered or bulleted markdown list belongs.
+- Follow the `vault` skill's Writing notes rules.
 - Link, don't copy: never echo JIRA or PR content into the task note.
-- Use British spelling.
-- Dates are Obsidian wikilinks `[[YYYY-MM-DD]]` — never bare `YYYY-MM-DD` — so they backlink to daily notes. Get them from `date`, never from memory.
+- Dates are `[[YYYY-MM-DD]]` wikilinks, never bare, so they backlink to daily notes.
 
 Section mechanics:
 

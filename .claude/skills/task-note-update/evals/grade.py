@@ -76,7 +76,7 @@ def new_entry_dated(note, _resp, date):
 
 
 def sub_bullet(label):
-    pattern = re.compile(rf"^\s+- \*\*{label}:?\*\*", re.M | re.I)
+    pattern = re.compile(rf"^\s+- \*\*{label}\b[^*\n]*\*\*", re.M | re.I)  # allows "**Rejected (for now):**"
 
     def check(note, _resp, _date):
         e = first_entry(note)

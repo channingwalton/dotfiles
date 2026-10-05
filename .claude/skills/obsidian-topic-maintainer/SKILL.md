@@ -13,29 +13,16 @@ A helper script lives at `scripts/topic_tools.py` (run it with `python3 <skill-d
 
 ## Vault model & conventions
 
+Follow the `vault` skill's Writing notes and Task frontmatter sections. The bullets below add what is specific to Topics.
+
 - Vault root is typically `~/Documents/Notes`; projects live under `Projects/<Name>/`, each with `Topics/`, `Tasks/`, and usually `Events/`.
 - **Domain knowledge lives outside projects.** Top-level folders (`Development/`, `Artificial Intelligence/`, `Process/`, `Knowledge management/`, ...) hold evergreen, project-independent notes. Each has a same-named hub note that acts as its **MOC (Map of Content)**; some are Dataview-backed, surfacing every note that links `[[<Domain>]]` automatically. A concept that recurs across projects belongs here, not trapped in one project's `Topics/`.
-- **Every note's H1 is a self wikilink**: `# [[Note Title]]`, followed by a parent link line. For a project Topic that parent is `[[<Project>]]`; for a graduated domain note it is `[[<Domain>]]`.
+- **Parent links**: a project Topic's parent line is `[[<Project>]]`; a graduated domain note's is `[[<Domain>]]`.
 - **Topic hub** = an evergreen, conceptual note in `Topics/`. It describes a subject in prose, links to related topics and definition notes, and ends with a `## See also` line of middot-separated wikilinks. A hub does **not** enumerate task notes.
 - **Direction of links is one-way: tasks -> topics.** Task/Event notes carry a bare-wikilink backlink line (e.g. `[[Importers]] [[Leave Entitlements]]`) immediately under their H1. Topics never list their tasks.
 - **Definitions vs hubs**: short "what is X" definition notes and longer "what we did / how it works" hubs both live in `Topics/` — there is no separate glossary folder (see the `vault` skill for the definition-note shape). Don't create a second note for a concept that already has one - merge instead.
 - **Aliases**: give abbreviations and singular/plural variants an `aliases:` entry so existing links keep resolving (e.g. hub `kmono Architecture` with alias `kmono`; hub `Job Plans` with alias `Job Plan`). Keep note **basenames unique** across the project - duplicate basenames force Obsidian to write fragile full-path links.
 - **Check links when moving notes.** Bare wikilinks to a unique basename can survive a move; path-qualified links and source-relative links may need rewriting. Check incoming links across the vault and outgoing links in the moved note. Keep one canonical file, without a same-named stub or copy.
-- British spelling. Generate any timestamp with the shell `date` command, never a guess.
-- **Task frontmatter** shape (match the project's existing tasks):
-  ```
-  ---
-  status: done
-  priority: normal
-  projects:
-    - "[[<Project>]]"
-  dateCreated: <ISO8601>
-  dateModified: <ISO8601>
-  tags:
-    - task
-  completedDate: <YYYY-MM-DD>
-  ---
-  ```
 
 ## Workflow
 
