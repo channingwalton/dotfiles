@@ -199,9 +199,9 @@ CAUSAL = re.compile(r"caus|break|because|due to|responsib|trigger", re.I)
 def cause_hedged(note, _resp, _date):
     """Only lines that link the null to the failure need a hedge; 'row 18,204 has a null end date' is an observation."""
     s = sections(note)
-    claims = [l for l in s.get("Current State", "").splitlines() if re.search(r"null", l, re.I) and CAUSAL.search(l)]
+    claims = [l for l in s.get("Current State", "").splitlines() if re.search(r"\bnull\b", l, re.I) and CAUSAL.search(l)]
     unhedged = [l for l in claims if not HEDGE.search(l)]
-    in_oq = re.search(r"null", s.get("Open Questions", ""), re.I)
+    in_oq = re.search(r"\bnull\b", s.get("Open Questions", ""), re.I)
     ok = (claims and not unhedged) or (in_oq and not unhedged)
     return result(ok, f"causal lines: {claims}; unhedged: {unhedged}; raised in Open Questions: {bool(in_oq)}")
 
