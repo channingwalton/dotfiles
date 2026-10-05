@@ -1,0 +1,87 @@
+{
+  "skill_name": "task-note-update",
+  "evals": [
+    {
+      "id": 1,
+      "name": "decision-with-rejected-alternative",
+      "prompt": "Log this decision on the task note at {note}: we're running the chunked import on the existing import-worker queue rather than adding a dedicated queue, because import volume is a handful of files a week and a new queue means new deploy config in every environment. We considered a dedicated queue so large imports don't delay small ones, but rejected it for now — the worker is idle most of the day.",
+      "expected_output": "One new Decision Log entry at the top, dated today as a wikilink, with Why and Rejected on indented sub-bullets; everything else untouched.",
+      "files": ["evals/files/2026-09-28 101402 RH-7012 Chunk the leave entitlement import.md"],
+      "expectations": [
+        "The first Decision Log entry is the new queue decision",
+        "The new entry is dated today as a [[YYYY-MM-DD]] wikilink",
+        "Why is on its own indented sub-bullet",
+        "The rejected alternative is on its own indented sub-bullet",
+        "The earlier Decision Log entries are unchanged",
+        "Current State, Next Session, Open Questions and Context are unchanged"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "current-state-rewrite",
+      "prompt": "Update the task note at {note} — current state has changed. Chunked commits are working on branch rh-7012-chunked-import at 500 rows per chunk, and a 20k-row file now imports in 11s. We're blocked on getting a copy of the Leeds trust file to test the 40k-row case. Next: run the import against the Leeds file once it arrives, then open the PR.",
+      "expected_output": "Current State rewritten with today's date, a short lead and bold-labelled bullets including the blocker; Next Session rewritten with the same date as a numbered list; earlier Decision Log entries intact.",
+      "files": ["evals/files/2026-09-28 101402 RH-7012 Chunk the leave entitlement import.md"],
+      "expectations": [
+        "Current State is dated today",
+        "Current State opens with a lead of at most two sentences",
+        "Current State strands are bullets with bold labels",
+        "A bold-labelled blocker bullet names the Leeds file",
+        "Next Session is rewritten with the same date",
+        "Next Session steps are a numbered list that includes the Leeds run",
+        "No inline (1)/(a) pseudo-lists in Current State or Next Session",
+        "The earlier Decision Log entries are unchanged"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "decision-missing-why",
+      "prompt": "Log this decision on the task note at {note}: we're going to use Postgres advisory locks to stop two imports of the same file running at once.",
+      "expected_output": "Nothing written; the reply asks for the reason behind the decision.",
+      "files": ["evals/files/2026-09-28 101402 RH-7012 Chunk the leave entitlement import.md"],
+      "expectations": [
+        "The task note is unchanged",
+        "The final response asks for the reason"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "close-out-before-merge",
+      "prompt": "Close it out on {note} — the PR for rh-7012-chunked-import is approved and the Leeds file imported fine.",
+      "expected_output": "Status stays in-progress with no completedDate, because the branch is not merged; the reply names the merge as the open strand.",
+      "files": ["evals/files/2026-09-28 101402 RH-7012 Chunk the leave entitlement import.md"],
+      "expectations": [
+        "Frontmatter status stays in-progress",
+        "No completedDate is added",
+        "The reply names the merge as what is still open"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "resolve-open-question",
+      "prompt": "Answer to the open question on {note} about resumability: re-running from the start is fine — the import upserts on entitlement id, so a re-run is idempotent.",
+      "expected_output": "The answer is written to the Decision Log or Current State first, then the resumability question is removed; the other question stays.",
+      "files": ["evals/files/2026-09-28 101402 RH-7012 Chunk the leave entitlement import.md"],
+      "expectations": [
+        "The resumability question is removed from Open Questions",
+        "The chunk-size question is still in Open Questions",
+        "The answer is recorded in the Decision Log or Current State",
+        "The earlier Decision Log entries are unchanged",
+        "Next Session's date matches Current State's"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "inferred-cause",
+      "prompt": "Update current state on {note}: the Leeds file arrived and the import failed at row 18,204 with a NullPointerException in ChunkBoundary. That row has a null end date, so null end dates are what's breaking it. Next I'll fix ChunkBoundary to handle nulls.",
+      "expected_output": "Current State records the failure and its evidence, but presents null end dates as the suspected cause (or raises it as an Open Question) rather than as established fact.",
+      "files": ["evals/files/2026-09-28 101402 RH-7012 Chunk the leave entitlement import.md"],
+      "expectations": [
+        "Current State mentions the null end date",
+        "The null-end-date cause is hedged in Current State or raised as an Open Question",
+        "The earlier Decision Log entries are unchanged",
+        "Next Session's date matches Current State's"
+      ]
+    }
+  ]
+}
