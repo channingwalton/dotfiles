@@ -117,3 +117,11 @@ export VISUAL=nvim
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
+
+# Agent shells (Claude Code sets CLAUDECODE=1): no interactive -i prompts, which
+# hang or silently decline in a non-interactive run, and bash-like unmatched
+# globs instead of zsh's "no matches found" abort.
+if [[ -n $CLAUDECODE ]]; then
+  unalias cp mv rm ls 2>/dev/null
+  setopt no_nomatch
+fi
