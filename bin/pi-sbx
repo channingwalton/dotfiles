@@ -61,23 +61,33 @@ command -v sbx >/dev/null || die "sbx not found. Install it with: brew install d
 
 physical() { CDPATH='' cd -- "$1" && pwd -P; }
 
+# within PATH DIR: PATH is DIR or below it. PATH must be physical. -ef compares
+# device and inode, so neither a symlink (~/.pi into dotfiles, say) nor letter
+# case (APFS is case-insensitive by default, and `pwd -P` keeps the case as
+# typed) can disguise the relationship the way a string prefix can.
+within() {
+  local path=$1
+  [[ $path == /* ]] || return 1 # dirname never reaches / from a relative path
+  while :; do
+    [[ $path -ef $2 ]] && return 0
+    [[ $path == / ]] && return 1
+    path=$(dirname -- "$path")
+  done
+}
+
 dir=${dir:-.}
 [[ -d "$dir" ]] || die "no such directory: $dir"
 workdir="$(physical "$dir")"
+home="$(physical "$HOME")" # its own line, so set -e stops on an unresolvable HOME
 
-# Compare physical paths: ~/.pi may be a symlink (into dotfiles, say).
-case "$(physical "$HOME")/" in
-"${workdir%/}/"*) die "refusing to mount $workdir; pick a project directory" ;;
-esac
+if within "$home" "$workdir"; then
+  die "refusing to mount $workdir; pick a project directory"
+fi
 for config in "$HOME/.pi" "$HOME/.agents"; do
   [[ -d "$config" ]] || continue
   config="$(physical "$config")"
-  case "$workdir/" in
-  "$config/"*) die "refusing to mount an agent config directory" ;;
-  esac
-  case "$config/" in
-  "${workdir%/}/"*) die "refusing to mount $workdir; it contains $config" ;;
-  esac
+  within "$workdir" "$config" && die "refusing to mount an agent config directory"
+  within "$config" "$workdir" && die "refusing to mount $workdir; it contains $config"
 done
 
 # Sandbox name: pi-<dir>-<hash of full path>.

@@ -14,6 +14,7 @@ mkdir -p "$HOST" "$SANDBOX" "$TMP_DIR/project" "$TMP_DIR/stub"
 # $SANDBOX; run is logged instead of starting pi.
 cat > "$TMP_DIR/stub/sbx" <<'STUB'
 #!/usr/bin/env bash
+[[ -n ${CALLS:-} ]] && echo "$*" >> "$CALLS"
 case $1 in
 exec)
   shift
@@ -157,6 +158,73 @@ check "config-only cleanup exits 0"             test "$STATUS" -eq 0
 check "config-only cleanup starts pi"           test -s "$TMP_DIR/runs"
 check "config-only cleanup removes pi root"     missing .pi
 check "config-only cleanup removes agents root" missing .agents
+
+# --- mount-refusal guard ---
+# Like the real setup: ~/.pi is a symlink into a dotfiles checkout, so
+# mounting the checkout would expose the real auth.json read-write.
+G="$TMP_DIR/guard-home"
+mkdir -p "$G/dotfiles/.pi/agent" "$G/dotfiles/bin" "$G/.agents/skills" "$G/cwd" "$TMP_DIR/guard-sandbox"
+ln -s dotfiles/.pi "$G/.pi"
+
+# guard <cwd> [DIR] — runs the script against the guard home, logging every
+# sbx call; a refusal must exit nonzero before sbx is touched.
+guard() {
+  local cwd=$1
+  shift
+  STATUS=0
+  : > "$TMP_DIR/calls"
+  (cd "$cwd" && HOME="$G" PATH="$TMP_DIR/stub:$PATH" SANDBOX="$TMP_DIR/guard-sandbox" \
+    RUNS="$TMP_DIR/runs" CALLS="$TMP_DIR/calls" "$SCRIPT" "$@") > "$TMP_DIR/out" 2>&1 || STATUS=$?
+}
+# A refusal is the guard's own: nonzero, its message, and no sbx call.
+refused() {
+  test "$STATUS" -ne 0 && test ! -s "$TMP_DIR/calls" && grep -q 'refusing to mount' "$TMP_DIR/out"
+}
+mounted() { test "$STATUS" -eq 0 && grep -q "^create .* $1\$" "$TMP_DIR/calls"; }
+
+for dir in "$G" "$G/" / "$TMP_DIR" "$G/dotfiles" "$G/dotfiles/.pi" "$G/.pi" "$G/.pi/agent" \
+  "$G/.agents" "$G/.agents/skills"; do
+  guard "$G/cwd" "$dir"
+  check "refuses $dir" refused
+done
+guard "$G/cwd" "$G/missing"
+check "rejects a missing DIR before sbx" \
+  eval 'test "$STATUS" -ne 0 && test ! -s "$TMP_DIR/calls" && grep -q "no such directory" "$TMP_DIR/out"'
+
+# An unresolvable HOME must fail, not hang: the ancestor walk needs a real path.
+STATUS=0
+: > "$TMP_DIR/calls"
+(cd "$TMP_DIR/project" && HOME="$TMP_DIR/no-such-home" PATH="$TMP_DIR/stub:$PATH" CALLS="$TMP_DIR/calls" \
+  exec "$SCRIPT" "$G/cwd") > "$TMP_DIR/out" 2>&1 &
+pid=$!
+for _ in $(seq 50); do kill -0 "$pid" 2>/dev/null || break; sleep 0.1; done
+if kill -0 "$pid" 2>/dev/null; then
+  kill "$pid"
+  wait "$pid" 2>/dev/null || true
+  STATUS=hung
+else
+  wait "$pid" || STATUS=$?
+fi
+check "unresolvable HOME fails without hanging" \
+  eval 'test "$STATUS" != hung && test "$STATUS" -ne 0 && test ! -s "$TMP_DIR/calls"'
+guard "$G/.pi/agent"
+check "refuses a config dir reached through the symlink as cwd" refused
+guard "$G"
+check "refuses home as cwd" refused
+guard "$G/cwd" "$G/dotfiles/bin"
+check "mounts a dotfiles subdir without config" mounted "$(cd "$G/dotfiles/bin" && pwd -P)"
+
+# APFS is case-insensitive by default and `pwd -P` keeps the case as typed,
+# so a differently-cased path must not get past the comparison. On a
+# case-sensitive filesystem these paths don't exist, so there is nothing to test.
+if [[ -d "$G/DOTFILES" ]]; then
+  for dir in "$G/DOTFILES" "$G/Dotfiles/.pi" "$G/.PI/agent" "$G/.AGENTS/skills" "$TMP_DIR/GUARD-HOME"; do
+    guard "$G/cwd" "$dir"
+    check "refuses case variant $dir" refused
+  done
+else
+  echo "pi-sbx: case-sensitive filesystem; case-variant guard tests skipped"
+fi
 
 printf 'pi-sbx: %d passed, %d failed\n' "$PASS" "$FAIL"
 ((FAIL == 0))
