@@ -70,31 +70,11 @@ Re-run `audit`. Aim for:
 - **Topics -> Topics: links must be evidence-gated.** Add a `## See also` link between two topics **only when they co-occur in real task/event text** (the same notes mention both). Never invent a topic->topic link to clear the orphan-connectivity number — a false link is worse than an orphan. Give a topic with no *outgoing* link a `## See also` only if such evidence exists; otherwise leave it. Intentional peripheral orphans (dev/admin/reference, or a standalone definition) are acceptable — record them in the skip-list, don't force a link. **Experiment tasks** (`task-type: experiment`) carry a `[[<Research Note>]]` backlink under the H1 that is *not* a topic link — add topic backlinks only where they genuinely fit, otherwise skip-list them; their knowledge reaches Topics via the research note's conclusion (obsidian-research-maintainer), not forced task->topic links.
 
 ### 6. Graduation (promote evergreen concepts out of the project)
-Most Topics describe *this* project and stay. A few are really **cross-cutting concepts** that will recur elsewhere — promote those into a shared domain folder so project work compounds into reusable knowledge. Canonical procedure: the vault note `[[Topic graduation]]`. This step is **conservative by default** — when in doubt, leave it in the project.
-
-**Where to look.** The prime suspects are the notes step 5 parks in the skip-list as "standalone definition / reference stubs", and any note whose links already resolve vault-wide rather than to project topics. Re-evaluate those here instead of parking them forever. The `crosscut` command (read-only) ranks them:
-```
-python3 <skill-dir>/scripts/topic_tools.py crosscut --project "<PROJECT_DIR>"    # --max-words tunes the stub threshold (default 40)
-```
-One line per suspect: fired signals (definition-style stub, links resolving outside the project, linked from other projects, skip-listed as standalone), cross-project reference count, and a suggested destination domain folder where one fits. It only detects — apply the three-part test below yourself.
-
-**The test — graduate only if all three hold:**
-1. **Concept-oriented, not project-oriented.** Ask: *would I want this note when working on a different project?* Names tied to this project (clients, sites, internal systems, ticket-specific behaviour) fail — they stay.
-2. **A real destination domain folder already exists** (`Development/`, `Artificial Intelligence/`, ...). If the concept is genuinely cross-cutting but has **no** home folder, do **not** invent a top-level folder — surface it to the user as a naming decision and leave the note in place until they choose. (A dense project-specific domain — e.g. an NHS rostering product — is correct as-is; do not strip it for the sake of promotion.)
-3. **The concept is actually stated.** A stub title is not knowledge. If the note is a stub, distil it into a proper atomic note first (or flag that it needs writing) — don't move an empty hull.
-
-**Propose-then-apply.** Present the shortlist of graduation candidates — each with its proposed destination and a one-line rationale — and get the user's go-ahead. Expect this list to be short or empty; that is the normal, healthy result.
-
-**To graduate an approved Topic:**
-- Distil it into an atomic, concept-oriented note in your own words (drop project-specific incidental detail, or split it out — keep the project-specific part as a project Topic that links the new general note).
-- Move it to the domain folder (`git mv` if the vault is a git repo). Preserve its basename, update affected path-qualified incoming links and source-relative outgoing links, and leave no stub behind.
-- Re-point the parent link from `[[Topics]]`/`[[<Project>]]` to `[[<Domain>]]`, drop the `project:` frontmatter binding, and add a `Used in [[<Project>]]` line so the project relationship stays explicit.
-- Ensure the note links `[[<Domain>]]`; a Dataview-backed MOC then surfaces it automatically. If the domain hub is a hand-maintained list, add the note to it.
-- Verify file targets with `linkcheck` (step 8) and inspect any ambiguous or heading/block links affected by the move.
+Most Topics describe *this* project and stay. On a full pass, or when the user asks to promote a Topic, read [GRADUATION.md](GRADUATION.md) and follow it.
 
 ### 7. Hygiene
 - **Duplicate names / alias collisions**: if a concept exists twice (or a definition + a hub), merge into one note, fold the alias on so links resolve, and delete the duplicate. After removing duplicates, collapse any `[[Projects/.../full/path]]` links Obsidian created for disambiguation back to bare `[[Name]]`.
-- **Dated retrospectives**: a dated, completed write-up (a retro, a posted Slack analysis) belongs in `Tasks/`, not `Topics/`. Convert it - add task frontmatter (`completedDate` = its date, `tags: task`), move it to `Tasks/`, and **extract its durable lessons** into the relevant evergreen hubs, leaving the dated note as an archived task. Check affected links using the same move procedure as graduation.
+- **Dated retrospectives**: a dated, completed write-up (a retro, a posted Slack analysis) belongs in `Tasks/`, not `Topics/`. Convert it - add task frontmatter (`completedDate` = its date, `tags: task`), move it to `Tasks/`, and **extract its durable lessons** into the relevant evergreen hubs, leaving the dated note as an archived task. Check affected links as in **Check links when moving notes** above.
 
 ### 8. Verify
 ```
@@ -106,6 +86,5 @@ Then **update `Topics/_topic-maintenance-log.md`**: append a dated entry (shell 
 
 ## Notes
 - Deleting files in a connected vault may need delete permission - if `rm` reports "Operation not permitted", request it rather than reporting it impossible.
-- Graduation needs a destination domain folder. Never create a new top-level domain folder unprompted — if a cross-cutting concept has no home, that is a decision for the user, not a default.
 - Run on demand. If the user wants it kept fresh, offer to schedule a periodic run (e.g. weekly) that does steps 1-2 and proposes new topics.
 - Generalises across projects: nothing here is specific to one project - point it at any `Projects/<Name>/` with `Topics/` + `Tasks/`.
