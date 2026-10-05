@@ -8,6 +8,7 @@
 - Run each command from the working directory: use the tool's directory flag (`git -C <path>`, `npm --prefix <path>`) or separate calls. Parallel shell calls can share a working directory, so a `cd` in one can send another's command to the wrong repo.
 - Build, test and lint through `devtool` (auto-detects project type; `devtool --help` lists commands). "Commit check" means `devtool check`; run it before committing. Use `devtool cpd` in code reviews to find duplicate code.
 - Find code with fff, then read only the slice you need. For API or CLI data, filter at the source (IDs, fields, dates) or save the response to a file and slice it with `jq`/`rg`.
+- For browser work, use `agent-browser` for headless testing, QA and scraping, claude-in-chrome when the task needs my logged-in Chrome, and WebFetch to read a page.
 - After editing code, check LSP diagnostics if LSP is available.
 - Changes to code or tests go through the `software-development` skill.
 - Expand unusual acronyms on first use, e.g. "Service Level Objective (SLO)". Leave well-known ones like API, URL and LLM as they are.
