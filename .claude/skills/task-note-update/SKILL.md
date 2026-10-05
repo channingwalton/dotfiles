@@ -7,10 +7,6 @@ description: Append a Decision Log entry, rewrite Current State, or resolve an O
 
 Maintains `Current State`, `Decision Log`, and `Open Questions`. Writes directly when the content is already established in the session; asks first only when something material is missing or ambiguous.
 
-## When to use
-
-Use when the user wants a task-note decision, state change, or open-question resolution captured durably.
-
 ## Procedure
 
 1. Resolve the active task note. If one exact match is not clear, ask; do not guess.
