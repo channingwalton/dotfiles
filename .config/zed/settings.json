@@ -52,10 +52,10 @@
     "default_profile": "ask",
     "dock": "right",
     "default_model": {
-      "effort": "xhigh",
+      "effort": "low",
       "enable_thinking": true,
       "provider": "openai-subscribed",
-      "model": "gpt-5.6-sol"
+      "model": "gpt-6.1-sol"
     },
     "model_parameters": []
   },

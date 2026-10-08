@@ -83,7 +83,6 @@
 !/.config/btop/
 !/.config/caveman/
 !/.config/cmux/
-!/.config/codeburn/
 !/.config/espanso/
 !/.config/gh/
 
@@ -93,11 +92,8 @@
 !/.config/git/
 !/.config/helix/
 !/.config/herdr/
-!/.config/ideavim/
-!/.config/jj/
 !/.config/lazydocker/
 !/.config/lazygit/
-!/.config/lazysql/
 !/.config/leaf/
 !/.config/lsd/
 !/.config/mise/
