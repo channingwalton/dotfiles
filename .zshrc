@@ -92,7 +92,6 @@ export PATH="/opt/homebrew/bin:$PATH"
 zmodload -i zsh/complist
 
 eval "$(fzf --zsh)"
-eval "$(direnv hook zsh)"
 eval "$(atuin init zsh)"
 
 source ~/dotfiles/zshfunctions
