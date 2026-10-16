@@ -34,7 +34,7 @@ These hold for every skill that writes to the vault.
 | Quarterly notes | `Journal/Quarterly Notes/<YYYY>-Q<Q>.md` |
 | Yearly notes | `Journal/Yearly Notes/<YYYY>.md` |
 | Tasks | `Projects/<project>/Tasks/<YYYY-MM-DD HHMMSS> <ID> <title>.md` |
-| Events | `Projects/<project>/Events/<YYYY-MM-DD> <event type> <title>.md` |
+| Events | `Projects/<project>/Events/<YYYY-MM-DD HHMMSS> <title>.md` |
 | Topics | `Projects/<project>/Topics/<Topic>.md` |
 | Research | `Projects/<project>/Research/<Title>.md` |
 | Templates | `Vault Metadata/Templates/` |
@@ -45,7 +45,7 @@ in a project's `Topics/`. Moving a note there is the `obsidian-topic-maintainer`
 step.
 
 Section ownership: `Current State`, `Decision Log`, `Open Questions`, and `Next Session` on a
-task note belong to `task-note-update`; routing a task note by `task-type` belongs to `task`.
+task note belong to `obsidian-task-note-update`; routing a task note by `task-type` belongs to `obsidian-task`.
 Do not write those sections from here.
 
 ## Shell Rules
@@ -75,7 +75,7 @@ completedDate: <YYYY-MM-DD>  # only with status: done
 ---
 ```
 
-New task notes start with `status: open`. `task-type` and when a task may become `done` belong to `task` and `task-note-update`.
+New task notes start with `status: open`. `task-type` and when a task may become `done` belong to `obsidian-task` and `obsidian-task-note-update`.
 
 ## Linking
 

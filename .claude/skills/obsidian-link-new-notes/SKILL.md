@@ -1,15 +1,17 @@
 ---
-name: "obsidian-vault-link-new-notes"
+name: "obsidian-link-new-notes"
 description: "Use after new notes are added to the Obsidian vault (Readwise imports, Events, Topics, any note) to link them into existing notes, routing links through Topics."
 ---
 
 # Link new notes into the vault
 
-The vault is at `~/Documents/Notes`. This skill connects new notes to existing notes. It edits existing notes and the new notes. It never creates notes.
+The vault is at `~/Documents/Notes`. This skill connects new notes to existing notes, following `obsidian-vault`'s Writing notes rules. It edits existing notes and the new notes. It never creates notes.
+
+It writes without asking first, then reports every link it added (step 6). That is safe because its edits only add links and dates, and the vault is in git, so any link can be reverted.
 
 ## Principles
 
-- **Links go through Topics by default.** A new note is added to the relevant Topic note, and the new note links to that Topic. Do not add direct links between every pair of related notes.
+- **Links go through Topics by default.** The new note links to its Topic. A Topic that is a list of links, such as a domain hub or reading list, also gets an entry for the new note. A project Topic hub is prose, and gets an inbound link only under the citation-or-mention rule below. Do not add direct links between every pair of related notes.
 - **Direct links only for citations or explicit mentions.** Add a direct link from an existing note to a new note only where the existing note cites the new note's source, or explicitly mentions its subject (the article, paper, author, person, tool, organisation or event).
 - **Existing meeting and email Events are never edited.** They record a point in time. New notes may link to them.
 - **Plugin-owned notes are never edited.** Readwise notes (`Readwise/`) are written by the sync plugin. They receive inbound links only.
@@ -62,20 +64,20 @@ Match the style the target note already uses. Do not add a new section if an exi
 
 **Outbound from the new note** (skip for plugin-owned notes):
 
-- Events: add relevant Topics to the `topics:` frontmatter list as `"[[Topic]]"`, and link explicitly mentioned people, organisations and notes inline. New meeting and email Events may link to existing meeting and email Events.
+- Events: add relevant Topics to the bare-wikilink line under the H1, or to the `topics:` frontmatter list for a slide deck, as `obsidian-topic-maintainer` describes. Link explicitly mentioned people, organisations and notes inline. New meeting and email Events may link to existing meeting and email Events.
 - Other notes: link the relevant Topic near the top, matching how sibling notes do it, and link explicit mentions inline.
 
 For an Event, use the aliased form `[[YYYY-MM-DD HHMMSS Title|Title]]`. Otherwise the link text is the filename without `.md`.
 
-Append today's date as `[[YYYY-MM-DD]]` to the footer of each existing note edited, when it has a date footer. Do not replace earlier dates. Get today's date from the system, not from memory.
+Append today's date as `[[YYYY-MM-DD]]` to the footer of each existing note edited, when it has a date footer. Do not replace earlier dates.
 
-Use British spelling. Keep added text short and in the note's voice.
+Keep added text short and in the note's voice.
 
 ## 6. Report
 
 End with:
 
 - A table of links added: from, to, kind (Topic, citation, mention, outbound), one line on why.
-- New notes with no Topic, each with the Topic that could hold it. Do not create the Topic.
+- New notes with no Topic, each with the Topic that could hold it. Creating a Topic is `obsidian-topic-maintainer`'s job; offer it in one line.
 - New notes that received no links, each with a reason. A note with no links is a result to report, not to hide.
 - Close calls considered and rejected, briefly.

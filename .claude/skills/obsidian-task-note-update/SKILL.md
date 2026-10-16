@@ -5,7 +5,7 @@ description: Append a Decision Log entry, rewrite Current State, or resolve an O
 
 # Task Note Update
 
-Maintains `Current State`, `Decision Log`, and `Open Questions`. Once the user asks for an update, writes it directly when the content is already established in the session; asks first only when something material is missing or ambiguous.
+Maintains `Current State`, `Decision Log`, `Open Questions`, and the `Next Session` prompt. Once the user asks for an update, writes it directly when the content is already established in the session; asks first only when something material is missing or ambiguous.
 
 ## Procedure
 
@@ -13,9 +13,7 @@ Maintains `Current State`, `Decision Log`, and `Open Questions`. Once the user a
 
 2. If unclear, ask which section changes: `Decision Log`, `Current State`, or `Open Questions`.
 
-3. Get today's date via `date +%Y-%m-%d` in bash. Never hardcode.
-
-4. Draft the change.
+3. Draft the change.
 
    **Decision Log entry** — insert newest-first at the top of the list. When the decision carries only a **Why**, one line is fine:
 
@@ -69,9 +67,9 @@ Maintains `Current State`, `Decision Log`, and `Open Questions`. Once the user a
 
    **Open Question resolution** — write the destination first (`Decision Log`, `Current State`, spun-out task, or — for experiment tasks — the research note via roll-up), then remove the question.
 
-5. Write directly when the content derives from work done or decisions made in this session — things the user has already seen or agreed. Apply surgically, then show the written entry (not a proposal) so it can be corrected if wrong.
+4. Write directly when the content derives from work done or decisions made in this session — things the user has already seen or agreed. Apply surgically, then show the written entry (not a proposal) so it can be corrected if wrong.
 
-6. Ask **before** writing only when something material is missing or ambiguous: which note, which section, a Decision Log **Why**, or content the user has never seen (e.g. reconstructing history from outside the session).
+5. Ask **before** writing only when something material is missing or ambiguous: which note, which section, a Decision Log **Why**, or content the user has never seen (e.g. reconstructing history from outside the session).
 
 If the user asks to update both task note and dossier, update dossier files directly under the investigation workflow; the same direct-write rule applies to the task note.
 
@@ -87,7 +85,7 @@ A task with `task-type: experiment` belongs to a research note: a `research:` fr
 
 Writing:
 
-- Follow the `vault` skill's Writing notes rules.
+- Follow the `obsidian-vault` skill's Writing notes rules.
 - Link, don't copy: never echo JIRA or PR content into the task note.
 - Dates are `[[YYYY-MM-DD]]` wikilinks, never bare, so they backlink to daily notes.
 

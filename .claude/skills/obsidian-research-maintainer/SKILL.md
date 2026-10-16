@@ -1,6 +1,6 @@
 ---
 name: obsidian-research-maintainer
-description: Maintain a project's Research layer in an Obsidian vault — scaffold a research note from a question, spawn experiment tasks with backlinks, roll experiment findings up into the research note, sync open questions, and on conclusion graduate durable findings into Topics. Use when the user wants to start a piece of research, add an experiment to a research question, update a research note from its experiments, review open questions, or conclude a research question. Sibling of obsidian-topic-maintainer; assumes projects under the vault have Research/, Tasks/, Topics/ (and usually Events/) sub-folders.
+description: Maintain a project's Research layer in an Obsidian vault — scaffold a research note from a question, spawn experiment tasks with backlinks, roll experiment findings up into the research note, sync open questions, and on conclusion graduate durable findings into Topics. Use when the user wants to start a piece of research, add an experiment to a research question, update a research note from its experiments, review open questions, or conclude a research question.
 ---
 
 # Obsidian Research Maintainer
@@ -8,13 +8,13 @@ description: Maintain a project's Research layer in an Obsidian vault — scaffo
 Maintains the **Research** layer of an Obsidian project. A research note holds one research question end to end: problem, hypotheses, links to experiments, a rolling summary of findings, and open questions. Experiments are ordinary **Tasks** (`task-type: experiment`) that link back to their research note — no separate experiment structure exists or should be invented. Supporting documents are captured in **Events** and linked from the research note.
 
 This skill is **propose-then-apply** for anything that rewrites existing notes: show what would change and get the user's go-ahead. Creating a fresh research note or experiment task on request needs no confirmation loop.
-done## Vault model & conventions
 
-Follow the `vault` skill's Writing notes and Task frontmatter sections. The bullets below add what is specific to Research.
+## Vault model & conventions
 
-- Vault root is typically `~/Documents/Notes`; projects live under `Projects/<Name>/` with `Research/`, `Tasks/`, `Topics/`, and usually `Events/`.
+Follow the `obsidian-vault` skill's Writing notes and Task frontmatter sections. The bullets below add what is specific to Research.
+
+- Projects live under `Projects/<Name>/` with `Research/`, `Tasks/`, `Topics/`, and usually `Events/`.
 - `Research/Research.md` is the index hub for a project's research notes; the project note links it in its footer line.
-- A research note's parent line is `[[Research]]`.
 - **Research note** shape (template: `Vault Metadata/Templates/Inputs/research.md`) — no date prefix in the filename; named by a short form of the question:
 
   ```
@@ -40,7 +40,7 @@ Follow the `vault` skill's Writing notes and Task frontmatter sections. The bull
     - "[[<Research Note>]]"
   ```
 
-and a `[[<Research Note>]]` backlink line under its H1. The task keeps its own Current State, method, Results, Decision Log; links are one-way in prose (task → research), while the research note's **Experiments** section lists its experiment tasks with a one-line description each.
+and a `[[<Research Note>]]` backlink line under its H1. The task keeps its own Current State, method, Results, Decision Log. Links run both ways, unlike Topics: the task backlinks its research note, and the research note's **Experiments** section lists each experiment task with a one-line description.
 
 ## Division of content — the important rule
 
@@ -53,19 +53,19 @@ and a `[[<Research Note>]]` backlink line under its H1. The task keeps its own C
 ### Start a research question
 
 1. Ask for the question if not given; agree a short title (the filename).
-2. Create `Research/<Title>.md` from the template shape above (shell `date` for timestamps). Write the Problem section from the user's phrasing; draft 2–4 falsifiable Hypotheses and confirm them with the user.
+2. Create `Research/<Title>.md` from the template shape above. Write the Problem section from the user's phrasing; draft 2–4 falsifiable Hypotheses and confirm them with the user.
 3. Add the note to `Research/Research.md`'s list. Create `Research/` and `Research.md` first if the project lacks them, and add the footer link to the project note.
 
 ### Add an experiment
 
 1. Create a Task note (dated filename, matching the project's task conventions) with `task-type: experiment` and the `research:` frontmatter + H1 backlink.
-2. List it under the research note's **Experiments** section with a one-line description. Bump `dateModified`.
+2. List it under the research note's **Experiments** section with a one-line description.
 
 ### Roll up findings
 
 1. Read each linked experiment task's Current State / Results / Decision Log.
 2. Propose an updated **Findings** section: short bolded claims, each attributable to an experiment, with an `*Updated: [[<date>]]*` line. Propose which experiment-level open questions have become research-level (move up) and which research questions an experiment has answered (mark or remove, noting the answer in Findings).
-3. On approval, apply and bump `dateModified`. Never edit the experiment tasks during roll-up except to fix a missing backlink.
+3. On approval, apply, then remove each promoted question from its experiment task. Edit experiment tasks only for that and to fix a missing backlink.
 
 ### Conclude a research question
 

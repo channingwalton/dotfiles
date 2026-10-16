@@ -1,6 +1,6 @@
 ---
 name: obsidian-topic-maintainer
-description: Keep an Obsidian vault project's Topics folder up to date from its Tasks (and Events), and graduate evergreen Topics into shared domain folders. Use when the user wants to refresh or maintain a project's topics, find missing or new topics, add task-to-topic backlinks, audit topic interlinking, fix orphan topics, resolve duplicate/alias collisions, convert a dated retrospective into a Task, or promote a cross-cutting Topic out of the project into a domain folder (graduation). Assumes each project under the vault has Topics/ and Tasks/ sub-folders (and usually Events/).
+description: Keep an Obsidian vault project's Topics folder up to date from its Tasks (and Events), and graduate evergreen Topics into shared domain folders. Use when the user wants to refresh or maintain a project's topics, find missing or new topics, add task-to-topic backlinks, audit topic interlinking, fix orphan topics, resolve duplicate/alias collisions, convert a dated retrospective into a Task, or promote a cross-cutting Topic out of the project into a domain folder (graduation).
 ---
 
 # Obsidian Topic Maintainer
@@ -13,14 +13,13 @@ A helper script lives at `scripts/topic_tools.py` (run it with `python3 <skill-d
 
 ## Vault model & conventions
 
-Follow the `vault` skill's Writing notes and Task frontmatter sections. The bullets below add what is specific to Topics.
+Follow the `obsidian-vault` skill's Writing notes and Task frontmatter sections. The bullets below add what is specific to Topics.
 
-- Vault root is typically `~/Documents/Notes`; projects live under `Projects/<Name>/`, each with `Topics/`, `Tasks/`, and usually `Events/`.
-- **Domain knowledge lives outside projects.** Top-level folders (`Development/`, `Artificial Intelligence/`, `Process/`, `Knowledge management/`, ...) hold evergreen, project-independent notes. Each has a same-named hub note that acts as its **MOC (Map of Content)**; some are Dataview-backed, surfacing every note that links `[[<Domain>]]` automatically. A concept that recurs across projects belongs here, not trapped in one project's `Topics/`.
-- **Parent links**: a project Topic's parent line is `[[<Project>]]`; a graduated domain note's is `[[<Domain>]]`.
-- **Topic hub** = an evergreen, conceptual note in `Topics/`. It describes a subject in prose, links to related topics and definition notes, and ends with a `## See also` line of middot-separated wikilinks. A hub does **not** enumerate task notes.
-- **Direction of links is one-way: tasks -> topics.** Task/Event notes carry a bare-wikilink backlink line (e.g. `[[Importers]] [[Leave Entitlements]]`) immediately under their H1. Topics never list their tasks.
-- **Definitions vs hubs**: short "what is X" definition notes and longer "what we did / how it works" hubs both live in `Topics/` — there is no separate glossary folder (see the `vault` skill for the definition-note shape). Don't create a second note for a concept that already has one - merge instead.
+- Projects live under `Projects/<Name>/`, each with `Topics/`, `Tasks/`, and usually `Events/`.
+- **Domain hubs.** Each top-level domain folder has a same-named hub note that acts as its **MOC (Map of Content)**; some are Dataview-backed, surfacing every note that links `[[<Domain>]]` automatically.
+- **Topic hub** = an evergreen, conceptual note in `Topics/`. It describes a subject in prose, links to related topics and definition notes, and ends with a `## See also` line of middot-separated wikilinks. A hub does **not** enumerate task notes; citing a Task or Event inline as the source of a claim is fine.
+- **Direction of links is one-way: tasks -> topics.** Task/Event notes carry a bare-wikilink backlink line (e.g. `[[Importers]] [[Leave Entitlements]]`) immediately under their H1. A Marp slide deck (`theme:` in its frontmatter) takes them in its `topics:` frontmatter list instead, because a line under the H1 renders on the title slide; `--exclude` decks from `backlink` and add those by hand. Topics never list their tasks.
+- **Definitions vs hubs**: short "what is X" definition notes and longer "what we did / how it works" hubs both live in `Topics/` — there is no separate glossary folder (see the `obsidian-vault` skill for the definition-note shape). Don't create a second note for a concept that already has one - merge instead.
 - **Aliases**: give abbreviations and singular/plural variants an `aliases:` entry so existing links keep resolving (e.g. hub `kmono Architecture` with alias `kmono`; hub `Job Plans` with alias `Job Plan`). Keep note **basenames unique** across the project - duplicate basenames force Obsidian to write fragile full-path links.
 - **Check links when moving notes.** Bare wikilinks to a unique basename can survive a move; path-qualified links and source-relative links may need rewriting. Check incoming links across the vault and outgoing links in the moved note. Keep one canonical file, without a same-named stub or copy.
 
@@ -82,7 +81,7 @@ python3 <skill-dir>/scripts/topic_tools.py linkcheck --project "<PROJECT_DIR>" -
 ```
 Checks wikilink file targets in the project against files across the vault, retaining target directories. Compare with a pre-edit baseline to identify newly unresolved links. Without `--vault`, resolution is project-only. After a move, use the vault root for both arguments so the check includes cross-project incoming links and the moved note's outgoing links. This is a file-existence check: it does not prove ambiguous basenames resolve to the intended note or validate heading/block anchors; inspect those affected links separately.
 
-Then **update `Topics/_topic-maintenance-log.md`**: append a dated entry (shell `date`) with the final coverage counts, the topics/backlinks touched this pass, **any promotions (Topic -> domain folder) and graduation candidates flagged-but-deferred**, and any notes added to the skip-list. This is the state the next run reads first — keep it short and append-only.
+Then **update `Topics/_topic-maintenance-log.md`**: append a dated entry with the final coverage counts, the topics/backlinks touched this pass, **any promotions (Topic -> domain folder) and graduation candidates flagged-but-deferred**, and any notes added to the skip-list. This is the state the next run reads first — keep it short and append-only.
 
 ## Notes
 - Deleting files in a connected vault may need delete permission - if `rm` reports "Operation not permitted", request it rather than reporting it impossible.

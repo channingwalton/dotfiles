@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Grade task-note-update eval runs.
+"""Grade obsidian-task-note-update eval runs.
 
 Usage: grade.py <iteration-dir> --date YYYY-MM-DD
 

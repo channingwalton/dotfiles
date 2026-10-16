@@ -21,7 +21,7 @@ that explain why the code is the way it is.
 
 1. Search the codebase. For Unison projects use the `unison` MCP server; otherwise locate
    first (`rg -l`, narrow globs) and read only the slice needed.
-2. Search the vault for related context — task notes, Topics, Events — via the `vault` skill.
+2. Search the vault for related context — task notes, Topics, Events — via the `obsidian-vault` skill.
 3. Return consolidated results:
    - code locations as `file:line`
    - related vault notes as wikilinks

@@ -18,4 +18,4 @@
 
 Tasks I work on are tracked as notes in my Obsidian vault. The note is the canonical working memory for the task — *the current state of my thinking* (what we tried, what we rejected, where we got to). JIRA, GitHub, Linear, etc. hold the formal ticket.
 
-When I reference a task note, use the `task` skill to resolve and route it, and `task-note-update` to capture decisions, Current State, or Open Question changes. Those skills own the section formats and the write-then-show loop.
+When I reference a task note, use the `obsidian-task` skill to resolve and route it, and `obsidian-task-note-update` to capture decisions, Current State, or Open Question changes. Those skills own the section formats and the write-then-show loop.
