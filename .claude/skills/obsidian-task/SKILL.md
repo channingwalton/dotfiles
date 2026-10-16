@@ -1,5 +1,5 @@
 ---
-name: task
+name: obsidian-task
 description: "Resolve and operate on Channing's Obsidian vault task notes by frontmatter type. Use when the user references a task note, Jira/GitHub issue tracked by a vault task, asks to inspect or continue task context, or asks to update/capture task state. Routes task-type values such as investigation, implementation, review, experiment, and note to the appropriate specialist skill."
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: vault
+name: obsidian-vault
 description: Read and write notes in the Obsidian vault — paths, filename conventions, linking rules, and where a given kind of note belongs. Use when reading or writing vault notes, capturing knowledge, defining a domain term, or building context from notes.
 ---
 

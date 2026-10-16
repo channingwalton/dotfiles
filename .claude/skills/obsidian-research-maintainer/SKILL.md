@@ -8,8 +8,7 @@ description: Maintain a project's Research layer in an Obsidian vault — scaffo
 Maintains the **Research** layer of an Obsidian project. A research note holds one research question end to end: problem, hypotheses, links to experiments, a rolling summary of findings, and open questions. Experiments are ordinary **Tasks** (`task-type: experiment`) that link back to their research note — no separate experiment structure exists or should be invented. Supporting documents are captured in **Events** and linked from the research note.
 
 This skill is **propose-then-apply** for anything that rewrites existing notes: show what would change and get the user's go-ahead. Creating a fresh research note or experiment task on request needs no confirmation loop.
-
-## Vault model & conventions
+done## Vault model & conventions
 
 Follow the `vault` skill's Writing notes and Task frontmatter sections. The bullets below add what is specific to Research.
 
@@ -20,7 +19,7 @@ Follow the `vault` skill's Writing notes and Task frontmatter sections. The bull
 
   ```
   ---
-  status: open            # open | concluded
+  status: open            # open | done
   projects:
     - "[[<Project>]]"
   dateCreated: <ISO8601>
@@ -70,7 +69,7 @@ and a `[[<Research Note>]]` backlink line under its H1. The task keeps its own C
 
 ### Conclude a research question
 
-1. Confirm with the user that the question is answered or abandoned; set `status: concluded` and add a dated **Conclusion** section summarising the answer.
+1. Confirm with the user that the question is answered or abandoned; set `status: done` and add a dated **Conclusion** section summarising the answer.
 2. **Graduate durable findings into Topics**: propose one or more Topic hubs (new or existing) that should carry the evergreen knowledge, in topic-hub voice — concept prose, no experiment enumeration, `## See also` links. Defer to the obsidian-topic-maintainer skill's conventions for hub shape and any promotion to a domain folder.
 3. The research note stays in `Research/` as the archived record; the Topic carries the knowledge forward.
 

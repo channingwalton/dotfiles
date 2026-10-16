@@ -1,8 +1,8 @@
 [tools]
-node   = "26.10.0"
+node   = "26.11.1"
 ruby   = "4.0.7"
 java   = "latest"
-python = "3.14"
+python = "3.15"
 rust = "latest"
 "npm:@earendil-works/pi-coding-agent" = "latest"
 pnpm = "latest"

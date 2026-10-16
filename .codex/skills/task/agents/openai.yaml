@@ -1,4 +1,0 @@
-interface:
-  display_name: "Task"
-  short_description: "Resolve task context and requested action"
-  default_prompt: "Use $task to resolve the referenced vault task note, load its context, and follow the requested action."

@@ -1,5 +1,5 @@
 ---
-name: task-note-update
+name: obsidian-task-note-update
 description: Append a Decision Log entry, rewrite Current State, or resolve an Open Question on the active task note in Channing's vault. Use when the user says "log this decision", "update the task note", "add to the decision log", "current state has changed", "answer to the open question is X", asks for a prompt to continue the task in a new session, or otherwise asks to capture, record, or log something about the task being worked on.
 ---
 

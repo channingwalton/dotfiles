@@ -1,1 +1,0 @@
-../../../../.claude/skills/obsidian-topic-maintainer/scripts/topic_tools.py
