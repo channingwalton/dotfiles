@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-Topic-maintenance helpers for an Obsidian project that has Topics/ and Tasks/
-(and usually Events/) sub-folders.
+Topic helpers for an Obsidian project with Topics/, Tasks/ and Events/ sub-folders.
+Tasks and Events attach to Topics through the `topics:` frontmatter list.
 
-Read commands (clusters, audit, linkcheck) only print findings. The one write command (backlink) is dry-run by default and needs
---apply to touch files.
+Read commands (audit, clusters, linkcheck, crosscut) only print findings. The one
+write command (backlink) is dry-run by default and needs --apply to touch files.
 
 Usage:
+  python3 topic_tools.py audit     --project DIR
   python3 topic_tools.py clusters  --project DIR [--keywords map.json] [--min 4]
   python3 topic_tools.py backlink  --project DIR --map "Topic=regex" [...] [--exclude file] [--apply]
-  python3 topic_tools.py audit     --project DIR
   python3 topic_tools.py linkcheck --project DIR [--vault VAULT_DIR]
   python3 topic_tools.py crosscut  --project DIR [--max-words 40]
 
@@ -19,6 +19,7 @@ import argparse, glob, json, os, re
 from collections import Counter
 
 LINK = re.compile(r'\[\[([^\]]+)\]\]')
+STRUCTURAL = ('topics', 'tasks', 'events', 'projects')   # folder/index/breadcrumb names
 
 def base(p): return os.path.splitext(os.path.basename(p))[0]
 def read(p): return open(p, encoding='utf-8').read()
@@ -31,37 +32,158 @@ def md_files(*dirs):
             out += glob.glob(os.path.join(d, '**', '*.md'), recursive=True)
     return out
 
+def split_frontmatter(txt):
+    """Return (frontmatter_text or None, body). Frontmatter closes at the first --- after line 0."""
+    lines = txt.split('\n')
+    if lines and lines[0].strip() == '---':
+        for i in range(1, len(lines)):
+            if lines[i].strip() == '---':
+                return '\n'.join(lines[1:i]), '\n'.join(lines[i + 1:])
+    return None, txt
+
+def body_text(txt):
+    return split_frontmatter(txt)[1]
+
+def fm_list(fm, key):
+    """Values of a YAML list field `key:` in frontmatter text; [] for `key: []` or absent."""
+    if fm is None:
+        return []
+    m = re.search(r'^' + re.escape(key) + r':[ \t]*(.*)$', fm, re.M)
+    if not m:
+        return []
+    inline = m.group(1).strip()
+    if inline:
+        if inline.startswith('[') and inline.endswith(']'):
+            inner = inline[1:-1].strip()
+            return [v.strip().strip('"\'') for v in inner.split(',')] if inner else []
+        return [inline.strip('"\'')]
+    rest = fm[m.end():]
+    out = []
+    for line in rest.split('\n'):
+        im = re.match(r'^\s+-\s*(.+?)\s*$', line)
+        if not im:
+            break
+        out.append(im.group(1).strip().strip('"\''))
+    return out
+
+def link_name(raw):
+    return raw.replace(r'\|', '|').split('|')[0].split('#')[0].split('/')[-1].strip()
+
+def topic_refs(fm):
+    """Topic basenames named in `topics:` frontmatter (wikilinks or bare names), lower-cased."""
+    out = set()
+    for v in fm_list(fm, 'topics'):
+        v = v.strip()
+        if v.startswith('[['):
+            v = link_name(v.strip('[]'))
+        if v:
+            out.add(v.lower())
+    return out
+
 def link_targets(txt):
     out = set()
     for m in LINK.findall(txt):
         if '\\' in m.split('|')[0]:        # \| table-escape artifact, not a real link
             continue
-        t = m.split('|')[0].split('#')[0].split('/')[-1].strip()
+        t = link_name(m)
         if t:
             out.add(t.lower())
     return out
 
 def frontmatter_aliases(txt):
-    m = re.match(r'^---\n(.*?)\n---', txt, re.S)
-    if not m:
-        return []
-    am = re.search(r'aliases:\s*\n((?:\s*-\s*.+\n?)*)', m.group(1))
-    if not am:
-        return []
-    return [re.sub(r'^\s*-\s*', '', l).strip().strip('"')
-            for l in am.group(1).splitlines() if l.strip()]
+    fm, _ = split_frontmatter(txt)
+    return fm_list(fm, 'aliases') if fm else []
 
 def topic_index(topics_dir):
     names, alias2name = set(), {}
     for f in glob.glob(os.path.join(topics_dir, '*.md')):
-        n = base(f).lower(); names.add(n)
+        n = base(f)
+        if n.startswith('_') or n.lower() == 'topics':
+            continue
+        names.add(n.lower())
         for a in frontmatter_aliases(read(f)):
-            alias2name[a.lower()] = n
+            alias2name[a.lower()] = n.lower()
     return names, alias2name
 
 def dirs(args):
     p = os.path.expanduser(args.project)
     return p, os.path.join(p, 'Topics'), os.path.join(p, 'Tasks'), os.path.join(p, 'Events')
+
+def set_topics(txt, add):
+    """Return txt with the names in `add` appended to the `topics:` frontmatter list."""
+    fm, body = split_frontmatter(txt)
+    if fm is None:
+        fm = ''
+    existing = fm_list(fm, 'topics')
+    links = [f'[[{n}]]' for n in add if f'[[{n}]]' not in existing]
+    if not links:
+        return txt
+    items = [v for v in existing] + links
+    block = 'topics:\n' + '\n'.join(f'  - "{v}"' for v in items)
+    if re.search(r'^topics:', fm, re.M):
+        # replace the whole existing field
+        m = re.search(r'^topics:[ \t]*(.*)$', fm, re.M)
+        end = m.end()
+        if not m.group(1).strip():
+            rest = fm[end:].split('\n')
+            k = 1
+            while k < len(rest) and re.match(r'^\s+-\s*', rest[k]):
+                k += 1
+            end = end + len('\n'.join(rest[:k]))
+        fm = fm[:m.start()] + block + fm[end:]
+    else:
+        fm = (fm + '\n' if fm else '') + block
+    return '---\n' + fm.strip('\n') + '\n---\n' + body
+
+# ---------------------------------------------------------------- audit
+def cmd_audit(args):
+    _, topics, tasks, events = dirs(args)
+    names, alias2 = topic_index(topics)
+    keys = names | set(alias2)
+    for kind, d in [('Tasks', tasks), ('Events', events)]:
+        files = md_files(d)
+        if not files:
+            continue
+        miss, legacy = [], []
+        for f in files:
+            txt = read(f)
+            fm, body = split_frontmatter(txt)
+            if topic_refs(fm) & keys:
+                continue
+            # legacy: topic links on the line(s) under the H1
+            lines = body.split('\n')
+            i = next((k for k, l in enumerate(lines) if l.startswith('# ')), None)
+            seg = []
+            if i is not None:
+                for l in lines[i + 1:]:
+                    if (l.strip() == '' and seg) or l.startswith('#'):
+                        break
+                    if l.strip():
+                        seg.append(l)
+            if seg and (link_targets('\n'.join(seg)) & keys):
+                legacy.append(f)
+            else:
+                miss.append(f)
+        print(f"{kind}: {len(files)} notes — {len(files)-len(miss)-len(legacy)} have topics:, "
+              f"{len(legacy)} only link a Topic under the H1 (move to topics:), {len(miss)} have no Topic")
+        for m in sorted(legacy):
+            print("   legacy -", base(m))
+        for m in sorted(miss):
+            print("   none   -", base(m))
+    out, inn = {}, {n: set() for n in names}
+    for f in glob.glob(os.path.join(topics, '*.md')):
+        b = base(f).lower()
+        if b not in names:
+            continue
+        res = set()
+        for t in link_targets(read(f)):
+            if t in names and t != b: res.add(t)
+            elif t in alias2 and alias2[t] != b: res.add(alias2[t])
+        out[b] = res
+        for r in res: inn[r].add(b)
+    print(f"\n{len(names)} Topic notes")
+    print("No OUTGOING topic link:", sorted(n for n in names if not out.get(n)) or "none")
+    print("No INCOMING topic link:", sorted(n for n in names if not inn.get(n)) or "none")
 
 # ---------------------------------------------------------------- clusters
 def cmd_clusters(args):
@@ -75,7 +197,6 @@ def cmd_clusters(args):
             rx = re.compile(pat, re.I)
             print(f"{sum(bool(rx.search(read(f))) for f in files):4}  {label}")
         return
-    # heuristic discovery when no keyword map is supplied
     phrase = re.compile(r'\b([A-Z][a-zA-Z]+(?: [A-Z][a-zA-Z&]+){1,3})\b')
     pref   = re.compile(r'\b([A-Z]{2,5})-\d+')
     pc, tc = Counter(), Counter()
@@ -108,19 +229,13 @@ def cmd_backlink(args):
         if base(f) in excl:
             continue
         txt = read(f)
-        adds = [k for k, rx in mapping.items()
-                if rx.search(txt) and f'[[{k}]]' not in txt]
+        fm, _ = split_frontmatter(txt)
+        have = topic_refs(fm)
+        adds = [k for k, rx in mapping.items() if rx.search(txt) and k.lower() not in have]
         if not adds:
             continue
         if args.apply:
-            lines = txt.split('\n')
-            idx = next((i for i, l in enumerate(lines) if l.startswith('# ')), None)
-            if idx is None:   # no H1: fall back to end of frontmatter, else top
-                idx = (next((i for i in range(1, len(lines))
-                             if lines[i].strip() == '---'), -1)
-                       if lines and lines[0].strip() == '---' else -1)
-            lines[idx + 1:idx + 1] = ['', ' '.join(f'[[{k}]]' for k in adds)]
-            write(f, '\n'.join(lines))
+            write(f, set_topics(txt, adds))
         changed += 1
         for k in adds:
             per[k] += 1
@@ -129,46 +244,8 @@ def cmd_backlink(args):
         print(f"  +{n:<4} [[{k}]]")
     print(f"  {changed} files affected")
 
-# ---------------------------------------------------------------- audit
-def cmd_audit(args):
-    _, topics, tasks, events = dirs(args)
-    names, alias2 = topic_index(topics)
-    keys = names | set(alias2)
-    for kind, d in [('Tasks', tasks), ('Events', events)]:
-        files = md_files(d)
-        if not files:
-            continue
-        miss = [f for f in files if not (link_targets(read(f)) & keys)]
-        print(f"{kind}: {len(files)} notes — {len(files)-len(miss)} link a Topic, "
-              f"{len(miss)} do NOT")
-        for m in sorted(miss):
-            print("   -", base(m))
-    out, inn = {}, {n: set() for n in names}
-    for f in glob.glob(os.path.join(topics, '*.md')):
-        b = base(f).lower(); res = set()
-        for t in link_targets(read(f)):
-            if t in names and t != b: res.add(t)
-            elif t in alias2 and alias2[t] != b: res.add(alias2[t])
-        out[b] = res
-        for r in res: inn[r].add(b)
-    print(f"\n{len(names)} Topic notes")
-    print("No OUTGOING topic link:", sorted(n for n in names if not out.get(n)) or "none")
-    print("No INCOMING topic link:", sorted(n for n in names if not inn.get(n)) or "none")
-
 # ---------------------------------------------------------------- crosscut
 WIKI = re.compile(r'\[\[([^\]|]+)(\|[^\]]*)?\]\]')
-STRUCTURAL = ('topics', 'tasks', 'events', 'projects')   # folder/index/breadcrumb names
-
-def body_text(txt):
-    # frontmatter closes at the FIRST subsequent --- line (Obsidian semantics);
-    # an empty block (--- directly followed by ---) must not swallow the body
-    # up to a --- horizontal rule
-    lines = txt.split('\n')
-    if lines and lines[0].strip() == '---':
-        for i in range(1, len(lines)):
-            if lines[i].strip() == '---':
-                return '\n'.join(lines[i + 1:])
-    return txt
 
 def cmd_crosscut(args):
     """Read-only: list Topics that may be evergreen cross-cutting concepts
@@ -177,7 +254,6 @@ def cmd_crosscut(args):
     proj = os.path.normpath(proj)
     pname = base(proj)
     names, alias2 = topic_index(topics)
-    names = {n for n in names if not n.startswith('_')}
     root = os.path.dirname(os.path.dirname(proj))
     if base(os.path.dirname(proj)) != 'Projects':
         root = None
@@ -185,8 +261,6 @@ def cmd_crosscut(args):
               "vault-wide and cross-project signals skipped\n")
     inside = {base(f).lower() for f in md_files(proj)} | set(alias2)
 
-    # vault-wide basename index (everything outside this project) + domain folders
-    # (a domain folder = top-level dir with a same-named hub note, e.g. Development/)
     outside, domains, dom_names = set(), [], {}
     if root:
         for d in sorted(os.listdir(root)):
@@ -203,8 +277,6 @@ def cmd_crosscut(args):
                 if hub:
                     dom_names[d].add(base(f).lower())
 
-    # links to this project's topics (by basename or alias) from other projects;
-    # a target the referring project itself owns resolves there, not here — skip it
     xrefs = {n: Counter() for n in names}
     if root:
         pdir = os.path.join(root, 'Projects')
@@ -223,29 +295,11 @@ def cmd_crosscut(args):
                     if t in xrefs:
                         xrefs[t][other] += 1
 
-    # topics flagged standalone/definition/stub in the maintenance-log skip-lists
-    skipflag = set()
-    log = os.path.join(topics, '_topic-maintenance-log.md')
-    kw = re.compile(r'standalone|definition|reference|stub', re.I)
-    if os.path.isfile(log):
-        in_skip = False
-        for line in read(log).splitlines():
-            l = line.strip()
-            if l.startswith('#') or l.startswith('**'):
-                in_skip = l.lower().startswith('**skip-list')
-                continue
-            if in_skip and kw.search(l):
-                # only deliberate mentions — `Name` or [[Name]] — not prose words
-                for m in re.findall(r'`([^`]+)`|\[\[([^\]|#]+)', l):
-                    n = (m[0] or m[1]).strip().lower()
-                    if n in names:
-                        skipflag.add(n)
-
     cands, scanned = [], 0
     for f in sorted(glob.glob(os.path.join(topics, '*.md'))):
         name = base(f); low = name.lower()
-        if name.startswith('_') or low == pname.lower() or low in STRUCTURAL:
-            continue           # maintenance log, project hub, folder-index notes
+        if low not in names or low == pname.lower():
+            continue
         scanned += 1
         txt = read(f)
         prose = [l.strip() for l in body_text(txt).splitlines()
@@ -256,7 +310,6 @@ def cmd_crosscut(args):
         defn = bool(re.match(r'(the |a |an )?' + re.escape(low) +
                              r'e?s? +(is|are|was|were|refers to|stands for)\b',
                              first.lower()))
-        # ignore @people, daily notes, and structural breadcrumbs ([[Topics]] etc.)
         tgts = {t for t in link_targets(txt)
                 if not t.startswith('@') and not re.match(r'\d{4}-\d{2}-\d{2}', t)
                 and t not in STRUCTURAL}
@@ -273,11 +326,7 @@ def cmd_crosscut(args):
             sig.append(f'vault-wide({len(out_t)}/{len(out_t) + len(in_t)} links)')
         if xc:
             sig.append(f'x-project({xc} from {", ".join(sorted(xrefs[low]))})')
-        if low in skipflag:
-            sig.append('skip-listed')
-        # conservative gate: cross-project evidence, a human skip-list flag,
-        # or at least two independent signals
-        if not (xc or low in skipflag or len(sig) >= 2):
+        if not (xc or len(sig) >= 2):
             continue
         votes = {d: len(out_t & dom_names[d]) + (2 if d.lower() in tgts else 0)
                  for d in domains}
@@ -287,15 +336,14 @@ def cmd_crosscut(args):
     cands.sort(key=lambda c: (-c[0], -c[1], -c[2], c[3]))
     print(f"# Graduation suspects in {pname} — {scanned} Topics scanned, "
           f"{len(cands)} suspect(s)")
-    print("# gate: x-project refs, skip-listed standalone, or >=2 signals — "
-          "a short or empty list is the healthy result")
+    print("# gate: x-project refs or >=2 signals — a short or empty list is the healthy result")
     for i, (_, xc, _, name, sig, best) in enumerate(cands, 1):
         dest = f'-> {best}/' if best else '-> no domain folder — needs a decision'
         print(f"{i:3}. {name:<32} [{', '.join(sig)}]  x-refs:{xc}  {dest}")
     if not cands:
         print("(none)")
     print("\nGraduation is a human decision — this command only detects; "
-          "see the Graduation step in SKILL.md and [[Topic graduation]].")
+          "see GRADUATION.md and [[Topic graduation]].")
 
 # ---------------------------------------------------------------- linkcheck
 def cmd_linkcheck(args):
@@ -305,8 +353,6 @@ def cmd_linkcheck(args):
     for directory in (proj, root):
         if not os.path.isdir(directory):
             raise SystemExit(f"not a directory: {directory}")
-
-    # Index whole paths and their suffixes: [[Topics/Name]] retains its directory.
     paths, targets = set(), set()
     for f in glob.glob(os.path.join(root, '**', '*'), recursive=True):
         if not os.path.isfile(f):
@@ -320,14 +366,12 @@ def cmd_linkcheck(args):
         for variant in variants:
             parts = variant.split('/')
             targets.update('/'.join(parts[i:]) for i in range(len(parts)))
-
     broken = Counter()
     for f in md_files(proj):
         for raw in LINK.findall(read(f)):
             target = raw.replace(r'\|', '|').split('|')[0].split('#')[0].strip().lower()
             if not target:
                 continue
-            # Source-relative paths must resolve from the containing note.
             relative = target.startswith(('./', '../'))
             if not relative and target in targets:
                 continue
@@ -345,7 +389,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest='cmd', required=True)
-    for name in ('clusters', 'backlink', 'audit', 'linkcheck', 'crosscut'):
+    for name in ('audit', 'clusters', 'backlink', 'linkcheck', 'crosscut'):
         s = sub.add_parser(name)
         s.add_argument('--project', required=True)
         if name == 'clusters':
@@ -358,9 +402,8 @@ def main():
         if name == 'crosscut':
             s.add_argument('--max-words', type=int, default=40)
     args = ap.parse_args()
-    {'clusters': cmd_clusters, 'backlink': cmd_backlink,
-     'audit': cmd_audit, 'linkcheck': cmd_linkcheck,
-     'crosscut': cmd_crosscut}[args.cmd](args)
+    {'audit': cmd_audit, 'clusters': cmd_clusters, 'backlink': cmd_backlink,
+     'linkcheck': cmd_linkcheck, 'crosscut': cmd_crosscut}[args.cmd](args)
 
 if __name__ == '__main__':
     main()
