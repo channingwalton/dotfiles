@@ -11,16 +11,20 @@ FAIL=0
 STATES=$(mktemp -d)
 trap 'rm -rf "$STATES"' EXIT
 
-# decision <state dir> <tool_name> [command] [description] [session] -> deny|none
-# Real Bash payloads carry a description, which the model rewrites freely.
+# decision <state dir> <tool_name> [command] [description] [session] [agent] -> deny|none
+# Real Bash payloads carry a description, which the model rewrites freely;
+# a subagent's payload shares the session id and adds its agent_id.
 decision() {
-  local state=$1 tool=$2 command=${3:-} description=${4:-Run it} session=${5:-s1} output
-  output=$(TOOL="$tool" COMMAND="$command" DESCRIPTION="$description" SESSION="$session" python3 -c '
+  local state=$1 tool=$2 command=${3:-} description=${4:-Run it} session=${5:-s1} agent=${6:-} output
+  output=$(TOOL="$tool" COMMAND="$command" DESCRIPTION="$description" SESSION="$session" AGENT="$agent" python3 -c '
 import json, os
 tool_input = {"command": os.environ["COMMAND"]}
 if os.environ["TOOL"] == "Bash":
     tool_input["description"] = os.environ["DESCRIPTION"]
-print(json.dumps({"tool_name": os.environ["TOOL"], "tool_input": tool_input, "session_id": os.environ["SESSION"]}))' |
+payload = {"tool_name": os.environ["TOOL"], "tool_input": tool_input, "session_id": os.environ["SESSION"]}
+if os.environ["AGENT"]:
+    payload["agent_id"] = os.environ["AGENT"]
+print(json.dumps(payload))' |
     OUTWARD_GATE_STATE="$state" python3 "$HOOK")
   if [[ -z $output ]]; then
     echo none
@@ -114,6 +118,73 @@ expect_hold_expires() {
   fi
 }
 
+# Subagents share the session id: a hold seen by one agent is not consumed by another.
+expect_agents_held() {
+  local state first second third
+  state=$(mktemp -d "$STATES/s.XXXXXX")
+  first=$(decision "$state" Bash 'gh pr comment 1 -b x' 'Run it' s1 parent)
+  model_turn "$state"
+  second=$(decision "$state" Bash 'gh pr comment 1 -b x' 'Run it' s1 helper)
+  model_turn "$state"
+  third=$(decision "$state" Bash 'gh pr comment 1 -b x' 'Run it' s1 helper)
+  if [[ $first == deny && $second == deny && $third == none ]]; then
+    PASS=$((PASS + 1))
+  else
+    printf 'FAIL agents: expected deny deny none, got %s %s %s\n' "$first" "$second" "$third"
+    FAIL=$((FAIL + 1))
+  fi
+}
+
+# A marker that vanishes mid-check (a parallel re-issue or an expiry sweep took
+# it) holds the call rather than letting it through, at either step of consuming
+# it, and leaves a marker so the next re-issue goes through.
+expect_race_held() {
+  local actual
+  actual=$(python3 -c '
+import importlib.util, os, sys, tempfile, time
+spec = importlib.util.spec_from_file_location("gate", sys.argv[1])
+gate = importlib.util.module_from_spec(spec); spec.loader.exec_module(gate)
+d = tempfile.mkdtemp(); marker = os.path.join(d, "m"); now = time.time()
+def old_marker():
+    open(marker, "w").close(); os.utime(marker, (now - 60, now - 60))
+results = [gate.consume_hold(marker, now)]          # already gone
+results.append(gate.consume_hold(marker, now))      # re-marked: next re-issue passes
+old_marker()
+real_remove = os.remove
+def vanished(path):
+    real_remove(path); raise FileNotFoundError(path)
+os.remove = vanished
+results.append(gate.consume_hold(marker, now))      # gone as it is removed
+os.remove = real_remove
+open(marker, "w").close()
+results.append(gate.consume_hold(marker, now))      # same batch: too young
+old_marker()
+results.append(gate.consume_hold(marker, now))      # a real re-issue
+print(" ".join(map(str, results)), os.path.exists(marker))' "$HOOK" 2>&1 | tail -1) || true
+  if [[ $actual == "False True False False True False" ]]; then
+    PASS=$((PASS + 1))
+  else
+    printf 'FAIL race: expected "False True False False True False", got %s\n' "$actual"
+    FAIL=$((FAIL + 1))
+  fi
+}
+
+# expect_tokens <command> <expected words, space-separated>
+expect_tokens() {
+  local actual
+  actual=$(python3 -c '
+import importlib.util, sys
+spec = importlib.util.spec_from_file_location("gate", sys.argv[1])
+gate = importlib.util.module_from_spec(spec); spec.loader.exec_module(gate)
+print(" ".join(gate.tokens(sys.argv[2])[0]))' "$HOOK" "$1" 2>&1 | tail -1) || true
+  if [[ $actual == "$2" ]]; then
+    PASS=$((PASS + 1))
+  else
+    printf 'FAIL tokens %s: expected "%s", got "%s"\n' "$1" "$2" "$actual"
+    FAIL=$((FAIL + 1))
+  fi
+}
+
 # An unwritable state dir lets the write through rather than holding it forever:
 # without state, a re-issue can never be told apart from a first attempt.
 expect_state_failure_passes() {
@@ -191,6 +262,55 @@ expect_sequence 'same batch is held, not let through' deny deny none -- \
   's1:gh pr comment 1 -b x' 's1:+' 's1:gh pr comment 1 -b x'
 expect write Bash "gh api -X POST graphql -f query='mutation{addComment(input:{}){clientMutationId}}'"
 expect write Bash "gh api -H 'Accept: x' graphql -f query='mutation{addComment(input:{}){clientMutationId}}'"
+# Words the parser cannot see through count as unknown, and unknown is gated.
+expect write Bash 'gh api -X POST -f body=$(cat m) repos/o/r/issues/1/comments'
+expect write Bash 'gh api -X POST --input <(jq -n x) repos/o/r/issues/1/comments'
+expect write Bash 'EP=repos/o/r/issues/1/comments && gh api "$EP" -f body=x'
+expect write Bash 'gh api graphql -f query="`cat m.graphql`"'
+expect write Bash 'gh api graphql -f query=" $M"'
+expect write Bash 'gh api /graphql -f query="mutation{addComment(input:{}){clientMutationId}}"'
+expect write Bash 'gh api https://api.github.com/graphql -f query="mutation{x}"'
+expect_agents_held
+expect_race_held
+# Arguments the parser cannot resolve: hidden flags, an endpoint from stdin.
+expect write Bash 'FLAGS="-X POST -f body=hi"; gh api repos/o/r/issues/1/comments $FLAGS'
+expect write Bash 'gh api "${args[@]}"'
+expect write Bash 'echo repos/o/r/issues/1/comments | xargs gh api -f body=x'
+expect write Bash 'gh api graphql -f query="query{x} $(cat m)"'
+expect write Bash 'gh api -X PATCH repos/o/r/releases/1 -f body=x'
+expect write Bash 'gh api -X POST repos/o/r/releases -f tag_name=v1 -f body=notes'
+# Quoting is gone after parsing, so a variable endpoint may split into flags,
+# and xargs may append them: both count as unknown.
+expect write Bash 'EP="repos/o/r/issues/1/comments -f body=hi"; gh api $EP'
+expect write Bash 'gh api "$EP"'
+expect write Bash 'echo repos/o/r/issues/1/comments | xargs gh api'
+expect write Bash 'gh api repos/o/r/issues/1/comments -if body=x'
+expect write Bash 'gh api repos/o/r/issues/1/comments -iXPOST'
+expect write Bash "gh api graphql -f query=\"{viewer{login}} \$M\" -f operationName=x"
+expect write Bash 'gh api gists -f description=x -f files[a.md][content]=hi'
+expect write Bash 'gh api repos/o/r/check-runs -f name=x -f output[summary]=hi'
+expect write Bash 'gh api -X POST repos/o/r/git/tags -f tag=v1 -f message=notes'
+# Every REST write is held unless its endpoint is known to carry no prose.
+expect write Bash 'gh api -X PUT repos/o/r/contents/README.md -f message=x -f content=eA=='
+expect write Bash 'gh api -X PATCH repos/o/r -f description=x'
+expect write Bash 'gh api repos/o/r/milestones -f title=x'
+expect write Bash 'gh api repos/o/r/statuses/abc -f state=success -f description=x'
+expect write Bash 'gh api repos/o/r/git/commits -f message=x -f tree=abc'
+expect write Bash 'gh api user -X PATCH -f bio=x'
+expect write Bash "gh api api/graphql -f query='mutation{x}'"
+expect write Bash "gh api 'graphql?x=1' -f query='mutation{x}'"
+# A GraphQL $name the query never declares is the shell's, however it is quoted.
+expect write Bash "gh api graphql -f query='{x}'\"\$M\""
+expect write Bash "gh api graphql -f query='{viewer{login}}' -f query=\"\$M\""
+expect write Bash "gh api graphql -f query=\"\$M\" ; echo 'query='"
+# xargs options, a flag value that may split, an unquoted backtick.
+expect write Bash 'echo 1 | xargs -I{} gh api -X POST repos/o/r/issues/{}/comments -f body=x'
+expect write Bash 'xargs -n1 gh api -X POST repos/o/r/issues/1/comments -f body=x'
+expect write Bash 'gh api repos/o/r/issues/1/comments -H $H'
+expect write Bash "gh api \`printf 'repos/o/r/issues/1/comments -X POST'\` -f body=x"
+expect_tokens 'gh api a 5 >out' 'gh api a 5'
+expect_tokens 'gh api a 2>&1 -f b=c' 'gh api a -f b=c'
+expect_tokens 'gh api a;>log echo -f b=c' 'gh api a'
 
 # --- not writes, or not in command position ---
 # Read-only gh api calls and --help asked the user for approval in two windows.
@@ -204,6 +324,19 @@ expect none Bash 'gh api -X POST repos/o/r/actions/workflows/ci.yml/dispatches -
 expect none Bash "gh api repos/o/r/pulls --jq '.[] | .title' 2>&1 | head -5"
 expect none Bash "gh api graphql -f query='query{repository(owner:\"o\",name:\"r\"){issues(first:1){nodes{title}}}}'"
 expect none Bash "gh api graphql -f query='query(\$n:Int!){viewer{repositories(first:\$n){nodes{name}}}}' -F n=5"
+expect none Bash "gh api repos/o/r/pulls/1/comments --jq '.[] | select(.user.login==\"x\") | .body'"
+expect none Bash "gh api /graphql -f query='query{viewer{login}}'"
+# Only the endpoint and field values decide; other words are left alone.
+expect none Bash 'gh api -X POST repos/o/r/git/refs -f ref=refs/heads/x -f sha=$SHA'
+expect none Bash 'gh api -X POST repos/o/r/actions/workflows/ci.yml/dispatches -f ref=$BRANCH'
+expect none Bash $'gh api repos/o/r/pulls --jq \'.[] | "`\\(.title)`"\''
+expect none Bash 'gh api repos/o/r/contents/src/graphql'
+expect none Bash 'gh api repos/o/r/pulls||(echo fail)'
+expect none Bash 'gh api repos/o/r/pulls;>log echo -f body=x'
+# A variable inside a path is not a hidden flag: seven loops of reads like
+# these were held in one window when it was treated as one.
+expect none Bash 'gh api repos/$repo/commits/v4 --jq .sha'
+expect none Bash 'for r in a b; do sha=$(gh api repos/$r/releases/tags/v1 --jq .id); done'
 expect none Bash 'gh pr view 1'
 expect none Bash 'gh pr merge 1 --squash'
 expect none Bash 'gh pr merge 1 --squash && git branch -c a b'
