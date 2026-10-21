@@ -11,9 +11,6 @@
   name = Channing Walton
   email = channingwalton@mac.com
 
-[includeIf "gitdir:/Users/channing/dev/TXPLabs/**"]
-  path = /Users/channing/dev/TXPLabs/gitconfig
-
 [core]
   excludesfile = ~/.config/git/gitignore_global
   autocrlf = input
@@ -47,4 +44,10 @@
 
 [mergetool]
   prompt = false
+
+# Keep this last. The TXP file's empty `helper =` clears every credential helper
+# set before it, including osxkeychain above; with osxkeychain still in the list,
+# git stored the TXP token there and overwrote the personal GitHub login.
+[includeIf "gitdir:/Users/channing/dev/TXPLabs/**"]
+  path = /Users/channing/dev/TXPLabs/gitconfig
 
