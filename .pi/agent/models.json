@@ -159,6 +159,82 @@
         }
       ],
       "apiKey": "no-key"
+    },
+    "TXPLabs": {
+      "baseUrl": "http://txplabs-mac:11434/v1",
+      "api": "openai-completions",
+      "apiKey": "no-key",
+      "models": [
+        {
+          "id": "qwen3:14b",
+          "name": "Qwen3 14B (txplabs-mac, Ollama)",
+          "reasoning": true,
+          "compat": {
+            "supportsDeveloperRole": false
+          },
+          "input": [
+            "text"
+          ],
+          "contextWindow": 4096,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "qwen2.5-coder:14b",
+          "name": "Qwen2.5 Coder 14B (txplabs-mac, Ollama)",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 4096,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "llama-3.3-70b",
+          "name": "Llama 3.3 70B NVFP4 (txplabs-spark1, vLLM)",
+          "baseUrl": "http://txplabs-spark1:8000/v1",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 32768,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "qwen3-coder-30b",
+          "name": "Qwen3 Coder 30B A3B (txplabs-spark2, vLLM)",
+          "baseUrl": "http://txplabs-spark2:8000/v1",
+          "reasoning": false,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 65536,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
     }
   }
 }
