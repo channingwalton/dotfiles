@@ -65,7 +65,9 @@ function updates {
   _updates_try brew autoremove
 
   _updates_heading mise
-  _updates_try mise upgrade --bump
+# From home, so only the global tools are bumped: run inside a project, --bump
+# rewrote that project's pinned versions (advisor's .tool-versions, 2026-10)
+  _updates_try mise -C ~ upgrade --bump
 
   _updates_heading Coursier
   _updates_try cs update
@@ -75,7 +77,7 @@ function updates {
 
 # Updates with: cargo install cargo-update
   _updates_heading Cargo
-  _updates_try cargo install-update -a
+  _updates_try cargo install-update -a --locked
 
   _updates_heading Skills
   _updates_try npx skills update -g

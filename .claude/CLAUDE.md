@@ -10,7 +10,7 @@
 - Find code with fff, then read only the slice you need. For API or CLI data, filter at the source (IDs, fields, dates) or save the response to a file and slice it with `jq`/`rg`.
 - For browser work, use `agent-browser` for headless testing, QA and scraping, claude-in-chrome when the task needs my logged-in Chrome, and WebFetch to read a page.
 - After editing code, check LSP diagnostics if LSP is available.
-- Changes to code or tests go through the `software-development` skill.
+- Structure code hexagonally (ports and adapters): logic lives in a tested core; views, I/O and external processes are thin adapters around it. A view renders state and forwards user intent to the core.
 - Expand unusual acronyms on first use, e.g. "Service Level Objective (SLO)". Leave well-known ones like API, URL and LLM as they are.
 - Where Mermaid renders (Obsidian notes, GitHub Markdown, artifacts, pi's terminal), include a Mermaid diagram to visually illustrate complex concepts, workflows, architectures, or multi-step processes whenever visual scaffolding improves clarity.
 
