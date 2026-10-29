@@ -251,7 +251,6 @@
   "enabledPlugins": {
     "chrome-devtools-mcp@claude-plugins-official": false,
     "code-review@claude-plugins-official": false,
-    "codex@openai-codex": true,
     "commit-commands@claude-plugins-official": true,
     "frontend-design@claude-plugins-official": false,
     "github@claude-plugins-official": false,
@@ -265,13 +264,6 @@
     "cc-stretch@cc-stretch": true
   },
   "extraKnownMarketplaces": {
-    "openai-codex": {
-      "source": {
-        "source": "github",
-        "repo": "openai/codex-plugin-cc"
-      },
-      "autoUpdate": true
-    },
     "cc-stretch": {
       "source": {
         "source": "github",
@@ -280,8 +272,17 @@
       "autoUpdate": true
     }
   },
+  "outputStyle": "Simplified Technical English",
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "high"
+    },
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "tui": "fullscreen",
   "voice": {
     "enabled": true,
@@ -320,13 +321,5 @@
       "**Org-specific CLIs**: None configured — devtool (build/test/lint wrapper) and sbx/sbt used routinely in this repo per usage evidence, but not org-specific"
     ]
   },
-  "voiceEnabled": true,
-  "modelSettings": {
-    "claude-fable-5-1": {
-      "effortLevel": "high"
-    },
-    "claude-opus-5-5": {
-      "effortLevel": "xhigh"
-    }
-  }
+  "voiceEnabled": true
 }

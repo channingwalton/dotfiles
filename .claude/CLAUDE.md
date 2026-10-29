@@ -13,6 +13,7 @@
 - Structure code hexagonally (ports and adapters): logic lives in a tested core; views, I/O and external processes are thin adapters around it. A view renders state and forwards user intent to the core.
 - Expand unusual acronyms on first use, e.g. "Service Level Objective (SLO)". Leave well-known ones like API, URL and LLM as they are.
 - Where Mermaid renders (Obsidian notes, GitHub Markdown, artifacts, pi's terminal), include a Mermaid diagram to visually illustrate complex concepts, workflows, architectures, or multi-step processes whenever visual scaffolding improves clarity.
+- Do not assume my tooling (mise, etc.) when writing documents, keep things generic.
 
 ## Obsidian Task Notes
 
