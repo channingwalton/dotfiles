@@ -18,7 +18,7 @@ Follow the `obsidian-vault` skill's Writing notes and Frontmatter sections throu
 
 ## Routes
 
-- `implementation` — load the task note and linked ticket; then use `software-development`.
+- `implementation` — load the task note and linked ticket; use `software-development` for the change the user asks for.
 - `investigation` — load the task note, linked ticket, and the dossier at `investigation_root` (or a sibling folder with the task note's basename; ask before creating or moving evidence); then use `investigation`, which owns the dossier and its links.
 - `review` — load the task note and linked PR/ticket; then run the host's native code review as `fix-loop` describes it for this host, reporting only. Use `fix-loop` itself when the task also asks for fixes.
 - `experiment` — load the task note and the research note in its `research:` field. Capture goes in the task; roll-up goes in the research note (below).
@@ -26,6 +26,8 @@ Follow the `obsidian-vault` skill's Writing notes and Frontmatter sections throu
 - `note` or missing — plain capture with the sections below.
 
 If a task type is unknown, read the note and ask how to route it.
+
+Loading, continuing or resuming a task restores context. It is not a request for a change. Report where the task stands and its next step, then wait until the user asks for the change.
 
 ## Writing to the task note
 

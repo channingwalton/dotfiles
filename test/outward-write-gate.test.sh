@@ -367,6 +367,64 @@ expect none mcp__claude_ai_Linear__get_issue
 expect none mcp__claude_ai_Linear__list_comments
 expect none mcp__claude_ai_Slack__slack_read_channel
 
+# note_decision <state dir> <tool_name> <tool_input JSON> -> deny|none
+note_decision() {
+  local output
+  output=$(TOOL="$2" INPUT="$3" python3 -c '
+import json, os
+print(json.dumps({"tool_name": os.environ["TOOL"], "tool_input": json.loads(os.environ["INPUT"]), "session_id": "s1"}))' |
+    OUTWARD_GATE_STATE="$1" python3 "$HOOK")
+  if [[ -z $output ]]; then
+    echo none
+  else
+    printf '%s' "$output" | python3 -c '
+import json, sys
+print(json.load(sys.stdin)["hookSpecificOutput"]["permissionDecision"])'
+  fi
+}
+
+# expect_note <expected: write|none> <tool_name> <tool_input JSON>
+# A reason added to a task note is held once, then the identical re-issue passes.
+expect_note() {
+  local expected=$1 tool=$2 input=$3 state actual
+  state=$(mktemp -d "$STATES/s.XXXXXX")
+  actual=$(note_decision "$state" "$tool" "$input")
+  if [[ $actual == deny ]]; then
+    model_turn "$state"
+    actual=$(note_decision "$state" "$tool" "$input")
+    [[ $actual == none ]] && actual=write || actual="deny-then-$actual"
+  fi
+  if [[ $actual == "$expected" ]]; then
+    PASS=$((PASS + 1))
+  else
+    printf 'FAIL expected %-4s got %-4s %s %s\n' "$expected" "$actual" "$tool" "$input"
+    FAIL=$((FAIL + 1))
+  fi
+}
+
+TASK="/Users/x/Documents/Notes/Projects/P/Tasks/2026-10-30 LABS-1 Thing.md"
+NOTES=$(mktemp -d "$STATES/n.XXXXXX")
+mkdir -p "$NOTES/Documents/Notes/Projects/P/Tasks"
+EXISTING="$NOTES/Documents/Notes/Projects/P/Tasks/old.md"
+printf -- '- **[[2026-10-01]]** — kept A. **Why:** B.\n' > "$EXISTING"
+NEW_NOTE="$NOTES/Documents/Notes/Projects/P/Tasks/new.md"
+
+# --- Decision Log reasons in task notes ---
+expect_note write Edit "{\"file_path\": \"$TASK\", \"old_string\": \"## Decision Log\\n\", \"new_string\": \"## Decision Log\\n\\n- **[[2026-10-30]]** — use X. **Why:** Y.\\n\"}"
+expect_note write Edit "{\"file_path\": \"$TASK\", \"old_string\": \"a\", \"new_string\": \"a\\n  - **Rejected:** Z, too slow\"}"
+expect_note write MultiEdit "{\"file_path\": \"$TASK\", \"edits\": [{\"old_string\": \"a\", \"new_string\": \"b\"}, {\"old_string\": \"c\", \"new_string\": \"c **Why:** d\"}]}"
+expect_note write Write "{\"file_path\": \"$EXISTING\", \"content\": \"- kept A. **Why:** B.\\n- added C. **Why:** D.\\n\"}"
+expect_note write Write "{\"file_path\": \"$NEW_NOTE\", \"content\": \"- C. **Why:** D.\\n\"}"
+expect_note none Edit "{\"file_path\": \"$TASK\", \"old_string\": \"**Why:** old reason\", \"new_string\": \"**Why:** corrected reason\"}"
+expect_note none Edit "{\"file_path\": \"$TASK\", \"old_string\": \"status: open\", \"new_string\": \"status: done\"}"
+expect_note none Write "{\"file_path\": \"$EXISTING\", \"content\": \"- kept A. **Why:** B, checked.\\n\"}"
+expect_note none Edit "{\"file_path\": \"/Users/x/Documents/Notes/Projects/P/P.md\", \"old_string\": \"x\", \"new_string\": \"**Why:** y\"}"
+expect_note none Edit "{\"file_path\": \"/Users/x/dev/repo/Tasks/plan.md\", \"old_string\": \"x\", \"new_string\": \"**Why:** y\"}"
+expect_note none Edit "{\"file_path\": \"/Users/x/dev/repo/src/main.rs\", \"old_string\": \"x\", \"new_string\": \"// **Why:** y\"}"
+for tool in Edit Write MultiEdit; do
+  expect_routed "$tool"
+done
+
 if (( FAIL > 0 )); then
   printf '%d passed, %d failed\n' "$PASS" "$FAIL"
   exit 1

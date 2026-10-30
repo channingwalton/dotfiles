@@ -12,6 +12,11 @@ Targets failure class: assert-before-check/unverified-claim-into-outward-artefac
 Retro 2026-08-09. Replaces the task-note-update-scoped rule, which could not fire
 for any of the six observed leaks (all went to Jira, GitHub, colleague drafts, or
 memory files rather than a vault note).
+
+Also holds an Edit or Write that adds a **Why:** or **Rejected:** reason to a
+vault task note: a later session reads the Decision Log as established fact.
+Targets failure class: assert-before-check/unverified-claim-into-durable-note
+Retro 2026-10-30. The obsidian-task rule for this leaked for three windows.
 """
 import hashlib
 import json
@@ -76,6 +81,28 @@ HELD = (
     "\n\nThis call was held once so the text can be checked before it leaves. "
     "If every claim passes, re-issue the identical call to send it; otherwise "
     "revise the text first."
+)
+
+NOTE_TOOLS = ("Edit", "Write", "MultiEdit")
+TASK_NOTE = re.compile(r"/Documents/Notes/(?:.*/)?Tasks/[^/]+\.md$")
+REASON = re.compile(r"\*\*(?:Why|Rejected):\*\*")
+
+NOTE_REMINDER = (
+    "Decision Log reason — a later session reads it as established fact, and "
+    "the log is append-only. Before writing:\n"
+    "1. Each **Why:** and **Rejected:** names the check that established it "
+    "(a command and its result, code at file:line, a document and its date, "
+    "the user's words), or says plainly that it is inference.\n"
+    "2. A reason taken from a reviewer, a ticket or an earlier note is that "
+    "source's claim until you check it. Name the source.\n"
+    "3. A reason no wider than its check: \"no alert exists\" needs a search "
+    "of every alert source, not one class.\n"
+    "Unchecked reasons have stood in task notes as the basis of decisions."
+)
+
+NOTE_HELD = (
+    "\n\nThis edit was held once so the reasons can be checked. If every reason "
+    "passes, re-issue the identical call; otherwise revise it first."
 )
 
 # A held call stays re-issuable this long.
@@ -282,6 +309,26 @@ def bash_writes(command):
     return False
 
 
+def adds_reason(tool_input):
+    """Whether an Edit, MultiEdit or Write adds a reason line to a task note."""
+    path = tool_input.get("file_path") or ""
+    if not TASK_NOTE.search(path):
+        return False
+    if "content" in tool_input:
+        try:
+            with open(path, encoding="utf-8") as note:
+                before = note.read()
+        except OSError:
+            before = ""
+        return len(REASON.findall(tool_input["content"] or "")) > len(REASON.findall(before))
+    edits = tool_input.get("edits") or [tool_input]
+    return any(
+        len(REASON.findall(e.get("new_string") or ""))
+        > len(REASON.findall(e.get("old_string") or ""))
+        for e in edits
+    )
+
+
 def first_sight(agent, name, tool_input):
     """True when this call is not already held for this agent.
 
@@ -349,8 +396,12 @@ def main() -> int:
         name = payload.get("tool_name") or ""
         tool_input = payload.get("tool_input") or {}
 
+        reason = REMINDER + HELD
         if name == "Bash":
             hit = bash_writes(tool_input.get("command") or "")
+        elif name in NOTE_TOOLS:
+            hit = adds_reason(tool_input)
+            reason = NOTE_REMINDER + NOTE_HELD
         else:
             hit = bool(MCP_WRITE.search(name))
 
@@ -380,7 +431,7 @@ def main() -> int:
             "hookSpecificOutput": {
                 "hookEventName": "PreToolUse",
                 "permissionDecision": "deny",
-                "permissionDecisionReason": REMINDER + HELD,
+                "permissionDecisionReason": reason,
             }
         }))
     return 0
