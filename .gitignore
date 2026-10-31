@@ -11,6 +11,7 @@
 !/.bash_profile
 !/.bashrc
 !/.zprofile
+!/.zshenv
 !/.zshrc
 !/AGENTS.md
 !/CLAUDE.md
