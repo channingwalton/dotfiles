@@ -17,6 +17,8 @@ matches:
 
   - trigger: ":email"
     replace: "channingwalton@mac.com"
+  - trigger: ":txpemail"
+    replace: "channing.walton@txp.co.uk"
 
   # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
 
