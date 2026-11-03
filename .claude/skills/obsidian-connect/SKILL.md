@@ -1,6 +1,6 @@
 ---
 name: obsidian-connect
-description: Connect notes in Channing's Obsidian vault to their Topics — link new notes (Readwise imports, Events, Tasks, any note) into existing notes through the topics: frontmatter, audit a project for notes with no topic, find subjects that deserve a new Topic hub, fix orphan or duplicate Topics, and graduate evergreen Topics into shared domain folders. Use after new notes are added, or when the user wants a project's topics refreshed, audited or tidied.
+description: Connect notes in Channing's Obsidian vault to their Topics — link new notes (Readwise imports, Events, Tasks, any note) into existing notes through the `topics` frontmatter, audit a project for notes with no topic, find subjects that deserve a new Topic hub, fix orphan or duplicate Topics, and graduate evergreen Topics into shared domain folders. Use after new notes are added, or when the user wants a project's topics refreshed, audited or tidied.
 ---
 
 # Connect
