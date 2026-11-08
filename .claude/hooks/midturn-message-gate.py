@@ -79,13 +79,19 @@ def midturn_messages(lines):
             continue
         text = human_text(event)
         if text is None:
+            # A task notification that arrives while the agent is idle starts a
+            # new turn: the messages quoted at the last stop were answered then
+            # (retro 2026-11-08, 4 re-fires).
+            if not working and (event.get("origin") or {}).get("kind") not in (None, "human"):
+                found = []
             continue
         if text.startswith("[Request interrupted"):
             working = False
             continue
         if text.startswith("<"):
-            # A slash command starts a turn; harness notices are not the user's words.
-            if text.startswith(("<command-", "<local-command-")):
+            # Harness notices are not the user's words. A slash command starts a
+            # turn, and so does a notice that arrives while the agent is idle.
+            if text.startswith(("<command-", "<local-command-")) or not working:
                 found = []
                 working = False
             continue

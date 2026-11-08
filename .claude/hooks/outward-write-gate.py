@@ -107,8 +107,12 @@ NOTE_HELD = (
 
 # A held call stays re-issuable this long.
 HOLD_SECONDS = 600
-# A re-issue needs a model turn; anything sooner came in the same batch.
+# A re-issue needs a model turn; anything sooner came in the same batch, unless
+# the transcript shows a model request after the hold (see `reasked`).
 REISSUE_SECONDS = 2
+# The transcript line that Claude Code writes for each model request. The next
+# request of a batch starts only after the whole batch has run.
+API_REQUEST = b'"type":"api-request"'
 STATE_DIR = os.environ.get("OUTWARD_GATE_STATE") or os.path.expanduser(
     "~/.cache/claude/outward-write-gate"
 )
@@ -329,13 +333,15 @@ def adds_reason(tool_input):
     )
 
 
-def first_sight(agent, name, tool_input):
+def first_sight(agent, name, tool_input, transcript=None):
     """True when this call is not already held for this agent.
 
     The first sighting leaves a marker and is held; the re-issue consumes the
     marker and goes through, so a later identical call is held again.
     A marker younger than REISSUE_SECONDS means the same call arrived in one
-    parallel batch, before the model could have read the hold: held too.
+    parallel batch, before the model could have read the hold: held too —
+    unless the transcript shows a model request after the hold. The marker
+    holds the transcript's size at the hold for that check.
     Keyed per agent (session, transcript and agent_id — subagents share the
     session id), so another model still sees the checklist. A marker that
     vanishes mid-check was consumed by a parallel re-issue: this call is held.
@@ -357,21 +363,53 @@ def first_sight(agent, name, tool_input):
             pass
     marker = os.path.join(STATE_DIR, key)
     try:
-        os.close(os.open(marker, os.O_CREAT | os.O_EXCL | os.O_WRONLY))
+        fd = os.open(marker, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
     except FileExistsError:
-        return not consume_hold(marker, now)
+        return not consume_hold(marker, now, transcript)
+    with os.fdopen(fd, "w") as held_at:
+        size = transcript_size(transcript)
+        if size is not None:
+            held_at.write(str(size))
     return True
 
 
-def consume_hold(marker, now):
+def transcript_size(transcript):
+    try:
+        return os.path.getsize(transcript)
+    except (OSError, TypeError, ValueError):
+        return None
+
+
+def reasked(marker, transcript):
+    """True when the transcript shows a model request after the hold.
+
+    The model then has the hold's result, so an identical call is a re-issue,
+    however fast the turn: on 2026-11-03 a re-issue 1.9 s after its hold was
+    held again, and the agent left the step to the user. Raises
+    FileNotFoundError when the marker has gone.
+    """
+    with open(marker, encoding="utf-8") as held_at:
+        size = held_at.read().strip()
+    if not size.isdigit() or not transcript:
+        return False
+    try:
+        with open(transcript, "rb") as log:
+            log.seek(int(size))
+            return API_REQUEST in log.read()
+    except (OSError, ValueError):
+        return False
+
+
+def consume_hold(marker, now, transcript=None):
     """True for a real re-issue of a held call, which consumes the hold.
 
     False — keep holding — when the marker is younger than REISSUE_SECONDS
-    (same batch), or vanishes while being checked (a parallel re-issue or an
-    expiry sweep took it).
+    and the model was not asked again since the hold (same batch), or when it
+    vanishes while being checked (a parallel re-issue or an expiry sweep took
+    it).
     """
     try:
-        if now - os.path.getmtime(marker) < REISSUE_SECONDS:
+        if not reasked(marker, transcript) and now - os.path.getmtime(marker) < REISSUE_SECONDS:
             return False
         os.remove(marker)
     except FileNotFoundError:
@@ -423,7 +461,7 @@ def main() -> int:
             payload.get("transcript_path"),
             payload.get("agent_id"),
         ]
-        held = first_sight(agent, name, tool_input)
+        held = first_sight(agent, name, tool_input, payload.get("transcript_path"))
     except Exception:
         held = False
     if held:

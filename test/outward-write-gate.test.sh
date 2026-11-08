@@ -169,6 +169,42 @@ print(" ".join(map(str, results)), os.path.exists(marker))' "$HOOK" 2>&1 | tail 
   fi
 }
 
+# A model request after the hold means the model read it: an identical call then
+# passes at once, however fast the turn. With no request between the two calls,
+# they came in one batch, and the second is held (retro 2026-11-08).
+expect_reasked() {
+  local state actual
+  state=$(mktemp -d "$STATES/s.XXXXXX")
+  actual=$(STATE="$state" python3 -c '
+import json, os, subprocess, sys
+hook, state = sys.argv[1], os.environ["STATE"]
+transcript = os.path.join(state, "t.jsonl")
+def append(*types):
+    with open(transcript, "a") as t:
+        # Compact JSON, as Claude Code writes its transcript.
+        t.write("".join(json.dumps({"type": k}, separators=(",", ":")) + "\n" for k in types))
+def run(use_id):
+    payload = {"tool_name": "Bash", "session_id": "s1", "transcript_path": transcript, "tool_use_id": use_id,
+               "tool_input": {"command": "gh pr comment 1 -b x", "description": "Run it"}}
+    out = subprocess.run([sys.executable, hook], input=json.dumps(payload), capture_output=True, text=True,
+                         env=dict(os.environ, OUTWARD_GATE_STATE=state)).stdout
+    return "deny" if out else "none"
+append("api-request")
+r = [run("a")]                     # first sight: held
+append("assistant", "user")        # its record and its deny result
+r.append(run("b"))                 # same batch: held
+append("api-request", "assistant")
+r.append(run("c"))                 # asked again, then re-issued at once: passes
+r.append(run("d"))                 # the hold is used up: a new hold
+print(" ".join(r))' "$HOOK" 2>&1 | tail -1) || true
+  if [[ $actual == "deny deny none deny" ]]; then
+    PASS=$((PASS + 1))
+  else
+    printf 'FAIL reasked: expected "deny deny none deny", got %s\n' "$actual"
+    FAIL=$((FAIL + 1))
+  fi
+}
+
 # expect_tokens <command> <expected words, space-separated>
 expect_tokens() {
   local actual
@@ -272,6 +308,7 @@ expect write Bash 'gh api /graphql -f query="mutation{addComment(input:{}){clien
 expect write Bash 'gh api https://api.github.com/graphql -f query="mutation{x}"'
 expect_agents_held
 expect_race_held
+expect_reasked
 # Arguments the parser cannot resolve: hidden flags, an endpoint from stdin.
 expect write Bash 'FLAGS="-X POST -f body=hi"; gh api repos/o/r/issues/1/comments $FLAGS'
 expect write Bash 'gh api "${args[@]}"'

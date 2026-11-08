@@ -12,7 +12,7 @@ WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
 
 # transcript <file> <event>... — each event is one of:
-#   human:<text>  queued:<text>  call  result  declined  text  interrupt
+#   human:<text>  notice:<text>  queued:<text>  call  result  declined  text  interrupt
 transcript() {
   local file=$1
   shift
@@ -23,6 +23,8 @@ for spec in sys.argv[1:]:
     kind, _, text = spec.partition(":")
     if kind == "human":
         out.append({"type": "user", "origin": {"kind": "human"}, "message": {"role": "user", "content": text}})
+    elif kind == "notice":
+        out.append({"type": "user", "origin": {"kind": "task-notification"}, "message": {"role": "user", "content": text}})
     elif kind == "queued":
         out.append({"type": "attachment", "attachment": {"type": "queued_command", "prompt": text}})
     elif kind == "call":
@@ -76,6 +78,12 @@ expect none false 'human:a' call declined 'human:b' call result text
 expect none false 'human:a' call result 'human:<task-notification>x</task-notification>' text
 expect none false 'human:a' call 'queued:<task-notification>x</task-notification>' result text
 expect none false 'human:a' call 'queued:<agent-message from="x">done</agent-message>' result text
+# --- a task notification that arrives while the agent is idle starts a new turn ---
+expect none false 'human:a' call 'queued:mid' result text text 'human:<task-notification>x</task-notification>' call result text
+expect block false 'human:a' call 'queued:mid' result text text 'human:<task-notification>x</task-notification>' call 'queued:new' result text
+expect none false 'human:a' call 'queued:mid' result text text 'notice:<task-notification>x</task-notification>' call result text
+expect block false 'human:a' call 'queued:mid' result text text 'notice:<task-notification>x</task-notification>' call 'queued:new' result text
+expect block false 'human:a' call 'notice:<task-notification>x</task-notification>' 'queued:mid' result text
 # --- a broken payload exits quietly ---
 if [[ -z $(printf '{"transcript_path": "/nonexistent"}' | python3 "$HOOK") ]]; then
   PASS=$((PASS + 1))
