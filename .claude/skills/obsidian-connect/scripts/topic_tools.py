@@ -59,7 +59,8 @@ def fm_list(fm, key):
         return [inline.strip('"\'')]
     rest = fm[m.end():]
     out = []
-    for line in rest.split('\n'):
+    # rest starts with the newline that ends the `key:` line, so skip that empty first part.
+    for line in rest.split('\n')[1:]:
         im = re.match(r'^\s+-\s*(.+?)\s*$', line)
         if not im:
             break

@@ -85,6 +85,34 @@ def test_external_attachments_resolve_as_files(tmp_path):
     assert "0 unresolved file target(s)" in result.stdout
 
 
+def backlink(project, *maps):
+    command = [sys.executable, str(SCRIPT), "backlink", "--project", str(project), "--apply"]
+    for mapping in maps:
+        command.extend(["--map", mapping])
+    return subprocess.run(command, text=True, capture_output=True)
+
+
+def test_backlink_keeps_existing_block_list_topics_and_is_idempotent(tmp_path):
+    project = tmp_path / "Projects/Example"
+    task = note(project, "Tasks/Task.md", "\n".join([
+        "---",
+        "topics:",
+        '  - "[[Old]]"',
+        "status: open",
+        "---",
+        "",
+        "# A task about CI",
+    ]))
+
+    first = backlink(project, r"CI=\bCI\b")
+    second = backlink(project, r"CI=\bCI\b")
+
+    assert first.returncode == 0, first.stderr
+    assert second.returncode == 0, second.stderr
+    assert 'topics:\n  - "[[Old]]"\n  - "[[CI]]"\nstatus: open' in task.read_text(encoding="utf-8")
+    assert "0 files affected" in second.stdout
+
+
 def test_missing_resolution_root_fails_instead_of_reporting_clean(tmp_path):
     note(tmp_path, "Task.md")
 
