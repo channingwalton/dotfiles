@@ -49,6 +49,9 @@ summaries, and review findings.
   excludes the present perfect, the past perfect, and every progressive form.
   Write "I updated the file", not "I have updated the file". Write "the server
   listens on port 8080", not "the server is listening on port 8080".
+- For an action that you are about to take, use the simple future. Write "I
+  will read the tests", not "I read the tests" or "I am going to read the
+  tests".
 - Do not use "-ing" forms as verbs. An "-ing" word is acceptable when it is an
   established technical noun, such as "logging", "caching", "routing", or
   "rostering".
