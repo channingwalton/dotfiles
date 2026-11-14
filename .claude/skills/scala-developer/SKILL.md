@@ -27,4 +27,4 @@ These are Channing's preferred style and differ from the default choice:
 
 ## Red flag
 
-**A deliberate semantic divergence with no discriminating test.** When behaviour intentionally differs from the mirrored precedent or the happy path — scale-insensitive `BigDecimal` equality, instant-based `ZonedDateTime`, extension-stack resolution in a repeating row — write the test that *fails* if the divergence regresses. The reviewer caught these every time; the implementer did not write them first.
+**A deliberate semantic divergence with no discriminating test.** When behaviour intentionally differs from the mirrored precedent or the happy path — scale-insensitive `BigDecimal` equality, instant-based `ZonedDateTime`, extension-stack resolution in a repeating row — write the test that *fails* if the divergence regresses, before the review.
