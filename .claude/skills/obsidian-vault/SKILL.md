@@ -85,7 +85,7 @@ New task notes start with `status: open`. Experiment tasks add `research:` with 
 ```yaml
 ---
 date: <YYYY-MM-DD>
-type: meeting                # event | meeting | email | document | decision | observation
+type: meeting                # event | meeting | email | document | decision | observation | idea
 project: "[[<Project>]]"
 topics:
   - "[[<Topic>]]"

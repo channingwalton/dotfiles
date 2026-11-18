@@ -145,6 +145,11 @@
             "type": "command",
             "command": "python3 '/Users/channing/.claude/hooks/env-dump-gate.py'",
             "timeout": 10
+          },
+          {
+            "type": "command",
+            "command": "python3 '/Users/channing/.claude/hooks/private-ref-gate.py'",
+            "timeout": 10
           }
         ]
       },
@@ -275,7 +280,8 @@
     "typescript-lsp@claude-plugins-official": true,
     "engineering@synced": false,
     "productivity@synced": false,
-    "cc-stretch@cc-stretch": true
+    "cc-stretch@cc-stretch": true,
+    "warp@claude-code-warp": true
   },
   "extraKnownMarketplaces": {
     "cc-stretch": {
@@ -284,6 +290,12 @@
         "repo": "pro-vi/cc-stretch"
       },
       "autoUpdate": true
+    },
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
+      }
     }
   },
   "outputStyle": "Simplified Technical English",
@@ -294,7 +306,7 @@
       "effortLevel": "high"
     },
     "claude-opus-5-5": {
-      "effortLevel": "xhigh"
+      "effortLevel": "high"
     }
   },
   "tui": "fullscreen",
@@ -335,5 +347,6 @@
       "**Org-specific CLIs**: None configured — devtool (build/test/lint wrapper) and sbx/sbt used routinely in this repo per usage evidence, but not org-specific"
     ]
   },
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "model": "opus"
 }

@@ -80,7 +80,10 @@ REMINDER = (
 HELD = (
     "\n\nThis call was held once so the text can be checked before it leaves. "
     "If every claim passes, re-issue the identical call to send it; otherwise "
-    "revise the text first."
+    "revise the text first. Wait for the result of each check before you "
+    "re-issue: a check sent in the same batch cannot inform the send. Keep "
+    "local file edits out of a held command; a held command runs none of its "
+    "parts."
 )
 
 NOTE_TOOLS = ("Edit", "Write", "MultiEdit")
