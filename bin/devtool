@@ -122,7 +122,7 @@ run_quiet() {
     "$@"
     return $?
   fi
-  local logfile rc
+  local logfile rc started=$SECONDS
   logfile=$(mktemp -t devtool.XXXXXX)
   set +e
   "$@" >"$logfile" 2>&1
@@ -136,6 +136,8 @@ run_quiet() {
     echo "--- end output ---"
   else
     rm -f "$logfile"
+    # Say what ran: a pass that prints nothing reads as a step that never ran.
+    echo "ran: $* ($((SECONDS - started)) s; output suppressed on success, DEVTOOL_VERBOSE=1 shows it)"
   fi
   return $rc
 }

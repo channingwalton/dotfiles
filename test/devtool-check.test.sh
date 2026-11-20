@@ -63,6 +63,15 @@ done
 run_case mise no-task-fails 0 0 0 0 1 check
 run_case just no-recipe-fails 0 0 0 0 1 ''
 
+# A pass names the command that ran, because its output is suppressed.
+run_case mise pass-names-the-command 1 1 0 0 0 commit-check
+cases=$((cases + 1))
+if ! grep -q '^ran: mise run commit-check ([0-9]* s; output suppressed on success' "$TMP_DIR/output"; then
+  printf 'FAIL: mise pass-names-the-command (no "ran:" line)\n'
+  cat "$TMP_DIR/output"
+  failures=$((failures + 1))
+fi
+
 if (( failures > 0 )); then
   printf '%s/%s devtool check tests failed\n' "$failures" "$cases"
   exit 1
